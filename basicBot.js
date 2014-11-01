@@ -1457,7 +1457,8 @@
                             basicBot.room.blacklists[list].push(media.format + ':' + media.cid);
                             API.sendChat(subChat(basicBot.chat.newblacklisted, {name: chat.un, blacklist: list, author: media.author,title: media.title, mid: media.format + ':' + media.cid}));
                             API.moderateForceSkip();
-				            basicBot.roomUtilities.updateBlacklists();
+                            API.sendChat(basicBot.chat.eatcookie);
+			    basicBot.roomUtilities.updateBlacklists();
                             if(typeof basicBot.room.newBlacklistedSongFunction === 'function'){
                                 basicBot.room.newBlacklistedSongFunction(track);
                             }
