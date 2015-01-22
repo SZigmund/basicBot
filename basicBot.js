@@ -2780,11 +2780,17 @@
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         var msg = chat.message;
-                        if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
+                        if (msg.length === cmd.length) 
+                        {
+                        	return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
+                        }
+                        else
+                        {
                         var name = msg.substring(cmd.length + 2);
                     	return API.sendChat('/me UserName: ' + name);
                         //var user = basicBot.userUtilities.lookupUserName(name);
                         //return API.sendChat(subChat(basicBot.chat.welcome, {name: 'user.username', link: basicBot.settings.rulesLink}));
+                        }
                     }
                 }
             },
