@@ -165,7 +165,7 @@
     var botCreatorIDs = [];
 
     var basicBot = {
-        version: "2.1.2.0003",
+        version: "2.1.2.0004",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2783,7 +2783,7 @@
                         var woots = basicBot.room.roomstats.totalWoots + 17;
                         var mehs = basicBot.room.roomstats.totalMehs;
                         var grabs = basicBot.room.roomstats.totalCurates + 2;
-                        API.sendChat(subChat(basicBot.chat.sessionstats, {user: 'Doc', name: 'Take On Me', woots: woots, mehs: mehs, grabs: grabs}));
+                        API.sendChat(subChat(basicBot.chat.sessionstatszig, {user: 'Doc', name: 'Take On Me', woots: woots, mehs: mehs, grabs: grabs}));
                     	//sessionstatszig": "/me [%%USER%%] played [@%%NAME%%] [:thumbsup: %%WOOTS%% :star: %%GRABS%% :thumbsdown: %%MEHS%%]",
                         //var msg = chat.message;
                         //if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
