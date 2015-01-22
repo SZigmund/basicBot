@@ -165,7 +165,7 @@
     var botCreatorIDs = [];
 
     var basicBot = {
-        version: "2.1.2",
+        version: "2.1.2.0001",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2779,8 +2779,8 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        var msg = chat.message;
-                        if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
+                        //var msg = chat.message;
+                        //if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
                         //var name = msg.substring(cmd.length + 2);
                     	return API.sendChat('/me UserName: '); // + name);
                         //var user = basicBot.userUtilities.lookupUserName(name);
