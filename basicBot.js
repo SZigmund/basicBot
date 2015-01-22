@@ -2785,7 +2785,6 @@
                     	return API.sendChat('/me UserName: '); // + name);
                         //var user = basicBot.userUtilities.lookupUserName(name);
                         //return API.sendChat(subChat(basicBot.chat.welcome, {name: 'user.username', link: basicBot.settings.rulesLink}));
-                        }
                     }
                 }
             },
