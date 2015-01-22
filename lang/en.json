@@ -8,7 +8,7 @@
     "online": "/me %%BOTNAME%% v%%VERSION%% online!",
 
 
-    "welcome": "/me Welcome %%NAME%%",
+    "welcome": "/me Welcome %%NAME%%.  Please check out our room rules: %%LINK%%",
     "welcomeback": "/me Welcome back, %%NAME%%",
     "songknown": "/me :repeat: This song has been played %%PLAYS%% time(s) in the last %%TIMETOTAL%%, last play was %%LASTTIME%% ago. :repeat:",
     "timelimit": "/me @%%NAME%%, your song is longer than %%MAXLENGTH%% minutes, you need permission to play longer songs.",
