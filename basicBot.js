@@ -165,7 +165,7 @@
     var botCreatorIDs = [];
 
     var basicBot = {
-        version: "2.1.2.0004",
+        version: "2.1.2.00006",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -786,11 +786,13 @@
             }
         },
         eventDjadvance: function (obj) {
+        	//zig
             var lastplay = obj.lastPlay;
             if (typeof lastplay === 'undefined') return void (0);
             if (basicBot.settings.songstats) {
                 if (typeof basicBot.chat.songstatistics === "undefined") {
-                    API.sendChat("/me " + lastplay.media.author + " - " + lastplay.media.title + ": " + lastplay.score.positive + "W/" + lastplay.score.grabs + "G/" + lastplay.score.negative + "M.")
+                    API.sendChat("/me " + lastplay.media.author + " - " + lastplay.media.title + "[:thumbsup: " + lastplay.score.positive + " :star: " + lastplay.score.grabs + " :thumbsdown: " + lastplay.score.negative + "]")
+                    //API.sendChat("/me " + lastplay.media.author + " - " + lastplay.media.title + ": " + lastplay.score.positive + "W/" + lastplay.score.grabs + "G/" + lastplay.score.negative + "M.")
                 }
                 else {
                     API.sendChat(subChat(basicBot.chat.songstatistics, {artist: lastplay.media.author, title: lastplay.media.title, woots: lastplay.score.positive, grabs: lastplay.score.grabs, mehs: lastplay.score.negative}))
