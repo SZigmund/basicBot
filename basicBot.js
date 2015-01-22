@@ -754,7 +754,7 @@
                     }, 1 * 1000, user)
                     :
                     setTimeout(function (user) {
-                        API.sendChat(subChat(basicBot.chat.welcome, {name: user.username}));
+                        API.sendChat(subChat(basicBot.chat.welcome, {name: user.username, link: basicBot.settings.rulesLink}));
                     }, 1 * 1000, user);
             }
         },
@@ -2771,6 +2771,24 @@
                 }
             },
 
+            zigtestCommand: {
+                command: 'zigtest',
+                rank: 'mod',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        var msg = chat.message;
+                        if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
+                        var name = msg.substring(cmd.length + 2);
+                        var user = basicBot.userUtilities.lookupUserName(name);
+                    	setTimeout(function (user) {
+                    		API.sendChat(subChat(basicBot.chat.welcome, {name: user.username, link: basicBot.settings.rulesLink}));
+                    		}, 1 * 1000, user);
+                    }
+                }
+            },
             welcomeCommand: {
                 command: 'welcome',
                 rank: 'mod',
