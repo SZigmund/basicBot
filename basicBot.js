@@ -165,7 +165,7 @@
     var botCreatorIDs = [];
 
     var basicBot = {
-        version: "2.1.2.0001",
+        version: "2.1.2.0003",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -190,7 +190,7 @@
             maximumCycletime: 10,
             timeGuard: true,
             maximumSongLength: 10,
-            autodisable: true,
+            autodisable: false,
             commandCooldown: 30,
             usercommandsEnabled: true,
             lockskipPosition: 3,
@@ -2779,10 +2779,16 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
+                        var from = chat.un;
+                        var woots = basicBot.room.roomstats.totalWoots + 17;
+                        var mehs = basicBot.room.roomstats.totalMehs;
+                        var grabs = basicBot.room.roomstats.totalCurates + 2;
+                        API.sendChat(subChat(basicBot.chat.sessionstats, {user: 'Doc', name: 'Take On Me', woots: woots, mehs: mehs, grabs: grabs}));
+                    	//sessionstatszig": "/me [%%USER%%] played [@%%NAME%%] [:thumbsup: %%WOOTS%% :star: %%GRABS%% :thumbsdown: %%MEHS%%]",
                         //var msg = chat.message;
                         //if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
                         //var name = msg.substring(cmd.length + 2);
-                    	return API.sendChat('/me UserName: '); // + name);
+                    	//return API.sendChat('/me UserName: '); // + name);
                         //var user = basicBot.userUtilities.lookupUserName(name);
                         //return API.sendChat(subChat(basicBot.chat.welcome, {name: 'user.username', link: basicBot.settings.rulesLink}));
                     }
