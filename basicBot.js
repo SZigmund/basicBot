@@ -2783,9 +2783,7 @@
                         if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
                         var name = msg.substring(cmd.length + 2);
                         var user = basicBot.userUtilities.lookupUserName(name);
-                    	setTimeout(function (user) {
-                    		API.sendChat(subChat(basicBot.chat.welcome, {name: user.username, link: basicBot.settings.rulesLink}));
-                    		}, 1 * 1000, user);
+                        API.sendChat(subChat(basicBot.chat.welcome, {name: user.username, link: basicBot.settings.rulesLink}));
                     }
                 }
             },
