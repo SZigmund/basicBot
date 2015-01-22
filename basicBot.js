@@ -203,8 +203,8 @@
     var botCreatorIDs = [];
 
     var basicBot = {
-		/*ZZZ: Updated Version*/
-        version: "2.1.4.00008",
+	/*ZZZ: Updated Version*/
+        version: "2.1.4.00009",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -233,7 +233,7 @@
             voteSkipLimit: 10,
             timeGuard: true,
             maximumSongLength: 10,
-			/*ZZZ: Disabled Autodisable Auto-Djs*/
+            /*ZZZ: Disabled Autodisable Auto-Djs*/
             autodisable: false,
             commandCooldown: 30,
             usercommandsEnabled: true,
@@ -1539,14 +1539,15 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        var author = API.getMedia().author;
-                        var title = API.getMedia().title;
-                        var name = chat.un;
-                        var format = API.getMedia().format;
-                        var cid = API.getMedia().cid;
-                        var songid = format + ":" + cid;
+                    	return API.sendChat(basicBot.chat.eatcookie);
+                        //var author = API.getMedia().author;
+                        //var title = API.getMedia().title;
+                        //var name = chat.un;
+                        //var format = API.getMedia().format;
+                        //var cid = API.getMedia().cid;
+                        //var songid = format + ":" + cid;
 
-                        API.sendChat(subChat(basicBot.chat.blinfo, {name: name, author: author, title: title, songid: songid}));
+                        //API.sendChat(subChat(basicBot.chat.blinfo, {name: name, author: author, title: title, songid: songid}));
                     }
                 }
             },
