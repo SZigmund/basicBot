@@ -18,6 +18,7 @@ Manager
 |!refresh | | refreshes the browser of whoever runs the bot |
 |!usercmdcd | X | set the cooldown on commands by grey users |
 |!usercommands | | toggle user commands |
+|!voteskip | (X) | when no argument is specified, returns the current voteskip limit, when X is specified, voteskip limit is updated to the new specified limit. |
 
 Bouncer+
 --------
@@ -48,7 +49,8 @@ Bouncer
 |!afkreset | @user | resets the afk time of user |
 |!afktime | @user | shows how long user has been afk |
 |!ban | @user | bans user for 1 day |
-|!blacklist / !bl | blacklistname | add the song to the specified blacklist
+|!blacklist / !bl | blacklistname | add the song to the specified blacklist |
+|!blinfo | | get information required to blacklist a song |
 |!cycleguard | | toggles the cycleguard |
 |!dclookup / !dc | (@user) | do dclookup for user |
 |!english | @user | ask user to speak english (asked in the language they set plug to) |
@@ -56,7 +58,7 @@ Bouncer
 |!filter | | toggles the chat filter |
 |!jointime | @user | shows how long the user has been in the room |
 |!kick | (X) | kicks user for X minutes, default is 0.25 minutes (15 seconds) |
-|!kill | ||shut down the bot |
+|!kill | | shut down the bot |
 |!lockguard | | toggle the lockguard |
 |!lockskip | (reason) | skip the song and move the dj back up (the position can be set with !lockskippos) |
 |!lockskippos | X | set the position to which lockskip moves the dj |
@@ -68,7 +70,9 @@ Bouncer
 |!skip | | skip the current song |
 |!status | | display the bot's status and some settings |
 |!timeguard | | toggle the timeguard |
+|!togglebl | | toggle the blacklist |
 |!togglemotd | | toggle the motd |
+|!togglevoteskip | | toggle the voteskip |
 |!unban | @user | unban user |
 |!unmute | | unmute user |
 |!voteratio | @user | display the vote statistic for a user |
