@@ -1,4 +1,4 @@
-/**
+/**		
  *Copyright 2014 Yemasthui
  *Modifications (including forks) of the code to fit personal needs are allowed only for personal use and should refer back to the original source.
  *This software is not for profit, any extension, or unauthorised person providing this software is not authorised to be in a position of any monetary gain from this use of this software. Any and all money gained under the use of the software (which includes donations) must be passed on to the original author.
@@ -204,7 +204,7 @@
 
     var basicBot = {
 		/*ZZZ: Updated Version*/
-        version: "2.1.4.00014",
+        version: "2.1.4.00015",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -265,7 +265,7 @@
             intervalMessages: [],
             messageInterval: 5,
             songstats: true,
-            commandLiteral: ".",
+            commandLiteral: "!",
             blacklists: {
 				BAN: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/Banned.json",
 				NSFW: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json",
@@ -2986,7 +2986,7 @@
                 type: 'exact',
                 functionality: function (chat, cmd) 				{
                     var newMedia = API.getMedia();
-					API.sendChat("/me TEST CMD");
+					API.sendChat("/me TEST CMD" + newMedia.duration);
 					//var newMedia = obj.media;
 					if (basicBot.settings.timeGuard && newMedia.duration > basicBot.settings.maximumSongLength * 60 && !basicBot.room.roomevent)  {
 						var name = obj.dj.username;
