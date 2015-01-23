@@ -204,7 +204,7 @@
 
     var basicBot = {
 		/*ZZZ: Updated Version*/
-        version: "2.1.4.00019",
+        version: "2.1.4.00020",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1237,7 +1237,7 @@
             //var emojibutton = $(".icon-emoji-on");
             //if (emojibutton.length > 0) {
             //    emojibutton[0].click();
-            }
+            //}
             loadChat(API.sendChat(subChat(basicBot.chat.online, {botname: basicBot.settings.botName, version: basicBot.version})));
         },
         commands: {
@@ -2979,7 +2979,6 @@
                     }
                 }
             },
-/*
 			//todoer
              zigCommand: {
                 command: 'zig',
@@ -2998,6 +2997,7 @@
 					}
 				}
 			},
+/*
             var user = basicBot.userUtilities.lookupUser(obj.dj.id)
             for(var i = 0; i < basicBot.room.users.length; i++){
                 if(basicBot.room.users[i].id === user.id){
