@@ -204,7 +204,7 @@
 
     var basicBot = {
 		/*ZZZ: Updated Version*/
-        version: "2.1.4.00018",
+        version: "2.1.4.00019",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2979,6 +2979,7 @@
                     }
                 }
             },
+/*
 			//todoer
              zigCommand: {
                 command: 'zig',
@@ -2997,7 +2998,6 @@
 					}
 				}
 			},
-/*
             var user = basicBot.userUtilities.lookupUser(obj.dj.id)
             for(var i = 0; i < basicBot.room.users.length; i++){
                 if(basicBot.room.users[i].id === user.id){
