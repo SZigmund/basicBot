@@ -1,4 +1,4 @@
-/**		
+/**        
  *Copyright 2014 Yemasthui
  *Modifications (including forks) of the code to fit personal needs are allowed only for personal use and should refer back to the original source.
  *This software is not for profit, any extension, or unauthorised person providing this software is not authorised to be in a position of any monetary gain from this use of this software. Any and all money gained under the use of the software (which includes donations) must be passed on to the original author.
@@ -16,11 +16,11 @@
                         var mehs = basicBot.room.roomstats.totalMehs;
                         var grabs = basicBot.room.roomstats.totalCurates + 2;
                         API.sendChat(subChat(basicBot.chat.sessionstatszig, {user: 'Doc', name: 'Take On Me', woots: woots, mehs: mehs, grabs: grabs}));
-                    	//sessionstatszig": "/me [%%USER%%] played [@%%NAME%%] [:thumbsup: %%WOOTS%% :star: %%GRABS%% :thumbsdown: %%MEHS%%]",
+                        //sessionstatszig": "/me [%%USER%%] played [@%%NAME%%] [:thumbsup: %%WOOTS%% :star: %%GRABS%% :thumbsdown: %%MEHS%%]",
                         //var msg = chat.message;
                         //if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
                         //var name = msg.substring(cmd.length + 2);
-                    	//return API.sendChat('/me UserName: '); // + name);
+                        //return API.sendChat('/me UserName: '); // + name);
                         //var user = basicBot.userUtilities.lookupUserName(name);
                         //return API.sendChat(subChat(basicBot.chat.welcome, {name: 'user.username', link: basicBot.settings.rulesLink}));
                     }
@@ -203,8 +203,8 @@
     var botCreatorIDs = [];
 
     var basicBot = {
-		/*ZZZ: Updated Version*/
-        version: "2.1.4.00030",
+        /*ZZZ: Updated Version*/
+        version: "2.1.4.00032",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -234,7 +234,7 @@
             voteSkipLimit: 10,
             timeGuard: true,
             maximumSongLength: 10,
-			/*ZZZ: Disabled Autodisable Auto-Djs*/
+            /*ZZZ: Disabled Autodisable Auto-Djs*/
             autodisable: false,
             commandCooldown: 30,
             usercommandsEnabled: true,
@@ -267,9 +267,9 @@
             songstats: true,
             commandLiteral: "!",
             blacklists: {
-				BAN: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/Banned.json",
-				NSFW: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json",
-				OP: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleOPlist.json"
+                BAN: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/Banned.json",
+                NSFW: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json",
+                OP: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleOPlist.json"
             }
         },
         room: {
@@ -286,7 +286,7 @@
             autodisableInterval: null,
             autodisableFunc: function () {
                 if (basicBot.status && basicBot.settings.autodisable) {
-					// todoer put in random comment section:
+                    // todoer put in random comment section:
                     API.sendChat('!afkdisable');
                     API.sendChat('!joindisable');
                 }
@@ -845,15 +845,17 @@
             }
         },
         eventDjadvance: function (obj) {
-		//zig zzz todoer
-		try {
-			API.sendChat("Step 1");
-			//var currentDJID = API.getDJ().id;
-			var dj = API.getDJ();
+        //zig zzz todoer
+        try {
+            API.sendChat("Step 1");
+            //var currentDJID = API.getDJ().id;
+            var dj = API.getDJ();
             if (typeof dj === 'undefined') { return; }
-			API.sendChat("Step 1A");
-			API.sendChat("currentDJ: " + dj.username);
-			
+			console.log("Step 1A TEST");
+            API.sendChat("Step 1A");
+			console.log("Step 1B TEST");
+            API.sendChat("currentDJ: " + dj.username);
+            
             //var user = basicBot.userUtilities.lookupUser(obj.dj.id)
             for(var i = 0; i < basicBot.room.users.length; i++){
                 if(basicBot.room.users[i].id === dj.id){
@@ -864,8 +866,8 @@
                     };
                 }
             }
-			API.sendChat("Step 2");
-			API.sendChat("Step 2A");
+            API.sendChat("Step 2");
+            API.sendChat("Step 2A");
 
             var lastplay = obj.lastPlay;
             if (typeof lastplay === 'undefined') return;
@@ -877,8 +879,8 @@
                     API.sendChat(subChat(basicBot.chat.songstatistics, {artist: lastplay.media.author, title: lastplay.media.title, woots: lastplay.score.positive, grabs: lastplay.score.grabs, mehs: lastplay.score.negative}))
                 }
             }
-			API.sendChat("Step 3");
-			API.sendChat("Step 3A");
+            API.sendChat("Step 3");
+            API.sendChat("Step 3A");
             basicBot.room.roomstats.totalWoots += lastplay.score.positive;
             basicBot.room.roomstats.totalMehs += lastplay.score.negative;
             basicBot.room.roomstats.totalCurates += lastplay.score.grabs;
@@ -930,10 +932,10 @@
                 }, remaining + 3000);
             }
             storeToStorage();
-			}
-			catch(err) {
-			   API.sendChat("ERROR: " + err.message);
-			}		
+            }
+            catch(err) {
+               API.sendChat("ERROR: " + err.message);
+            }        
 
         },
         eventWaitlistupdate: function (users) {
@@ -1252,7 +1254,7 @@
             basicBot.status = true;
             API.sendChat('/cap 1');
             API.setVolume(0);
-			/*ZZZ: Disabled Emoji button click */
+            /*ZZZ: Disabled Emoji button click */
             //var emojibutton = $(".icon-emoji-on");
             //if (emojibutton.length > 0) {
             //    emojibutton[0].click();
@@ -2039,7 +2041,7 @@
                 }
             },
 
-			// zig - Add feature to auto-skip SC song during restricted hours (7AM-3PM EST)
+            // zig - Add feature to auto-skip SC song during restricted hours (7AM-3PM EST)
             linkCommand: {
                 command: 'link',
                 rank: 'user',
@@ -2648,7 +2650,7 @@
                         if (basicBot.settings.bouncerPlus) msg += 'ON';
                         else msg += 'OFF';
                         msg += '. ';
-												
+                                                
                         msg += basicBot.chat.blacklist + ': ';
                         if (basicBot.settings.blacklistEnabled) msg += 'ON';
                         else msg += 'OFF';
@@ -2779,7 +2781,7 @@
                     }
                 }
             },
-						
+                        
             togglemotdCommand: {
                 command: 'togglemotd',
                 rank: 'bouncer',
@@ -2998,24 +3000,24 @@
                     }
                 }
             },
-			//todoer
+            //todoer
              zigCommand: {
                 command: 'zig',
                 rank: 'mod',
                 type: 'exact',
-                functionality: function (chat, cmd) 				{
+                functionality: function (chat, cmd)                 {
                     var newMedia = API.getMedia();
-					//var newMedia = obj.media;
-					//if (basicBot.settings.timeGuard) API.sendChat("/me settings.timeGuard = True");
-					//if (newMedia.duration > basicBot.settings.maximumSongLength * 60)  API.sendChat("/me Too Long = True");
-					if (basicBot.settings.timeGuard && newMedia.duration > basicBot.settings.maximumSongLength * 60 && !basicBot.room.roomevent)  {
-					    //API.sendChat("/me TEST CMD" + newMedia.duration);
-						//var name = obj.dj.username;
-						API.sendChat(subChat(basicBot.chat.timelimit, {name: "name", maxlength: basicBot.settings.maximumSongLength}));
-						API.moderateForceSkip();
-					}
-				}
-			},
+                    //var newMedia = obj.media;
+                    //if (basicBot.settings.timeGuard) API.sendChat("/me settings.timeGuard = True");
+                    //if (newMedia.duration > basicBot.settings.maximumSongLength * 60)  API.sendChat("/me Too Long = True");
+                    if (basicBot.settings.timeGuard && newMedia.duration > basicBot.settings.maximumSongLength * 60 && !basicBot.room.roomevent)  {
+                        //API.sendChat("/me TEST CMD" + newMedia.duration);
+                        //var name = obj.dj.username;
+                        API.sendChat(subChat(basicBot.chat.timelimit, {name: "name", maxlength: basicBot.settings.maximumSongLength}));
+                        API.moderateForceSkip();
+                    }
+                }
+            },
 /*
             var user = basicBot.userUtilities.lookupUser(obj.dj.id)
             for(var i = 0; i < basicBot.room.users.length; i++){
