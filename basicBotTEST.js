@@ -204,7 +204,7 @@
 
     var basicBot = {
 		/*ZZZ: Updated Version*/
-        version: "2.1.4.00022",
+        version: "2.1.4.00023",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -845,6 +845,7 @@
         },
         eventDjadvance: function (obj) {
 		try {
+			API.sendChat("Step 1");
             var user = basicBot.userUtilities.lookupUser(obj.dj.id)
             for(var i = 0; i < basicBot.room.users.length; i++){
                 if(basicBot.room.users[i].id === user.id){
@@ -1239,6 +1240,7 @@
             basicBot.status = true;
             API.sendChat('/cap 1');
             API.setVolume(0);
+			/*ZZZ: Disabled Emoji button click */
             //var emojibutton = $(".icon-emoji-on");
             //if (emojibutton.length > 0) {
             //    emojibutton[0].click();
