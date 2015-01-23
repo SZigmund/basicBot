@@ -204,7 +204,7 @@
 
     var basicBot = {
 		/*ZZZ: Updated Version*/
-        version: "2.1.4.00012",
+        version: "2.1.4.00014",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2985,8 +2985,8 @@
                 rank: 'mod',
                 type: 'exact',
                 functionality: function (chat, cmd) 				{
-					API.sendChat("/me TEST CMD");
                     var newMedia = API.getMedia();
+					API.sendChat("/me TEST CMD");
 					//var newMedia = obj.media;
 					if (basicBot.settings.timeGuard && newMedia.duration > basicBot.settings.maximumSongLength * 60 && !basicBot.room.roomevent)  {
 						var name = obj.dj.username;
