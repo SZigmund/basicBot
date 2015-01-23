@@ -204,7 +204,7 @@
 
     var basicBot = {
 		/*ZZZ: Updated Version*/
-        version: "2.1.4.00011",
+        version: "2.1.4.00012",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2985,6 +2985,7 @@
                 rank: 'mod',
                 type: 'exact',
                 functionality: function (chat, cmd) 				{
+					API.sendChat("/me TEST CMD");
                     var newMedia = API.getMedia();
 					//var newMedia = obj.media;
 					if (basicBot.settings.timeGuard && newMedia.duration > basicBot.settings.maximumSongLength * 60 && !basicBot.room.roomevent)  {
