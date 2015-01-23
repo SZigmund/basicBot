@@ -204,7 +204,7 @@
 
     var basicBot = {
 		/*ZZZ: Updated Version*/
-        version: "2.1.4.00026",
+        version: "2.1.4.00027",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -846,14 +846,15 @@
         eventDjadvance: function (obj) {
 		//zig zzz todoer
 		try {
-			//API.sendChat("Step 1");
+			API.sendChat("Step 1");
 			//var currentDJID = API.getDJ().id;
 			var dj = API.getDJ();
+            if (typeof dj === 'undefined') return;
 			API.sendChat("currentDJ: " + dj.username);
 			
-            var user = basicBot.userUtilities.lookupUser(obj.dj.id)
+            //var user = basicBot.userUtilities.lookupUser(obj.dj.id)
             for(var i = 0; i < basicBot.room.users.length; i++){
-                if(basicBot.room.users[i].id === user.id){
+                if(basicBot.room.users[i].id === dj.id){
                     basicBot.room.users[i].lastDC = {
                         time: null,
                         position: null,
@@ -861,6 +862,7 @@
                     };
                 }
             }
+			API.sendChat("Step 2");
 
             var lastplay = obj.lastPlay;
             if (typeof lastplay === 'undefined') return;
