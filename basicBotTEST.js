@@ -204,7 +204,7 @@
 
     var basicBot = {
 		/*ZZZ: Updated Version*/
-        version: "2.1.4.00020",
+        version: "2.1.4.00021",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2990,9 +2990,9 @@
 					//if (basicBot.settings.timeGuard) API.sendChat("/me settings.timeGuard = True");
 					//if (newMedia.duration > basicBot.settings.maximumSongLength * 60)  API.sendChat("/me Too Long = True");
 					if (basicBot.settings.timeGuard && newMedia.duration > basicBot.settings.maximumSongLength * 60 && !basicBot.room.roomevent)  {
-					    API.sendChat("/me TEST CMD" + newMedia.duration);
-						var name = obj.dj.username;
-						API.sendChat(subChat(basicBot.chat.timelimit, {name: name, maxlength: basicBot.settings.maximumSongLength}));
+					    //API.sendChat("/me TEST CMD" + newMedia.duration);
+						//var name = obj.dj.username;
+						API.sendChat(subChat(basicBot.chat.timelimit, {name: "name", maxlength: basicBot.settings.maximumSongLength}));
 						API.moderateForceSkip();
 					}
 				}
