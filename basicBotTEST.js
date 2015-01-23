@@ -204,7 +204,7 @@
 
     var basicBot = {
 		/*ZZZ: Updated Version*/
-        version: "2.1.4.00028",
+        version: "2.1.4.00029",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -850,6 +850,7 @@
 			//var currentDJID = API.getDJ().id;
 			var dj = API.getDJ();
             if (typeof dj === 'undefined') return;
+			API.sendChat("Step 1A");
 			API.sendChat("currentDJ: " + dj.username);
 			
             //var user = basicBot.userUtilities.lookupUser(obj.dj.id)
