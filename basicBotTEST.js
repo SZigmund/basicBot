@@ -204,7 +204,7 @@
 
     var basicBot = {
 		/*ZZZ: Updated Version*/
-        version: "2.1.4.00029",
+        version: "2.1.4.00030",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -286,6 +286,7 @@
             autodisableInterval: null,
             autodisableFunc: function () {
                 if (basicBot.status && basicBot.settings.autodisable) {
+					// todoer put in random comment section:
                     API.sendChat('!afkdisable');
                     API.sendChat('!joindisable');
                 }
@@ -849,7 +850,7 @@
 			API.sendChat("Step 1");
 			//var currentDJID = API.getDJ().id;
 			var dj = API.getDJ();
-            if (typeof dj === 'undefined') return;
+            if (typeof dj === 'undefined') { return; }
 			API.sendChat("Step 1A");
 			API.sendChat("currentDJ: " + dj.username);
 			
@@ -864,6 +865,7 @@
                 }
             }
 			API.sendChat("Step 2");
+			API.sendChat("Step 2A");
 
             var lastplay = obj.lastPlay;
             if (typeof lastplay === 'undefined') return;
@@ -876,6 +878,7 @@
                 }
             }
 			API.sendChat("Step 3");
+			API.sendChat("Step 3A");
             basicBot.room.roomstats.totalWoots += lastplay.score.positive;
             basicBot.room.roomstats.totalMehs += lastplay.score.negative;
             basicBot.room.roomstats.totalCurates += lastplay.score.grabs;
