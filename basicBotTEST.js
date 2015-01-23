@@ -204,7 +204,7 @@
 
     var basicBot = {
 		/*ZZZ: Updated Version*/
-        version: "2.1.4.00023",
+        version: "2.1.4.00024",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -844,8 +844,12 @@
             }
         },
         eventDjadvance: function (obj) {
+		//zig zzz todoer
 		try {
 			API.sendChat("Step 1");
+			var currentDJID = API.getDJ().id;
+			API.sendChat("currentDJID: " + currentDJID.username);
+			
             var user = basicBot.userUtilities.lookupUser(obj.dj.id)
             for(var i = 0; i < basicBot.room.users.length; i++){
                 if(basicBot.room.users[i].id === user.id){
