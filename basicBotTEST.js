@@ -204,7 +204,7 @@
 
     var basicBot = {
 		/*ZZZ: Updated Version*/
-        version: "2.1.4.00010",
+        version: "2.1.4.00011",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -265,16 +265,12 @@
             intervalMessages: [],
             messageInterval: 5,
             songstats: true,
-            commandLiteral: "!",
+            commandLiteral: ".",
             blacklists: {
-				BAN: "https://rawgit.com/SZigmund/basicBot-customization/blacklists/Banned.json",
-				NSFW: "https://rawgit.com/SZigmund/basicBot-customization/blacklists/ExampleNSFWlist.json",
-				OP: "https://rawgit.com/SZigmund/basicBot-customization/blacklists/ExampleOPlist.json"                
-            }
-			/*	BAN: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/Banned.json",
+				BAN: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/Banned.json",
 				NSFW: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json",
-				OP: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleOPlist.json"                
-*/
+				OP: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleOPlist.json"
+            }
         },
         room: {
             users: [],
@@ -2984,8 +2980,8 @@
                 }
             },
 			//todoer
-             zigtestCommand: {
-                command: ['zigtest','zig'],
+             zigCommand: {
+                command: 'zig',
                 rank: 'mod',
                 type: 'exact',
                 functionality: function (chat, cmd) 				{
