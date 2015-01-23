@@ -204,7 +204,7 @@
 
     var basicBot = {
 		/*ZZZ: Updated Version*/
-        version: "2.1.4.00021",
+        version: "2.1.4.00022",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -844,6 +844,7 @@
             }
         },
         eventDjadvance: function (obj) {
+		try {
             var user = basicBot.userUtilities.lookupUser(obj.dj.id)
             for(var i = 0; i < basicBot.room.users.length; i++){
                 if(basicBot.room.users[i].id === user.id){
@@ -916,6 +917,10 @@
                 }, remaining + 3000);
             }
             storeToStorage();
+			}
+			catch(err) {
+			   API.sendChat("ERROR: " + err.message);
+			}		
 
         },
         eventWaitlistupdate: function (users) {
