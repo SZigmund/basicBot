@@ -204,7 +204,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00034",
+        version: "2.1.4.00035",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -847,14 +847,11 @@
         eventDjadvance: function (obj) {
         //zig zzz todoer
         try {
-            API.sendChat("Step 1");
+            console.log("eventDjadvance:1");
             //var currentDJID = API.getDJ().id;
             var dj = API.getDJ();
             if (typeof dj === 'undefined') { return; }
-			console.log("Step 1A TEST");
-            API.sendChat("Step 1A");
-			console.log("Step 1B TEST");
-            API.sendChat("currentDJ: " + dj.username);
+			console.log("eventDjadvance:2");
             
             //var user = basicBot.userUtilities.lookupUser(obj.dj.id)
             for(var i = 0; i < basicBot.room.users.length; i++){
@@ -866,8 +863,7 @@
                     };
                 }
             }
-            API.sendChat("Step 2");
-            API.sendChat("Step 2A");
+			console.log("eventDjadvance:3");
 
             var lastplay = obj.lastPlay;
             if (typeof lastplay === 'undefined') return;
@@ -879,8 +875,7 @@
                     API.sendChat(subChat(basicBot.chat.songstatistics, {artist: lastplay.media.author, title: lastplay.media.title, woots: lastplay.score.positive, grabs: lastplay.score.grabs, mehs: lastplay.score.negative}))
                 }
             }
-            API.sendChat("Step 3");
-            API.sendChat("Step 3A");
+			console.log("eventDjadvance:4");
             basicBot.room.roomstats.totalWoots += lastplay.score.positive;
             basicBot.room.roomstats.totalMehs += lastplay.score.negative;
             basicBot.room.roomstats.totalCurates += lastplay.score.grabs;
@@ -888,6 +883,7 @@
             basicBot.roomUtilities.intervalMessage();
             basicBot.room.currentDJID = obj.dj.id;
 
+			console.log("eventDjadvance:5");
             var mid = obj.media.format + ':' + obj.media.cid;
             for (var bl in basicBot.room.blacklists) {
                 if (basicBot.settings.blacklistEnabled) {
@@ -898,6 +894,7 @@
                 }
             }
 
+			console.log("eventDjadvance:6");
             var alreadyPlayed = false;
             for (var i = 0; i < basicBot.room.historyList.length; i++) {
                 if (basicBot.room.historyList[i][0] === obj.media.cid) {
@@ -909,20 +906,25 @@
                     alreadyPlayed = true;
                 }
             }
+			console.log("eventDjadvance:7");
             if (!alreadyPlayed) {
                 basicBot.room.historyList.push([obj.media.cid, +new Date()]);
             }
+			console.log("eventDjadvance:8");
             var newMedia = obj.media;
             if (basicBot.settings.timeGuard && newMedia.duration > basicBot.settings.maximumSongLength * 60 && !basicBot.room.roomevent) {
                 var name = obj.dj.username;
                 API.sendChat(subChat(basicBot.chat.timelimit, {name: name, maxlength: basicBot.settings.maximumSongLength}));
                 API.moderateForceSkip();
             }
+			console.log("eventDjadvance:9");
             if (user.ownSong) {
                 API.sendChat(subChat(basicBot.chat.permissionownsong, {name: user.username}));
                 user.ownSong = false;
             }
+			console.log("eventDjadvance:10");
             clearTimeout(basicBot.room.autoskipTimer);
+			console.log("eventDjadvance:11");
             if (basicBot.room.autoskip) {
                 var remaining = obj.media.duration * 1000;
                 basicBot.room.autoskipTimer = setTimeout(function () {
@@ -931,7 +933,9 @@
                     API.moderateForceSkip();
                 }, remaining + 3000);
             }
+			console.log("eventDjadvance:12");
             storeToStorage();
+			console.log("eventDjadvance:13");
             }
             catch(err) {
                API.sendChat("ERROR: " + err.message);
@@ -2987,10 +2991,19 @@
                 }
             },
 
-            websiteCommand: {
-                command: 'website',
-                rank: 'user',
+             versionCommand: {
+                command: 'version',
+                rank: 'mod',
                 type: 'exact',
+                functionality: function (chat, cmd)                 {
+				    API.sendChat(subChat(basicBot.chat.online, {botname: basicBot.settings.botName, version: basicBot.version}));
+                }
+            },
+
+            websiteCommand: {
+                command: ['website','web'],
+                rank: 'user',
+                type: 'startsWith',
                 functionality: function (chat, cmd) {
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
