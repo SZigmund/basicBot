@@ -204,7 +204,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00033",
+        version: "2.1.4.00034",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1254,12 +1254,10 @@
             basicBot.status = true;
             API.sendChat('/cap 1');
             API.setVolume(0);
-            /*ZZZ: Disabled Emoji button click 
             var emojibutton = $(".icon-emoji-on");
             if (emojibutton.length > 0) {
                 emojibutton[0].click();
             }
-			*/
             loadChat(API.sendChat(subChat(basicBot.chat.online, {botname: basicBot.settings.botName, version: basicBot.version})));
 			console.log(basicBot.settings.botName + basicBot.version);
         },
