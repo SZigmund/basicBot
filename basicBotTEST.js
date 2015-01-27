@@ -1,4 +1,4 @@
-/**        
+/** 36
  *Copyright 2014 Yemasthui
  *Modifications (including forks) of the code to fit personal needs are allowed only for personal use and should refer back to the original source.
  *This software is not for profit, any extension, or unauthorised person providing this software is not authorised to be in a position of any monetary gain from this use of this software. Any and all money gained under the use of the software (which includes donations) must be passed on to the original author.
@@ -204,7 +204,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00035",
+        version: "2.1.4.00036",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -843,6 +843,7 @@
                     basicBot.room.users[i].votes.curate++;
                 }
             }
+            API.sendChat(obj.user.username + " Grabbed this song.");
         },
         eventDjadvance: function (obj) {
         //zig zzz todoer
@@ -1216,6 +1217,7 @@
             };
             retrieveSettings();
             retrieveFromStorage();
+            console.log("TODO - STARTUP 1");
             window.bot = basicBot;
             basicBot.roomUtilities.updateBlacklists();
             setInterval(basicBot.roomUtilities.updateBlacklists, 60 * 60 * 1000);
@@ -1262,6 +1264,7 @@
             if (emojibutton.length > 0) {
                 emojibutton[0].click();
             }
+            console.log("TODO - STARTUP End");
             loadChat(API.sendChat(subChat(basicBot.chat.online, {botname: basicBot.settings.botName, version: basicBot.version})));
 			console.log(basicBot.settings.botName + basicBot.version);
         },
