@@ -1,4 +1,4 @@
-/** 39
+/** 40
  *Copyright 2014 Yemasthui
  *Modifications (including forks) of the code to fit personal needs are allowed only for personal use and should refer back to the original source.
  *This software is not for profit, any extension, or unauthorised person providing this software is not authorised to be in a position of any monetary gain from this use of this software. Any and all money gained under the use of the software (which includes donations) must be passed on to the original author.
@@ -122,6 +122,7 @@
     };
 
     var retrieveFromStorage = function () {
+        try {
         var info = localStorage.getItem("basicBotStorageInfo");
         if (info === null) API.chatLog(basicBot.chat.nodatafound);
         else {
@@ -165,6 +166,10 @@
                 }
             });
         }
+		}
+		catch(err) {
+		   console.log("ERROR: " + err.message);
+		}
 
     };
 
@@ -204,7 +209,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00039",
+        version: "2.1.4.00040",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -920,11 +925,13 @@
                 API.sendChat(subChat(basicBot.chat.timelimit, {name: name, maxlength: basicBot.settings.maximumSongLength}));
                 API.moderateForceSkip();
             }
+			/*
 			console.log("eventDjadvance:9");
             if (user.ownSong) {
                 API.sendChat(subChat(basicBot.chat.permissionownsong, {name: user.username}));
                 user.ownSong = false;
             }
+			*/
 			console.log("eventDjadvance:10");
             clearTimeout(basicBot.room.autoskipTimer);
 			console.log("eventDjadvance:11");
@@ -941,7 +948,7 @@
 			console.log("eventDjadvance:13");
             }
             catch(err) {
-               API.sendChat("ERROR: " + err.message);
+               console.log("eventDjadvance:ERROR: " + err.message);
             }        
 
         },
@@ -1220,12 +1227,7 @@
             console.log("TODO - STARTUP retrieveSettings");
             retrieveSettings();
             console.log("TODO - STARTUP retrieveFromStorage");
-            try {
-              retrieveFromStorage();
-			}
-            catch(err) {
-               console.log("ERROR: " + err.message);
-            }
+            retrieveFromStorage();
             console.log("TODO - STARTUP 1");
             window.bot = basicBot;
             basicBot.roomUtilities.updateBlacklists();
@@ -1275,11 +1277,12 @@
             basicBot.status = true;
             API.sendChat('/cap 1');
             API.setVolume(0);
+			/*
             var emojibutton = $(".icon-emoji-on");
-            console.log("TODO - STARTUP 8");
             if (emojibutton.length > 0) {
                 emojibutton[0].click();
             }
+			*/
             console.log("TODO - STARTUP 9");
             loadChat(API.sendChat(subChat(basicBot.chat.online, {botname: basicBot.settings.botName, version: basicBot.version})));
 			console.log(basicBot.settings.botName + basicBot.version);
