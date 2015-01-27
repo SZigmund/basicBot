@@ -1,4 +1,4 @@
-/** 36
+/** 37
  *Copyright 2014 Yemasthui
  *Modifications (including forks) of the code to fit personal needs are allowed only for personal use and should refer back to the original source.
  *This software is not for profit, any extension, or unauthorised person providing this software is not authorised to be in a position of any monetary gain from this use of this software. Any and all money gained under the use of the software (which includes donations) must be passed on to the original author.
@@ -204,7 +204,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00036",
+        version: "2.1.4.00037",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -843,7 +843,9 @@
                     basicBot.room.users[i].votes.curate++;
                 }
             }
+            console.log("TODO CurateUpdate 1");
             API.sendChat(obj.user.username + " Grabbed this song.");
+            console.log("TODO CurateUpdate 2");
         },
         eventDjadvance: function (obj) {
         //zig zzz todoer
@@ -1215,6 +1217,7 @@
                     type: "DELETE"
                 })
             };
+            console.log("TODO - STARTUP Start");
             retrieveSettings();
             retrieveFromStorage();
             console.log("TODO - STARTUP 1");
@@ -1223,13 +1226,16 @@
             setInterval(basicBot.roomUtilities.updateBlacklists, 60 * 60 * 1000);
             basicBot.getNewBlacklistedSongs = basicBot.roomUtilities.exportNewBlacklistedSongs;
             basicBot.logNewBlacklistedSongs = basicBot.roomUtilities.logNewBlacklistedSongs;
+            console.log("TODO - STARTUP 2");
             if (basicBot.room.roomstats.launchTime === null) {
                 basicBot.room.roomstats.launchTime = Date.now();
             }
 
+            console.log("TODO - STARTUP 3");
             for (var j = 0; j < basicBot.room.users.length; j++) {
                 basicBot.room.users[j].inRoom = false;
             }
+            console.log("TODO - STARTUP 4");
             var userlist = API.getUsers();
             for (var i = 0; i < userlist.length; i++) {
                 var known = false;
@@ -1250,21 +1256,25 @@
                 var wlIndex = API.getWaitListPosition(basicBot.room.users[ind].id) + 1;
                 basicBot.userUtilities.updatePosition(basicBot.room.users[ind], wlIndex);
             }
+            console.log("TODO - STARTUP 5");
             basicBot.room.afkInterval = setInterval(function () {
                 basicBot.roomUtilities.afkCheck()
             }, 10 * 1000);
+            console.log("TODO - STARTUP 6");
             basicBot.room.autodisableInterval = setInterval(function () {
                 basicBot.room.autodisableFunc();
             }, 60 * 60 * 1000);
+            console.log("TODO - STARTUP 7");
             basicBot.loggedInID = API.getUser().id;
             basicBot.status = true;
             API.sendChat('/cap 1');
             API.setVolume(0);
             var emojibutton = $(".icon-emoji-on");
+            console.log("TODO - STARTUP 8");
             if (emojibutton.length > 0) {
                 emojibutton[0].click();
             }
-            console.log("TODO - STARTUP End");
+            console.log("TODO - STARTUP 9");
             loadChat(API.sendChat(subChat(basicBot.chat.online, {botname: basicBot.settings.botName, version: basicBot.version})));
 			console.log(basicBot.settings.botName + basicBot.version);
         },
