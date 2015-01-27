@@ -1,4 +1,4 @@
-/** 41
+/** 40
  *Copyright 2014 Yemasthui
  *Modifications (including forks) of the code to fit personal needs are allowed only for personal use and should refer back to the original source.
  *This software is not for profit, any extension, or unauthorised person providing this software is not authorised to be in a position of any monetary gain from this use of this software. Any and all money gained under the use of the software (which includes donations) must be passed on to the original author.
@@ -168,7 +168,7 @@
         }
 		}
 		catch(err) {
-		   console.log("retrieveFromStorage:ERROR: " + err.message);
+		   console.log("ERROR: " + err.message);
 		}
 
     };
@@ -209,7 +209,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00041",
+        version: "2.1.4.00040",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -843,35 +843,34 @@
 
         },
         eventCurateupdate: function (obj) {
-			try
-			{
-                for (var i = 0; i < basicBot.room.users.length; i++) {
-                    if (basicBot.room.users[i].id === obj.user.id) {
-                        basicBot.room.users[i].votes.curate++;
-					}
-				}
-                API.sendChat(":musical_note: " + obj.user.username + " snagged this song. :heart: :musical_note:");
-			}
-            catch(err) {
-                console.log("eventCurateupdate:ERROR: " + err.message);
-            }        
+            for (var i = 0; i < basicBot.room.users.length; i++) {
+                if (basicBot.room.users[i].id === obj.user.id) {
+                    basicBot.room.users[i].votes.curate++;
+                }
+            }
+            console.log("TODO CurateUpdate 1");
+            API.sendChat(obj.user.username + " Grabbed this song.");
+            console.log("TODO CurateUpdate 2");
         },
         eventDjadvance: function (obj) {
+        //zig zzz todoer
         try {
             console.log("eventDjadvance:1");
+            //var currentDJID = API.getDJ().id;
             var dj = API.getDJ();
-            if (!(typeof dj === 'undefined')) { 
-			    console.log("eventDjadvance:2");
-                for(var i = 0; i < basicBot.room.users.length; i++){
-                    if(basicBot.room.users[i].id === dj.id){
-                        basicBot.room.users[i].lastDC = {
-                            time: null,
-                            position: null,
-                            songCount: 0
-                        };
-                    }
+            if (typeof dj === 'undefined') { return; }
+			console.log("eventDjadvance:2");
+            
+            //var user = basicBot.userUtilities.lookupUser(obj.dj.id)
+            for(var i = 0; i < basicBot.room.users.length; i++){
+                if(basicBot.room.users[i].id === dj.id){
+                    basicBot.room.users[i].lastDC = {
+                        time: null,
+                        position: null,
+                        songCount: 0
+                    };
                 }
-			}
+            }
 			console.log("eventDjadvance:3");
 
             var lastplay = obj.lastPlay;
@@ -3014,7 +3013,7 @@
                 }
             },
 
-             versionCommand: {      //Added 01/27/2015 Zig
+             versionCommand: {
                 command: 'version',
                 rank: 'mod',
                 type: 'exact',
@@ -3023,46 +3022,6 @@
                 }
             },
 
-             echoCommand: {   //Added 01/27/2015 Zig
-			    try
-				{
-                    command: 'echo',
-                    rank: 'manager',
-                    type: 'exact',
-                    functionality: function (chat, cmd) {
-                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                        else {
-                            var msg = chat.message;
-                            if (msg.length === cmd.length) return;
-                       	        var msgContent = msg.substring(cmd.length + 2);
-			                     API.sendChat(msgContent);
-                    	}
-                    }
-				}
-				catch(err) {
-				    console.log("wootCommand:ERROR: " + err.message);
-				}
-            },
-			wootCommand: {   //Added 01/27/2015 Zig
-			    try
-				{
-                    command: 'woot',
-				    rank: 'user',
-                    type: 'exact',
-                    functionality: function (chat, cmd)                 {
-                        var votebutton = $(".button-vote-positive");
-					    if (votebutton.length > 0) {
-                            votebutton[0].click();
-							API.sendChat("This song rocks");
-						}
-			            /*$('#button-vote-positive').click();*/
-			        }
-				}
-				catch(err) {
-				    console.log("wootCommand:ERROR: " + err.message);
-				}
-			}
             websiteCommand: {
                 command: ['website','web'],
                 rank: 'user',
@@ -3077,7 +3036,7 @@
                 }
             },
             //todoer
-             zigCommand: {   //Added 01/27/2015 Zig
+             zigCommand: {
                 command: 'zig',
                 rank: 'mod',
                 type: 'exact',
@@ -3105,7 +3064,6 @@
                     };
                 }
             }
-
             var lastplay = obj.lastPlay;
             if (typeof lastplay === 'undefined') return;
             if (basicBot.settings.songstats) {
@@ -3122,7 +3080,6 @@
             basicBot.room.roomstats.songCount++;
             basicBot.roomUtilities.intervalMessage();
             basicBot.room.currentDJID = obj.dj.id;
-
             var mid = obj.media.format + ':' + obj.media.cid;
             for (var bl in basicBot.room.blacklists) {
                 if (basicBot.settings.blacklistEnabled) {
@@ -3132,7 +3089,6 @@
                     }
                 }
             }
-
             var alreadyPlayed = false;
             for (var i = 0; i < basicBot.room.historyList.length; i++) {
                 if (basicBot.room.historyList[i][0] === obj.media.cid) {
@@ -3161,7 +3117,6 @@
                 }, remaining + 3000);
             }
             storeToStorage();
-
         },
 */
             youtubeCommand: {
