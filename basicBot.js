@@ -1,34 +1,5 @@
-/**
- *Copyright 2014 Yemasthui
- *Modifications (including forks) of the code to fit personal needs are allowed only for personal use and should refer back to the original source.
- *This software is not for profit, any extension, or unauthorised person providing this software is not authorised to be in a position of any monetary gain from this use of this software. Any and all money gained under the use of the software (which includes donations) must be passed on to the original author.
- * ZIG:
-             zigtestCommand: {
-                command: 'zigtest',
-                rank: 'mod',
-                type: 'exact',
-                functionality: function (chat, cmd) {
-                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                    else {
-                        var from = chat.un;
-                        var woots = basicBot.room.roomstats.totalWoots + 17;
-                        var mehs = basicBot.room.roomstats.totalMehs;
-                        var grabs = basicBot.room.roomstats.totalCurates + 2;
-                        API.sendChat(subChat(basicBot.chat.sessionstatszig, {user: 'Doc', name: 'Take On Me', woots: woots, mehs: mehs, grabs: grabs}));
-                    	//sessionstatszig": "/me [%%USER%%] played [@%%NAME%%] [:thumbsup: %%WOOTS%% :star: %%GRABS%% :thumbsdown: %%MEHS%%]",
-                        //var msg = chat.message;
-                        //if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
-                        //var name = msg.substring(cmd.length + 2);
-                    	//return API.sendChat('/me UserName: '); // + name);
-                        //var user = basicBot.userUtilities.lookupUserName(name);
-                        //return API.sendChat(subChat(basicBot.chat.welcome, {name: 'user.username', link: basicBot.settings.rulesLink}));
-                    }
-                }
-            },
- *API.sendChat(basicBot.chat.eatcookie);
+/** version: 2.1.4.00010
  */
-
 
 (function () {
 
@@ -122,6 +93,7 @@
     };
 
     var retrieveFromStorage = function () {
+        try {
         var info = localStorage.getItem("basicBotStorageInfo");
         if (info === null) API.chatLog(basicBot.chat.nodatafound);
         else {
@@ -165,6 +137,10 @@
                 }
             });
         }
+		}
+		catch(err) {
+		   console.log("retrieveFromStorage:ERROR: " + err.message);
+		}
 
     };
 
@@ -203,12 +179,13 @@
     var botCreatorIDs = [];
 
     var basicBot = {
-	/*ZZZ: Updated Version*/
-        version: "2.1.4.00009",
+        /*ZZZ: Updated Version*/
+        version: "2.1.4.00010",
         status: false,
         name: "basicBot",
         loggedInID: null,
         scriptLink: "https://rawgit.com/SZigmund/basicBot/master/basicBot.js",
+        scriptTestLink: "https://rawgit.com/SZigmund/basicBot/master/basicBotTEST.js",
         cmdLink: "http://git.io/245Ppg",
         chatLink: "https://rawgit.com/SZigmund/basicBot/master/lang/en.json",
         chat: null,
@@ -266,6 +243,7 @@
             songstats: true,
             commandLiteral: "!",
             blacklists: {
+                BAN: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/Banned.json",
                 NSFW: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json",
                 OP: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleOPlist.json"
             }
@@ -284,6 +262,7 @@
             autodisableInterval: null,
             autodisableFunc: function () {
                 if (basicBot.status && basicBot.settings.autodisable) {
+                    // todoer put in random comment section:
                     API.sendChat('!afkdisable');
                     API.sendChat('!joindisable');
                 }
@@ -835,43 +814,54 @@
 
         },
         eventCurateupdate: function (obj) {
-            for (var i = 0; i < basicBot.room.users.length; i++) {
-                if (basicBot.room.users[i].id === obj.user.id) {
-                    basicBot.room.users[i].votes.curate++;
-                }
+          try {
+              for (var i = 0; i < basicBot.room.users.length; i++) {
+                 if (basicBot.room.users[i].id === obj.user.id) {
+        	     basicBot.room.users[i].votes.curate++;
+                 }
+              }
+              API.sendChat(":musical_note: " + obj.user.username + " snagged this song. :heart: :musical_note:");
+          }
+          catch(err) {
+               console.log("eventCurateupdate:ERROR: " + err.message);
             }
         },
         eventDjadvance: function (obj) {
-       	/*
-            var user = basicBot.userUtilities.lookupUser(obj.dj.id)
-            for(var i = 0; i < basicBot.room.users.length; i++){
-                if(basicBot.room.users[i].id === user.id){
-                    basicBot.room.users[i].lastDC = {
-                        time: null,
-                        position: null,
-                        songCount: 0
-                    };
-                }
-            }
-		*/
+        try {
+            console.log("eventDjadvance:1");
+
             var lastplay = obj.lastPlay;
-            if (typeof lastplay === 'undefined') return;
-            if (basicBot.settings.songstats) {
+            if (basicBot.settings.songstats && !(typeof lastplay === 'undefined')) {
                 if (typeof basicBot.chat.songstatistics === "undefined") {
-                    API.sendChat("[" + lastplay.media.author + " - " + lastplay.media.title + "] [:thumbsup: " + lastplay.score.positive + " :star: " + lastplay.score.grabs + " :thumbsdown: " + lastplay.score.negative + "]")
-                    //API.sendChat("/me " + lastplay.media.author + " - " + lastplay.media.title + ": " + lastplay.score.positive + "W/" + lastplay.score.grabs + "G/" + lastplay.score.negative + "M.")
+                    API.sendChat("/me " + lastplay.media.author + " - " + lastplay.media.title + ": " + lastplay.score.positive + "W/" + lastplay.score.grabs + "G/" + lastplay.score.negative + "M.")
                 }
                 else {
                     API.sendChat(subChat(basicBot.chat.songstatistics, {artist: lastplay.media.author, title: lastplay.media.title, woots: lastplay.score.positive, grabs: lastplay.score.grabs, mehs: lastplay.score.negative}))
                 }
-            }
+			}
+			
+            var dj = API.getDJ();
+            if (!(typeof dj === 'undefined')) {
+			console.log("eventDjadvance:2");
+              for(var i = 0; i < basicBot.room.users.length; i++){
+                if(basicBot.room.users[i].id === dj.id){
+                    basicBot.room.users[i].lastDC = {time: null,position: null,songCount: 0};
+                }
+              }
+			}
+			console.log("eventDjadvance:3");
+            if (typeof lastplay === 'undefined') return;
+
+			console.log("eventDjadvance:4");
             basicBot.room.roomstats.totalWoots += lastplay.score.positive;
             basicBot.room.roomstats.totalMehs += lastplay.score.negative;
             basicBot.room.roomstats.totalCurates += lastplay.score.grabs;
             basicBot.room.roomstats.songCount++;
             basicBot.roomUtilities.intervalMessage();
+            if (typeof dj === 'undefined') { return; }
             basicBot.room.currentDJID = obj.dj.id;
 
+			console.log("eventDjadvance:5");
             var mid = obj.media.format + ':' + obj.media.cid;
             for (var bl in basicBot.room.blacklists) {
                 if (basicBot.settings.blacklistEnabled) {
@@ -882,6 +872,7 @@
                 }
             }
 
+			console.log("eventDjadvance:6");
             var alreadyPlayed = false;
             for (var i = 0; i < basicBot.room.historyList.length; i++) {
                 if (basicBot.room.historyList[i][0] === obj.media.cid) {
@@ -893,20 +884,27 @@
                     alreadyPlayed = true;
                 }
             }
+			console.log("eventDjadvance:7");
             if (!alreadyPlayed) {
                 basicBot.room.historyList.push([obj.media.cid, +new Date()]);
             }
+			console.log("eventDjadvance:8");
             var newMedia = obj.media;
             if (basicBot.settings.timeGuard && newMedia.duration > basicBot.settings.maximumSongLength * 60 && !basicBot.room.roomevent) {
                 var name = obj.dj.username;
                 API.sendChat(subChat(basicBot.chat.timelimit, {name: name, maxlength: basicBot.settings.maximumSongLength}));
                 API.moderateForceSkip();
             }
+			/*
+			console.log("eventDjadvance:9");
             if (user.ownSong) {
                 API.sendChat(subChat(basicBot.chat.permissionownsong, {name: user.username}));
                 user.ownSong = false;
             }
+			*/
+			console.log("eventDjadvance:10");
             clearTimeout(basicBot.room.autoskipTimer);
+			console.log("eventDjadvance:11");
             if (basicBot.room.autoskip) {
                 var remaining = obj.media.duration * 1000;
                 basicBot.room.autoskipTimer = setTimeout(function () {
@@ -915,7 +913,13 @@
                     API.moderateForceSkip();
                 }, remaining + 3000);
             }
+			console.log("eventDjadvance:12");
             storeToStorage();
+			console.log("eventDjadvance:13");
+            }
+            catch(err) {
+               console.log("eventDjadvance:ERROR: " + err.message);
+            }        
 
         },
         eventWaitlistupdate: function (users) {
@@ -1190,20 +1194,26 @@
                     type: "DELETE"
                 })
             };
+            console.log("TODO - STARTUP retrieveSettings");
             retrieveSettings();
+            console.log("TODO - STARTUP retrieveFromStorage");
             retrieveFromStorage();
+            console.log("TODO - STARTUP 1");
             window.bot = basicBot;
             basicBot.roomUtilities.updateBlacklists();
             setInterval(basicBot.roomUtilities.updateBlacklists, 60 * 60 * 1000);
             basicBot.getNewBlacklistedSongs = basicBot.roomUtilities.exportNewBlacklistedSongs;
             basicBot.logNewBlacklistedSongs = basicBot.roomUtilities.logNewBlacklistedSongs;
+            console.log("TODO - STARTUP 2");
             if (basicBot.room.roomstats.launchTime === null) {
                 basicBot.room.roomstats.launchTime = Date.now();
             }
 
+            console.log("TODO - STARTUP 3");
             for (var j = 0; j < basicBot.room.users.length; j++) {
                 basicBot.room.users[j].inRoom = false;
             }
+            console.log("TODO - STARTUP 4");
             var userlist = API.getUsers();
             for (var i = 0; i < userlist.length; i++) {
                 var known = false;
@@ -1224,21 +1234,28 @@
                 var wlIndex = API.getWaitListPosition(basicBot.room.users[ind].id) + 1;
                 basicBot.userUtilities.updatePosition(basicBot.room.users[ind], wlIndex);
             }
+            console.log("TODO - STARTUP 5");
             basicBot.room.afkInterval = setInterval(function () {
                 basicBot.roomUtilities.afkCheck()
             }, 10 * 1000);
+            console.log("TODO - STARTUP 6");
             basicBot.room.autodisableInterval = setInterval(function () {
                 basicBot.room.autodisableFunc();
             }, 60 * 60 * 1000);
+            console.log("TODO - STARTUP 7");
             basicBot.loggedInID = API.getUser().id;
             basicBot.status = true;
             API.sendChat('/cap 1');
             API.setVolume(0);
+			/*
             var emojibutton = $(".icon-emoji-on");
             if (emojibutton.length > 0) {
                 emojibutton[0].click();
             }
+			*/
+            console.log("TODO - STARTUP 9");
             loadChat(API.sendChat(subChat(basicBot.chat.online, {botname: basicBot.settings.botName, version: basicBot.version})));
+			console.log(basicBot.settings.botName + basicBot.version);
         },
         commands: {
             executable: function (minRank, chat) {
@@ -1540,15 +1557,14 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                    	return API.sendChat(basicBot.chat.eatcookie);
-                        //var author = API.getMedia().author;
-                        //var title = API.getMedia().title;
-                        //var name = chat.un;
-                        //var format = API.getMedia().format;
-                        //var cid = API.getMedia().cid;
-                        //var songid = format + ":" + cid;
+                        var author = API.getMedia().author;
+                        var title = API.getMedia().title;
+                        var name = chat.un;
+                        var format = API.getMedia().format;
+                        var cid = API.getMedia().cid;
+                        var songid = format + ":" + cid;
 
-                        //API.sendChat(subChat(basicBot.chat.blinfo, {name: name, author: author, title: title, songid: songid}));
+                        API.sendChat(subChat(basicBot.chat.blinfo, {name: name, author: author, title: title, songid: songid}));
                     }
                 }
             },
@@ -2021,6 +2037,7 @@
                 }
             },
 
+            // zig - Add feature to auto-skip SC song during restricted hours (7AM-3PM EST)
             linkCommand: {
                 command: 'link',
                 rank: 'user',
@@ -2439,6 +2456,25 @@
                 }
             },
 
+            reloadtestCommand: {
+                command: 'reloadtest',
+                rank: 'bouncer',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        API.sendChat(basicBot.chat.reload);
+                        storeToStorage();
+                        basicBot.disconnectAPI();
+                        kill();
+                        setTimeout(function () {
+                            $.getScript(basicBot.scriptTestLink);
+                        }, 2000);
+                    }
+                }
+            },
+
             removeCommand: {
                 command: 'remove',
                 rank: 'mod',
@@ -2610,7 +2646,7 @@
                         if (basicBot.settings.bouncerPlus) msg += 'ON';
                         else msg += 'OFF';
                         msg += '. ';
-												
+                                                
                         msg += basicBot.chat.blacklist + ': ';
                         if (basicBot.settings.blacklistEnabled) msg += 'ON';
                         else msg += 'OFF';
@@ -2741,7 +2777,7 @@
                     }
                 }
             },
-						
+                        
             togglemotdCommand: {
                 command: 'togglemotd',
                 rank: 'bouncer',
@@ -2947,10 +2983,41 @@
                 }
             },
 
-            websiteCommand: {
-                command: 'website',
-                rank: 'user',
+             versionCommand: {  //Added 01/27/2015 Zig
+                command: 'version',
+                rank: 'mod',
                 type: 'exact',
+                functionality: function (chat, cmd)                 {
+				    API.sendChat(subChat(basicBot.chat.online, {botname: basicBot.settings.botName, version: basicBot.version}));
+                }
+            },
+
+             echoCommand: {   //Added 01/27/2015 Zig
+                command: 'echo',
+                rank: 'manager',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                try{
+                    console.log("echoCommand:1");
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    console.log("echoCommand:2");
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    console.log("echoCommand:3");
+                    var msg = chat.message;
+                    if (msg.length === cmd.length) return;
+                    console.log("echoCommand:4");
+                    var msgContent = msg.substring(cmd.length + 1);
+		    return API.sendChat(msgContent);
+                    }
+                catch(err) {
+                    console.log("echoCommand:ERROR: " + err.message);
+		}
+                }
+            },
+            websiteCommand: {
+                command: ['website','web'],
+                rank: 'user',
+                type: 'startsWith',
                 functionality: function (chat, cmd) {
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
@@ -2960,7 +3027,51 @@
                     }
                 }
             },
+            
+            wootCommand: {  //Added 01/28/2015 Zig
+            	command: 'woot',
+            	rank: 'user',
+            	type: 'exact',
+            	functionality: function (chat, cmd)                 {
+                  try  {
+				    console.log("wootCommand:ERROR: Step 1");
+				    $('#button-vote-positive').click();
+				    console.log("wootCommand:ERROR: Step 2");
+					/*
+				    console.log("wootCommand:ERROR: Step 1");
+            		var votebutton = $(".button-vote-positive");
+				    console.log("wootCommand:ERROR: Step 2");
+            		if (votebutton.length > 0) return void (0);
+				    console.log("wootCommand:ERROR: Step 3");
+           			votebutton[0].click();
+           			return API.sendChat("This song rocks");
+					console.log("wootCommand:ERROR: Step 4");
+					*/
+            		/*$('#button-vote-positive').click();*/
+            	  }  
+                catch(err) {
+            	  console.log("wootCommand:ERROR: " + err.message);
+                }
+              }
+            },
 
+             zigCommand: {   //Added 01/27/2015 Zig
+                command: 'zig',
+                rank: 'mod',
+                type: 'exact',
+                functionality: function (chat, cmd)                 {
+                    var newMedia = API.getMedia();
+                    //var newMedia = obj.media;
+                    //if (basicBot.settings.timeGuard) API.sendChat("/me settings.timeGuard = True");
+                    //if (newMedia.duration > basicBot.settings.maximumSongLength * 60)  API.sendChat("/me Too Long = True");
+                    if (basicBot.settings.timeGuard && newMedia.duration > basicBot.settings.maximumSongLength * 60 && !basicBot.room.roomevent)  {
+                        //API.sendChat("/me TEST CMD" + newMedia.duration);
+                        //var name = obj.dj.username;
+                        API.sendChat(subChat(basicBot.chat.timelimit, {name: "name", maxlength: basicBot.settings.maximumSongLength}));
+                        API.moderateForceSkip();
+                    }
+                }
+            },
             youtubeCommand: {
                 command: 'youtube',
                 rank: 'user',
