@@ -1,4 +1,4 @@
-/** version: 2.1.4.00012
+/** version: 2.1.4.00013
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00012",
+        version: "2.1.4.00013",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -206,8 +206,8 @@
             maximumLocktime: 10,
             cycleGuard: true,
             maximumCycletime: 10,
-            voteSkip: true,
-            voteSkipLimit: 5,
+            voteSkipEnabled: true,
+            voteSkipLimit: 4,
             timeGuard: true,
             maximumSongLength: 10,
             /*ZZZ: Disabled Autodisable Auto-Djs*/
@@ -805,8 +805,8 @@
             var woots = API.getScore().positive;
             var dj = API.getDJ();
 
-            if (basicBot.settings.voteSkip) {
-                if ((mehs - woots) >= (basicBot.settings.voteSkipLimit)) {
+            if (basicBot.settings.voteSkipEnabled) {
+                if (mehs >= (basicBot.settings.voteSkipLimit)) {
                     API.sendChat(subChat(basicBot.chat.voteskipexceededlimit, {name: dj.username, limit: basicBot.settings.voteSkipLimit}));
                     API.moderateForceSkip();
                 }
@@ -1749,7 +1749,7 @@
                         var msg = chat.message;
                         if (msg.length <= cmd.length + 1) return API.sendChat(subChat(basicBot.chat.voteskiplimit, {name: chat.un, limit: basicBot.settings.voteSkipLimit}));
                         var argument = msg.substring(cmd.length + 1);
-                        if (!basicBot.settings.voteSkip) basicBot.settings.voteSkip = !basicBot.settings.voteSkip;
+                        if (!basicBot.settings.voteSkipEnabled) basicBot.settings.voteSkipEnabled = !basicBot.settings.voteSkipEnabled;
                         if (isNaN(argument)) {
                             API.sendChat(subChat(basicBot.chat.voteskipinvalidlimit, {name: chat.un}));
                         }
@@ -1769,12 +1769,12 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        if (basicBot.settings.voteSkip) {
-                    	    basicBot.settings.voteSkip = !basicBot.settings.voteSkip;
+                        if (basicBot.settings.voteSkipEnabled) {
+                    	    basicBot.settings.voteSkipEnabled = !basicBot.settings.voteSkipEnabled;
                             API.sendChat(subChat(basicBot.chat.toggleoff, {name: chat.un, 'function': basicBot.chat.voteskip}));
                         }
                         else {
-                    	    basicBot.settings.voteSkip = !basicBot.settings.voteSkip;
+                    	    basicBot.settings.voteSkipEnabled = !basicBot.settings.voteSkipEnabled;
                             API.sendChat(subChat(basicBot.chat.toggleon, {name: chat.un, 'function': basicBot.chat.voteskip}));
                         }
                     }
@@ -2673,7 +2673,7 @@
                         msg += '. ';
 
                         msg += basicBot.chat.voteskip + ': ';
-                        if (basicBot.settings.voteskip) msg += 'ON';
+                        if (basicBot.settings.voteSkipEnabled) msg += 'ON';
                         else msg += 'OFF';
                         msg += '. ';
 
