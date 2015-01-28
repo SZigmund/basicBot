@@ -1,4 +1,4 @@
-/** 40.2
+/** 40.3
  *Copyright 2014 Yemasthui
  *Modifications (including forks) of the code to fit personal needs are allowed only for personal use and should refer back to the original source.
  *This software is not for profit, any extension, or unauthorised person providing this software is not authorised to be in a position of any monetary gain from this use of this software. Any and all money gained under the use of the software (which includes donations) must be passed on to the original author.
@@ -209,7 +209,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.2",
+        version: "2.1.4.00040.3",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -3034,26 +3034,6 @@
                             API.sendChat(subChat(basicBot.chat.website, {link: basicBot.settings.website}));
                     }
                 }
-            },
-            //Added 01/27/2015 Zig
-            wootCommand: {
-            try
-            {
-            	command: 'woot',
-            	rank: 'user',
-            	type: 'exact',
-            	functionality: function (chat, cmd)                 {
-            		var votebutton = $(".button-vote-positive");
-            		if (votebutton.length > 0) {
-            			votebutton[0].click();
-            			API.sendChat("This song rocks");
-            		}
-            		/*$('#button-vote-positive').click();*/
-            	}
-            }
-            catch(err) {
-            	console.log("wootCommand:ERROR: " + err.message);
-            }
             },
             //Added 01/27/2015 Zig
              zigCommand: { 
