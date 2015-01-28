@@ -1,4 +1,4 @@
-/** version: 2.1.4.00010
+/** version: 2.1.4.00011
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00010",
+        version: "2.1.4.00011",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -206,8 +206,8 @@
             maximumLocktime: 10,
             cycleGuard: true,
             maximumCycletime: 10,
-            voteSkip: false,
-            voteSkipLimit: 10,
+            voteSkip: true,
+            voteSkipLimit: 5,
             timeGuard: true,
             maximumSongLength: 10,
             /*ZZZ: Disabled Autodisable Auto-Djs*/
