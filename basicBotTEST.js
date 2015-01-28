@@ -1,34 +1,5 @@
-/** 40.13
- *Copyright 2014 Yemasthui
- *Modifications (including forks) of the code to fit personal needs are allowed only for personal use and should refer back to the original source.
- *This software is not for profit, any extension, or unauthorised person providing this software is not authorised to be in a position of any monetary gain from this use of this software. Any and all money gained under the use of the software (which includes donations) must be passed on to the original author.
- * ZIG:
-             zigtestCommand: {
-                command: 'zigtest',
-                rank: 'mod',
-                type: 'exact',
-                functionality: function (chat, cmd) {
-                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                    else {
-                        var from = chat.un;
-                        var woots = basicBot.room.roomstats.totalWoots + 17;
-                        var mehs = basicBot.room.roomstats.totalMehs;
-                        var grabs = basicBot.room.roomstats.totalCurates + 2;
-                        API.sendChat(subChat(basicBot.chat.sessionstatszig, {user: 'Doc', name: 'Take On Me', woots: woots, mehs: mehs, grabs: grabs}));
-                        //sessionstatszig": "/me [%%USER%%] played [@%%NAME%%] [:thumbsup: %%WOOTS%% :star: %%GRABS%% :thumbsdown: %%MEHS%%]",
-                        //var msg = chat.message;
-                        //if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
-                        //var name = msg.substring(cmd.length + 2);
-                        //return API.sendChat('/me UserName: '); // + name);
-                        //var user = basicBot.userUtilities.lookupUserName(name);
-                        //return API.sendChat(subChat(basicBot.chat.welcome, {name: 'user.username', link: basicBot.settings.rulesLink}));
-                    }
-                }
-            },
- *API.sendChat(basicBot.chat.eatcookie);
+/** version: 2.1.4.00010
  */
-
 
 (function () {
 
@@ -209,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.13",
+        version: "2.1.4.00010",
         status: false,
         name: "basicBot",
         loggedInID: null,
