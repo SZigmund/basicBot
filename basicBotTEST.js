@@ -1,4 +1,4 @@
-/** 40.10
+/** 40.11
  *Copyright 2014 Yemasthui
  *Modifications (including forks) of the code to fit personal needs are allowed only for personal use and should refer back to the original source.
  *This software is not for profit, any extension, or unauthorised person providing this software is not authorised to be in a position of any monetary gain from this use of this software. Any and all money gained under the use of the software (which includes donations) must be passed on to the original author.
@@ -209,7 +209,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.10",
+        version: "2.1.4.00040.11",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -852,46 +852,45 @@
               API.sendChat(":musical_note: " + obj.user.username + " snagged this song. :heart: :musical_note:");
           }
           catch(err) {
-               console.log("eventDjadvance:ERROR: " + err.message);
+               console.log("eventCurateupdate:ERROR: " + err.message);
             }
         },
         eventDjadvance: function (obj) {
         //zig zzz todoer
         try {
             console.log("eventDjadvance:1");
-            //var currentDJID = API.getDJ().id;
-            var dj = API.getDJ();
-            if (typeof dj === 'undefined') { return; }
-			console.log("eventDjadvance:2");
-            
-            //var user = basicBot.userUtilities.lookupUser(obj.dj.id)
-            for(var i = 0; i < basicBot.room.users.length; i++){
-                if(basicBot.room.users[i].id === dj.id){
-                    basicBot.room.users[i].lastDC = {
-                        time: null,
-                        position: null,
-                        songCount: 0
-                    };
-                }
-            }
-			console.log("eventDjadvance:3");
 
             var lastplay = obj.lastPlay;
-            if (typeof lastplay === 'undefined') return;
-            if (basicBot.settings.songstats) {
+            if (basicBot.settings.songstats && !(typeof lastplay === 'undefined')) {
                 if (typeof basicBot.chat.songstatistics === "undefined") {
                     API.sendChat("/me " + lastplay.media.author + " - " + lastplay.media.title + ": " + lastplay.score.positive + "W/" + lastplay.score.grabs + "G/" + lastplay.score.negative + "M.")
                 }
                 else {
                     API.sendChat(subChat(basicBot.chat.songstatistics, {artist: lastplay.media.author, title: lastplay.media.title, woots: lastplay.score.positive, grabs: lastplay.score.grabs, mehs: lastplay.score.negative}))
                 }
-            }
+			}
+			
+            //var currentDJID = API.getDJ().id;
+            var dj = API.getDJ();
+            if (!(typeof dj === 'undefined')) {
+			console.log("eventDjadvance:2");
+              for(var i = 0; i < basicBot.room.users.length; i++){
+                if(basicBot.room.users[i].id === dj.id){
+                    basicBot.room.users[i].lastDC = {time: null,position: null,songCount: 0};
+                }
+              }
+			}
+			console.log("eventDjadvance:3");
+/**/
+            if (typeof lastplay === 'undefined') return;
+
 			console.log("eventDjadvance:4");
             basicBot.room.roomstats.totalWoots += lastplay.score.positive;
             basicBot.room.roomstats.totalMehs += lastplay.score.negative;
             basicBot.room.roomstats.totalCurates += lastplay.score.grabs;
             basicBot.room.roomstats.songCount++;
             basicBot.roomUtilities.intervalMessage();
+            if (typeof dj === 'undefined') { return; }
             basicBot.room.currentDJID = obj.dj.id;
 
 			console.log("eventDjadvance:5");
