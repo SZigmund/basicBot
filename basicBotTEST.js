@@ -1,4 +1,4 @@
-/** 40.11
+/** 40.12
  *Copyright 2014 Yemasthui
  *Modifications (including forks) of the code to fit personal needs are allowed only for personal use and should refer back to the original source.
  *This software is not for profit, any extension, or unauthorised person providing this software is not authorised to be in a position of any monetary gain from this use of this software. Any and all money gained under the use of the software (which includes donations) must be passed on to the original author.
@@ -209,7 +209,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.11",
+        version: "2.1.4.00040.12",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -856,7 +856,6 @@
             }
         },
         eventDjadvance: function (obj) {
-        //zig zzz todoer
         try {
             console.log("eventDjadvance:1");
 
@@ -870,7 +869,6 @@
                 }
 			}
 			
-            //var currentDJID = API.getDJ().id;
             var dj = API.getDJ();
             if (!(typeof dj === 'undefined')) {
 			console.log("eventDjadvance:2");
@@ -881,7 +879,6 @@
               }
 			}
 			console.log("eventDjadvance:3");
-/**/
             if (typeof lastplay === 'undefined') return;
 
 			console.log("eventDjadvance:4");
@@ -3059,8 +3056,30 @@
                     }
                 }
             },
-            //Added 01/27/2015 Zig
-             zigCommand: { 
+            
+            wootCommand: {  //Added 01/28/2015 Zig
+            	command: 'woot',
+            	rank: 'user',
+            	type: 'exact',
+            	functionality: function (chat, cmd)                 {
+                  try  {
+				    console.log("wootCommand:ERROR: Step 1");
+            		var votebutton = $(".button-vote-positive");
+				    console.log("wootCommand:ERROR: Step 2");
+            		if (votebutton.length > 0) return void (0);
+				    console.log("wootCommand:ERROR: Step 3");
+           			votebutton[0].click();
+           			return API.sendChat("This song rocks");
+					console.log("wootCommand:ERROR: Step 4");
+            		/*$('#button-vote-positive').click();*/
+            	  }  
+                catch(err) {
+            	  console.log("wootCommand:ERROR: " + err.message);
+                }
+              }
+            },
+
+             zigCommand: {   //Added 01/27/2015 Zig
                 command: 'zig',
                 rank: 'mod',
                 type: 'exact',
@@ -3077,72 +3096,6 @@
                     }
                 }
             },
-/*
-            var user = basicBot.userUtilities.lookupUser(obj.dj.id)
-            for(var i = 0; i < basicBot.room.users.length; i++){
-                if(basicBot.room.users[i].id === user.id){
-                    basicBot.room.users[i].lastDC = {
-                        time: null,
-                        position: null,
-                        songCount: 0
-                    };
-                }
-            }
-            var lastplay = obj.lastPlay;
-            if (typeof lastplay === 'undefined') return;
-            if (basicBot.settings.songstats) {
-                if (typeof basicBot.chat.songstatistics === "undefined") {
-                    API.sendChat("/me " + lastplay.media.author + " - " + lastplay.media.title + ": " + lastplay.score.positive + "W/" + lastplay.score.grabs + "G/" + lastplay.score.negative + "M.")
-                }
-                else {
-                    API.sendChat(subChat(basicBot.chat.songstatistics, {artist: lastplay.media.author, title: lastplay.media.title, woots: lastplay.score.positive, grabs: lastplay.score.grabs, mehs: lastplay.score.negative}))
-                }
-            }
-            basicBot.room.roomstats.totalWoots += lastplay.score.positive;
-            basicBot.room.roomstats.totalMehs += lastplay.score.negative;
-            basicBot.room.roomstats.totalCurates += lastplay.score.grabs;
-            basicBot.room.roomstats.songCount++;
-            basicBot.roomUtilities.intervalMessage();
-            basicBot.room.currentDJID = obj.dj.id;
-            var mid = obj.media.format + ':' + obj.media.cid;
-            for (var bl in basicBot.room.blacklists) {
-                if (basicBot.settings.blacklistEnabled) {
-                    if (basicBot.room.blacklists[bl].indexOf(mid) > -1) {
-                        API.sendChat(subChat(basicBot.chat.isblacklisted, {blacklist: bl}));
-                        return API.moderateForceSkip();
-                    }
-                }
-            }
-            var alreadyPlayed = false;
-            for (var i = 0; i < basicBot.room.historyList.length; i++) {
-                if (basicBot.room.historyList[i][0] === obj.media.cid) {
-                    var firstPlayed = basicBot.room.historyList[i][1];
-                    var plays = basicBot.room.historyList[i].length - 1;
-                    var lastPlayed = basicBot.room.historyList[i][plays];
-                    API.sendChat(subChat(basicBot.chat.songknown, {plays: plays, timetotal: basicBot.roomUtilities.msToStr(Date.now() - firstPlayed), lasttime: basicBot.roomUtilities.msToStr(Date.now() - lastPlayed)}));
-                    basicBot.room.historyList[i].push(+new Date());
-                    alreadyPlayed = true;
-                }
-            }
-            if (!alreadyPlayed) {
-                basicBot.room.historyList.push([obj.media.cid, +new Date()]);
-            }
-            if (user.ownSong) {
-                API.sendChat(subChat(basicBot.chat.permissionownsong, {name: user.username}));
-                user.ownSong = false;
-            }
-            clearTimeout(basicBot.room.autoskipTimer);
-            if (basicBot.room.autoskip) {
-                var remaining = obj.media.duration * 1000;
-                basicBot.room.autoskipTimer = setTimeout(function () {
-                    console.log("Skipping track.");
-                    //API.sendChat('Song stuck, skipping...');
-                    API.moderateForceSkip();
-                }, remaining + 3000);
-            }
-            storeToStorage();
-        },
-*/
             youtubeCommand: {
                 command: 'youtube',
                 rank: 'user',
