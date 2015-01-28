@@ -1,4 +1,4 @@
-/** version: 2.1.4.00012.01
+/** version: 2.1.4.00012.02
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00012.01",
+        version: "2.1.4.00012.02",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1769,7 +1769,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        if (basicBot.settings.voteSkip) {
+                        if (basicBot.settings.voteSkipEnabled) {
                     	    basicBot.settings.voteSkipEnabled = !basicBot.settings.voteSkipEnabled;
                             API.sendChat(subChat(basicBot.chat.toggleoff, {name: chat.un, 'function': basicBot.chat.voteskip}));
                         }
