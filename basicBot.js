@@ -1,4 +1,4 @@
-/** version: 2.1.4.00014
+/** version: 2.1.4.00015
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00014",
+        version: "2.1.4.00015",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -626,6 +626,9 @@
                                                 position: null,
                                                 songCount: 0
                                             };
+                                            if (plugUser.username === "Doc_Z") { 
+                                            	API.sendChat("Well this is awkward..."); 
+                                            }
                                             API.moderateRemoveDJ(id);
                                             API.sendChat(subChat(basicBot.chat.afkremove, {name: name, time: time, position: pos, maximumafk: basicBot.settings.maximumAfk}));
                                         }
