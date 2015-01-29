@@ -1,4 +1,4 @@
-/** version: 2.1.4.00013
+/** version: 2.1.4.00014
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00013",
+        version: "2.1.4.00014",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -196,9 +196,9 @@
             botName: "basicBot",
             language: "english",
             chatLink: "https://rawgit.com/SZigmund/basicBot/master/lang/en.json",
-            maximumAfk: 120,
+            maximumAfk: 60,
             afkRemoval: true,
-            maximumDc: 60,
+            maximumDc: 90,
             bouncerPlus: true,
             blacklistEnabled: true,
             lockdownEnabled: false,
@@ -224,7 +224,7 @@
                 ["nsfw", "The song you contained was NSFW (image or sound). "],
                 ["unavailable", "The song you played was not available for some users. "]
             ],
-            afkpositionCheck: 15,
+            afkpositionCheck: 30,
             afkRankCheck: "ambassador",
             motdEnabled: false,
             motdInterval: 5,
