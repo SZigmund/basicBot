@@ -1,4 +1,4 @@
-/** version: 2.1.4.00013.01
+/** version: 2.1.4.00015.01
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00013.01",
+        version: "2.1.4.00015.0",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -224,7 +224,7 @@
                 ["nsfw", "The song you contained was NSFW (image or sound). "],
                 ["unavailable", "The song you played was not available for some users. "]
             ],
-            afkpositionCheck: 15,
+            afkpositionCheck: 30,
             afkRankCheck: "ambassador",
             motdEnabled: false,
             motdInterval: 5,
@@ -583,8 +583,6 @@
                 }
             },
             afkCheck: function () {
-			    try
-				{
                 if (!basicBot.status || !basicBot.settings.afkRemoval) return void (0);
                 var rank = basicBot.roomUtilities.rankToNumber(basicBot.settings.afkRankCheck);
                 var djlist = API.getWaitList();
@@ -593,23 +591,25 @@
                 for (var i = 0; i < lastPos; i++) {
                     if (typeof djlist[i] !== 'undefined') {
                         var id = djlist[i].id;
-						console.log("---------------------------------------------------------------------");
+			console.log("---------------------------------------------------------------------");
                         console.log("afkCheck ID: " + id);
                         var user = basicBot.userUtilities.lookupUser(id);
                         if (typeof user !== 'boolean') {
                             console.log("afkCheck ID: " + user.id);
                             var plugUser = basicBot.userUtilities.getUser(user);
                             console.log("afkCheck plugUser.username: " + plugUser.username);
+                            var userRank = basicBot.userUtilities.getPermission(plugUser);
+                            console.log("afkCheck Rank: " + userRank);
                             if (rank !== null && basicBot.userUtilities.getPermission(plugUser) <= rank) {
-                                console.log("afkCheck rank: " + rank);
+                            	console.log("afkCheck rank: " + rank);
                                 var name = plugUser.username;
                                 var lastActive = basicBot.userUtilities.getLastActivity(user);
                                 var inactivity = Date.now() - lastActive;
                                 var time = basicBot.roomUtilities.msToStr(inactivity);
                                 var warncount = user.afkWarningCount;
-								console.log("afkCheck: Act: " + lastActive + " Inact: " + inactivity + " Time: " + time + " Warn: " + warncount);
+                                console.log("afkCheck: Act: " + lastActive + " Inact: " + inactivity + " Time: " + time + " Warn: " + warncount);
                                 if (inactivity > basicBot.settings.maximumAfk * 60 * 1000) {
-								    console.log("afkCheck: INACTIVE USER");
+                                    console.log("afkCheck: INACTIVE USER");
                                     if (warncount === 0) {
                                         API.sendChat(subChat(basicBot.chat.warning1, {name: name, time: time}));
                                         user.afkWarningCount = 3;
@@ -635,6 +635,9 @@
                                                 position: null,
                                                 songCount: 0
                                             };
+                                            if (plugUser.username === "Doc_Z") { 
+                                            	API.sendChat("Well this is awkward..."); 
+                                            }
                                             API.moderateRemoveDJ(id);
                                             API.sendChat(subChat(basicBot.chat.afkremove, {name: name, time: time, position: pos, maximumafk: basicBot.settings.maximumAfk}));
                                         }
@@ -645,10 +648,6 @@
                         }
                     }
                 }
-				}
-                catch(err) {
-                    console.log("afkCheck:ERROR: " + err.message);
-				}
             },
             changeDJCycle: function () {
                 var toggle = $(".cycle-toggle");
