@@ -1,4 +1,4 @@
-/** version: 2.1.4.00015.01
+/** version: 2.1.4.00015.02
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00015.0",
+        version: "2.1.4.00015.02",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -196,7 +196,7 @@
             botName: "basicBot",
             language: "english",
             chatLink: "https://rawgit.com/SZigmund/basicBot/master/lang/en.json",
-            maximumAfk: 60,
+            maximumAfk: 5,
             afkRemoval: true,
             maximumDc: 90,
             bouncerPlus: true,
@@ -583,6 +583,7 @@
                 }
             },
             afkCheck: function () {
+                try {
                 if (!basicBot.status || !basicBot.settings.afkRemoval) return void (0);
                 var rank = basicBot.roomUtilities.rankToNumber(basicBot.settings.afkRankCheck);
                 var djlist = API.getWaitList();
@@ -591,7 +592,7 @@
                 for (var i = 0; i < lastPos; i++) {
                     if (typeof djlist[i] !== 'undefined') {
                         var id = djlist[i].id;
-			console.log("---------------------------------------------------------------------");
+                        console.log("---------------------------------------------------------------------");
                         console.log("afkCheck ID: " + id);
                         var user = basicBot.userUtilities.lookupUser(id);
                         if (typeof user !== 'boolean') {
@@ -599,7 +600,7 @@
                             var plugUser = basicBot.userUtilities.getUser(user);
                             console.log("afkCheck plugUser.username: " + plugUser.username);
                             var userRank = basicBot.userUtilities.getPermission(plugUser);
-                            console.log("afkCheck Rank: " + userRank);
+                            console.log("afkCheck Rank: " + userRank + " MinRank: " + rank + " " + basicBot.settings.afkRankCheck);
                             if (rank !== null && basicBot.userUtilities.getPermission(plugUser) <= rank) {
                             	console.log("afkCheck rank: " + rank);
                                 var name = plugUser.username;
@@ -648,6 +649,11 @@
                         }
                     }
                 }
+                }
+				catch(err) {
+				    console.log("afkCheck:ERROR: " + err.message);
+				}
+				
             },
             changeDJCycle: function () {
                 var toggle = $(".cycle-toggle");
