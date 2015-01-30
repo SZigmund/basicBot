@@ -1,4 +1,4 @@
-/** version: 2.1.4.00015.06
+/** version: 2.1.4.00015.07
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00015.06",
+        version: "2.1.4.00015.07",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -905,11 +905,13 @@
                     console.log("repeatSongs: " + basicBot.settings.repeatSongs);
                     if (basicBot.settings.repeatSongs && (lastPlayed < repeatLimit))
                     {
+                    	console.log("Repeat Song");
                     	API.moderateForceSkip();
                     	API.sendChat(subChat(basicBot.chat.songknown, {plays: plays, timetotal: basicBot.roomUtilities.msToStr(Date.now() - firstPlayed), lasttime: basicBot.roomUtilities.msToStr(Date.now() - lastPlayed)}));
                     }
                     else
                     {
+                    	console.log("NO Repeat Song");
                     	basicBot.room.historyList[i].push(+new Date());
                     }
                     alreadyPlayed = true;
