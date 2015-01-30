@@ -1,4 +1,4 @@
-/** version: 2.1.4.00015.08
+/** version: 2.1.4.00015.09
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00015.08",
+        version: "2.1.4.00015.09",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -900,19 +900,13 @@
                     var plays = basicBot.room.historyList[i].length - 1;
                     var lastPlayed = basicBot.room.historyList[i][plays];
                     var lastPlayedMs = (Date.now() - lastPlayed);
-                    console.log("Last play ms: " + (Date.now() - lastPlayed));
-					var repeatLimit = (basicBot.settings.repeatSongTime * 60 * 1000);
-                    console.log("repeatLimit: " + repeatLimit);
-                    console.log("repeatSongs: " + basicBot.settings.repeatSongs);
                     if (basicBot.settings.repeatSongs && (lastPlayedMs < repeatLimit))
                     {
-                    	console.log("Repeat Song");
+                    	API.sendChat(subChat(basicBot.chat.songknown2, {name: obj.dj.username, lasttime: basicBot.roomUtilities.msToStr(Date.now() - lastPlayed)}));
                     	API.moderateForceSkip();
-                    	API.sendChat(subChat(basicBot.chat.songknown, {plays: plays, timetotal: basicBot.roomUtilities.msToStr(Date.now() - firstPlayed), lasttime: basicBot.roomUtilities.msToStr(Date.now() - lastPlayed)}));
                     }
                     else
                     {
-                    	console.log("NO Repeat Song");
                     	basicBot.room.historyList[i].push(+new Date());
                     }
                     alreadyPlayed = true;
