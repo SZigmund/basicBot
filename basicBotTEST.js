@@ -1,4 +1,4 @@
-/** version: 2.1.4.00015.03
+/** version: 2.1.4.00015.05
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00015.03",
+        version: "2.1.4.00015.05",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -902,10 +902,11 @@
                     console.log("Last play ms: " + (Date.now() - lastPlayed));
 					var repeatLimit = (basicBot.settings.repeatSongTime * 60 * 1000);
                     console.log("repeatLimit: " + repeatLimit);
+                    console.log("repeatSongs: " + basicBot.settings.repeatSongs);
                     if (basicBot.settings.repeatSongs && (lastPlayed < repeatLimit))
                     {
-                    	API.sendChat(subChat(basicBot.chat.songknown, {plays: plays, timetotal: basicBot.roomUtilities.msToStr(Date.now() - firstPlayed), lasttime: basicBot.roomUtilities.msToStr(Date.now() - lastPlayed)}));
                     	API.moderateForceSkip();
+                    	API.sendChat(subChat(basicBot.chat.songknown, {plays: plays, timetotal: basicBot.roomUtilities.msToStr(Date.now() - firstPlayed), lasttime: basicBot.roomUtilities.msToStr(Date.now() - lastPlayed)}));
                     }
                     else
                     {
@@ -2610,7 +2611,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        API.sendChat(subChat(basicBot.chat.skip, {name: chat.un}));
+                        console.log(subChat(basicBot.chat.skip, {name: chat.un}));
                         API.moderateForceSkip();
                         basicBot.room.skippable = false;
                         setTimeout(function () {
@@ -3037,7 +3038,8 @@
                     if (msg.length === cmd.length) return;
                     console.log("echoCommand:4");
                     var msgContent = msg.substring(cmd.length + 1);
-		    return API.sendChat(msgContent);
+                    console.log(chat.un + " used echo: " + msgContent);
+                    return API.sendChat(msgContent);
                     }
                 catch(err) {
                     console.log("echoCommand:ERROR: " + err.message);
