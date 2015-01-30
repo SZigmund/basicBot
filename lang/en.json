@@ -11,6 +11,7 @@
     "welcome": "/me Welcome %%NAME%%.  Check out our room rules here: http://tinyurl.com/MuricaRules",
     "welcomeback": "/me Welcome back, %%NAME%%",
     "songknown": "/me :repeat: This song has been played %%PLAYS%% time(s) in the last %%TIMETOTAL%%, last play was %%LASTTIME%% ago. :repeat:",
+    "songknown2": "/me :repeat: @%%NAME%% - This song was just played %%LASTTIME%% ago. :repeat:",
     "timelimit": "/me @%%NAME%%, your song is longer than %%MAXLENGTH%% minutes, you need permission to play longer songs.",
     "permissionownsong": "/me :up: @%%NAME%% has permission to play their own production!",
     "isblacklisted": "/me This track is on the %%BLACKLIST%% blacklist! Skipping...",
