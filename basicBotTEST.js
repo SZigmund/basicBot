@@ -1,4 +1,4 @@
-/** version: 2.1.4.00015.02
+/** version: 2.1.4.00015.03
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00015.02",
+        version: "2.1.4.00015.03",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -210,6 +210,8 @@
             voteSkipLimit: 4,
             timeGuard: true,
             maximumSongLength: 10,
+            repeatSongs: true,
+            repeatSongTime: 5, //480,
             /*ZZZ: Disabled Autodisable Auto-Djs*/
             autodisable: false,
             commandCooldown: 30,
@@ -241,7 +243,7 @@
             intervalMessages: [],
             messageInterval: 5,
             songstats: true,
-            commandLiteral: "!",
+            commandLiteral: ".",
             blacklists: {
                 BAN: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/Banned.json",
                 NSFW: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json",
@@ -897,8 +899,18 @@
                     var firstPlayed = basicBot.room.historyList[i][1];
                     var plays = basicBot.room.historyList[i].length - 1;
                     var lastPlayed = basicBot.room.historyList[i][plays];
-                    API.sendChat(subChat(basicBot.chat.songknown, {plays: plays, timetotal: basicBot.roomUtilities.msToStr(Date.now() - firstPlayed), lasttime: basicBot.roomUtilities.msToStr(Date.now() - lastPlayed)}));
-                    basicBot.room.historyList[i].push(+new Date());
+                    console.log("Last play ms: " + (Date.now() - lastPlayed));
+					var repeatLimit = (basicBot.settings.repeatSongTime * 60 * 1000);
+                    console.log("repeatLimit: " + repeatLimit);
+                    if (basicBot.settings.repeatSongs && (lastPlayed < repeatLimit))
+                    {
+                    	API.sendChat(subChat(basicBot.chat.songknown, {plays: plays, timetotal: basicBot.roomUtilities.msToStr(Date.now() - firstPlayed), lasttime: basicBot.roomUtilities.msToStr(Date.now() - lastPlayed)}));
+                    	API.moderateForceSkip();
+                    }
+                    else
+                    {
+                    	basicBot.room.historyList[i].push(+new Date());
+                    }
                     alreadyPlayed = true;
                 }
             }
@@ -1071,7 +1083,7 @@
             },
             commandCheck: function (chat) {
                 var cmd;
-                if (chat.message.charAt(0) === '!') {
+                if (chat.message.charAt(0) === '.') {
                     var space = chat.message.indexOf(' ');
                     if (space === -1) {
                         cmd = chat.message;
@@ -1257,10 +1269,10 @@
                 basicBot.roomUtilities.afkCheck()
             }, 10 * 1000);
             console.log("TODO - STARTUP 6");
-            basicBot.room.autodisableInterval = setInterval(function () {
-                basicBot.room.autodisableFunc();
-            }, 60 * 60 * 1000);
-            console.log("TODO - STARTUP 7");
+            //basicBot.room.autodisableInterval = setInterval(function () {
+            //    basicBot.room.autodisableFunc();
+            //}, 60 * 60 * 1000);
+            //console.log("TODO - STARTUP 7");
             basicBot.loggedInID = API.getUser().id;
             basicBot.status = true;
             API.sendChat('/cap 1');
