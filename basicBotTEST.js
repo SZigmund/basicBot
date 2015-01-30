@@ -1,4 +1,4 @@
-/** version: 2.1.4.00015.07
+/** version: 2.1.4.00015.08
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00015.07",
+        version: "2.1.4.00015.08",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -868,11 +868,11 @@
                     basicBot.room.users[i].lastDC = {time: null,position: null,songCount: 0};
                 }
               }
-			}
-			console.log("eventDjadvance:3");
+            }
+            console.log("eventDjadvance:3");
             if (typeof lastplay === 'undefined') return;
 
-			console.log("eventDjadvance:4");
+            console.log("eventDjadvance:4");
             basicBot.room.roomstats.totalWoots += lastplay.score.positive;
             basicBot.room.roomstats.totalMehs += lastplay.score.negative;
             basicBot.room.roomstats.totalCurates += lastplay.score.grabs;
@@ -881,7 +881,7 @@
             if (typeof dj === 'undefined') { return; }
             basicBot.room.currentDJID = obj.dj.id;
 
-			console.log("eventDjadvance:5");
+            console.log("eventDjadvance:5");
             var mid = obj.media.format + ':' + obj.media.cid;
             for (var bl in basicBot.room.blacklists) {
                 if (basicBot.settings.blacklistEnabled) {
@@ -892,18 +892,19 @@
                 }
             }
 
-			console.log("eventDjadvance:6");
+            console.log("eventDjadvance:6");
             var alreadyPlayed = false;
             for (var i = 0; i < basicBot.room.historyList.length; i++) {
                 if (basicBot.room.historyList[i][0] === obj.media.cid) {
                     var firstPlayed = basicBot.room.historyList[i][1];
                     var plays = basicBot.room.historyList[i].length - 1;
                     var lastPlayed = basicBot.room.historyList[i][plays];
+                    var lastPlayedMs = (Date.now() - lastPlayed);
                     console.log("Last play ms: " + (Date.now() - lastPlayed));
 					var repeatLimit = (basicBot.settings.repeatSongTime * 60 * 1000);
                     console.log("repeatLimit: " + repeatLimit);
                     console.log("repeatSongs: " + basicBot.settings.repeatSongs);
-                    if (basicBot.settings.repeatSongs && (lastPlayed < repeatLimit))
+                    if (basicBot.settings.repeatSongs && (lastPlayedMs < repeatLimit))
                     {
                     	console.log("Repeat Song");
                     	API.moderateForceSkip();
@@ -917,11 +918,11 @@
                     alreadyPlayed = true;
                 }
             }
-			console.log("eventDjadvance:7");
+            console.log("eventDjadvance:7");
             if (!alreadyPlayed) {
                 basicBot.room.historyList.push([obj.media.cid, +new Date()]);
             }
-			console.log("eventDjadvance:8");
+            console.log("eventDjadvance:8");
             var newMedia = obj.media;
             if (basicBot.settings.timeGuard && newMedia.duration > basicBot.settings.maximumSongLength * 60 && !basicBot.room.roomevent) {
                 var name = obj.dj.username;
