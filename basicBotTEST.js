@@ -1,4 +1,4 @@
-/** version: 2.1.4.00016.06
+/** version: 2.1.4.00016.07
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00016.06",
+        version: "2.1.4.00016.07",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -3119,7 +3119,6 @@
                 command: 'dasboot',
                 rank: 'manager',
                 type: 'startsWith',
-                functionality: function (chat, cmd) {
                 functionality: function (chat, cmd) {
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
