@@ -1,4 +1,4 @@
-/** version: 2.1.4.00016.01
+/** version: 2.1.4.00016.02
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00016.01",
+        version: "2.1.4.00016.02",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -525,7 +525,7 @@
             },
             skipSoundCloudNow: function () {
                 if (!basicBot.settings.skipSound5Days && !basicBot.settings.skipSound7Days) return false;
-                var t = Date.now() - jt;
+                var t = Date.now();
                 var currDate = new Date();
                 console.log("T: " + t);
                 console.log("currDate: " + currDate);
@@ -915,9 +915,10 @@
             console.log("eventDjadvance:5-2");
             // Auto-skip SC song during restricted hours (7AM-3PM EST)
             if ((basicBot.settings.skipSound5Days || basicBot.settings.skipSound7Days) && !SongSkipped){
+                console.log("Checking for SC Skip");
                 var currMedia = API.getMedia();
                 if (basicBot.roomUtilities.skipSoundCloudNow() && media.format === 2) {
-                    var msg = "Sorry @" + obj.dj.username + " Sound Cloud songs are not permitted " + basicBot.settings.skipSoundRange;
+                    var msg = "Sorry @" + obj.dj.username + " Sound Cloud songs are not permitted in this room " + basicBot.settings.skipSoundRange + " too many regulars cannot hear them.";
                     API.sendChat(msg);
                     return API.moderateForceSkip();
                 }
