@@ -1,4 +1,4 @@
-/** version: 2.1.4.00016.02
+/** version: 2.1.4.00016.03
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00016.02",
+        version: "2.1.4.00016.03",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -525,13 +525,10 @@
             },
             skipSoundCloudNow: function () {
                 if (!basicBot.settings.skipSound5Days && !basicBot.settings.skipSound7Days) return false;
-                var t = Date.now();
                 var currDate = new Date();
-                console.log("T: " + t);
-                console.log("currDate: " + currDate);
                 //Don't skip on Saturday/Sunday if not skipping 7 days a week
                 if (!basicBot.settings.skipSound7Days) {
-                    var dayofweek = currDate.getDay();
+                    var dayofweek = currDate.getDay();  // [Day of week Sun=0, Mon=1...Sat=6]
                     if (dayofweek === 6 || dayofweek === 0) return false;
                 }
                 var hourofday = currDate.getHours();
@@ -917,7 +914,8 @@
             if ((basicBot.settings.skipSound5Days || basicBot.settings.skipSound7Days) && !SongSkipped){
                 console.log("Checking for SC Skip");
                 var currMedia = API.getMedia();
-                if (basicBot.roomUtilities.skipSoundCloudNow() && media.format === 2) {
+                if (basicBot.roomUtilities.skipSoundCloudNow() && currMedia.format === 2) {
+                    console.log("Skipping SC song");
                     var msg = "Sorry @" + obj.dj.username + " Sound Cloud songs are not permitted in this room " + basicBot.settings.skipSoundRange + " too many regulars cannot hear them.";
                     API.sendChat(msg);
                     return API.moderateForceSkip();
