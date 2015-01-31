@@ -1,4 +1,4 @@
-/** version: 2.1.4.00016.04
+/** version: 2.1.4.00016.05
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00016.04",
+        version: "2.1.4.00016.05",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -3114,7 +3114,7 @@
                 }
               }
             },
-
+/*
             dasbootCommand: {
                 command: 'dasboot',
                 rank: 'manager',
@@ -3132,7 +3132,7 @@
                     }
                 }
             },
-
+*/
 			zigCommand: {   //Added 01/27/2015 Zig
                 command: 'zig',
                 rank: 'mod',
