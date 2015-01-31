@@ -1,4 +1,4 @@
-/** version: 2.1.4.00016.05
+/** version: 2.1.4.00016.06
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00016.05",
+        version: "2.1.4.00016.06",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -3114,25 +3114,24 @@
                 }
               }
             },
-/*
+
             dasbootCommand: {
                 command: 'dasboot',
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
+                functionality: function (chat, cmd) {
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                    else {
-                        var msg = chat.message;
-                        if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
-                        var bootid = msg.substr(cmd.length + 2);
-						isNaN(bootid) return API.sendChat("Invalid ID");
-						console.log("Boot ID: " + bootid);
-                        //API.moderateBanUser(bootid, 1, API.BAN.PERMA);
-                    }
+                    var msg = chat.message;
+                    if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
+                    var bootid = msg.substr(cmd.length + 2);
+					if (isNaN(bootid)) return API.sendChat("Invalid ID");
+					console.log("Boot ID: " + bootid);
+                    //API.moderateBanUser(bootid, 1, API.BAN.PERMA);
                 }
             },
-*/
+
 			zigCommand: {   //Added 01/27/2015 Zig
                 command: 'zig',
                 rank: 'mod',
