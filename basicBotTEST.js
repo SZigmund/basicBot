@@ -1,4 +1,4 @@
-/** version: 2.1.4.00016.08
+/** version: 2.1.4.00016.09
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00016.08",
+        version: "2.1.4.00016.09",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -933,6 +933,7 @@
                     var repeatLimit = (basicBot.settings.repeatSongTime * 60 * 1000);
                     if (basicBot.settings.repeatSongs && (lastPlayedMs < repeatLimit))
                     {
+					    console.log("Skipping - Last Played: (" + lastPlayedMs + ") Limit: (" +  repeatLimit + ")");
                         API.sendChat(subChat(basicBot.chat.songknown2, {name: obj.dj.username, lasttime: basicBot.roomUtilities.msToStr(Date.now() - lastPlayed)}));
                         API.moderateForceSkip();
                         SongSkipped = true;
@@ -3124,13 +3125,27 @@
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     var msg = chat.message;
                     if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
-                    var bootid = msg.substr(cmd.length + 2);
+                    var bootid = msg.substr(cmd.length + 1);
 					if (isNaN(bootid)) return API.sendChat("Invalid ID");
 					console.log("Boot ID: " + bootid);
-                    //API.moderateBanUser(bootid, 1, API.BAN.PERMA);
+                    API.moderateBanUser(bootid, 1, API.BAN.PERMA);
                 }
             },
 
+            whoisCommand: {
+                command: 'whois',
+                rank: 'manager',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    var msg = chat.message;
+                    if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
+                    var whoisuser = msg.substr(cmd.length + 2);
+                    var user = basicBot.userUtilities.lookupUserName(name);
+                    if (typeof user !== 'undefined')  return API.sendChat(user.id);
+                }
+            },
 			zigCommand: {   //Added 01/27/2015 Zig
                 command: 'zig',
                 rank: 'mod',
