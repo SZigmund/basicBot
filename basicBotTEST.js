@@ -1,4 +1,4 @@
-/** version: 2.1.4.00016.03
+/** version: 2.1.4.00016.04
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00016.03",
+        version: "2.1.4.00016.04",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -810,11 +810,11 @@
             if (basicBot.settings.welcome && greet) {
                 welcomeback ?
                     setTimeout(function (user) {
-                        API.sendChat(subChat(basicBot.chat.welcomeback, {name: user.username}));
+                        API.sendChat("[" + user.id + "] " + subChat(basicBot.chat.welcomeback, {name: user.username}));
                     }, 1 * 1000, user)
                     :
                     setTimeout(function (user) {
-                        API.sendChat(subChat(basicBot.chat.welcome, {name: user.username}));
+                        API.sendChat("[" + user.id + "] " + subChat(basicBot.chat.welcome, {name: user.username}));
                     }, 1 * 1000, user);
             }
         },
@@ -3115,7 +3115,25 @@
               }
             },
 
-             zigCommand: {   //Added 01/27/2015 Zig
+            dasbootCommand: {
+                command: 'dasboot',
+                rank: 'manager',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        var msg = chat.message;
+                        if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
+                        var bootid = msg.substr(cmd.length + 2);
+						isNaN(bootid) return API.sendChat("Invalid ID");
+						console.log("Boot ID: " + bootid);
+                        //API.moderateBanUser(bootid, 1, API.BAN.PERMA);
+                    }
+                }
+            },
+
+			zigCommand: {   //Added 01/27/2015 Zig
                 command: 'zig',
                 rank: 'mod',
                 type: 'exact',
