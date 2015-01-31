@@ -1,4 +1,4 @@
-/** version: 2.1.4.00016.09
+/** version: 2.1.4.00016.10
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00016.09",
+        version: "2.1.4.00016.10",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -211,7 +211,7 @@
             timeGuard: true,
             maximumSongLength: 10,
             repeatSongs: true,
-            repeatSongTime: 480,
+            repeatSongTime: 240,
             skipSound5Days: false,
             skipSound7Days: true,
             skipSoundStart: 7,
@@ -810,11 +810,13 @@
             if (basicBot.settings.welcome && greet) {
                 welcomeback ?
                     setTimeout(function (user) {
-                        API.sendChat("[" + user.id + "] " + subChat(basicBot.chat.welcomeback, {name: user.username}));
+					    console.log("WelcomeBack: " + user.id + ": " + user.username);
+                        API.sendChat(subChat(basicBot.chat.welcomeback, {name: user.username}) + " [" + user.id + "]");
                     }, 1 * 1000, user)
                     :
                     setTimeout(function (user) {
-                        API.sendChat("[" + user.id + "] " + subChat(basicBot.chat.welcome, {name: user.username}));
+					    console.log("Welcome: " + user.id + ": " + user.username);
+                        API.sendChat(subChat(basicBot.chat.welcome, {name: user.username}) + " [" + user.id + "]");
                     }, 1 * 1000, user);
             }
         },
@@ -3142,7 +3144,8 @@
                     var msg = chat.message;
                     if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
                     var whoisuser = msg.substr(cmd.length + 2);
-                    var user = basicBot.userUtilities.lookupUserName(name);
+					console.log("whois: " + whoisuser);
+                    var user = basicBot.userUtilities.lookupUserName(whoisuser);
                     if (typeof user !== 'undefined')  return API.sendChat(user.id);
                 }
             },
