@@ -1,4 +1,4 @@
-/** version: 2.1.4.00016.10
+/** version: 2.1.4.00016.11
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00016.10",
+        version: "2.1.4.00016.11",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -707,24 +707,31 @@
                 }
             },
             updateBlacklists: function () {
+		        console.log("-------------------------- BLACKLISTS --------------------------");
                 for (var bl in basicBot.settings.blacklists) {
+				    console.log("BlackList: " + bl);
                     basicBot.room.blacklists[bl] = [];
                     if (typeof basicBot.settings.blacklists[bl] === 'function') {
+				        console.log("BlackList: function");
                         basicBot.room.blacklists[bl] = basicBot.settings.blacklists();
                     }
                     else if (typeof basicBot.settings.blacklists[bl] === 'string') {
                         if (basicBot.settings.blacklists[bl] === '') {
+				            console.log("BlackList: ''");
                             continue;
                         }
                         try {
                             (function (l) {
+				                console.log("BlackList: get");
                                 $.get(basicBot.settings.blacklists[l], function (data) {
                                     if (typeof data === 'string') {
+				                        console.log("BlackList: data");
                                         data = JSON.parse(data);
                                     }
                                     var list = [];
                                     for (var prop in data) {
                                         if (typeof data[prop].mid !== 'undefined') {
+				                            console.log("BlackList: push");
                                             list.push(data[prop].mid);
                                         }
                                     }
@@ -1585,6 +1592,7 @@
                 rank: 'bouncer',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
+				    try {
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
@@ -1609,6 +1617,8 @@
                             }
                         }
                     }
+					}
+                    catch(err) { console.log("blacklistCommand:ERROR: " + err.message); }
                 }
             },
 
@@ -3074,7 +3084,7 @@
                     }
                 catch(err) {
                     console.log("echoCommand:ERROR: " + err.message);
-        }
+                }
                 }
             },
             websiteCommand: {
