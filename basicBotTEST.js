@@ -1,4 +1,4 @@
-/** version: 2.1.4.00016.11
+/** version: 2.1.4.00016.12
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00016.11",
+        version: "2.1.4.00016.12",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -722,7 +722,6 @@
                         }
                         try {
                             (function (l) {
-				                console.log("BlackList: get");
                                 $.get(basicBot.settings.blacklists[l], function (data) {
                                     if (typeof data === 'string') {
 				                        console.log("BlackList: data");
