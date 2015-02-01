@@ -1,4 +1,4 @@
-/** version: 2.1.4.00016.12
+/** version: 2.1.4.00016.13
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00016.12",
+        version: "2.1.4.00016.13",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1253,6 +1253,7 @@
             Function.prototype.toString = function () {
                 return 'Function.'
             };
+            console.log("TODO - STARTUP Starting");
             var u = API.getUser();
             if (basicBot.userUtilities.getPermission(u) < 2) return API.chatLog(basicBot.chat.greyuser);
             if (basicBot.userUtilities.getPermission(u) === 2) API.chatLog(basicBot.chat.bouncer);
