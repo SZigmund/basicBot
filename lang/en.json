@@ -122,7 +122,7 @@
     "pong": "/me Pong!",
     "reload": "/me Be right back.",
     "removenotinwl": "/me [@%%NAME%%] Specified user @%%USERNAME%% is not in the waitlist.",
-    "roomrules": "We play a wide variety of music in here from all decades.  Please avoid Dubstep, EDM, Mashups, Cookie Monster Metal (death growl), and children music. For more details please check out our room rules here: %%LINK%%",
+    "roomrules": "This is an English speaking community for English speaking music. We play a wide variety of music in here from all decades. Please avoid Dubstep, EDM, Mashups, Cookie Monster Metal (death growl), and children music. For more details please check out our room rules here: %%LINK%%",
     "sessionstats": "/me [@%%NAME%%] Total woots: %%WOOTS%%, total mehs: %%MEHS%%, total grabs: %%GRABS%%.",
     "skip": "/me [%%NAME%% used skip.]",
     "madeby": "/me This bot was made by %%NAME%%.",
