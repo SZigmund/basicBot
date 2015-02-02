@@ -1,4 +1,4 @@
-/** version: 2.1.4.00016.X.02
+/** version: 2.1.4.00016.X.03
  */
 
 
@@ -94,7 +94,6 @@
     };
 
     var retrieveFromStorage = function () {
-    	try {
         var info = localStorage.getItem("basicBotStorageInfo");
         if (info === null) API.chatLog(basicBot.chat.nodatafound);
         else {
@@ -138,10 +137,6 @@
                 }
             });
         }*/
-		}
-		catch(err) {
-		   console.log("retrieveFromStorage:ERROR: " + err.message);
-		}
     };
 
     String.prototype.splitBetween = function (a, b) {
@@ -179,7 +174,7 @@
     var botCreatorIDs = [];
 
     var basicBot = {
-        version: "2.1.4.00016.X.02",
+        version: "2.1.4.00016.X.03",
         status: false,
         name: "basicBot",
         loggedInID: null,
