@@ -1,4 +1,4 @@
-/** version: 2.1.4.00016.17.01
+/** version: 2.1.4.00016.17.02
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00016.17.01",
+        version: "2.1.4.00016.17.02",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -882,7 +882,7 @@
             if (basicBot.settings.songstats && !(typeof lastplay === 'undefined')) {
                 console.log("Last DJ: " + lastplay.dj.username);
                 if (typeof basicBot.chat.songstatistics === "undefined") {
-                    API.sendChat("/me " + obj.dj.username + " played " + lastplay.media.author + " - " + lastplay.media.title + ": " + lastplay.score.positive + "W/" + lastplay.score.grabs + "G/" + lastplay.score.negative + "M.")
+                    API.sendChat("/me " + lastplay.dj.username + " played " + lastplay.media.author + " - " + lastplay.media.title + ": " + lastplay.score.positive + "W/" + lastplay.score.grabs + "G/" + lastplay.score.negative + "M.")
                 }
                 else {
                     API.sendChat(subChat(basicBot.chat.songstatistics, {user: lastplay.dj.username, artist: lastplay.media.author, title: lastplay.media.title, woots: lastplay.score.positive, grabs: lastplay.score.grabs, mehs: lastplay.score.negative}))
