@@ -1,4 +1,4 @@
-/** version: 2.1.4.00016.14
+/** version: 2.1.4.00016.17
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00016.14",
+        version: "2.1.4.00016.17",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -212,8 +212,8 @@
             maximumSongLength: 10,
             repeatSongs: true,
             repeatSongTime: 240,
-            skipSound5Days: false,
-            skipSound7Days: true,
+            skipSound5Days: true,
+            skipSound7Days: false,
             skipSoundStart: 7,
             skipSoundEnd: 15,
             skipSoundRange: "Monday-Friday between 7AM and 3PM EST",
@@ -816,13 +816,15 @@
             if (basicBot.settings.welcome && greet) {
                 welcomeback ?
                     setTimeout(function (user) {
-					    console.log("WelcomeBack: " + user.id + ": " + user.username);
-                        API.sendChat(subChat(basicBot.chat.welcomeback, {name: user.username}) + " [" + user.id + "]");
+                        console.log("WelcomeBack: " + user.id + ": " + user.username);
+                        //API.sendChat(subChat(basicBot.chat.welcomeback, {name: user.username}) + " [" + user.id + "]");
+                        API.sendChat(subChat(basicBot.chat.welcomeback, {name: user.username}));
                     }, 1 * 1000, user)
                     :
                     setTimeout(function (user) {
-					    console.log("Welcome: " + user.id + ": " + user.username);
-                        API.sendChat(subChat(basicBot.chat.welcome, {name: user.username}) + " [" + user.id + "]");
+                        console.log("Welcome: " + user.id + ": " + user.username);
+                        //API.sendChat(subChat(basicBot.chat.welcome, {name: user.username}) + " [" + user.id + "]");
+                        API.sendChat(subChat(basicBot.chat.welcome, {name: user.username}));
                     }, 1 * 1000, user);
             }
         },
