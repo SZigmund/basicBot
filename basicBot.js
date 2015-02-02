@@ -1,4 +1,4 @@
-/** version: 2.1.4.00017
+/** version: 2.1.4.00016.18
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.000.17",
+        version: "2.1.4.00016.18",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -709,28 +709,28 @@
             updateBlacklists: function () {
 		        console.log("-------------------------- BLACKLISTS --------------------------");
                 for (var bl in basicBot.settings.blacklists) {
-                    //console.log("BlackList: " + bl);
+				    console.log("BlackList: " + bl);
                     basicBot.room.blacklists[bl] = [];
                     if (typeof basicBot.settings.blacklists[bl] === 'function') {
-                        //console.log("BlackList: function");
+				        console.log("BlackList: function");
                         basicBot.room.blacklists[bl] = basicBot.settings.blacklists();
                     }
                     else if (typeof basicBot.settings.blacklists[bl] === 'string') {
                         if (basicBot.settings.blacklists[bl] === '') {
-                            //console.log("BlackList: ''");
+				            console.log("BlackList: ''");
                             continue;
                         }
                         try {
                             (function (l) {
                                 $.get(basicBot.settings.blacklists[l], function (data) {
                                     if (typeof data === 'string') {
-                                        //console.log("BlackList: data");
+				                        console.log("BlackList: data");
                                         data = JSON.parse(data);
                                     }
                                     var list = [];
                                     for (var prop in data) {
                                         if (typeof data[prop].mid !== 'undefined') {
-                                            //console.log("BlackList: push");
+				                            console.log("BlackList: push");
                                             list.push(data[prop].mid);
                                         }
                                     }
@@ -881,10 +881,10 @@
             var lastplay = obj.lastPlay;
             if (basicBot.settings.songstats && !(typeof lastplay === 'undefined')) {
                 if (typeof basicBot.chat.songstatistics === "undefined") {
-                    API.sendChat("/me " + obj.dj.username + " played " + lastplay.media.author + " - " + lastplay.media.title + ": " + lastplay.score.positive + "W/" + lastplay.score.grabs + "G/" + lastplay.score.negative + "M.")
+                    API.sendChat("/me " + lastplay.dj.username + " played " + lastplay.media.author + " - " + lastplay.media.title + ": " + lastplay.score.positive + "W/" + lastplay.score.grabs + "G/" + lastplay.score.negative + "M.")
                 }
                 else {
-                    API.sendChat(subChat(basicBot.chat.songstatistics, {user: obj.dj.username, artist: lastplay.media.author, title: lastplay.media.title, woots: lastplay.score.positive, grabs: lastplay.score.grabs, mehs: lastplay.score.negative}))
+                    API.sendChat(subChat(basicBot.chat.songstatistics, {user: lastplay.dj.username, artist: lastplay.media.author, title: lastplay.media.title, woots: lastplay.score.positive, grabs: lastplay.score.grabs, mehs: lastplay.score.negative}))
                 }
             }
             
