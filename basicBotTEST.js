@@ -3108,7 +3108,8 @@
                 functionality: function (chat, cmd)                 {
                   try  {
                     console.log("wootCommand:ERROR: Step 1");
-                    $('#button-vote-positive').click();
+                    $("#woot").click();
+                    //$('#button-vote-positive').click();
                     console.log("wootCommand:ERROR: Step 2");
                     /*
                     console.log("wootCommand:ERROR: Step 1");
