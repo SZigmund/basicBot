@@ -1,4 +1,4 @@
-/** version: 2.1.4.00016.13
+/** version: 2.1.4.00016.14
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00016.13",
+        version: "2.1.4.00016.14",
         status: false,
         name: "basicBot",
         loggedInID: null,
