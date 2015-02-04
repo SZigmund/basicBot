@@ -7,12 +7,11 @@
     "bouncer": "The bot can't move people when it's run as a bouncer.",
     "online": "/me %%BOTNAME%% v%%VERSION%% online!",
 
-
     "welcome": "/me Welcome %%NAME%%.  Check out our room rules here: http://tinyurl.com/MuricaRules",
     "welcomeback": "/me Welcome back, %%NAME%%",
     "songknown": "/me :repeat: This song has been played %%PLAYS%% time(s) in the last %%TIMETOTAL%%, last play was %%LASTTIME%% ago. :repeat:",
     "songknown2": "/me :repeat: @%%NAME%% - This song was just played %%LASTTIME%% ago. :repeat:",
-    "timelimit": "/me @%%NAME%%, your song is longer than %%MAXLENGTH%% minutes, you need permission to play longer songs.",
+    "timelimit": "/me @%%NAME%% your song is longer than %%MAXLENGTH%% minutes, you need permission to play longer songs.",
     "permissionownsong": "/me :up: @%%NAME%% has permission to play their own production!",
     "isblacklisted": "/me This track is on the %%BLACKLIST%% blacklist! Skipping...",
 
@@ -32,16 +31,16 @@
     "valid": "/me @%%NAME%% disconnected %%TIME%% ago and should be at position %%POSITION%%.",
 
 
-    "warning1": "/me @%%NAME%%, you have been afk for %%TIME%%, please respond within 2 minutes or you will be removed.",
-    "warning2": "/me @%%NAME%%, you will be removed due to AFK soon if you don't respond.",
-    "afkremove": "/me @%%NAME%%, you have been removed for being afk for %%TIME%%. You were at position %%POSITION%%. Chat at least once every %%MAXIMUMAFK%% minutes if you want to play a song.",
+    "warning1": "/me @%%NAME%% you have been afk for %%TIME%%, please respond within 2 minutes or you will be removed.",
+    "warning2": "/me @%%NAME%% you will be removed due to AFK soon if you don't respond.",
+    "afkremove": "/me @%%NAME%% you have been removed for being afk for %%TIME%%. You were at position %%POSITION%%. Chat at least once every %%MAXIMUMAFK%% minutes if you want to play a song.",
 
 
-    "caps": "/me @%%NAME%%, unglue your capslock button please.",
-    "askskip": "/me @%%NAME%%, don't ask for skips.",
-    "spam": "/me @%%NAME%%, please don't spam.",
-    "roomadvertising": "/me @%%NAME%%, don't post links to other rooms please.",
-    "adfly": "/me @%%NAME%%, please change your autowoot program. We suggest PlugCubed: http://plugcubed.net/",
+    "caps": "/me @%%NAME%% unglue your capslock button please.",
+    "askskip": "/me @%%NAME%% don't ask for skips.",
+    "spam": "/me @%%NAME%% please don't spam.",
+    "roomadvertising": "/me @%%NAME%% don't post links to other rooms please.",
+    "adfly": "/me @%%NAME%% please change your autowoot program. We suggest PlugCubed: http://plugcubed.net/",
 
 
     "invalidtime": "/me [@%%NAME%%] Invalid time specified.",
@@ -74,7 +73,7 @@
     "etarestriction": "eta restriction",
     "voteskip": "voteskip",
     "voteskiplimit": "/me [@%%NAME%%] Voteskip limit is currently set to %%LIMIT%% mehs.",
-    "voteskipexceededlimit": "/me @%%NAME%%, your song has exceeded the voteskip limit (%%LIMIT%% mehs).",
+    "voteskipexceededlimit": "/me @%%NAME%% your song has exceeded the voteskip limit (%%LIMIT%% mehs).",
     "voteskipinvalidlimit": "/me [@%%NAME%%] Invalid voteskip limit, please try again using a number to signify the number of mehs.",
     "voteskipsetlimit": "/me [@%%NAME%%] Voteskip limit set to %%LIMIT%%.",
     "activeusersintime": "/me [@%%NAME%% There have been %%AMOUNT%% users chatting in the past %%TIME%% minutes.",
@@ -89,12 +88,12 @@
     "commandslink": "/me %%BOTNAME%% commands: %%LINK%%",
     "eatcookie": "/me eats a cookie.",
     "nousercookie": "/em doesn't see %%NAME%% in room and eats a cookie himself.",
-    "selfcookie": "/me @%%NAME%%, you're a bit greedy, aren't you? Giving cookies to yourself, bah. Share some with other people!",
+    "selfcookie": "/me @%%NAME%% you're a bit greedy, aren't you? Giving cookies to yourself, bah. Share some with other people!",
     "cookie": "/me @%%NAMETO%%, @%%NAMEFROM%% %%COOKIE%%",
     "cycleguardtime": "/me [@%%NAME%%] The cycleguard is set to %%TIME%% minute(s).",
     "dclookuprank": "/me [@%%NAME%%] Only bouncers and above can do a lookup for others.",
     "emojilist": "/me Emoji list: %%LINK%%",
-    "notinwaitlist": "/me @%%NAME%%, you are not on the waitlist.",
+    "notinwaitlist": "/me @%%NAME%% you are not on the waitlist.",
     "eta": "/me @%%NAME%% you will reach the booth in approximately %%TIME%%.",
     "facebook": "/me Like us on facebook: %%LINK%%",
     "starterhelp": "/me This image will get you started on plug: %%LINK%%",
@@ -111,7 +110,7 @@
     "maxlengthtime": "/me [@%%NAME%%] The maximum song duration is set to %%TIME%% minutes.",
     "motdset": "/me MotD set to:  %%MSG%%",
     "motdintervalset": "/me MotD interval set to %%INTERVAL%%.",
-    "addbotwaitlist": "/me @%%NAME%%, don't try to add me to the waitlist, please.",
+    "addbotwaitlist": "/me @%%NAME%% don't try to add me to the waitlist, please.",
     "move": "/me [%%NAME%% used move.]",
     "mutednotime": "/me [@%%NAME%%] Muted @%%USERNAME%%.",
     "mutedmaxtime": "/me [@%%NAME%%] You can only mute for maximum %%TIME%% minutes.",
