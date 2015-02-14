@@ -1,4 +1,4 @@
-/** version: 2.1.4.00016.18.02
+/** version: 2.1.4.00016.18.03
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00016.18.02",
+        version: "2.1.4.00016.18.03",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2324,7 +2324,7 @@
                 }
             },
 
-			historytimeCommand: (  //Added 02/14/2015 Zig 
+			historytimeCommand: {  //Added 02/14/2015 Zig 
                 command: 'historytime',
                 rank: 'manager',
                 type: 'startsWith',
