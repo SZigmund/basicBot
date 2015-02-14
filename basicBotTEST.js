@@ -1,4 +1,4 @@
-/** version: 2.1.4.00016.17.02
+/** version: 2.1.4.00016.18.01
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00016.17.02",
+        version: "2.1.4.00016.18.01",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -211,7 +211,7 @@
             timeGuard: true,
             maximumSongLength: 10,
             repeatSongs: true,
-            repeatSongTime: 240,
+            repeatSongTime: 180,
             skipSound5Days: true,
             skipSound7Days: false,
             skipSoundStart: 7,
@@ -1461,7 +1461,30 @@
                 }
             },
 
-            afkremovalCommand: {
+            skipHistoryCommand: {   //Added 02/14/2015 Zig
+                command: 'skipHistory',
+                rank: 'mod',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        if (basicBot.settings.repeatSongs) {
+                            basicBot.settings.repeatSongs = !basicBot.settings.repeatSongs;
+                            clearInterval(basicBot.room.afkInterval);
+                            API.sendChat(subChat(basicBot.chat.toggleoff, {name: chat.un, 'function': basicBot.chat.repeatSongs}));
+                        }
+                        else {
+                            basicBot.settings.repeatSongs = !basicBot.settings.repeatSongs;
+                            basicBot.room.afkInterval = setInterval(function () {
+                                basicBot.roomUtilities.afkCheck()
+                            }, 2 * 1000);
+                            API.sendChat(subChat(basicBot.chat.toggleon, {name: chat.un, 'function': basicBot.chat.repeatSongs}));
+                        }
+                    }
+                }
+			},
+			afkremovalCommand: {
                 command: 'afkremoval',
                 rank: 'mod',
                 type: 'exact',
@@ -2716,6 +2739,11 @@
                         msg += '. ';
                         msg += basicBot.chat.afksremoved + ": " + basicBot.room.afkList.length + '. ';
                         msg += basicBot.chat.afklimit + ': ' + basicBot.settings.maximumAfk + '. ';
+
+						msg += basicBot.chat.repeatSongs + ': ';
+                        if (basicBot.settings.repeatSongs) msg += 'ON';
+                        else msg += 'OFF';
+                        msg += basicBot.chat.repeatSongLimit + ': ' + basicBot.settings.repeatSongTime + '. ';
 
                         msg += 'Bouncer+: ';
                         if (basicBot.settings.bouncerPlus) msg += 'ON';
