@@ -1,4 +1,4 @@
-/** version: 2.1.4.00016.18.03
+/** version: 2.1.4.00016.18.04
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00016.18.03",
+        version: "2.1.4.00016.18.04",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -899,15 +899,16 @@
               }
             }
             console.log("eventDjadvance:3");
-            if (typeof lastplay === 'undefined') return;
-
-            console.log("eventDjadvance:4");
-            basicBot.room.roomstats.totalWoots += lastplay.score.positive;
-            basicBot.room.roomstats.totalMehs += lastplay.score.negative;
-            basicBot.room.roomstats.totalCurates += lastplay.score.grabs;
+            if (typeof lastplay !== 'undefined')
+			{
+              console.log("eventDjadvance:4");
+              basicBot.room.roomstats.totalWoots += lastplay.score.positive;
+              basicBot.room.roomstats.totalMehs += lastplay.score.negative;
+              basicBot.room.roomstats.totalCurates += lastplay.score.grabs;
+			}
             basicBot.room.roomstats.songCount++;
             basicBot.roomUtilities.intervalMessage();
-            if (typeof dj === 'undefined') { return; }
+            //if (typeof dj === 'undefined') { return; }
             basicBot.room.currentDJID = obj.dj.id;
 
             console.log("eventDjadvance:5");
@@ -942,7 +943,7 @@
                     var lastPlayed = basicBot.room.historyList[i][plays];
                     var lastPlayedMs = (Date.now() - lastPlayed);
                     var repeatLimit = (basicBot.settings.repeatSongTime * 60 * 1000);
-                    if (basicBot.settings.repeatSongs && (lastPlayedMs < repeatLimit))
+                    if (basicBot.settings.repeatSongs && (lastPlayedMs < repeatLimit) && (lastPlayedMs > 5000))
                     {
 					    console.log("Skipping - Last Played: (" + lastPlayedMs + ") Limit: (" +  repeatLimit + ")");
                         API.sendChat(subChat(basicBot.chat.songknown2, {name: obj.dj.username, lasttime: basicBot.roomUtilities.msToStr(Date.now() - lastPlayed)}));
@@ -3159,19 +3160,7 @@
                   try  {
                     console.log("wootCommand:ERROR: Step 1");
                     $("#woot").click();
-                    //$('#button-vote-positive').click();
                     console.log("wootCommand:ERROR: Step 2");
-                    /*
-                    console.log("wootCommand:ERROR: Step 1");
-                    var votebutton = $(".button-vote-positive");
-                    console.log("wootCommand:ERROR: Step 2");
-                    if (votebutton.length > 0) return void (0);
-                    console.log("wootCommand:ERROR: Step 3");
-                       votebutton[0].click();
-                       return API.sendChat("This song rocks");
-                    console.log("wootCommand:ERROR: Step 4");
-                    */
-                    /*$('#button-vote-positive').click();*/
                   }  
                 catch(err) {
                   console.log("wootCommand:ERROR: " + err.message);
@@ -3179,6 +3168,32 @@
               }
             },
 
+            mehCommand: {  //Added 02/14/2015 Zig
+                command: 'meh',
+                rank: 'manager',
+                type: 'exact',
+                functionality: function (chat, cmd)                 {
+                  try  {
+                    $("#meh").click();
+                  }  
+                catch(err) {
+                  console.log("mehCommand:ERROR: " + err.message);
+                }
+              }
+            },
+            grabCommand: {  //Added 02/14/2015 Zig
+                command: 'grab',
+                rank: 'manager',
+                type: 'exact',
+                functionality: function (chat, cmd)                 {
+                  try  {
+                    $("#grab").click();
+                  }  
+                catch(err) {
+                  console.log("grabCommand:ERROR: " + err.message);
+                }
+              }
+            },
             dasbootCommand: {
                 command: 'dasboot',
                 rank: 'manager',
