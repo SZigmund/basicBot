@@ -1,4 +1,4 @@
-/** version: 2.1.4.00016.18.01
+/** version: 2.1.4.00016.18.02
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00016.18.01",
+        version: "2.1.4.00016.18.02",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1462,7 +1462,7 @@
             },
 
             skipHistoryCommand: {   //Added 02/14/2015 Zig
-                command: 'skipHistory',
+                command: 'skiphistory',
                 rank: 'mod',
                 type: 'exact',
                 functionality: function (chat, cmd) {
@@ -2324,6 +2324,24 @@
                 }
             },
 
+			historytimeCommand: (  //Added 02/14/2015 Zig 
+                command: 'historytime',
+                rank: 'manager',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        var msg = chat.message;
+                        var maxTime = msg.substring(cmd.length + 1);
+                        if (!isNaN(maxTime)) {
+                            basicBot.settings.repeatSongTime = maxTime;
+                            return API.sendChat(subChat(basicBot.chat.repeatSongLimit, {name: chat.un, time: basicBot.settings.repeatSongTime}));
+                        }
+                        else return API.sendChat(subChat(basicBot.chat.invalidtime, {name: chat.un}));
+                    }
+                }
+			},
             maxlengthCommand: {
                 command: 'maxlength',
                 rank: 'manager',
@@ -2743,6 +2761,7 @@
 						msg += basicBot.chat.repeatSongs + ': ';
                         if (basicBot.settings.repeatSongs) msg += 'ON';
                         else msg += 'OFF';
+                        msg += '. ';
                         msg += basicBot.chat.repeatSongLimit + ': ' + basicBot.settings.repeatSongTime + '. ';
 
                         msg += 'Bouncer+: ';
