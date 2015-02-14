@@ -57,6 +57,8 @@
     "afkremoval": "AFK removal",
     "afksremoved": "AFK's removed",
     "afklimit": "AFK limit",
+    "repeatSongs": "Skip History",
+    "repeatSongLimit": "Skip History limit",
     "autoskip": "autoskip",
     "newblacklisted": "/me [@%%NAME%%] This track belongs on the %%BLACKLIST%% blacklist! [ %%AUTHOR%% - %%TITLE%% - %%MID%% ]",
     "blinfo": "[@%%NAME%%] Blacklist Info - author: %%AUTHOR%%, title: %%TITLE%%, mid: %%SONGID%%",
