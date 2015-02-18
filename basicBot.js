@@ -1,4 +1,4 @@
-/** version: 2.1.4.00017
+/** version: 2.1.4.00018
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00017",
+        version: "2.1.4.00018",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -3191,7 +3191,7 @@
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        API.sendChat(basicBot.chat.origem);
+                        basicBot.roomUtilities.wootThisSong();
                     }
                 }
             },
