@@ -1,4 +1,4 @@
-/** version: 2.1.4.00016.18.04
+/** version: 2.1.4.00016.18.05
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00016.18.04",
+        version: "2.1.4.00016.18.05",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -198,6 +198,10 @@
             chatLink: "https://rawgit.com/SZigmund/basicBot/master/lang/en.json",
             maximumAfk: 60,
             afkRemoval: true,
+            afk5Days: true,
+            afk7Days: false,
+            afkRemoveStart: 7,
+            afkRemoveEnd: 17,
             maximumDc: 90,
             bouncerPlus: true,
             blacklistEnabled: true,
@@ -523,6 +527,18 @@
                 }
                 return rankInt;
             },
+            afkRemovalNow: function () {
+                if (!basicBot.settings.afk5Days && !basicBot.settings.afk7Days) return false;
+                var currDate = new Date();
+                //No afk on Saturday/Sunday if not monitoring 7 days a week
+                if (!basicBot.settings.afk7Days) {
+                    var dayofweek = currDate.getDay();  // [Day of week Sun=0, Mon=1...Sat=6]
+                    if (dayofweek === 6 || dayofweek === 0) return false;
+                }
+                var hourofday = currDate.getHours();
+                if (hourofday >= basicBot.settings.afkRemoveStart && hourofday < basicBot.settings.afkRemoveEnd) return true;
+                return false;
+            },
             skipSoundCloudNow: function () {
                 if (!basicBot.settings.skipSound5Days && !basicBot.settings.skipSound7Days) return false;
                 var currDate = new Date();
@@ -604,6 +620,7 @@
             afkCheck: function () {
                 try {
                 if (!basicBot.status || !basicBot.settings.afkRemoval) return void (0);
+                if (!basicBot.roomUtilities.afkRemovalNow()) return void (0);
                 var rank = basicBot.roomUtilities.rankToNumber(basicBot.settings.afkRankCheck);
                 var djlist = API.getWaitList();
                 var lastPos = Math.min(djlist.length, basicBot.settings.afkpositionCheck);
@@ -3168,6 +3185,18 @@
               }
             },
 
+            origemCommand: {
+                command: 'origem',
+                rank: 'user',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        API.sendChat(basicBot.chat.origem);
+                    }
+                }
+            },
             mehCommand: {  //Added 02/14/2015 Zig
                 command: 'meh',
                 rank: 'manager',
