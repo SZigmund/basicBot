@@ -1,4 +1,4 @@
-/** version: 2.1.4.00016.18.07
+/** version: 2.1.4.00016.18.08
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00016.18.07",
+        version: "2.1.4.00016.18.08",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -530,7 +530,9 @@
             },
             wootThisSong: function () {  //Added 02/18/2015 Zig
                 try  {
-            	    if (basicBot.settings.autoWootBot) $("#woot").click();
+                    console.log("wootThisSong:1");
+            	    if (basicBot.settings.autoWootBot === true) $("#woot").click();
+                    console.log("wootThisSong:2");
                 }  
                 catch(err) {
                   console.log("wootThisSong:ERROR: " + err.message);
@@ -938,7 +940,7 @@
             basicBot.room.currentDJID = obj.dj.id;
 
             console.log("eventDjadvance:4a");
-            basicBot.roomUtilities.wootThisSong();
+            setTimeout(wootThisSong(), 3000);
 
             console.log("eventDjadvance:5");
             var mid = obj.media.format + ':' + obj.media.cid;
