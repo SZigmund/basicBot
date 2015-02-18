@@ -1,4 +1,4 @@
-/** version: 2.1.4.00016.18.06
+/** version: 2.1.4.00016.18.07
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00016.18.06",
+        version: "2.1.4.00016.18.07",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -938,7 +938,7 @@
             basicBot.room.currentDJID = obj.dj.id;
 
             console.log("eventDjadvance:4a");
-            basicBot.roomUtilities.booth.wootThisSong();
+            basicBot.roomUtilities.wootThisSong();
 
             console.log("eventDjadvance:5");
             var mid = obj.media.format + ':' + obj.media.cid;
