@@ -1,4 +1,4 @@
-/** version: 2.1.4.00016.18
+/** version: 2.1.4.00017
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00016.18",
+        version: "2.1.4.00017",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -193,11 +193,16 @@
         retrieveSettings: retrieveSettings,
         retrieveFromStorage: retrieveFromStorage,
         settings: {
-            botName: "basicBot",
+            autoWootBot: true,
+            botName: "Larry the LAW",
             language: "english",
             chatLink: "https://rawgit.com/SZigmund/basicBot/master/lang/en.json",
             maximumAfk: 60,
             afkRemoval: true,
+            afk5Days: true,
+            afk7Days: false,
+            afkRemoveStart: 7,
+            afkRemoveEnd: 17,
             maximumDc: 90,
             bouncerPlus: true,
             blacklistEnabled: true,
@@ -211,7 +216,7 @@
             timeGuard: true,
             maximumSongLength: 10,
             repeatSongs: true,
-            repeatSongTime: 240,
+            repeatSongTime: 180,
             skipSound5Days: true,
             skipSound7Days: false,
             skipSoundStart: 7,
@@ -523,6 +528,28 @@
                 }
                 return rankInt;
             },
+            wootThisSong: function () {  //Added 02/18/2015 Zig
+                try  {
+                    console.log("wootThisSong:1");
+            	    if (basicBot.settings.autoWootBot === true) $("#woot").click();
+                    console.log("wootThisSong:2");
+                }  
+                catch(err) {
+                  console.log("wootThisSong:ERROR: " + err.message);
+                }
+            },
+            afkRemovalNow: function () {
+                if (!basicBot.settings.afk5Days && !basicBot.settings.afk7Days) return false;
+                var currDate = new Date();
+                //No afk on Saturday/Sunday if not monitoring 7 days a week
+                if (!basicBot.settings.afk7Days) {
+                    var dayofweek = currDate.getDay();  // [Day of week Sun=0, Mon=1...Sat=6]
+                    if (dayofweek === 6 || dayofweek === 0) return false;
+                }
+                var hourofday = currDate.getHours();
+                if (hourofday >= basicBot.settings.afkRemoveStart && hourofday < basicBot.settings.afkRemoveEnd) return true;
+                return false;
+            },
             skipSoundCloudNow: function () {
                 if (!basicBot.settings.skipSound5Days && !basicBot.settings.skipSound7Days) return false;
                 var currDate = new Date();
@@ -604,6 +631,7 @@
             afkCheck: function () {
                 try {
                 if (!basicBot.status || !basicBot.settings.afkRemoval) return void (0);
+                if (!basicBot.roomUtilities.afkRemovalNow()) return void (0);
                 var rank = basicBot.roomUtilities.rankToNumber(basicBot.settings.afkRankCheck);
                 var djlist = API.getWaitList();
                 var lastPos = Math.min(djlist.length, basicBot.settings.afkpositionCheck);
@@ -880,6 +908,7 @@
 
             var lastplay = obj.lastPlay;
             if (basicBot.settings.songstats && !(typeof lastplay === 'undefined')) {
+                console.log("Last DJ: " + lastplay.dj.username);
                 if (typeof basicBot.chat.songstatistics === "undefined") {
                     API.sendChat("/me " + lastplay.dj.username + " played " + lastplay.media.author + " - " + lastplay.media.title + ": " + lastplay.score.positive + "W/" + lastplay.score.grabs + "G/" + lastplay.score.negative + "M.")
                 }
@@ -898,16 +927,20 @@
               }
             }
             console.log("eventDjadvance:3");
-            if (typeof lastplay === 'undefined') return;
-
-            console.log("eventDjadvance:4");
-            basicBot.room.roomstats.totalWoots += lastplay.score.positive;
-            basicBot.room.roomstats.totalMehs += lastplay.score.negative;
-            basicBot.room.roomstats.totalCurates += lastplay.score.grabs;
+            if (typeof lastplay !== 'undefined')
+			{
+              console.log("eventDjadvance:4");
+              basicBot.room.roomstats.totalWoots += lastplay.score.positive;
+              basicBot.room.roomstats.totalMehs += lastplay.score.negative;
+              basicBot.room.roomstats.totalCurates += lastplay.score.grabs;
+			}
             basicBot.room.roomstats.songCount++;
             basicBot.roomUtilities.intervalMessage();
-            if (typeof dj === 'undefined') { return; }
+            //if (typeof dj === 'undefined') { return; }
             basicBot.room.currentDJID = obj.dj.id;
+
+            console.log("eventDjadvance:4a");
+            setTimeout(basicBot.roomUtilities.wootThisSong, 3000);
 
             console.log("eventDjadvance:5");
             var mid = obj.media.format + ':' + obj.media.cid;
@@ -941,7 +974,7 @@
                     var lastPlayed = basicBot.room.historyList[i][plays];
                     var lastPlayedMs = (Date.now() - lastPlayed);
                     var repeatLimit = (basicBot.settings.repeatSongTime * 60 * 1000);
-                    if (basicBot.settings.repeatSongs && (lastPlayedMs < repeatLimit))
+                    if (basicBot.settings.repeatSongs && (lastPlayedMs < repeatLimit) && (lastPlayedMs > 5000))
                     {
 					    console.log("Skipping - Last Played: (" + lastPlayedMs + ") Limit: (" +  repeatLimit + ")");
                         API.sendChat(subChat(basicBot.chat.songknown2, {name: obj.dj.username, lasttime: basicBot.roomUtilities.msToStr(Date.now() - lastPlayed)}));
@@ -1460,6 +1493,29 @@
                 }
             },
 
+            skipHistoryCommand: {   //Added 02/14/2015 Zig
+                command: 'skiphistory',
+                rank: 'mod',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        if (basicBot.settings.repeatSongs) {
+                            basicBot.settings.repeatSongs = !basicBot.settings.repeatSongs;
+                            clearInterval(basicBot.room.afkInterval);
+                            API.sendChat(subChat(basicBot.chat.toggleoff, {name: chat.un, 'function': basicBot.chat.repeatSongs}));
+                        }
+                        else {
+                            basicBot.settings.repeatSongs = !basicBot.settings.repeatSongs;
+                            basicBot.room.afkInterval = setInterval(function () {
+                                basicBot.roomUtilities.afkCheck()
+                            }, 2 * 1000);
+                            API.sendChat(subChat(basicBot.chat.toggleon, {name: chat.un, 'function': basicBot.chat.repeatSongs}));
+                        }
+                    }
+                }
+            },
             afkremovalCommand: {
                 command: 'afkremoval',
                 rank: 'mod',
@@ -2300,6 +2356,24 @@
                 }
             },
 
+			historytimeCommand: {  //Added 02/14/2015 Zig 
+                command: 'historytime',
+                rank: 'manager',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        var msg = chat.message;
+                        var maxTime = msg.substring(cmd.length + 1);
+                        if (!isNaN(maxTime)) {
+                            basicBot.settings.repeatSongTime = maxTime;
+                            return API.sendChat(subChat(basicBot.chat.repeatSongLimit, {name: chat.un, time: basicBot.settings.repeatSongTime}));
+                        }
+                        else return API.sendChat(subChat(basicBot.chat.invalidtime, {name: chat.un}));
+                    }
+                }
+			},
             maxlengthCommand: {
                 command: 'maxlength',
                 rank: 'manager',
@@ -2716,6 +2790,12 @@
                         msg += basicBot.chat.afksremoved + ": " + basicBot.room.afkList.length + '. ';
                         msg += basicBot.chat.afklimit + ': ' + basicBot.settings.maximumAfk + '. ';
 
+						msg += basicBot.chat.repeatSongs + ': ';
+                        if (basicBot.settings.repeatSongs) msg += 'ON';
+                        else msg += 'OFF';
+                        msg += '. ';
+                        msg += basicBot.chat.repeatSongLimit + ': ' + basicBot.settings.repeatSongTime + '. ';
+
                         msg += 'Bouncer+: ';
                         if (basicBot.settings.bouncerPlus) msg += 'ON';
                         else msg += 'OFF';
@@ -3102,35 +3182,57 @@
                     }
                 }
             },
-            
-            wootCommand: {  //Added 01/28/2015 Zig
+
+            wootCommand: {   //Added 02/18/2015 Zig
                 command: 'woot',
                 rank: 'user',
                 type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        API.sendChat(basicBot.chat.origem);
+                    }
+                }
+            },
+            origemCommand: {
+                command: 'origem',
+                rank: 'user',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        API.sendChat(basicBot.chat.origem);
+                    }
+                }
+            },
+            mehCommand: {  //Added 02/14/2015 Zig
+                command: 'meh',
+                rank: 'manager',
+                type: 'exact',
                 functionality: function (chat, cmd)                 {
                   try  {
-                    console.log("wootCommand:ERROR: Step 1");
-                    $("#woot").click();
-                    //$('#button-vote-positive').click();
-                    console.log("wootCommand:ERROR: Step 2");
-                    /*
-                    console.log("wootCommand:ERROR: Step 1");
-                    var votebutton = $(".button-vote-positive");
-                    console.log("wootCommand:ERROR: Step 2");
-                    if (votebutton.length > 0) return void (0);
-                    console.log("wootCommand:ERROR: Step 3");
-                       votebutton[0].click();
-                       return API.sendChat("This song rocks");
-                    console.log("wootCommand:ERROR: Step 4");
-                    */
-                    /*$('#button-vote-positive').click();*/
+                    $("#meh").click();
                   }  
                 catch(err) {
-                  console.log("wootCommand:ERROR: " + err.message);
+                  console.log("mehCommand:ERROR: " + err.message);
                 }
               }
             },
-
+            grabCommand: {  //Added 02/14/2015 Zig
+                command: 'grab',
+                rank: 'manager',
+                type: 'exact',
+                functionality: function (chat, cmd)                 {
+                  try  {
+                    $("#grab").click();
+                  }  
+                catch(err) {
+                  console.log("grabCommand:ERROR: " + err.message);
+                }
+              }
+            },
             dasbootCommand: {
                 command: 'dasboot',
                 rank: 'manager',
