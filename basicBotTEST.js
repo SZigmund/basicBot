@@ -193,7 +193,8 @@
         retrieveSettings: retrieveSettings,
         retrieveFromStorage: retrieveFromStorage,
         settings: {
-            botName: "basicBot",
+            autoWootBot: true,
+            botName: "Larry the LAW",
             language: "english",
             chatLink: "https://rawgit.com/SZigmund/basicBot/master/lang/en.json",
             maximumAfk: 60,
@@ -526,6 +527,14 @@
                         break;
                 }
                 return rankInt;
+            },
+            wootThisSong: function () {  //Added 02/18/2015 Zig
+                try  {
+            	    if (basicBot.settings.autoWootBot) $("#woot").click();
+                }  
+                catch(err) {
+                  console.log("wootThisSong:ERROR: " + err.message);
+                }
             },
             afkRemovalNow: function () {
                 if (!basicBot.settings.afk5Days && !basicBot.settings.afk7Days) return false;
@@ -927,6 +936,9 @@
             basicBot.roomUtilities.intervalMessage();
             //if (typeof dj === 'undefined') { return; }
             basicBot.room.currentDJID = obj.dj.id;
+
+            console.log("eventDjadvance:4a");
+            basicBot.roomUtilities.booth.wootThisSong();
 
             console.log("eventDjadvance:5");
             var mid = obj.media.format + ':' + obj.media.cid;
@@ -1501,8 +1513,8 @@
                         }
                     }
                 }
-			},
-			afkremovalCommand: {
+            },
+            afkremovalCommand: {
                 command: 'afkremoval',
                 rank: 'mod',
                 type: 'exact',
@@ -3168,23 +3180,19 @@
                     }
                 }
             },
-            
-            wootCommand: {  //Added 01/28/2015 Zig
+
+            wootCommand: {   //Added 02/18/2015 Zig
                 command: 'woot',
                 rank: 'user',
                 type: 'exact',
-                functionality: function (chat, cmd)                 {
-                  try  {
-                    console.log("wootCommand:ERROR: Step 1");
-                    $("#woot").click();
-                    console.log("wootCommand:ERROR: Step 2");
-                  }  
-                catch(err) {
-                  console.log("wootCommand:ERROR: " + err.message);
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        API.sendChat(basicBot.chat.origem);
+                    }
                 }
-              }
             },
-
             origemCommand: {
                 command: 'origem',
                 rank: 'user',
