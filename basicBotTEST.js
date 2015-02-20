@@ -1,4 +1,4 @@
-/** version: 2.1.4.00018.10
+/** version: 2.1.4.00018.11
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00018.10",
+        version: "2.1.4.00018.11",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1475,8 +1475,7 @@
             retrieveFromStorage();
             console.log("TODO - STARTUP 1");
             window.bot = basicBot;
-            blacklistInterval = setInterval(, 60 * 60 * 1000);
-			setInterval(function () {
+            blacklistInterval = setInterval(function () {
                 basicBot.roomUtilities.updateBlacklists()
             }, 10 * 60 * 1000);
             basicBot.getNewBlacklistedSongs = basicBot.roomUtilities.exportNewBlacklistedSongs;
