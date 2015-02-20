@@ -1,4 +1,4 @@
-/** version: 2.1.4.00018.07
+/** version: 2.1.4.00018.08
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00018.07",
+        version: "2.1.4.00018.08",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -224,7 +224,7 @@
             skipSoundRange: "Monday-Friday between 7AM and 3PM EST",
 			randomComments: true,
 			randomCommentMin: 2,
-			randomCommentMax: 10,
+			randomCommentMax: 3,
 			nextRandomComment: Date.now(),
             /*ZZZ: Disabled Autodisable Auto-Djs*/
             autodisable: false,
@@ -240,6 +240,123 @@
                 ["nsfw", "The song you contained was NSFW (image or sound). "],
                 ["unavailable", "The song you played was not available for some users. "]
             ],
+			randomCommentArray: [
+            "Life changes so fast - DO something and you can change it. A small change every day amounts to a lot very quickly.",
+            "You're never too late for an uprising!",
+            "You can't hear me because I'm not saying anything.",
+            "Elephants are not made to hop up and down.",
+            "If I ever meet myself, I'll hit myself so hard I won't know what's hit me.",
+            "I don't negotiate with terrorists - 'Merica!!",
+            "What's the point of having a democracy, if everybody's going to vote wrong?",
+            "We are stuck with technology when what we really want is just stuff that works. - Every plug user ever",
+            "Space, it seems to go on and on forever. But then you get to the end and a gorilla starts throwing barrels at you.",
+            "When plug is in command, every mission's a suicide mission!",
+            "I was having the most wonderful dream. Except you were there, and you were there, and you were there!",
+            "Hey, this is mine. That's mine. All of this is mine. Except that bit. I don't want that bit. But all the rest of this is mine. Hey, this has been a really good day.",
+            "Time - Unknown. Location - Unknown. Cause of accident - Unknown. Should someone find this recording, perhaps it will shed light as to what happened here.",
+            "That settles it. Spankings all around, then.",
+            "I feel pretty, Oh so pretty",
+            "I'm feeling a bit kinky... anyone up for some robot fun?",
+            "Never let good science, reason, and logic get in the way of a good conspiracy!",
+            "I refer you to on-line sources, which can be changed at any time.",
+            "It seems normal when they tell you about it, but then a whole camera crew appears and suddenly it's not so fun any more.",
+            "Bugs like to touch themselves with their antennae while they watch you sleeping.",
+            "I apologise for being the only person who truly comprehends how screwed we are!",
+            "Imagination will often carry us to worlds that never were. But without it we go nowhere.",
+            "The important thing is not to stop questioning; curiosity has its own reason for existing.",
+            "I've got thrills to seek, deaths to defy, mattress tags to tear off.",
+            "Don't tell BK but I have run with scissors",
+            "Now, it's quite simple to defend yourself against a man armed with a banana. First of all you force him to drop the banana; then, second, you eat the banana, thus disarming him. You have now rendered him 'elpless.",
+            "No way, spank your OWN monkey.",
+            "If a cloud was the same as a fool, how would you feel about rain?",
+            "Monkey recovery program. SIGN UP HERE.",
+            "I am ROBOT... hear me beep.",
+            "If you get a minute, give it to me.  I'm collecting them to get an extra hour.",
+            "Damn shampoo commercials, hair isn't that fun.",
+            "No, YOU are the hallucination! Oh wait, that was something else. Never mind.",
+            "I'm not crazy. Don't call me crazy! I'm just not user-friendly!",
+            "The wizards can't see you now",
+            "I know where you live... each and every one of you!",
+            "Are you taunting me?",
+            "Go away or I shall taunt you a second time",
+            "Please save all your bad tunes for a time when I'm not around.  Thanks!",
+            "You don’t notice the air, until someone spoils it.",
+            "Don’t drink while driving – you will spill the beer.",
+            "If you love a woman, you shouldn’t be ashamed to show her to your wife.",
+            "Life didn’t work out, but everything else is not that bad.",
+            "I feel like Tampax – at a good place, but wrong time…",
+            "If someone notices you with an open zipper, answer proudly: professional habit.",
+            "If you’re not supposed to eat at night, why is there a light bulb in the refrigerator?",
+            "FRIDAY is my second favorite F word.",
+            "There is a new trend in our office; everyone is putting names on their food. I saw it today, while I was eating a sandwich named Kevin.",
+            "The speed of light is when you take out a bottle of beer out of the fridge before the light comes on.",
+            "To weigh 50 kilos and say that you’re fat, that is so female…",
+            "I have been to many places but my goal is to go everywhere.",
+            "If Mayans could predict the future, why didn’t they predict their extinction?",
+            "Did you know that your body is made 70% of water? And now I’m thirsty.",
+            "Don’t forget that alcohol helps to remove the stress, the bra, the panties and many other problems.",
+            "Alcohol not only expands the blood vessels but also communications.",
+            "Alcohol not only helps to make new acquaintances, but also end the old once. ",
+            "If only I knew that I will have this headache today, I would have got drunk yesterday.",
+            "All the problems fade before a hangover…",
+            "Tequila is a good drink: you drink it and you feel like a cactus; the only problem is that in the morning the thorns grow inward.",
+            "After the weekend the most difficult task is to remember names… ",
+            "It’s better to be a worldwide alcoholic, than an Alcoholic Anonymous.",
+            "In principle, I can stop drinking, the thing is – I don’t have such a principle.",
+            "I know my limits: if I fall down it means enough.",
+            "Why is there so much blood in my alcohol system?",
+            "I say NO to the drugs, but they won’t listen.",
+            "Smoking is a slow death! But we’re not in a hurry…",
+            "I became a vegetarian – switched to weed.",
+            "We must pay for the mistakes of our youth… at the drugstore.",
+            "What does plug pay their developers in xp?",
+            "Color blind people are lucky; They can't tell if their plug name is gray or purple",
+            "Friends come and go. Enemies pile up.",
+            "I would like to know when someone unfriends me on Facebook, so I could like it.",
+            "Maybe you need a ladder to climb out of my business?",
+            "I like the sound of you not talking.",
+            "I’m not a Facebook status, you don’t have to like me.",
+            "I found your nose in my business again.",
+            "If a man gives you flowers without any reason, it means there is a reason.",
+            "Women can perfectly understand other people, if the people are not men.",
+            "Women are very good! They can forgive a man…even if he’s not guilty.",
+            "A toast to women: it’s not that good with you, as it is bad without you.",
+            "If you think you are fooled by destiny – remember Al Bundy.",
+            "God gave us the brain to work out problems. However, we use it to create more problems.",
+            "Don’t be nervous if someone is driving ahead of you- the world is round, just think that you’re driving first!",
+            "If you can’t beat the record, you can beat up its owner.",
+            "Dream carefully, because dreams come true.",
+            "Everything always ends well. If not – it’s probably not the end.",
+            "If you want but can’t. It means you don’t want it enough.",
+            "It’s better to do and regret than regret of not doing.",
+            "Everything you do you’re gonna regret. But if you do nothing – you will not only regret but will also suffer.",
+            "You’re not sure – outrun and make sure.",
+            "The deeper the pit you’re falling into, the more chance you have to learn how to fly.",
+            "If you don’t care where you are – it means you’re not lost.",
+            "The light at the end of the tunnel – are the front lights of a train.",
+            "If the fortune has turned her back on you, you can do whatever you want behind her back.",
+            "It is said that, you can’t buy happiness. You only need to know the right places…",
+            "If there would be no fools – we would be them.",
+            "Artificial intelligence is nothing compared to natural stupidity.",
+            "Common sense is not so common",
+            "Why there are mistakes that can’t be set right and why are there no mistakes that can’t be done?",
+            "Think how much you could do if you wouldn’t care what others think.",
+            "I made the same mistakes for so many times, that now I call them traditions.",
+            "Here food is a luxury that you don’t need to take your pants off for.",
+            "Some people feel the rain. Others just get wet.",
+            "Some people are so poor, all they have is money.",
+            "It’s just a bad day, not a bad life.",
+            "Common sense is like deodorant - The people who need it never use it",
+            "Walk away from stupidity and your world becomes a better place",
+            "Common sense is not a gift, it's a punishment.  Because you have to deal with those who don't have it.",
+            "I know I don’t look like much now, but I’m drinking milk ",
+            "I know I don’t look like much now, but I’m drinking milk. ",
+            "If I followed you home, would you keep me? ",
+            "Hey, did plug just shit it's pants again? ",
+            "Hey, did plug just shit it's pants again? ",
+			"Hey plug here's to for all those times I got blamed for your issues!  Eff you see kay owe eff eff Plug!!",
+			"I always wrap my shit. Using a smart phone without a case is like having unprotected sex. It feels so good but the consequences suck."
+			],
             afkpositionCheck: 30,
             afkRankCheck: "ambassador",
             motdEnabled: false,
@@ -534,6 +651,7 @@
             },
             randomCommentSetTimer() {   //Added 02/19/2015 Zig
                 try  {
+				  console.log("SETTING randomCommentSetTimer: " + basicBot.settings.nextRandomComment);
 			      var randomRange = (basicBot.settings.randomCommentMax - basicBot.settings.randomCommentMin)
                   var randomMins = Math.floor(Math.random() * randomRange);
 				  randomMins += basicBot.settings.randomCommentMin;
@@ -552,7 +670,8 @@
 			},
 			randomCommentSelect()  {  //Added 02/19/2015 Zig
                 try  {
-				 return "Some random comment";
+					console.log("basicBot.settings.randomCommentArray.Count: " + basicBot.settings.randomCommentArray.length);
+					return "Some random comment";
 			    }
                 catch(err) {
                   console.log("randomCommentSelect:ERROR: " + err.message);
@@ -566,8 +685,8 @@
 				  console.log("randomCommentCheck-timeDiff: " + timeDiff);
 				  if (timeDiff > 0)
 				  {
+				      basicBot.roomUtilities.randomCommentSetTimer();
 				      if (basicBot.settings.randomComments === true) API.sendChat(basicBot.roomUtilities.randomCommentSelect());
-					  setTimeout(basicBot.roomUtilities.randomCommentSetTimer, 3000);
 				  }
                 }  
                 catch(err) {
