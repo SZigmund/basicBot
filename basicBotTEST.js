@@ -1,4 +1,4 @@
-/** version: 2.1.4.00018.03
+/** version: 2.1.4.00018.04
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00018.03",
+        version: "2.1.4.00018.04",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -535,8 +535,12 @@
             randomCommentSetTimer() {   //Added 02/19/2015 Zig
                 try  {
 			      var randomRange = (basicBot.settings.randomCommentMax - basicBot.settings.randomCommentMin)
-                  var randomMins = Math.floor(Math.random() * basicBot.room.roulette.participants.length);
+                  var randomMins = Math.floor(Math.random() * randomRange);
+				  console.log("MIN: " + basicBot.settings.randomCommentMin);
+				  console.log("MAX: " + basicBot.settings.randomCommentMax);
+				  console.log("RANDOM MINS1: " + randomMins);
 				  randomMins += basicBot.settings.randomCommentMin;
+				  console.log("RANDOM MINS2: " + randomMins);
 				  basicBot.settings.nextRandomComment = Date(Date.now() + randomMins*60000);
 				  console.log("RANDOM TIME: " + basicBot.settings.nextRandomComment);
                 }  
@@ -558,7 +562,7 @@
                 randomCommentCheck() {  //Added 02/19/2015 Zig
                   try  {
 				  var timeDiff = Date.now() - basicBot.settings.nextRandomComment;
-				  if (timediff < 0)
+				  if (timeDiff < 0)
 				  {
 				      if (randomComments === true) API.sendChat(basicBot.roomUtilities.randomCommentSelect());
 					  setTimeout(basicBot.roomUtilities.randomCommentSetTimer, 3000);
