@@ -1,4 +1,4 @@
-/** version: 2.1.4.00018.05
+/** version: 2.1.4.00018.06
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00018.05",
+        version: "2.1.4.00018.06",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -536,12 +536,10 @@
                 try  {
 			      var randomRange = (basicBot.settings.randomCommentMax - basicBot.settings.randomCommentMin)
                   var randomMins = Math.floor(Math.random() * randomRange);
-				  console.log("MIN: " + basicBot.settings.randomCommentMin);
-				  console.log("MAX: " + basicBot.settings.randomCommentMax);
-				  console.log("RANDOM MINS1: " + randomMins);
 				  randomMins += basicBot.settings.randomCommentMin;
-				  console.log("RANDOM MINS2: " + randomMins);
-				  basicBot.settings.nextRandomComment = Date(Date.now() + randomMins*60000);
+				  var nextTime = new Date();
+				  nextTime.setMinutes(nextTime.getMinutes() + randomMins);
+				  basicBot.settings.nextRandomComment = nextTime;
 				  console.log("RANDOM TIME: " + basicBot.settings.nextRandomComment);
 				  console.log("NOW TIME: " + Date.now());
                 }  
@@ -562,7 +560,8 @@
 			},
 			randomCommentCheck() {  //Added 02/19/2015 Zig
                   try  {
-				  var timeDiff = Date.now() - basicBot.settings.nextRandomComment;
+				  var testTime = new Date();
+				  var timeDiff = testTime.getMinutes() - basicBot.settings.nextRandomComment.getMinutes();
 				  console.log("randomCommentCheck-NOW TIME: " + Date.now());
 				  console.log("randomCommentCheck-timeDiff: " + timeDiff);
 				  if (timeDiff > 0)
