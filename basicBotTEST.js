@@ -1,4 +1,4 @@
-/** version: 2.1.4.00018.01
+/** version: 2.1.4.00018.02
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00018.01",
+        version: "2.1.4.00018.02",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -547,17 +547,16 @@
 				  setTimeout(basicBot.roomUtilities.randomCommentCheck, 30000);
 				}
 			},
-			randomCommentSelect()  {  //Added 02/19/2015 Zig
+                randomCommentSelect()  {  //Added 02/19/2015 Zig
                 try  {
 				 return "Some random comment";
-			    }
-                }  
+		}
                 catch(err) {
                   console.log("randomCommentSelect:ERROR: " + err.message);
                 }
-			},
-			randomCommentCheck() {  //Added 02/19/2015 Zig
-                try  {
+                },
+                randomCommentCheck() {  //Added 02/19/2015 Zig
+                  try  {
 				  var timeDiff = Date.now() - basicBot.settings.nextRandomComment;
 				  if (timediff < 0)
 				  {
