@@ -1,4 +1,4 @@
-/** version: 2.1.4.00017.01
+/** version: 2.1.4.00018.01
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00017.01",
+        version: "2.1.4.00018.01",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -222,6 +222,10 @@
             skipSoundStart: 7,
             skipSoundEnd: 15,
             skipSoundRange: "Monday-Friday between 7AM and 3PM EST",
+			randomComments: true,
+			randomCommentMin: 2,
+			randomCommentMax: 10,
+			nextRandomComment: Date.now(),
             /*ZZZ: Disabled Autodisable Auto-Djs*/
             autodisable: false,
             commandCooldown: 30,
@@ -528,6 +532,46 @@
                 }
                 return rankInt;
             },
+            randomCommentSetTimer() {   //Added 02/19/2015 Zig
+                try  {
+			      var randomRange = (basicBot.settings.randomCommentMax - basicBot.settings.randomCommentMin)
+                  var randomMins = Math.floor(Math.random() * basicBot.room.roulette.participants.length);
+				  randomMins += basicBot.settings.randomCommentMin;
+				  basicBot.settings.nextRandomComment = Date(date.getTime() + randomMins*60000);
+				  console.log("RANDOM TIME: " + basicBot.settings.nextRandomComment);
+                }  
+                catch(err) {
+                  console.log("randomCommentSetTimer:ERROR: " + err.message);
+                }
+				finally {
+				  setTimeout(basicBot.roomUtilities.randomCommentCheck, 30000);
+				}
+			},
+			randomCommentSelect()  {  //Added 02/19/2015 Zig
+                try  {
+				 return "Some random comment";
+			    }
+                }  
+                catch(err) {
+                  console.log("randomCommentSelect:ERROR: " + err.message);
+                }
+			},
+			randomCommentCheck() {  //Added 02/19/2015 Zig
+                try  {
+				  var timeDiff = Date.now() - basicBot.settings.nextRandomComment;
+				  if (timediff < 0)
+				  {
+				      if (randomComments === true) API.sendChat(basicBot.roomUtilities.randomCommentSelect());
+					  setTimeout(basicBot.roomUtilities.randomCommentSetTimer, 3000);
+				  }
+                }  
+                catch(err) {
+                  console.log("randomCommentCheck:ERROR: " + err.message);
+                }
+				finally {
+				  setTimeout(basicBot.roomUtilities.randomCommentCheck, 30000);
+				}
+			},
             wootThisSong: function () {  //Added 02/18/2015 Zig
                 try  {
                     console.log("wootThisSong:1");
@@ -1359,8 +1403,11 @@
             }
             */
             console.log("TODO - STARTUP 9");
+            setTimeout(basicBot.roomUtilities.wootThisSong, 3000);
             loadChat(API.sendChat(subChat(basicBot.chat.online, {botname: basicBot.settings.botName, version: basicBot.version})));
             console.log(basicBot.settings.botName + basicBot.version);
+            console.log("TODO - STARTUP 10");
+			basicBot.roomUtilities.randomCommentSetTimer();
         },
         commands: {
             executable: function (minRank, chat) {
