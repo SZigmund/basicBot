@@ -1,4 +1,4 @@
-/** version: 2.1.4.00018.09
+/** version: 2.1.4.00018.10
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00018.09",
+        version: "2.1.4.00018.10",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -395,6 +395,8 @@
             usercommand: true,
             allcommand: true,
             afkInterval: null,
+			blacklistInterval: null,
+			randomInterval: null,
             autoskip: false,
             autoskipTimer: null,
             autodisableInterval: null,
@@ -1473,8 +1475,10 @@
             retrieveFromStorage();
             console.log("TODO - STARTUP 1");
             window.bot = basicBot;
-            basicBot.roomUtilities.updateBlacklists();
-            setInterval(basicBot.roomUtilities.updateBlacklists, 60 * 60 * 1000);
+            blacklistInterval = setInterval(, 60 * 60 * 1000);
+			setInterval(function () {
+                basicBot.roomUtilities.updateBlacklists()
+            }, 10 * 60 * 1000);
             basicBot.getNewBlacklistedSongs = basicBot.roomUtilities.exportNewBlacklistedSongs;
             basicBot.logNewBlacklistedSongs = basicBot.roomUtilities.logNewBlacklistedSongs;
             console.log("TODO - STARTUP 2");
@@ -1532,7 +1536,10 @@
             console.log(basicBot.settings.botName + basicBot.version);
             console.log("TODO - STARTUP 10");
 			basicBot.roomUtilities.randomCommentSetTimer();
-			setTimeout(basicBot.roomUtilities.randomCommentCheck, 30000);
+			basicBot.room.randomInterval = setInterval(function () { 
+			    basicBot.roomUtilities.randomCommentCheck() 
+				}, 30 * 1000);
+
         },
         commands: {
             executable: function (minRank, chat) {
