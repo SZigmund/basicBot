@@ -1,4 +1,4 @@
-/** version: 2.1.4.00018.06
+/** version: 2.1.4.00018.07
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00018.06",
+        version: "2.1.4.00018.07",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -566,7 +566,7 @@
 				  console.log("randomCommentCheck-timeDiff: " + timeDiff);
 				  if (timeDiff > 0)
 				  {
-				      if (randomComments === true) API.sendChat(basicBot.roomUtilities.randomCommentSelect());
+				      if (basicBot.settings.randomComments === true) API.sendChat(basicBot.roomUtilities.randomCommentSelect());
 					  setTimeout(basicBot.roomUtilities.randomCommentSetTimer, 3000);
 				  }
                 }  
