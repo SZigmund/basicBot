@@ -1,4 +1,4 @@
-/** version: 2.1.4.00018.02
+/** version: 2.1.4.00018.03
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00018.02",
+        version: "2.1.4.00018.03",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -537,7 +537,7 @@
 			      var randomRange = (basicBot.settings.randomCommentMax - basicBot.settings.randomCommentMin)
                   var randomMins = Math.floor(Math.random() * basicBot.room.roulette.participants.length);
 				  randomMins += basicBot.settings.randomCommentMin;
-				  basicBot.settings.nextRandomComment = Date(date.getTime() + randomMins*60000);
+				  basicBot.settings.nextRandomComment = Date(Date.now() + randomMins*60000);
 				  console.log("RANDOM TIME: " + basicBot.settings.nextRandomComment);
                 }  
                 catch(err) {
