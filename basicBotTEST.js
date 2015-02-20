@@ -1,4 +1,4 @@
-/** version: 2.1.4.00018.08
+/** version: 2.1.4.00018.09
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00018.08",
+        version: "2.1.4.00018.09",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -247,7 +247,12 @@
             "Elephants are not made to hop up and down.",
             "If I ever meet myself, I'll hit myself so hard I won't know what's hit me.",
             "I don't negotiate with terrorists - 'Merica!!",
+			"Would you think guanaria should cure diarrhea.... think about it...",
             "What's the point of having a democracy, if everybody's going to vote wrong?",
+			"Would you rather: A. Eat a bowl of shit once OR B. have explosive diarrhoea for the rest of your life?",
+			"Would you rather: A. Have sex with a goat, but no one would know OR B. not have sex with one, but everyone would think you did?",
+			"Would you rather: A. Always have to say everything on your mind OR B. never speak again?",
+			"Would you rather: A. Be able to turn invisible OR B. be able to fly?",
             "We are stuck with technology when what we really want is just stuff that works. - Every plug user ever",
             "Space, it seems to go on and on forever. But then you get to the end and a gorilla starts throwing barrels at you.",
             "When plug is in command, every mission's a suicide mission!",
@@ -664,14 +669,12 @@
                 catch(err) {
                   console.log("randomCommentSetTimer:ERROR: " + err.message);
                 }
-				finally {
-				  setTimeout(basicBot.roomUtilities.randomCommentCheck, 30000);
-				}
 			},
 			randomCommentSelect()  {  //Added 02/19/2015 Zig
                 try  {
-					console.log("basicBot.settings.randomCommentArray.Count: " + basicBot.settings.randomCommentArray.length);
-					return "Some random comment";
+				    var randomCount = basicBot.settings.randomCommentArray.length;
+                    var randomID = Math.floor(Math.random() * randomCount);
+					return basicBot.settings.randomCommentArray[randomID];
 			    }
                 catch(err) {
                   console.log("randomCommentSelect:ERROR: " + err.message);
@@ -692,9 +695,6 @@
                 catch(err) {
                   console.log("randomCommentCheck:ERROR: " + err.message);
                 }
-				finally {
-				  setTimeout(basicBot.roomUtilities.randomCommentCheck, 30000);
-				}
 			},
             wootThisSong: function () {  //Added 02/18/2015 Zig
                 try  {
@@ -1532,6 +1532,7 @@
             console.log(basicBot.settings.botName + basicBot.version);
             console.log("TODO - STARTUP 10");
 			basicBot.roomUtilities.randomCommentSetTimer();
+			setTimeout(basicBot.roomUtilities.randomCommentCheck, 30000);
         },
         commands: {
             executable: function (minRank, chat) {
