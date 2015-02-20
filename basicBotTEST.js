@@ -1,4 +1,4 @@
-/** version: 2.1.4.00018.04
+/** version: 2.1.4.00018.05
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00018.04",
+        version: "2.1.4.00018.05",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -543,6 +543,7 @@
 				  console.log("RANDOM MINS2: " + randomMins);
 				  basicBot.settings.nextRandomComment = Date(Date.now() + randomMins*60000);
 				  console.log("RANDOM TIME: " + basicBot.settings.nextRandomComment);
+				  console.log("NOW TIME: " + Date.now());
                 }  
                 catch(err) {
                   console.log("randomCommentSetTimer:ERROR: " + err.message);
@@ -551,18 +552,20 @@
 				  setTimeout(basicBot.roomUtilities.randomCommentCheck, 30000);
 				}
 			},
-                randomCommentSelect()  {  //Added 02/19/2015 Zig
+			randomCommentSelect()  {  //Added 02/19/2015 Zig
                 try  {
 				 return "Some random comment";
-		}
+			    }
                 catch(err) {
                   console.log("randomCommentSelect:ERROR: " + err.message);
                 }
-                },
-                randomCommentCheck() {  //Added 02/19/2015 Zig
+			},
+			randomCommentCheck() {  //Added 02/19/2015 Zig
                   try  {
 				  var timeDiff = Date.now() - basicBot.settings.nextRandomComment;
-				  if (timeDiff < 0)
+				  console.log("randomCommentCheck-NOW TIME: " + Date.now());
+				  console.log("randomCommentCheck-timeDiff: " + timeDiff);
+				  if (timeDiff > 0)
 				  {
 				      if (randomComments === true) API.sendChat(basicBot.roomUtilities.randomCommentSelect());
 					  setTimeout(basicBot.roomUtilities.randomCommentSetTimer, 3000);
