@@ -1,4 +1,4 @@
-/** version: 2.1.4.00018.13
+/** version: 2.1.4.00018.14
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00018.13",
+        version: "2.1.4.00018.14",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -747,8 +747,7 @@
 				  randomMins += basicBot.settings.randomCommentMin;
 				  var nextTime = new Date();
 				  //JIC: Ensure we are in the correct time range:
-				  console.log("RANDOM MINS1: " + randomMins);
-				  if (randomMins > 2) randomMins = 17;
+				  randomMins = 15;
 				  if ((randomMins > basicBot.settings.randomCommentMax) || (randomMins < basicBot.settings.randomCommentMin))
 				  {
 				      randomMins = basicBot.settings.randomCommentMin + ((basicBot.settings.randomCommentMax - basicBot.settings.randomCommentMin) / 2.0)
