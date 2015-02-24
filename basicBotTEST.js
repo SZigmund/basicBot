@@ -1,4 +1,4 @@
-/** version: 2.1.4.00018.14
+/** version: 2.1.4.00018.15
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00018.14",
+        version: "2.1.4.00018.15",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -241,6 +241,122 @@
                 ["unavailable", "The song you played was not available for some users. "]
             ],
 			randomCommentArray: [
+			"You can't make somebody love you.  You can only stalk them and hope for the best",
+			"Women, can't live with them....pass the beer nuts!",
+			"The older I get, the more people can kiss my a$$",
+			"I can't tell if you are on too many drugs or not enough.",
+			"My doctor told me to start killing people... Well not in those exact words.  He said I had to reduce stress in my life, which is pretty much the same thing.",
+			"Love is spending the rest of your life with someone you want to kill & not doing it because you'd miss them!",
+			"And there goes the last F*ck I gave!",
+			"My girlfriend woke up this morning with a huge smile on her face.....I love Sharpies!",
+			"You don't have to like me...I'm not a Facebook status",
+			"Lord, please give me patience because if you give me strength, I'll need bail money too...",
+			"DRAMA = Dumbass Rejects Asking for More Attention",
+			"It's been 55 minutes since the last pearl jam song, what is wrong with you people?",
+			"I am presently experiencing life at a rate of several WTF's per hour",
+			"If you are a passenger in my car, and I turn the radio up....Do not talk!",
+			"As a young child my mother told me I can be anyone I want to be ---- Turns out this is called identity theft!",
+			"Do you ever just wanna grab someone by the shoulder, look them deep in the eyes and whisper 'No one gives a shit!!'",
+			"Psst... I hear Eddie Vedder likes men",
+			"I'm sorry I keep calling you and hanging up.  I just got this new voice activated phone, so every time I holler dumbass it dials you....",
+			"Before Walmart you had to buy a ticket to the fair to see a bearded woman.",
+			"Hold on a minute.... I'm gonna need something stronger than tea to listen to this BS!!",
+			"My greatest fear is one day I will die, and my wife will sell my guns for what I told her I paid for them.",
+			"Going to McDonals's for a salad is like going to a prostitute for a hug.",
+			"Life is like diarrhea. No matter how hard you try to stop it, the shit keeps coming!!",
+			"I'll never know how individuals can fake relationships....I can't even fake a hello to somebody I don't like.",
+			"Have you ever had one of those days, when you're holding a stick and everybody looks like a Pinata?",
+			"If a telemarketer calls, give the phone to your 3 year-old and tell her it's Santa!!",
+			"Why do we use toilet paper?  I need wet wipes!  If you got shit on your arm would you just simply wipe it off with toilet paper?",
+			"I'm not angry, I'm happiness challenged!",
+			"If you have an opinion about me, please raise your hand....Now put it over your mouth!",
+			"In the 80s kids learned from Sesame Street and Mr Rogers.  Now they learn from watching zombies who eat people,a vampires sucking, and teen stars. I'm a bit concerned about the future...",
+			"I'd unfriend you but your train wreck life is too entertaining.",
+			"When people tell me 'You're going to regret that in the morning' I sleep in until noon because I'm a problem solver.",
+			"Dear YouTube it's pretty safe to assume we all want 'To Skip the Ad'",
+			"I don't comment on your Facebook statuses for the same reason I don't step in dog shit when I see it.",
+			"Today's tip: How to handle stress like a dog. If you can't eat it or play with it then pee on it and walk away.",
+			"I do whatever it takes to get the job done. And sometimes it takes a vodka.",
+			"Keep talking ... I'm diagnosing you.",
+			"I wouldn't say that you have a problem with alcohol but maybe just a teensy weensy difficulty with sobriety.",
+			"I don't know why you're complaining about your appearance. Your personality is even worse.",
+			"You're so bad you're going to hell in every religion!",
+			"I haven't heard from you lately and I've really enjoyed it.",
+			"Some people should be thankful that I don't always comment my thoughts on their Facebook posts.",
+			"Some days the best part of my job is that my chair swivels.",
+			"If I had a nickle for every time you got on my nerves ...I'd have a sock full of nickles to hit you with!",
+			"You know your children are growing up when they stop asking you where they came from and refuse to tell you where they're going.",
+			"Wisdom for the ages: Never get into a fist fight with anyone who is uglier than you. They have nothing to lose.",
+			"So you say you'll be here sometime between noon and five for the service call? Great. I'll be sure to pay my bill sometime between February and June.",
+			"If women ran the world we wouldn't have wars, just intense negotiations every 28 days.",
+			"To speak before you think is like wiping your ass before you shit!",
+			"To the woman in Walmart with six screaming kids: If you're wondering how those condoms got in your shopping cart, you're welcome.",
+			"I understand that some people live in their own little world. And sometimes I wish they'd stay there and never visit mine.",
+			"I was hoping for a battle of wits but you appear to be unarmed.",
+			"I used to be a people person but people ruined that for me.",
+			"If you want to feel more attractive just go to Walmart and stay away from the people at the gym.",
+			"WARNING: I have restless leg syndrome and may not be able to stop from kicking your ass. Now go ahead and continue with your shenanigans.",
+			"There are some things better left unsaid but you can bet your sweet ass I'm going to say them anyway.  :kiss:",
+			"I don't need an 'Easy' Button. I need a 'F*CK IT' Button!",
+			"No it's okay. I totally wanted to drop everything I was going to do today to take care of your bullshit.",
+			"I've had one of those days where my middle finger had to answer every question.",
+			"Message to all the drama queens who are looking for attention: Please take a number and go wait in my 'I don't give a shit line'",
+			"If it takes you more than an hour to get ready, then you might not be as good looking as you think you are!",
+			"I don't judge people based on race, color, religion, sexuality, gender, ability or size. I base it on whether or not they're an asshole.",
+			"There's only one thing keeping me from breaking you in half ... I don't want two of you around!",
+			"If you have a problem with me please write it nicely on a piece of paper, put it in an envelope, fold it up and shove it up your a$$",
+			"There are three kinds of people in the world. People who make things happen. People who watch things happen and people who say 'WTF happened?'",
+			"I got so drunk last night, I walked across the dance floor to get a drink and won the dance contest.",
+			"If women ruled the world there would be no wars. Just a bunch of jealous countries not talking to each other.",
+			"Holy crap! Did you just feel that? I think the whole world just revolved around YOU!",
+			"To error is human, to love is divine, to piss me off is a mistake!!",
+			"You're right, it's my fault because I forgot you were an idiot.",
+			"I'm not anti-social. I just have a strong aversion to B.S., drama and pretending.",
+			"My sex life is like a Ferrari...I don't have a Ferrari.",
+			"I just saved a bunch of money on my car insurance by switching...my car into reverse and driving away from the accident. ",
+			"No I'm not ignoring you. I suffer from selective hearing, usually triggered by idiots.",
+			"I think it's only fair to throw monopoly money at strippers with fake boobs.",
+			"Note to Self: It is illegal to stab people for being stupid.",
+			"I'm in love with my bed. We're perfect for each other but my alarm clock doesn't want us together. That jealous whore!",
+			"Pain makes you stronger. Tears make you braver. A broken heart makes you wiser. And alcohol makes you not remember any of that crap.",
+			"Last time I bought a package of condoms and the cashier asked me, 'Do you need a bag?' I said, 'No she isn't that ugly.'",
+			"Alcohol won’t solve my problems, but then again neither will milk or orange juice.",
+			"I just failed my Health and Safety test. The question was 'what steps would you take in the event of a fire?'. Apparently 'big f*cking ones' was the wrong answer.",
+			"Grammar: It's the difference between knowing your shit and knowing you're shit",
+			"Only in math problems can you buy 60 cantaloupes and nobody asks what the hell is wrong with you.",
+			"Who named Trojan Condoms? The Trojan Horse entered through the city gates, broke open and loads of little guys came out and messed up everyones day.",
+			"People who create their own drama deserve their own karma.",
+			"ACHOO! If you're allergic to bull-crap, drama, head games, liars, & fake people, keep this sneeze going. I can't wait to see who all does this.",
+			"I have to stop saying 'How stupid can you be'. I think people are starting to take it as a challenge.",
+			"There's a good chance you don't like me BUT an even better chance that I don't give a crap.",
+			"I love it when someone insults me. That means I don’t have to be nice anymore.",
+			"I'm sarcastic and have a Smartass attitude. It's a natural defense against Drama, Bullshit and Stupidity. And I don't give a @#$& if you're offended!",
+			"Give a man a fish and he will eat for a day. Teach him how to fish, and he will sit in a boat and drink beer all day.",
+			"Never go to bed angry. Always stay up and plot your revenge first.",
+			"I don't hate you. I'm just not necessarily excited about your existence.",
+			"Life is not like a box of chocolates. It's more like a jar of jalapenos. What you do today might burn your ass tomorrow.",
+			"Taking your ex back is like going to a garage sale and buying your own crap.",
+			"To error is human, to love is divine, to piss me off is a mistake.",
+			"A day without dealing with stupid people is like ..., oh never mind, I'll let you know if that ever happens.",
+			"One spelling mistake can ruin your life. One husband texted this to his wife: 'Having a wonderful time. Wish you were her.'",
+			"Insanity does not run in my family. It strolls through, takes its time and gets to know everyone personally.",
+			"I'm so sick and tired of my friends who can't handle their alcohol. The other night they dropped me 3 times while carrying me to the car.",
+			"If I say something that offends you, please let me know so I can say it again later.",
+			"You're starting to sound reasonable, must be time to up my medications.",
+			"Lead me not into temptation, I can find it myself.",
+			"Never take life too seriously. Nobody gets out alive anyways.",
+			"I didn't say it was your fault. I said I was going to blame you.",
+			"My opinions may have changed, but not the fact that I'm right.",
+			"WARNING - I have an attitude and I know how to use it.",
+			"It's my cat's world. I'm just here to open cans.",
+			"I used to be indecisive, but now I’m not too sure.",
+			"Lord help me to be the person my dog thinks I am.",
+			"Too much of a good thing can be wonderful. - Mae West",
+			"I don’t have an attitude problem. You have a perception problem.",
+			"People who think they know everything are annoying to those of us who do.",
+			"I’m an excellent housekeeper. Every time I get a divorce I keep the house.",
+			"I still miss my ex – but guess what? My aim is getting better.",
+			"A good lawyer knows the law, a great lawyer knows the judge.",
             "Hey look squirrel",
  			"Women, can't live with them....pass the beer nuts!",
             "Do vegetarians eat animal crackers? ",
@@ -1063,6 +1179,8 @@
             }
         },
         eventChat: function (chat) {
+		    try {
+			console.log("CHAT1: " + chat.message);
             chat.message = linkFixer(chat.message);
             chat.message = chat.message.trim();
             for (var i = 0; i < basicBot.room.users.length; i++) {
@@ -1073,10 +1191,17 @@
                     }
                 }
             }
+			console.log("CHAT2: " + chat.message);
             if (basicBot.chatUtilities.chatFilter(chat)) return void (0);
+			console.log("CHAT3: " + chat.message);
             if (!basicBot.chatUtilities.commandCheck(chat))
+			console.log("CHAT4: " + chat.message);
                 basicBot.chatUtilities.action(chat);
-        },
+            }
+            catch(err) {
+               console.log("eventChat:ERROR: " + err.message);
+            }
+		},
         eventUserjoin: function (user) {
             var known = false;
             var index = null;
@@ -1102,7 +1227,7 @@
             }
             for (var j = 0; j < basicBot.room.users.length; j++) {
                 if (basicBot.userUtilities.getUser(basicBot.room.users[j]).id === user.id) {
-                    basicBot.userUtilities.setLastActivity(basicBot.room.users[j]);
+                    basicBot.userUtilities.setLastActivity(basicBot.room.users[j]);  //XX
                     basicBot.room.users[j].jointime = Date.now();
                 }
 
@@ -1483,7 +1608,7 @@
                 if (chat.type === 'message') {
                     for (var j = 0; j < basicBot.room.users.length; j++) {
                         if (basicBot.userUtilities.getUser(basicBot.room.users[j]).id === chat.uid) {
-                            basicBot.userUtilities.setLastActivity(basicBot.room.users[j]);
+                            basicBot.userUtilities.setLastActivity(basicBot.room.users[j]);  //XX
                         }
 
                     }
