@@ -1,4 +1,4 @@
-/** version: 2.1.4.00018.12
+/** version: 2.1.4.00018.13
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00018.12",
+        version: "2.1.4.00018.13",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -223,7 +223,7 @@
             skipSoundEnd: 15,
             skipSoundRange: "Monday-Friday between 7AM and 3PM EST",
 			randomComments: true,
-			randomCommentMin: 2,
+			randomCommentMin: 1,
 			randomCommentMax: 3,
 			nextRandomComment: Date.now(),
             /*ZZZ: Disabled Autodisable Auto-Djs*/
@@ -746,6 +746,14 @@
                   var randomMins = Math.floor(Math.random() * randomRange);
 				  randomMins += basicBot.settings.randomCommentMin;
 				  var nextTime = new Date();
+				  //JIC: Ensure we are in the correct time range:
+				  console.log("RANDOM MINS1: " + randomMins);
+				  if (randomMins > 2) randomMins = 17;
+				  if ((randomMins > basicBot.settings.randomCommentMax) || (randomMins < basicBot.settings.randomCommentMin))
+				  {
+				      randomMins = basicBot.settings.randomCommentMin + ((basicBot.settings.randomCommentMax - basicBot.settings.randomCommentMin) / 2.0)
+				      console.log("RANDOM MINS2: " + randomMins);
+				  }
 				  nextTime.setMinutes(nextTime.getMinutes() + randomMins);
 				  basicBot.settings.nextRandomComment = nextTime;
 				  console.log("RANDOM TIME: " + basicBot.settings.nextRandomComment);
@@ -782,13 +790,12 @@
                 }
 			},
 			canSkip: function () {  //Added 02/24/2015 Zig
-			//todoer
-                var timeRemaining = API.getTimeRemaining();
+               var timeRemaining = API.getTimeRemaining();
                 var newMedia = API.getMedia();
 				console.log("timeRemaining: " + timeRemaining);
                 console.log("newMedia.duration: " + newMedia.duration);
+				if ((newMedia.duration - timeRemaining) > 4) return true;
                 return false;
-				//return true;
 			},
             wootThisSong: function () {  //Added 02/18/2015 Zig
                 try  {
