@@ -1,4 +1,4 @@
-/** version: 2.1.4.00018.15
+/** version: 2.1.4.00018.16
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00018.15",
+        version: "2.1.4.00018.16",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -601,9 +601,8 @@
             autodisableInterval: null,
             autodisableFunc: function () {
                 if (basicBot.status && basicBot.settings.autodisable) {
-                    // todoer put in random comment section:
-                    API.sendChat('!afkdisable');
-                    API.sendChat('!joindisable');
+                    API.sendChat('.afkdisable');
+                    API.sendChat('.joindisable');
                 }
             },
             queueing: 0,
@@ -1183,6 +1182,8 @@
 			console.log("CHAT1: " + chat.message);
             chat.message = linkFixer(chat.message);
             chat.message = chat.message.trim();
+			basicBot.userUtilities.setLastActivityID(chat.uid, chat.un);
+			/*
             for (var i = 0; i < basicBot.room.users.length; i++) {
                 if (basicBot.room.users[i].id === chat.uid) {
                     basicBot.userUtilities.setLastActivity(basicBot.room.users[i]);
@@ -1191,6 +1192,7 @@
                     }
                 }
             }
+			*/
 			console.log("CHAT2: " + chat.message);
             if (basicBot.chatUtilities.chatFilter(chat)) return void (0);
 			console.log("CHAT3: " + chat.message);
@@ -1522,7 +1524,7 @@
                     API.sendChat(subChat(basicBot.chat.adfly, {name: chat.un}));
                     return true;
                 }
-                if (msg.indexOf('autojoin was not enabled') > 0 || msg.indexOf('AFK message was not enabled') > 0 || msg.indexOf('!afkdisable') > 0 || msg.indexOf('!joindisable') > 0 || msg.indexOf('autojoin disabled') > 0 || msg.indexOf('AFK message disabled') > 0) {
+                if (msg.indexOf('autojoin was not enabled') > 0 || msg.indexOf('AFK message was not enabled') > 0 || msg.indexOf('.afkdisable') > 0 || msg.indexOf('.joindisable') > 0 || msg.indexOf('autojoin disabled') > 0 || msg.indexOf('AFK message disabled') > 0) {
                     API.moderateDeleteChat(chat.cid);
                     return true;
                 }
@@ -1557,12 +1559,13 @@
                 }
                 else return false;
                 var userPerm = basicBot.userUtilities.getPermission(chat.uid);
-                //console.log("name: " + chat.un + ", perm: " + userPerm);
-                if (chat.message !== "!join" && chat.message !== "!leave") {
+				//todoer
+                console.log("name: " + chat.un + ", perm: " + userPerm);
+                if (chat.message !== ".join" && chat.message !== ".leave") {
                     if (userPerm === 0 && !basicBot.room.usercommand) return void (0);
                     if (!basicBot.room.allcommand) return void (0);
                 }
-                if (chat.message === '!eta' && basicBot.settings.etaRestriction) {
+                if (chat.message === '.eta' && basicBot.settings.etaRestriction) {
                     if (userPerm < 2) {
                         var u = basicBot.userUtilities.lookupUser(chat.uid);
                         if (u.lastEta !== null && (Date.now() - u.lastEta) < 1 * 60 * 60 * 1000) {
@@ -1574,6 +1577,8 @@
                 }
                 var executed = false;
 
+				//todoer
+                console.log("CMD1: " + cmd);
                 for (var comm in basicBot.commands) {
                     var cmdCall = basicBot.commands[comm].command;
                     if (!Array.isArray(cmdCall)) {
@@ -1588,12 +1593,14 @@
                     }
                 }
 
+                console.log("CMD2: " + cmd);
                 if (executed && userPerm === 0) {
                     basicBot.room.usercommand = false;
                     setTimeout(function () {
                         basicBot.room.usercommand = true;
                     }, basicBot.settings.commandCooldown * 1000);
                 }
+                console.log("CMD3: " + cmd);
                 if (executed) {
                     API.moderateDeleteChat(chat.cid);
                     basicBot.room.allcommand = false;
@@ -1601,6 +1608,7 @@
                         basicBot.room.allcommand = true;
                     }, 5 * 1000);
                 }
+                console.log("CMD4: " + cmd + ":" + executed);
                 return executed;
             },
             action: function (chat) {
