@@ -1,4 +1,4 @@
-/** version: 2.1.4.00020
+/** version: 2.1.4.00021
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00020",
+        version: "2.1.4.00021",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -857,7 +857,7 @@
                 }
                 return rankInt;
             },
-            randomCommentSetTimer() {   //Added 02/19/2015 Zig
+            randomCommentSetTimer: function() {   //Added 02/19/2015 Zig
                 try  {
 				  //console.log("SETTING randomCommentSetTimer: " + basicBot.settings.nextRandomComment);
 			      var randomRange = (basicBot.settings.randomCommentMax - basicBot.settings.randomCommentMin)
@@ -884,7 +884,7 @@
                   console.log("randomCommentSetTimer:ERROR: " + err.message);
                 }
 			},
-			randomCommentSelect()  {  //Added 02/19/2015 Zig
+			randomCommentSelect: function()  {  //Added 02/19/2015 Zig
                 try  {
 				    var randomCount = basicBot.settings.randomCommentArray.length;
                     var randomID = Math.floor(Math.random() * randomCount);
@@ -894,7 +894,7 @@
                   console.log("randomCommentSelect:ERROR: " + err.message);
                 }
 			},
-			randomCommentCheck() {  //Added 02/19/2015 Zig
+			randomCommentCheck: function() {  //Added 02/19/2015 Zig
                   try  {
 /*
 				  var testTime = new Date();
