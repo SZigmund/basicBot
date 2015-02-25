@@ -1,4 +1,4 @@
-/** version: 2.1.4.00018.20
+/** version: 2.1.4.00018.21
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00018.20",
+        version: "2.1.4.00018.21",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -223,8 +223,8 @@
             skipSoundEnd: 15,
             skipSoundRange: "Monday-Friday between 7AM and 3PM EST",
 			randomComments: true,
-			randomCommentMin: 1,
-			randomCommentMax: 3,
+			randomCommentMin: 60,
+			randomCommentMax: 180,
 			nextRandomComment: Date.now(),
             /*ZZZ: Disabled Autodisable Auto-Djs*/
             autodisable: false,
@@ -241,6 +241,7 @@
                 ["unavailable", "The song you played was not available for some users. "]
             ],
 			randomCommentArray: [
+			"@Bacon_Cheeseburger time for another PBR!",
 			"You can't make somebody love you.  You can only stalk them and hope for the best",
 			"Women, can't live with them....pass the beer nuts!",
 			"The older I get, the more people can kiss my a$$",
@@ -1888,6 +1889,25 @@
                 }
             },
 
+			randomCommentsCommand: {   //Added 02/14/2015 Zig
+                command: 'randomcomments',
+                rank: 'mod',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        if (basicBot.settings.randomComments) {
+                            basicBot.settings.randomComments = !basicBot.settings.randomComments;
+                            API.sendChat(subChat(basicBot.chat.toggleoff, {name: chat.un, 'function': 'RandomComments'}));
+                        }
+                        else {
+                            basicBot.settings.randomComments = !basicBot.settings.randomComments;
+                            API.sendChat(subChat(basicBot.chat.toggleon, {name: chat.un, 'function': 'RandomComments'}));
+                        }
+                    }
+                }
+            },
             skipHistoryCommand: {   //Added 02/14/2015 Zig
                 command: 'skiphistory',
                 rank: 'mod',
@@ -3233,6 +3253,11 @@
                         msg += '. ';
                         msg += basicBot.chat.repeatSongLimit + ': ' + basicBot.settings.repeatSongTime + '. ';
 
+						msg +=  'RandomComments' + ': ';
+                        if (basicBot.settings.randomComments) msg += 'ON';
+                        else msg += 'OFF';
+                        msg += '. ';
+
                         msg += 'Bouncer+: ';
                         if (basicBot.settings.bouncerPlus) msg += 'ON';
                         else msg += 'OFF';
@@ -3603,6 +3628,36 @@
                     }
                 catch(err) {
                     console.log("echoCommand:ERROR: " + err.message);
+                }
+                }
+            },
+             beerCommand: {   //Added 02/25/2015 Zig
+                command: 'beer',
+                rank: 'mod',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                try{
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    return API.sendChat("@Bacon_Cheeseburger time for another PBR!");
+                    }
+                catch(err) {
+                    console.log("beerCommand:ERROR: " + err.message);
+                }
+                }
+            },
+            larryCommand: {   //Added 02/25/2015 Zig
+                command: 'larry',
+                rank: 'mod',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                try{
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+					return API.sendChat(basicBot.roomUtilities.randomCommentSelect());
+                    }
+                catch(err) {
+                    console.log("larryCommand:ERROR: " + err.message);
                 }
                 }
             },
