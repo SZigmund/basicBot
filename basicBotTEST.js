@@ -1,4 +1,4 @@
-/** version: 2.1.4.00018.22
+/** version: 2.1.4.00019.01
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00018.22",
+        version: "2.1.4.00019.01",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -863,16 +863,18 @@
 			      var randomRange = (basicBot.settings.randomCommentMax - basicBot.settings.randomCommentMin)
                   var randomMins = Math.floor(Math.random() * randomRange);
 				  randomMins += basicBot.settings.randomCommentMin;
-				  var nextTime = new Date();
+				  console.log("Random mins: " + randomMins);
 				  //JIC: Ensure we are in the correct time range:
 				  if ((randomMins > basicBot.settings.randomCommentMax) || (randomMins < basicBot.settings.randomCommentMin))
 				  {
 				      randomMins = basicBot.settings.randomCommentMin + ((basicBot.settings.randomCommentMax - basicBot.settings.randomCommentMin) / 2.0)
 				  }
+				  console.log("Random mins: " + randomMins);
+				  var nextTime = new Date();
 				  nextTime.setMinutes(nextTime.getMinutes() + randomMins);
 				  basicBot.settings.nextRandomComment = nextTime;
-				  //console.log("RANDOM TIME: " + basicBot.settings.nextRandomComment);
-				  //console.log("NOW TIME: " + Date.now());
+				  console.log("RANDOM TIME: " + basicBot.settings.nextRandomComment);
+				  console.log("NOW TIME: " + Date.now());
                 }  
                 catch(err) {
                   console.log("randomCommentSetTimer:ERROR: " + err.message);
@@ -892,8 +894,9 @@
                   try  {
 				  var testTime = new Date();
 				  var timeDiff = testTime.getMinutes() - basicBot.settings.nextRandomComment.getMinutes();
-				  //console.log("randomCommentCheck-NOW TIME: " + Date.now());
-				  //console.log("randomCommentCheck-timeDiff: " + timeDiff);
+				  console.log("randomCommentCheck:" + testTime.getMinutes() + " - " + basicBot.settings.nextRandomComment.getMinutes());
+				  console.log("randomCommentCheck-NOW TIME: " + Date.now());
+				  console.log("randomCommentCheck-timeDiff: " + timeDiff);
 				  if (timeDiff > 0)
 				  {
 				      basicBot.roomUtilities.randomCommentSetTimer();
