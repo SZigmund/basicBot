@@ -1,4 +1,4 @@
-/** version: 2.1.4.00019.02
+/** version: 2.1.4.00019.03
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00019.02",
+        version: "2.1.4.00019.03",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -912,6 +912,8 @@
 				  var diffMs = (Date.now() - basicBot.settings.nextRandomComment); // milliseconds between now & Christmas
 				  var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
 				  console.log("Random Mins: " + diffMins);
+  				  console.log("HH:NN " + basicBot.settings.nextRandomComment.getHours() + ":" + basicBot.settings.nextRandomComment.getMinutes());
+
 				  if (basicBot.settings.nextRandomComment <= Date.now())
 				  {
 				      basicBot.roomUtilities.randomCommentSetTimer();
