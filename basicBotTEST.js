@@ -1,4 +1,4 @@
-/** version: 2.1.4.00018.18
+/** version: 2.1.4.00018.20
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00018.18",
+        version: "2.1.4.00018.20",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -856,22 +856,20 @@
             },
             randomCommentSetTimer() {   //Added 02/19/2015 Zig
                 try  {
-				  console.log("SETTING randomCommentSetTimer: " + basicBot.settings.nextRandomComment);
+				  //console.log("SETTING randomCommentSetTimer: " + basicBot.settings.nextRandomComment);
 			      var randomRange = (basicBot.settings.randomCommentMax - basicBot.settings.randomCommentMin)
                   var randomMins = Math.floor(Math.random() * randomRange);
 				  randomMins += basicBot.settings.randomCommentMin;
 				  var nextTime = new Date();
 				  //JIC: Ensure we are in the correct time range:
-				  randomMins = 15;
 				  if ((randomMins > basicBot.settings.randomCommentMax) || (randomMins < basicBot.settings.randomCommentMin))
 				  {
 				      randomMins = basicBot.settings.randomCommentMin + ((basicBot.settings.randomCommentMax - basicBot.settings.randomCommentMin) / 2.0)
-				      console.log("RANDOM MINS2: " + randomMins);
 				  }
 				  nextTime.setMinutes(nextTime.getMinutes() + randomMins);
 				  basicBot.settings.nextRandomComment = nextTime;
-				  console.log("RANDOM TIME: " + basicBot.settings.nextRandomComment);
-				  console.log("NOW TIME: " + Date.now());
+				  //console.log("RANDOM TIME: " + basicBot.settings.nextRandomComment);
+				  //console.log("NOW TIME: " + Date.now());
                 }  
                 catch(err) {
                   console.log("randomCommentSetTimer:ERROR: " + err.message);
@@ -891,8 +889,8 @@
                   try  {
 				  var testTime = new Date();
 				  var timeDiff = testTime.getMinutes() - basicBot.settings.nextRandomComment.getMinutes();
-				  console.log("randomCommentCheck-NOW TIME: " + Date.now());
-				  console.log("randomCommentCheck-timeDiff: " + timeDiff);
+				  //console.log("randomCommentCheck-NOW TIME: " + Date.now());
+				  //console.log("randomCommentCheck-timeDiff: " + timeDiff);
 				  if (timeDiff > 0)
 				  {
 				      basicBot.roomUtilities.randomCommentSetTimer();
@@ -906,8 +904,8 @@
 			canSkip: function () {  //Added 02/24/2015 Zig
                var timeRemaining = API.getTimeRemaining();
                 var newMedia = API.getMedia();
-				console.log("timeRemaining: " + timeRemaining);
-                console.log("newMedia.duration: " + newMedia.duration);
+				//console.log("timeRemaining: " + timeRemaining);
+                //console.log("newMedia.duration: " + newMedia.duration);
 				if ((newMedia.duration - timeRemaining) > 4) return true;
                 return false;
 			},
@@ -1020,25 +1018,25 @@
                 for (var i = 0; i < lastPos; i++) {
                     if (typeof djlist[i] !== 'undefined') {
                         var id = djlist[i].id;
-                        console.log("---------------------------------------------------------------------");
-                        console.log("afkCheck ID: " + id);
+                        //console.log("---------------------------------------------------------------------");
+                        //console.log("afkCheck ID: " + id);
                         var user = basicBot.userUtilities.lookupUser(id);
                         if (typeof user !== 'boolean') {
-                            console.log("afkCheck ID: " + user.id);
+                            //console.log("afkCheck ID: " + user.id);
                             var plugUser = basicBot.userUtilities.getUser(user);
-                            console.log("afkCheck plugUser.username: " + plugUser.username);
+                            //console.log("afkCheck plugUser.username: " + plugUser.username);
                             var userRank = basicBot.userUtilities.getPermission(plugUser);
-                            console.log("afkCheck Rank: " + userRank + " MinRank: " + rank + " " + basicBot.settings.afkRankCheck);
+                            //console.log("afkCheck Rank: " + userRank + " MinRank: " + rank + " " + basicBot.settings.afkRankCheck);
                             if (rank !== null && basicBot.userUtilities.getPermission(plugUser) <= rank) {
-                                console.log("afkCheck rank: " + rank);
+                                //console.log("afkCheck rank: " + rank);
                                 var name = plugUser.username;
                                 var lastActive = basicBot.userUtilities.getLastActivity(user);
                                 var inactivity = Date.now() - lastActive;
                                 var time = basicBot.roomUtilities.msToStr(inactivity);
                                 var warncount = user.afkWarningCount;
-                                console.log("afkCheck: Act: " + lastActive + " Inact: " + inactivity + " Time: " + time + " Warn: " + warncount);
+                                //console.log("afkCheck: Act: " + lastActive + " Inact: " + inactivity + " Time: " + time + " Warn: " + warncount);
                                 if (inactivity > basicBot.settings.maximumAfk * 60 * 1000) {
-                                    console.log("afkCheck: INACTIVE USER");
+                                    //console.log("afkCheck: INACTIVE USER");
                                     if (warncount === 0) {
                                         API.sendChat(subChat(basicBot.chat.warning1, {name: name, time: time}));
                                         user.afkWarningCount = 3;
@@ -1179,7 +1177,6 @@
         },
         eventChat: function (chat) {
 		    try {
-			console.log("CHAT1: " + chat.message);
             chat.message = linkFixer(chat.message);
             chat.message = chat.message.trim();
 			/* todoer
@@ -1193,11 +1190,8 @@
                     }
                 }
             }
-			console.log("CHAT2: " + chat.message);
             if (basicBot.chatUtilities.chatFilter(chat)) return void (0);
-			console.log("CHAT3: " + chat.message);
             if (!basicBot.chatUtilities.commandCheck(chat))
-			console.log("CHAT4: " + chat.message);
                 basicBot.chatUtilities.action(chat);
             }
             catch(err) {
@@ -1296,12 +1290,12 @@
         },
         eventDjadvance: function (obj) {
         try {
-            console.log("eventDjadvance:1");
+            //console.log("eventDjadvance:1");
             var SongSkipped = false;
 
             var lastplay = obj.lastPlay;
             if (basicBot.settings.songstats && !(typeof lastplay === 'undefined')) {
-                console.log("Last DJ: " + lastplay.dj.username);
+                //console.log("Last DJ: " + lastplay.dj.username);
                 if (typeof basicBot.chat.songstatistics === "undefined") {
                     API.sendChat("/me " + lastplay.dj.username + " played " + lastplay.media.author + " - " + lastplay.media.title + ": " + lastplay.score.positive + "W/" + lastplay.score.grabs + "G/" + lastplay.score.negative + "M.")
                 }
@@ -1312,17 +1306,17 @@
             
             var dj = API.getDJ();
             if (!(typeof dj === 'undefined')) {
-            console.log("eventDjadvance:2");
+            //console.log("eventDjadvance:2");
               for(var i = 0; i < basicBot.room.users.length; i++){
                 if(basicBot.room.users[i].id === dj.id){
                     basicBot.room.users[i].lastDC = {time: null,position: null,songCount: 0};
                 }
               }
             }
-            console.log("eventDjadvance:3");
+            //console.log("eventDjadvance:3");
             if (typeof lastplay !== 'undefined')
 			{
-              console.log("eventDjadvance:4");
+              //console.log("eventDjadvance:4");
               basicBot.room.roomstats.totalWoots += lastplay.score.positive;
               basicBot.room.roomstats.totalMehs += lastplay.score.negative;
               basicBot.room.roomstats.totalCurates += lastplay.score.grabs;
@@ -1332,10 +1326,10 @@
             //if (typeof dj === 'undefined') { return; }
             basicBot.room.currentDJID = obj.dj.id;
 
-            console.log("eventDjadvance:4a");
+            //console.log("eventDjadvance:4a");
             setTimeout(basicBot.roomUtilities.wootThisSong, 3000);
 
-            console.log("eventDjadvance:5");
+            //console.log("eventDjadvance:5");
             var mid = obj.media.format + ':' + obj.media.cid;
             for (var bl in basicBot.room.blacklists) {
                 if (basicBot.settings.blacklistEnabled) {
@@ -1345,20 +1339,20 @@
                     }
                 }
             }
-            console.log("eventDjadvance:5-2");
+            //console.log("eventDjadvance:5-2");
             // Auto-skip SC song during restricted hours (7AM-3PM EST)
             if ((basicBot.settings.skipSound5Days || basicBot.settings.skipSound7Days) && !SongSkipped){
-                console.log("Checking for SC Skip");
+                //console.log("Checking for SC Skip");
                 var currMedia = API.getMedia();
                 if (basicBot.roomUtilities.skipSoundCloudNow() && currMedia.format === 2) {
-                    console.log("Skipping SC song");
+                    //console.log("Skipping SC song");
                     var msg = "Sorry @" + obj.dj.username + " Sound Cloud songs are not permitted in this room " + basicBot.settings.skipSoundRange + " too many regulars cannot hear them.";
                     API.sendChat(msg);
                     return API.moderateForceSkip();
                 }
             }
         
-            console.log("eventDjadvance:6");
+            //console.log("eventDjadvance:6");
             var alreadyPlayed = false;
             for (var i = 0; i < basicBot.room.historyList.length; i++) {
                 if (basicBot.room.historyList[i][0] === obj.media.cid) {
@@ -1369,7 +1363,7 @@
                     var repeatLimit = (basicBot.settings.repeatSongTime * 60 * 1000);
                     if (basicBot.settings.repeatSongs && (lastPlayedMs < repeatLimit) && (lastPlayedMs > 5000))
                     {
-					    console.log("Skipping - Last Played: (" + lastPlayedMs + ") Limit: (" +  repeatLimit + ")");
+					    //console.log("Skipping - Last Played: (" + lastPlayedMs + ") Limit: (" +  repeatLimit + ")");
                         API.sendChat(subChat(basicBot.chat.songknown2, {name: obj.dj.username, lasttime: basicBot.roomUtilities.msToStr(Date.now() - lastPlayed)}));
                         API.moderateForceSkip();
                         SongSkipped = true;
@@ -1381,11 +1375,11 @@
                     alreadyPlayed = true;
                 }
             }
-            console.log("eventDjadvance:7");
+            //console.log("eventDjadvance:7");
             if (!alreadyPlayed) {
                 basicBot.room.historyList.push([obj.media.cid, +new Date()]);
             }
-            console.log("eventDjadvance:8");
+            //console.log("eventDjadvance:8");
             var newMedia = obj.media;
             if (basicBot.settings.timeGuard && newMedia.duration > basicBot.settings.maximumSongLength * 60 && !basicBot.room.roomevent && !SongSkipped) {
                 var name = obj.dj.username;
@@ -1399,20 +1393,20 @@
                 user.ownSong = false;
             }
             */
-            console.log("eventDjadvance:10");
+            //console.log("eventDjadvance:10");
             clearTimeout(basicBot.room.autoskipTimer);
-            console.log("eventDjadvance:11");
+            //console.log("eventDjadvance:11");
             if (basicBot.room.autoskip) {
                 var remaining = obj.media.duration * 1000;
                 basicBot.room.autoskipTimer = setTimeout(function () {
-                    console.log("Skipping track.");
+                    //console.log("Skipping track.");
                     //API.sendChat('Song stuck, skipping...');
                     API.moderateForceSkip();
                 }, remaining + 3000);
             }
-            console.log("eventDjadvance:12");
+            //console.log("eventDjadvance:12");
             storeToStorage();
-            console.log("eventDjadvance:13");
+            //console.log("eventDjadvance:13");
             }
             catch(err) {
                console.log("eventDjadvance:ERROR: " + err.message);
@@ -1559,15 +1553,10 @@
                 }
                 else return false;
                 var userPerm = basicBot.userUtilities.getPermission(chat.uid);
-				//todoer
-                console.log("name: " + chat.un + ", perm: " + userPerm);
                 if (chat.message !== ".join" && chat.message !== ".leave") {
-                console.log("CMD1.1: " + cmd);
                     if (userPerm === 0 && !basicBot.room.usercommand) return void (0);
-                console.log("CMD1.2: " + cmd);
                     if (!basicBot.room.allcommand) return void (0);
                 }
-                console.log("CMD1.3: " + cmd);
                 if (chat.message === '.eta' && basicBot.settings.etaRestriction) {
                     if (userPerm < 2) {
                         var u = basicBot.userUtilities.lookupUser(chat.uid);
@@ -1580,8 +1569,6 @@
                 }
                 var executed = false;
 
-				//todoer
-                console.log("CMD1.4: " + cmd);
                 for (var comm in basicBot.commands) {
                     var cmdCall = basicBot.commands[comm].command;
                     if (!Array.isArray(cmdCall)) {
@@ -1596,14 +1583,12 @@
                     }
                 }
 
-                console.log("CMD2: " + cmd);
                 if (executed && userPerm === 0) {
                     basicBot.room.usercommand = false;
                     setTimeout(function () {
                         basicBot.room.usercommand = true;
                     }, basicBot.settings.commandCooldown * 1000);
                 }
-                console.log("CMD3: " + cmd);
                 if (executed) {
                     API.moderateDeleteChat(chat.cid);
                     basicBot.room.allcommand = false;
@@ -1611,7 +1596,6 @@
                         basicBot.room.allcommand = true;
                     }, 5 * 1000);
                 }
-                console.log("CMD4: " + cmd + ":" + executed);
                 return executed;
             },
             action: function (chat) {
@@ -1765,7 +1749,7 @@
             //console.log("TODO - STARTUP 9");
             setTimeout(basicBot.roomUtilities.wootThisSong, 3000);
             loadChat(API.sendChat(subChat(basicBot.chat.online, {botname: basicBot.settings.botName, version: basicBot.version})));
-            console.log(basicBot.settings.botName + basicBot.version);
+            //console.log(basicBot.settings.botName + basicBot.version);
             //console.log("TODO - STARTUP 10");
 			basicBot.roomUtilities.randomCommentSetTimer();
 			basicBot.room.randomInterval = setInterval(function () { 
@@ -2577,7 +2561,7 @@
                             else API.moderateBanUser(user.id, 1, API.BAN.DAY);
                             setTimeout(function (id, name) {
                                 API.moderateUnbanUser(id);
-                                console.log('Unbanned @' + name + '. (' + id + ')');
+                                //console.log('Unbanned @' + name + '. (' + id + ')');
                             }, time * 60 * 1000, user.id, name);
                         }
                         else API.sendChat(subChat(basicBot.chat.invalidtime, {name: chat.un}));
@@ -3177,7 +3161,7 @@
                 rank: 'bouncer',
                 type: 'exact',
                 functionality: function (chat, cmd) {
-				    if (!basicBot.roomUtilities.canSkip()) return API.sendChat("Wait for it...");
+				    if (!basicBot.roomUtilities.canSkip()) return API.sendChat("Skip too soon...");
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
@@ -3434,7 +3418,7 @@
                                 return API.sendChat(subChat(basicBot.chat.notbanned, {name: chat.un}));
                             }
                             API.moderateUnbanUser(bannedUser.id);
-                            console.log("Unbanned " + name);
+                            //console.log("Unbanned " + name);
                             setTimeout(function () {
                                 $(".icon-chat").click();
                             }, 1000);
@@ -3605,14 +3589,14 @@
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
                 try{
-                    console.log("echoCommand:1");
+                    //console.log("echoCommand:1");
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                    console.log("echoCommand:2");
+                    //console.log("echoCommand:2");
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                    console.log("echoCommand:3");
+                    //console.log("echoCommand:3");
                     var msg = chat.message;
                     if (msg.length === cmd.length) return;
-                    console.log("echoCommand:4");
+                    //console.log("echoCommand:4");
                     var msgContent = msg.substring(cmd.length + 1);
                     console.log(chat.un + " used echo: " + msgContent);
                     return API.sendChat(msgContent);
