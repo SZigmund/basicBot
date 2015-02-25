@@ -1,4 +1,4 @@
-/** version: 2.1.4.00018.16
+/** version: 2.1.4.00018.17
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00018.16",
+        version: "2.1.4.00018.17",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1182,8 +1182,9 @@
 			console.log("CHAT1: " + chat.message);
             chat.message = linkFixer(chat.message);
             chat.message = chat.message.trim();
+			/* todoer
 			basicBot.userUtilities.setLastActivityID(chat.uid, chat.un);
-			/*
+			*/
             for (var i = 0; i < basicBot.room.users.length; i++) {
                 if (basicBot.room.users[i].id === chat.uid) {
                     basicBot.userUtilities.setLastActivity(basicBot.room.users[i]);
@@ -1192,7 +1193,6 @@
                     }
                 }
             }
-			*/
 			console.log("CHAT2: " + chat.message);
             if (basicBot.chatUtilities.chatFilter(chat)) return void (0);
 			console.log("CHAT3: " + chat.message);
