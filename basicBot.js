@@ -1,4 +1,4 @@
-/** version: 2.1.4.00019
+/** version: 2.1.4.00020
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00019",
+        version: "2.1.4.00020",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -863,16 +863,22 @@
 			      var randomRange = (basicBot.settings.randomCommentMax - basicBot.settings.randomCommentMin)
                   var randomMins = Math.floor(Math.random() * randomRange);
 				  randomMins += basicBot.settings.randomCommentMin;
-				  var nextTime = new Date();
+				  console.log("Random mins: " + randomMins);
 				  //JIC: Ensure we are in the correct time range:
 				  if ((randomMins > basicBot.settings.randomCommentMax) || (randomMins < basicBot.settings.randomCommentMin))
 				  {
 				      randomMins = basicBot.settings.randomCommentMin + ((basicBot.settings.randomCommentMax - basicBot.settings.randomCommentMin) / 2.0)
 				  }
-				  nextTime.setMinutes(nextTime.getMinutes() + randomMins);
+				  console.log("Random mins: " + randomMins);
+				  var nextTime = new Date();
+				  //nextTime.setMinutes(nextTime.getMinutes() + randomMins);
+				  var myTimeSpan;
+				  myTimeSpan = randomMins*60*1000; // 5 minutes in milliseconds
+				  nextTime.setTime(nextTime.getTime() + myTimeSpan);
+				  console.log("HH:NN " + nextTime.getHours() + ":" + nextTime.getMinutes());
 				  basicBot.settings.nextRandomComment = nextTime;
-				  //console.log("RANDOM TIME: " + basicBot.settings.nextRandomComment);
-				  //console.log("NOW TIME: " + Date.now());
+				  console.log("RANDOM TIME: " + basicBot.settings.nextRandomComment);
+				  console.log("NOW TIME: " + Date.now());
                 }  
                 catch(err) {
                   console.log("randomCommentSetTimer:ERROR: " + err.message);
@@ -890,11 +896,21 @@
 			},
 			randomCommentCheck() {  //Added 02/19/2015 Zig
                   try  {
+/*
 				  var testTime = new Date();
 				  var timeDiff = testTime.getMinutes() - basicBot.settings.nextRandomComment.getMinutes();
-				  //console.log("randomCommentCheck-NOW TIME: " + Date.now());
-				  //console.log("randomCommentCheck-timeDiff: " + timeDiff);
+				  console.log("randomCommentCheck:" + testTime.getMinutes() + " - " + basicBot.settings.nextRandomComment.getMinutes());
+				  console.log("randomCommentCheck-NOW TIME: " + Date.now());
+				  console.log("randomCommentCheck-timeDiff: " + timeDiff);
 				  if (timeDiff > 0)
+				  {
+				      basicBot.roomUtilities.randomCommentSetTimer();
+				      if (basicBot.settings.randomComments === true) API.sendChat(basicBot.roomUtilities.randomCommentSelect());
+				  }
+				  */
+  				  console.log("HH:NN " + basicBot.settings.nextRandomComment.getHours() + ":" + basicBot.settings.nextRandomComment.getMinutes());
+
+				  if (basicBot.settings.nextRandomComment <= Date.now())
 				  {
 				      basicBot.roomUtilities.randomCommentSetTimer();
 				      if (basicBot.settings.randomComments === true) API.sendChat(basicBot.roomUtilities.randomCommentSelect());
