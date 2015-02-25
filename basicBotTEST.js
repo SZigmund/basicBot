@@ -1,4 +1,4 @@
-/** version: 2.1.4.00018.17
+/** version: 2.1.4.00018.18
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00018.17",
+        version: "2.1.4.00018.18",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1562,9 +1562,12 @@
 				//todoer
                 console.log("name: " + chat.un + ", perm: " + userPerm);
                 if (chat.message !== ".join" && chat.message !== ".leave") {
+                console.log("CMD1.1: " + cmd);
                     if (userPerm === 0 && !basicBot.room.usercommand) return void (0);
+                console.log("CMD1.2: " + cmd);
                     if (!basicBot.room.allcommand) return void (0);
                 }
+                console.log("CMD1.3: " + cmd);
                 if (chat.message === '.eta' && basicBot.settings.etaRestriction) {
                     if (userPerm < 2) {
                         var u = basicBot.userUtilities.lookupUser(chat.uid);
@@ -1578,7 +1581,7 @@
                 var executed = false;
 
 				//todoer
-                console.log("CMD1: " + cmd);
+                console.log("CMD1.4: " + cmd);
                 for (var comm in basicBot.commands) {
                     var cmdCall = basicBot.commands[comm].command;
                     if (!Array.isArray(cmdCall)) {
