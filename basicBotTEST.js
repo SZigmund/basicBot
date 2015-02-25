@@ -1,4 +1,4 @@
-/** version: 2.1.4.00019.01
+/** version: 2.1.4.00019.02
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00019.01",
+        version: "2.1.4.00019.02",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -871,7 +871,11 @@
 				  }
 				  console.log("Random mins: " + randomMins);
 				  var nextTime = new Date();
-				  nextTime.setMinutes(nextTime.getMinutes() + randomMins);
+				  //nextTime.setMinutes(nextTime.getMinutes() + randomMins);
+				  var myTimeSpan;
+				  myTimeSpan = randomMins*60*1000; // 5 minutes in milliseconds
+				  nextTime.setTime(nextTime.getTime() + myTimeSpan);
+				  console.log("HH:NN " + nextTime.getHours() + ":" + nextTime.getMinutes());
 				  basicBot.settings.nextRandomComment = nextTime;
 				  console.log("RANDOM TIME: " + basicBot.settings.nextRandomComment);
 				  console.log("NOW TIME: " + Date.now());
@@ -892,12 +896,23 @@
 			},
 			randomCommentCheck() {  //Added 02/19/2015 Zig
                   try  {
+/*
 				  var testTime = new Date();
 				  var timeDiff = testTime.getMinutes() - basicBot.settings.nextRandomComment.getMinutes();
 				  console.log("randomCommentCheck:" + testTime.getMinutes() + " - " + basicBot.settings.nextRandomComment.getMinutes());
 				  console.log("randomCommentCheck-NOW TIME: " + Date.now());
 				  console.log("randomCommentCheck-timeDiff: " + timeDiff);
 				  if (timeDiff > 0)
+				  {
+				      basicBot.roomUtilities.randomCommentSetTimer();
+				      if (basicBot.settings.randomComments === true) API.sendChat(basicBot.roomUtilities.randomCommentSelect());
+				  }
+				  */
+				  //todoer
+				  var diffMs = (Date.now() - basicBot.settings.nextRandomComment); // milliseconds between now & Christmas
+				  var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+				  console.log("Random Mins: " + diffMins);
+				  if (basicBot.settings.nextRandomComment <= Date.now())
 				  {
 				      basicBot.roomUtilities.randomCommentSetTimer();
 				      if (basicBot.settings.randomComments === true) API.sendChat(basicBot.roomUtilities.randomCommentSelect());
