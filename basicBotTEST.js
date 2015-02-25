@@ -1,4 +1,4 @@
-/** version: 2.1.4.00018.21
+/** version: 2.1.4.00018.22
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00018.21",
+        version: "2.1.4.00018.22",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -241,6 +241,8 @@
                 ["unavailable", "The song you played was not available for some users. "]
             ],
 			randomCommentArray: [
+			"I told him we already got one",
+			"You don't think she'd yada yada sex?....I've yada yada'd sex.",
 			"@Bacon_Cheeseburger time for another PBR!",
 			"You can't make somebody love you.  You can only stalk them and hope for the best",
 			"Women, can't live with them....pass the beer nuts!",
@@ -1899,11 +1901,11 @@
                     else {
                         if (basicBot.settings.randomComments) {
                             basicBot.settings.randomComments = !basicBot.settings.randomComments;
-                            API.sendChat(subChat(basicBot.chat.toggleoff, {name: chat.un, 'function': 'RandomComments'}));
+                            API.sendChat(subChat(basicBot.chat.toggleoff, {name: chat.un, 'function': 'Random Comments'}));
                         }
                         else {
                             basicBot.settings.randomComments = !basicBot.settings.randomComments;
-                            API.sendChat(subChat(basicBot.chat.toggleon, {name: chat.un, 'function': 'RandomComments'}));
+                            API.sendChat(subChat(basicBot.chat.toggleon, {name: chat.un, 'function': 'Random Comments'}));
                         }
                     }
                 }
@@ -3253,7 +3255,7 @@
                         msg += '. ';
                         msg += basicBot.chat.repeatSongLimit + ': ' + basicBot.settings.repeatSongTime + '. ';
 
-						msg +=  'RandomComments' + ': ';
+						msg +=  'Random Comments' + ': ';
                         if (basicBot.settings.randomComments) msg += 'ON';
                         else msg += 'OFF';
                         msg += '. ';
