@@ -1,4 +1,13 @@
-/** version: 2.1.4.00021.01
+/** version: 2.1.4.00021.02
+(UPDATED -> Commits on Feb 10, 2015)
+ Creator: Yemasthui
+    var botCreator = "Matthew (Yemasthui)";
+    var botMaintainer = "Benzi (Quoona)"
+    var botCreatorIDs = ["3851534", "3934992", "4105209"];
+ *Copyright 2014 Yemasthui
+ *Modifications (including forks) of the code to fit personal needs are allowed only for personal use and should refer back to the original source.
+ *This software is not for profit, any extension, or unauthorised person providing this software is not authorised to be in a position of any monetary gain from this use of this software. Any and all money gained under the use of the software (which includes donations) must be passed on to the original author.
+ */
  */
 
 (function () {
@@ -177,10 +186,12 @@
 
     var botCreator = "Matthew aka. Yemasthui";
     var botCreatorIDs = [];
+    var botCreator = "Matthew (Yemasthui)";
+    var botMaintainer = "Benzi (Quoona)"
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00021.01",
+        version: "2.1.4.00021.02",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -214,7 +225,7 @@
             voteSkipEnabled: true,
             voteSkipLimit: 4,
             timeGuard: true,
-            maximumSongLength: 10,
+            maximumSongLength: 8,
             repeatSongs: true,
             repeatSongTime: 180,
             skipSound5Days: true,
@@ -724,6 +735,7 @@
             },
             lookupUserName: function (name) {
                 for (var i = 0; i < basicBot.room.users.length; i++) {
+				    console.log("USER: " + basicBot.room.users[i].username.trim())
                     var match = basicBot.room.users[i].username.trim() == name.trim();
                     if (match) {
                         return basicBot.room.users[i];
@@ -2410,7 +2422,7 @@
                 }
             },
 
-            deletechatCommand: {
+            /*deletechatCommand: {
                 command: 'deletechat',
                 rank: 'mod',
                 type: 'startsWith',
@@ -2434,7 +2446,7 @@
                         API.sendChat(subChat(basicBot.chat.deletechat, {name: chat.un, username: name}));
                     }
                 }
-            },
+            },*/
 
             emojiCommand: {
                 command: 'emoji',
