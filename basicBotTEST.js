@@ -1,4 +1,4 @@
-/** version: 2.1.4.00019.03
+/** version: 2.1.4.00021.01
  */
 
 (function () {
@@ -180,7 +180,7 @@
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00019.03",
+        version: "2.1.4.00021.01",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -857,7 +857,7 @@
                 }
                 return rankInt;
             },
-            randomCommentSetTimer() {   //Added 02/19/2015 Zig
+            randomCommentSetTimer: function() {   //Added 02/19/2015 Zig
                 try  {
 				  //console.log("SETTING randomCommentSetTimer: " + basicBot.settings.nextRandomComment);
 			      var randomRange = (basicBot.settings.randomCommentMax - basicBot.settings.randomCommentMin)
@@ -884,7 +884,7 @@
                   console.log("randomCommentSetTimer:ERROR: " + err.message);
                 }
 			},
-			randomCommentSelect()  {  //Added 02/19/2015 Zig
+			randomCommentSelect: function()  {  //Added 02/19/2015 Zig
                 try  {
 				    var randomCount = basicBot.settings.randomCommentArray.length;
                     var randomID = Math.floor(Math.random() * randomCount);
@@ -894,7 +894,7 @@
                   console.log("randomCommentSelect:ERROR: " + err.message);
                 }
 			},
-			randomCommentCheck() {  //Added 02/19/2015 Zig
+			randomCommentCheck: function() {  //Added 02/19/2015 Zig
                   try  {
 /*
 				  var testTime = new Date();
@@ -908,10 +908,6 @@
 				      if (basicBot.settings.randomComments === true) API.sendChat(basicBot.roomUtilities.randomCommentSelect());
 				  }
 				  */
-				  //todoer
-				  var diffMs = (Date.now() - basicBot.settings.nextRandomComment); // milliseconds between now & Christmas
-				  var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
-				  console.log("Random Mins: " + diffMins);
   				  console.log("HH:NN " + basicBot.settings.nextRandomComment.getHours() + ":" + basicBot.settings.nextRandomComment.getMinutes());
 
 				  if (basicBot.settings.nextRandomComment <= Date.now())
@@ -3783,16 +3779,12 @@
                 rank: 'mod',
                 type: 'exact',
                 functionality: function (chat, cmd)                 {
-                    var newMedia = API.getMedia();
-                    //var newMedia = obj.media;
-                    //if (basicBot.settings.timeGuard) API.sendChat("/me settings.timeGuard = True");
-                    //if (newMedia.duration > basicBot.settings.maximumSongLength * 60)  API.sendChat("/me Too Long = True");
-                    if (basicBot.settings.timeGuard && newMedia.duration > basicBot.settings.maximumSongLength * 60 && !basicBot.room.roomevent)  {
-                        //API.sendChat("/me TEST CMD" + newMedia.duration);
-                        //var name = obj.dj.username;
-                        API.sendChat(subChat(basicBot.chat.timelimit, {name: "name", maxlength: basicBot.settings.maximumSongLength}));
-                        API.moderateForceSkip();
+				    try {
+				        basicBot.roomUtilities.updateBlacklists();
                     }
+					catch(err) {
+					    console.log("grabCommand:ERROR: " + err.message);
+					}
                 }
             },
             youtubeCommand: {
