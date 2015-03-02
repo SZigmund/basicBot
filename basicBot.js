@@ -1,4 +1,21 @@
-/** version: 2.1.4.00021
+/** version: 2.1.4.00022
+
+Ban Forever:
+{"userID":5226916,"reason":1,"duration":"f"}
+
+Grab:
+{"playlistID":6096830,"historyID":"291d773b-c5e7-4dce-b555-5842efd94b6f"}
+Grab - Playlist Insert: 
+{"media":[{"id":0,"format":1,"cid":"0gpMlAiqcjU","author":"The Fratellis","title":"Henrietta","image":"//i.ytimg.com/vi/0gpMlAiqcjU/default.jpg","duration":228}],"append":false}
+
+(UPDATED -> Commits on Feb 10, 2015)
+ Creator: Yemasthui
+    var botCreator = "Matthew (Yemasthui)";
+    var botMaintainer = "Benzi (Quoona)"
+    var botCreatorIDs = ["3851534", "3934992", "4105209"];
+ *Copyright 2014 Yemasthui
+ *Modifications (including forks) of the code to fit personal needs are allowed only for personal use and should refer back to the original source.
+ *This software is not for profit, any extension, or unauthorised person providing this software is not authorised to be in a position of any monetary gain from this use of this software. Any and all money gained under the use of the software (which includes donations) must be passed on to the original author.
  */
 
 (function () {
@@ -176,11 +193,13 @@
     };
 
     var botCreator = "Matthew aka. Yemasthui";
-    var botCreatorIDs = [];
+    var botCreatorIDs = [3837756];
+    var botCreator = "Matthew (Yemasthui)";
+    var botMaintainer = "Benzi (Quoona)"
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00021",
+        version: "2.1.4.00022",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -214,7 +233,7 @@
             voteSkipEnabled: true,
             voteSkipLimit: 4,
             timeGuard: true,
-            maximumSongLength: 10,
+            maximumSongLength: 8,
             repeatSongs: true,
             repeatSongTime: 180,
             skipSound5Days: true,
@@ -2410,7 +2429,7 @@
                 }
             },
 
-            deletechatCommand: {
+            /*deletechatCommand: {
                 command: 'deletechat',
                 rank: 'mod',
                 type: 'startsWith',
@@ -2434,7 +2453,7 @@
                         API.sendChat(subChat(basicBot.chat.deletechat, {name: chat.un, username: name}));
                     }
                 }
-            },
+            },*/
 
             emojiCommand: {
                 command: 'emoji',
@@ -3214,6 +3233,33 @@
                 }
             },
 
+            blockedCommand: {
+                command: 'blocked',
+                rank: 'bouncer',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+				    if (!basicBot.roomUtilities.canSkip()) return API.sendChat("Skip too soon...");
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+					    try {
+                            console.log(subChat(basicBot.chat.skip, {name: chat.un}));
+						    var dj = API.getDJ();
+						    var msgSend = '@' + dj.username + ': this song has been blocked in the US. please find another version.';
+                            API.moderateForceSkip();
+                            basicBot.room.skippable = false;
+                            setTimeout(function () {
+                                basicBot.room.skippable = true
+                            }, 5 * 1000);
+                            API.sendChat(msgSend);
+                        }
+                        catch (e) {
+                            console.log("blockedCommand:ERROR: " + err.message);
+                        }
+                    }
+                }
+            },
+
             songstatsCommand: {
                 command: 'songstats',
                 rank: 'mod',
@@ -3764,14 +3810,24 @@
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
-                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                    var msg = chat.message;
-                    if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
-                    var whoisuser = msg.substr(cmd.length + 2);
-					console.log("whois: " + whoisuser);
-                    var user = basicBot.userUtilities.lookupUserName(whoisuser);
-                    if (typeof user !== 'undefined')  return API.sendChat(user.id);
+				    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        var msg = chat.message;
+                        if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
+                        var whoisuser = msg.substr(cmd.length + 2);
+					    console.log("whois: " + whoisuser);
+                        var user = basicBot.userUtilities.lookupUserName(whoisuser);
+                        if (typeof user !== 'undefined')  {
+						    console.log("USER ID: ");
+						    console.log("USER ID: " + user.id);
+						    API.sendChat("USER ID: " + user.id);
+						}
+					    console.log("TYPE: " + typeof user);
+                    }
+					catch(err) {
+					    console.log("whoisCommand:ERROR: " + err.message);
+					}
                 }
             },
 			zigCommand: {   //Added 01/27/2015 Zig
@@ -3779,16 +3835,12 @@
                 rank: 'mod',
                 type: 'exact',
                 functionality: function (chat, cmd)                 {
-                    var newMedia = API.getMedia();
-                    //var newMedia = obj.media;
-                    //if (basicBot.settings.timeGuard) API.sendChat("/me settings.timeGuard = True");
-                    //if (newMedia.duration > basicBot.settings.maximumSongLength * 60)  API.sendChat("/me Too Long = True");
-                    if (basicBot.settings.timeGuard && newMedia.duration > basicBot.settings.maximumSongLength * 60 && !basicBot.room.roomevent)  {
-                        //API.sendChat("/me TEST CMD" + newMedia.duration);
-                        //var name = obj.dj.username;
-                        API.sendChat(subChat(basicBot.chat.timelimit, {name: "name", maxlength: basicBot.settings.maximumSongLength}));
-                        API.moderateForceSkip();
+				    try {
+				        basicBot.roomUtilities.updateBlacklists();
                     }
+					catch(err) {
+					    console.log("zigCommand:ERROR: " + err.message);
+					}
                 }
             },
             youtubeCommand: {
