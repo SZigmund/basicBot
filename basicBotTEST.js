@@ -1,4 +1,13 @@
-/** version: 2.1.4.00021.03
+/** version: 2.1.4.00021.04
+
+Ban Forever:
+{"userID":5226916,"reason":1,"duration":"f"}
+
+Grab:
+{"playlistID":6096830,"historyID":"291d773b-c5e7-4dce-b555-5842efd94b6f"}
+Grab - Playlist Insert: 
+{"media":[{"id":0,"format":1,"cid":"0gpMlAiqcjU","author":"The Fratellis","title":"Henrietta","image":"//i.ytimg.com/vi/0gpMlAiqcjU/default.jpg","duration":228}],"append":false}
+
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
     var botCreator = "Matthew (Yemasthui)";
@@ -184,13 +193,13 @@
     };
 
     var botCreator = "Matthew aka. Yemasthui";
-    var botCreatorIDs = [];
+    var botCreatorIDs = [3837756];
     var botCreator = "Matthew (Yemasthui)";
     var botMaintainer = "Benzi (Quoona)"
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00021.03",
+        version: "2.1.4.00021.04",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -734,7 +743,6 @@
             },
             lookupUserName: function (name) {
                 for (var i = 0; i < basicBot.room.users.length; i++) {
-				    console.log("USER: " + basicBot.room.users[i].username.trim())
                     var match = basicBot.room.users[i].username.trim() == name.trim();
                     if (match) {
                         return basicBot.room.users[i];
@@ -3221,6 +3229,33 @@
                             basicBot.room.skippable = true
                         }, 5 * 1000);
 
+                    }
+                }
+            },
+
+            blockedCommand: {
+                command: 'blocked',
+                rank: 'bouncer',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+				    if (!basicBot.roomUtilities.canSkip()) return API.sendChat("Skip too soon...");
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+					    try {
+                            console.log(subChat(basicBot.chat.skip, {name: chat.un}));
+						    var dj = API.getDJ();
+						    var msgSend = '@' + dj.username + ': this song has been blocked in the US. please find another version.';
+                            API.moderateForceSkip();
+                            basicBot.room.skippable = false;
+                            setTimeout(function () {
+                                basicBot.room.skippable = true
+                            }, 5 * 1000);
+                            API.sendChat(msgSend);
+                        }
+                        catch (e) {
+                            console.log("blockedCommand:ERROR: " + err.message);
+                        }
                     }
                 }
             },
