@@ -1,4 +1,4 @@
-/** version: 2.1.4.00022.16
+/** version: 2.1.4.00022.17
 
 Ban Forever:
 {"userID":5226916,"reason":1,"duration":"f"}
@@ -199,7 +199,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.16",
+        version: "2.1.4.00022.17",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -213,6 +213,7 @@ Grab - Playlist Insert:
         retrieveFromStorage: retrieveFromStorage,
         settings: {
             autoWootBot: true,
+            autoAddBot: true,
             botName: "Larry the LAW",
             language: "english",
             chatLink: "https://rawgit.com/SZigmund/basicBot/master/lang/en.json",
@@ -890,7 +891,7 @@ Grab - Playlist Insert:
         roomUtilities: {
             addMe: function () {
 			    try {
-				    console.log("ADD ME LOGIC: " + basicBot.loggedInID);
+				    if (!basicBot.settings.autoAddBot) return;
 					basicBot.roomUtilities.testfunc();
 					if (basicBot.loggedInID < 0) return;
 			        if (!basicBot.roomUtilities.timeToAddMe()) return;
@@ -915,7 +916,8 @@ Grab - Playlist Insert:
 				console.log("Waitlist count: " + wlist.length);
                 if (wlist.length > 1) return false;
 				var dj = API.getDJ();
-                if (typeof dj === 'undefined') return true;
+                if ((typeof dj === 'undefined') && (wlist.length > 0)) return true;
+                if (typeof dj === 'undefined') return false;
 				console.log("DJUID: " + dj.id);
 				if (dj.id === basicBot.loggedInID) return false;
                 if (basicBot.userUtilities.getPermission(dj.id) > 1) return false;
@@ -1449,7 +1451,7 @@ Grab - Playlist Insert:
 			}
             basicBot.room.roomstats.songCount++;
             basicBot.roomUtilities.intervalMessage();
-            //if (typeof dj === 'undefined') { return; }
+            if (typeof obj.dj === 'undefined') { return; }
             basicBot.room.currentDJID = obj.dj.id;
 
             //console.log("eventDjadvance:4a");
