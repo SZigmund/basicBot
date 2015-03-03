@@ -1,4 +1,4 @@
-/** version: 2.1.4.00022.11
+/** version: 2.1.4.00022.12
 
 Ban Forever:
 {"userID":5226916,"reason":1,"duration":"f"}
@@ -199,7 +199,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.11",
+        version: "2.1.4.00022.12",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -910,7 +910,7 @@ Grab - Playlist Insert:
                 if (wlist.length > 1) return false;
 				var dj = API.getDJ();
                 if (typeof dj === 'undefined') return true;
-				console.log("DJUID: " + dj.uid) return false;
+				console.log("DJUID: " + dj.uid);
 				if (dj.uid === basicBot.settings.botId) return false;
                 if (basicBot.userUtilities.getPermission(dj.uid) > 1) return false;
 				API.getWaitList()
