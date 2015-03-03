@@ -1,4 +1,4 @@
-/** version: 2.1.4.00022.01
+/** version: 2.1.4.00022.02
 
 Ban Forever:
 {"userID":5226916,"reason":1,"duration":"f"}
@@ -199,7 +199,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.01",
+        version: "2.1.4.00022.02",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -749,11 +749,11 @@ Grab - Playlist Insert:
 				return false;
             },
             getBadSongCount: function (userId) {
-			    var user = lookupUser(userId);
+			    var user = basicBot.userUtilities.lookupUser(userId);
                 return user.badSongCount;
             },
             setBadSongCount: function (userId, value) {
-			    var user = lookupUser(userId);
+			    var user = basicBot.userUtilities.lookupUser(userId);
                 user.badSongCount = value;
 				console.log("Bad Count: " + value);
             },
