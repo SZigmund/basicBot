@@ -1,4 +1,4 @@
-/** version: 2.1.4.00022.04
+/** version: 2.1.4.00022.05
 
 Ban Forever:
 {"userID":5226916,"reason":1,"duration":"f"}
@@ -199,7 +199,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.04",
+        version: "2.1.4.00022.05",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -735,10 +735,21 @@ Grab - Playlist Insert:
                 user.afkWarningCount = value;
  
             },
+			removeDJ: function (userId) {
+			    try {
+			        console.log("Remove DJ1: " + userId);
+			        API.moderateRemoveDJ(userId);
+			        console.log("Remove DJ2: " + userId);
+				}
+                catch(err) {
+                  console.log("removeDJ:ERROR: " + err.message);
+                }
+			},
             skipBadSong: function (userId) {
+			    if (basicBot.userUtilities.tooManyBadSongs(userId)) basicBot.roomUtilities.changeDJCycle();
                 API.moderateForceSkip();
                 if (basicBot.userUtilities.tooManyBadSongs(userId)) {
-					setTimeout(function () { API.moderateRemoveDJ(userId); }, 1 * 1000);
+					setTimeout(function () { basicBot.userUtilities.removeDJ(userId); }, 1 * 1000);
 				}
 			},
             tooManyBadSongs: function (userId) {
@@ -3289,6 +3300,33 @@ Grab - Playlist Insert:
             },
 
             oobCommand: {
+                command: 'oob',
+                rank: 'bouncer',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+				    if (!basicBot.roomUtilities.canSkip()) return API.sendChat("Skip too soon...");
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+					    try {
+                            console.log(subChat(basicBot.chat.skip, {name: chat.un}));
+						    var dj = API.getDJ();
+						    var msgSend = '@' + dj.username + ': your song has been skipped. Please read the rules before you play your next song.';
+                            API.moderateForceSkip();
+                            basicBot.room.skippable = false;
+                            setTimeout(function () {
+                                basicBot.room.skippable = true
+                            }, 5 * 1000);
+                            API.sendChat(msgSend);
+							API.sendChat(subChat(basicBot.chat.roomrules, {link: basicBot.settings.rulesLink}));
+                        }
+                        catch (e) {
+                            console.log("oob:ERROR: " + err.message);
+                        }
+                    }
+                }
+            },
+            removeCommand: {
                 command: 'oob',
                 rank: 'bouncer',
                 type: 'exact',
