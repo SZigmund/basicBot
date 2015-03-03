@@ -1,4 +1,4 @@
-/** version: 2.1.4.00022.02
+/** version: 2.1.4.00022.03
 
 Ban Forever:
 {"userID":5226916,"reason":1,"duration":"f"}
@@ -199,7 +199,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.02",
+        version: "2.1.4.00022.03",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -737,9 +737,9 @@ Grab - Playlist Insert:
             },
             skipBadSong: function (userId) {
                 if (basicBot.userUtilities.tooManyBadSongs(userId))
-                    return API.moderateRemoveDJ(userId)
+                    API.moderateRemoveDJ(userId)
                 else
-                    return API.moderateForceSkip();
+                    API.moderateForceSkip();
 			},
             tooManyBadSongs: function (userId) {
 			    var badCount = basicBot.userUtilities.getBadSongCount(userId);
@@ -1397,7 +1397,8 @@ Grab - Playlist Insert:
                 if (basicBot.settings.blacklistEnabled) {
                     if (basicBot.room.blacklists[bl].indexOf(mid) > -1) {
                         API.sendChat(subChat(basicBot.chat.isblacklisted, {blacklist: bl}));
-						return basicBot.userUtilities.skipBadSong(obj.dj.id);
+						basicBot.userUtilities.skipBadSong(obj.dj.id);
+						return;
                     }
                 }
             }
@@ -1410,7 +1411,8 @@ Grab - Playlist Insert:
                     //console.log("Skipping SC song");
                     var msg = "Sorry @" + obj.dj.username + " Sound Cloud songs are not permitted in this room " + basicBot.settings.skipSoundRange + " too many regulars cannot hear them.";
                     API.sendChat(msg);
-					return basicBot.userUtilities.skipBadSong(obj.dj.id);
+					basicBot.userUtilities.skipBadSong(obj.dj.id);
+					return;
                 }
             }
         
