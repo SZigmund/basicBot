@@ -1,4 +1,4 @@
-/** version: 2.1.4.00022.12
+/** version: 2.1.4.00022.14
 
 Ban Forever:
 {"userID":5226916,"reason":1,"duration":"f"}
@@ -199,7 +199,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.12",
+        version: "2.1.4.00022.14",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -214,9 +214,6 @@ Grab - Playlist Insert:
         settings: {
             autoWootBot: true,
             botName: "Larry the LAW",
-            botName2: "Levi Homer",
-            botName3: "Doc_Z",
-            botId: -1,
             language: "english",
             chatLink: "https://rawgit.com/SZigmund/basicBot/master/lang/en.json",
             maximumAfk: 60,
@@ -893,15 +890,25 @@ Grab - Playlist Insert:
         roomUtilities: {
             addMe: function () {
 			    try {
-				    console.log("ADD ME LOGIC" + basicBot.settings.botId);
-					if (basicBot.settings.botId < 0) return;
+				    console.log("ADD ME LOGIC: " + basicBot.loggedInID);
+					basicBot.roomUtilities.testfunc();
+					if (basicBot.loggedInID < 0) return;
 			        if (!basicBot.roomUtilities.timeToAddMe()) return;
-				    console.log("TIME TO ADD ME!!!!!" + basicBot.settings.botId);
-				    API.moderateAddDJ(basicBot.settings.botId)
+				    console.log("TIME TO ADD ME!!!!!" + basicBot.loggedInID);
+				    API.moderateAddDJ(basicBot.loggedInID)
 				}
                 catch(err) {
                   console.log("addMe:ERROR: " + err.message);
                 }
+			},
+			testfunc: function () {
+                for (var i = 0; i < basicBot.room.users.length; i++) {
+                  console.log("-----------------------------------");
+                  console.log("USER: " + basicBot.room.users[i].id);
+                  console.log("NAME: " + basicBot.room.users[i].username);
+                  console.log("PERM: " + basicBot.userUtilities.getPermission(basicBot.room.users[i].id));
+                }
+			  foreach lookup
 			},
 			timeToAddMe: function () {
 			    try {
@@ -910,16 +917,16 @@ Grab - Playlist Insert:
                 if (wlist.length > 1) return false;
 				var dj = API.getDJ();
                 if (typeof dj === 'undefined') return true;
-				console.log("DJUID: " + dj.uid);
-				if (dj.uid === basicBot.settings.botId) return false;
-                if (basicBot.userUtilities.getPermission(dj.uid) > 1) return false;
+				console.log("DJUID: " + dj.id);
+				if (dj.id === basicBot.loggedInID) return false;
+                if (basicBot.userUtilities.getPermission(dj.id) > 1) return false;
 				API.getWaitList()
 				var wl = API.getWaitList();
 				for(var i = 0; i < wl.length; i++){
 				    var user = basicBot.userUtilities.lookupUser(wl[i].id);
                     var name = user.username;
 				    console.log("WL: ID: " + wl[i].id + " NAME: " + name);
-				    if (wl[i].id === basicBot.settings.botId) return false;
+				    if (wl[i].id === basicBot.loggedInID) return false;
 					//if (basicBot.userUtilities.getPermission(wl[i].id) > 1) return false;
 				}
 				return true;
@@ -1801,6 +1808,7 @@ Grab - Playlist Insert:
             };
             //console.log("TODO - STARTUP Starting");
             var u = API.getUser();
+			colsole.log("I AM BOT: " + u.id);
             if (basicBot.userUtilities.getPermission(u) < 2) return API.chatLog(basicBot.chat.greyuser);
             if (basicBot.userUtilities.getPermission(u) === 2) API.chatLog(basicBot.chat.bouncer);
             basicBot.connectAPI();
@@ -1861,6 +1869,7 @@ Grab - Playlist Insert:
             //    basicBot.room.autodisableFunc();
             //}, 60 * 60 * 1000);
             //console.log("TODO - STARTUP 7");
+			//BotID: Current User:
             basicBot.loggedInID = API.getUser().id;
             basicBot.status = true;
             API.sendChat('/cap 1');
@@ -1871,10 +1880,6 @@ Grab - Playlist Insert:
                 emojibutton[0].click();
             }
             */
-			var botUser = basicBot.userUtilities.lookupUserName(basicBot.settings.botName);
-            if (typeof botUser !== 'undefined') basicBot.settings.botId = botUser.id;
-            botUser = basicBot.userUtilities.lookupUserName(basicBot.settings.botName2);
-            if (typeof botUser !== 'undefined') basicBot.settings.botId = botUser.id;
 
             //console.log("TODO - STARTUP 9");
             setTimeout(basicBot.roomUtilities.wootThisSong, 3000);
