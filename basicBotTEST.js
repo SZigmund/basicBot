@@ -1,4 +1,4 @@
-/** version: 2.1.4.00022.15
+/** version: 2.1.4.00022.16
 
 Ban Forever:
 {"userID":5226916,"reason":1,"duration":"f"}
@@ -199,7 +199,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.15",
+        version: "2.1.4.00022.16",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1807,7 +1807,7 @@ Grab - Playlist Insert:
             };
             //console.log("TODO - STARTUP Starting");
             var u = API.getUser();
-			colsole.log("I AM BOT: " + u.id);
+			console.log("I AM BOT: " + u.id);
             if (basicBot.userUtilities.getPermission(u) < 2) return API.chatLog(basicBot.chat.greyuser);
             if (basicBot.userUtilities.getPermission(u) === 2) API.chatLog(basicBot.chat.bouncer);
             basicBot.connectAPI();
