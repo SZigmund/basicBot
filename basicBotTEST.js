@@ -1,4 +1,4 @@
-/** version: 2.1.4.00022.07
+/** version: 2.1.4.00022.08
 
 Ban Forever:
 {"userID":5226916,"reason":1,"duration":"f"}
@@ -199,7 +199,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.07",
+        version: "2.1.4.00022.08",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -214,6 +214,7 @@ Grab - Playlist Insert:
         settings: {
             autoWootBot: true,
             botName: "Larry the LAW",
+            botName2: "Levi Homer",
             language: "english",
             chatLink: "https://rawgit.com/SZigmund/basicBot/master/lang/en.json",
             maximumAfk: 60,
@@ -724,7 +725,7 @@ Grab - Playlist Insert:
                 var user = basicBot.userUtilities.lookupUser(userId);
                 if (user.username !== userName) user.username = userName;
             },
-            setLastActivityId: function (userId) {
+            setLastActivityID: function (userId) {
                 var user = basicBot.userUtilities.lookupUser(userId);
 				basicBot.userUtilities.setLastActivity(user);
             },
@@ -889,10 +890,31 @@ Grab - Playlist Insert:
 
         roomUtilities: {
             addMe: function () {
+			    if (!TimeToAddMe()) return;
+                var user = basicBot.userUtilities.lookupUserName(basicBot.settings.botName);
+                if (typeof user !== 'undefined') {
+				    API.moderateAddDJ(user.id)
+					return;
+				}
+                var user = basicBot.userUtilities.lookupUserName(basicBot.settings.botName2);
+                if (typeof user !== 'undefined') API.moderateAddDJ(user.id)
+			},
+			timeToAddMe: function () {
                 var wlist = API.getWaitList();
 				console.log("Waitlist count: " + wlist.length);
-                if (wlist.length > 2) return;
-			  //var dj = API.getDJ();
+                if (wlist.length > 1) return false;
+				var dj = API.getDJ();
+                if (typeof dj === 'undefined') return true;
+                if (basicBot.userUtilities.getPermission(dj.uid) > 1) return false;
+				API.getWaitList()
+				var wl = API.getWaitList();
+				for(var i = 0; i < wl.length; i++){
+				    var user = basicBot.userUtilities.lookupUser(wl[i].id);
+                    var name = user.username;
+				  console.log("WL: ID: " + wl[i].id + " NAME: " + name);
+					//if (basicBot.userUtilities.getPermission(wl[i].id) > 1) return false;
+				}
+				return true;
 			},
             rankToNumber: function (rankString) {
                 var rankInt = null;
@@ -1389,7 +1411,7 @@ Grab - Playlist Insert:
                 }
             }
             
-            basicBot.roomUtilities.addMe();
+			basicBot.roomUtilities.addMe();
             var dj = API.getDJ();
             if (!(typeof dj === 'undefined')) {
             //console.log("eventDjadvance:2");
