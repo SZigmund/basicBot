@@ -1,4 +1,4 @@
-/** version: 2.1.4.00022.14
+/** version: 2.1.4.00022.15
 
 Ban Forever:
 {"userID":5226916,"reason":1,"duration":"f"}
@@ -199,7 +199,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.14",
+        version: "2.1.4.00022.15",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -908,7 +908,6 @@ Grab - Playlist Insert:
                   console.log("NAME: " + basicBot.room.users[i].username);
                   console.log("PERM: " + basicBot.userUtilities.getPermission(basicBot.room.users[i].id));
                 }
-			  foreach lookup
 			},
 			timeToAddMe: function () {
 			    try {
