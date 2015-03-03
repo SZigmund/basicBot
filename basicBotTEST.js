@@ -1,4 +1,4 @@
-/** version: 2.1.4.00021.04
+/** version: 2.1.4.00022.01
 
 Ban Forever:
 {"userID":5226916,"reason":1,"duration":"f"}
@@ -199,7 +199,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00021.04",
+        version: "2.1.4.00022.01",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -694,6 +694,7 @@ Grab - Playlist Insert:
             };
             this.lastEta = null;
             this.afkWarningCount = 0;
+			this.badSongCount = 0;
             this.afkCountdown = null;
             this.inRoom = true;
             this.isMuted = false;
@@ -732,8 +733,31 @@ Grab - Playlist Insert:
             },
             setWarningCount: function (user, value) {
                 user.afkWarningCount = value;
+ 
             },
-            lookupUser: function (id) {
+            skipBadSong: function (userId) {
+                if (basicBot.userUtilities.tooManyBadSongs(userId))
+                    return API.moderateRemoveDJ(userId)
+                else
+                    return API.moderateForceSkip();
+			},
+            tooManyBadSongs: function (userId) {
+			    var badCount = basicBot.userUtilities.getBadSongCount(userId);
+				badCount += 1;
+				basicBot.userUtilities.setBadSongCount(userId, badCount);
+				if (badCount > 2) return true;
+				return false;
+            },
+            getBadSongCount: function (userId) {
+			    var user = lookupUser(userId);
+                return user.badSongCount;
+            },
+            setBadSongCount: function (userId, value) {
+			    var user = lookupUser(userId);
+                user.badSongCount = value;
+				console.log("Bad Count: " + value);
+            },
+            lookupUser: function (id) { //todoer
                 for (var i = 0; i < basicBot.room.users.length; i++) {
                     if (basicBot.room.users[i].id === id) {
                         return basicBot.room.users[i];
@@ -1308,7 +1332,7 @@ Grab - Playlist Insert:
             if (basicBot.settings.voteSkipEnabled) {
                 if (mehs >= (basicBot.settings.voteSkipLimit)) {
                     API.sendChat(subChat(basicBot.chat.voteskipexceededlimit, {name: dj.username, limit: basicBot.settings.voteSkipLimit}));
-                    API.moderateForceSkip();
+                    basicBot.userUtilities.skipBadSong(obj.dj.id);
                 }
             }
 
@@ -1373,7 +1397,7 @@ Grab - Playlist Insert:
                 if (basicBot.settings.blacklistEnabled) {
                     if (basicBot.room.blacklists[bl].indexOf(mid) > -1) {
                         API.sendChat(subChat(basicBot.chat.isblacklisted, {blacklist: bl}));
-                        return API.moderateForceSkip();
+						return basicBot.userUtilities.skipBadSong(obj.dj.id);
                     }
                 }
             }
@@ -1386,7 +1410,7 @@ Grab - Playlist Insert:
                     //console.log("Skipping SC song");
                     var msg = "Sorry @" + obj.dj.username + " Sound Cloud songs are not permitted in this room " + basicBot.settings.skipSoundRange + " too many regulars cannot hear them.";
                     API.sendChat(msg);
-                    return API.moderateForceSkip();
+					return basicBot.userUtilities.skipBadSong(obj.dj.id);
                 }
             }
         
@@ -1403,7 +1427,7 @@ Grab - Playlist Insert:
                     {
 					    //console.log("Skipping - Last Played: (" + lastPlayedMs + ") Limit: (" +  repeatLimit + ")");
                         API.sendChat(subChat(basicBot.chat.songknown2, {name: obj.dj.username, lasttime: basicBot.roomUtilities.msToStr(Date.now() - lastPlayed)}));
-                        API.moderateForceSkip();
+					    basicBot.userUtilities.skipBadSong(obj.dj.id);
                         SongSkipped = true;
                     }
                     else
@@ -1422,7 +1446,8 @@ Grab - Playlist Insert:
             if (basicBot.settings.timeGuard && newMedia.duration > basicBot.settings.maximumSongLength * 60 && !basicBot.room.roomevent && !SongSkipped) {
                 var name = obj.dj.username;
                 API.sendChat(subChat(basicBot.chat.timelimit, {name: name, maxlength: basicBot.settings.maximumSongLength}));
-                API.moderateForceSkip();
+			    basicBot.userUtilities.skipBadSong(obj.dj.id);
+                SongSkipped = true;
             }
             /*
             console.log("eventDjadvance:9");
@@ -1442,6 +1467,7 @@ Grab - Playlist Insert:
                     API.moderateForceSkip();
                 }, remaining + 3000);
             }
+			if (!SongSkipped) basicBot.userUtilities.setBadSongCount(obj.dj.id, 0);
             //console.log("eventDjadvance:12");
             storeToStorage();
             //console.log("eventDjadvance:13");
@@ -2162,7 +2188,7 @@ Grab - Playlist Insert:
                             basicBot.room.newBlacklisted.push(track);
                             basicBot.room.blacklists[list].push(media.format + ':' + media.cid);
                             API.sendChat(subChat(basicBot.chat.newblacklisted, {name: chat.un, blacklist: list, author: media.author, title: media.title, mid: media.format + ':' + media.cid}));
-                            API.moderateForceSkip();
+							basicBot.userUtilities.skipBadSong(obj.dj.id);
                             if (typeof basicBot.room.newBlacklistedSongFunction === 'function') {
                                 basicBot.room.newBlacklistedSongFunction(track);
                             }
@@ -3260,6 +3286,33 @@ Grab - Playlist Insert:
                 }
             },
 
+            oobCommand: {
+                command: 'oob',
+                rank: 'bouncer',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+				    if (!basicBot.roomUtilities.canSkip()) return API.sendChat("Skip too soon...");
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+					    try {
+                            console.log(subChat(basicBot.chat.skip, {name: chat.un}));
+						    var dj = API.getDJ();
+						    var msgSend = '@' + dj.username + ': your song has been skipped. Please read the rules before you play your next song.';
+                            API.moderateForceSkip();
+                            basicBot.room.skippable = false;
+                            setTimeout(function () {
+                                basicBot.room.skippable = true
+                            }, 5 * 1000);
+                            API.sendChat(msgSend);
+							API.sendChat(subChat(basicBot.chat.roomrules, {link: basicBot.settings.rulesLink}));
+                        }
+                        catch (e) {
+                            console.log("oob:ERROR: " + err.message);
+                        }
+                    }
+                }
+            },
             songstatsCommand: {
                 command: 'songstats',
                 rank: 'mod',
