@@ -1,4 +1,4 @@
-/** version: 2.1.4.00022.10
+/** version: 2.1.4.00022.11
 
 Ban Forever:
 {"userID":5226916,"reason":1,"duration":"f"}
@@ -199,7 +199,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.10",
+        version: "2.1.4.00022.11",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -893,14 +893,11 @@ Grab - Playlist Insert:
         roomUtilities: {
             addMe: function () {
 			    try {
-			    if (!basicBot.roomUtilities.timeToAddMe()) return;
-                var user = basicBot.userUtilities.lookupUserName(basicBot.settings.botName);
-                if (typeof user !== 'undefined') {
-				    API.moderateAddDJ(user.id)
-					return;
-				}
-                var user = basicBot.userUtilities.lookupUserName(basicBot.settings.botName2);
-                if (typeof user !== 'undefined') API.moderateAddDJ(user.id)
+				    console.log("ADD ME LOGIC" + basicBot.settings.botId);
+					if (basicBot.settings.botId < 0) return;
+			        if (!basicBot.roomUtilities.timeToAddMe()) return;
+				    console.log("TIME TO ADD ME!!!!!" + basicBot.settings.botId);
+				    API.moderateAddDJ(basicBot.settings.botId)
 				}
                 catch(err) {
                   console.log("addMe:ERROR: " + err.message);
@@ -913,6 +910,7 @@ Grab - Playlist Insert:
                 if (wlist.length > 1) return false;
 				var dj = API.getDJ();
                 if (typeof dj === 'undefined') return true;
+				console.log("DJUID: " + dj.uid) return false;
 				if (dj.uid === basicBot.settings.botId) return false;
                 if (basicBot.userUtilities.getPermission(dj.uid) > 1) return false;
 				API.getWaitList()
