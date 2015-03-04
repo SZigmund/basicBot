@@ -1,4 +1,4 @@
-/** version: 2.1.4.00022.19
+/** version: 2.1.4.00022.20
 
 Ban Forever:
 {"userID":5226916,"reason":1,"duration":"f"}
@@ -202,7 +202,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.19",
+        version: "2.1.4.00022.20",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1133,7 +1133,7 @@ Grab - Playlist Insert:
                         }, basicBot.settings.maximumLocktime * 60 * 1000);
                     }
                 },
-				actionRPC = function(service, args, callback) {
+                actionRPC: function (service, args, callback) {
                     var _this = this;
                     var sendData = JSON.stringify({
                       service: service,
