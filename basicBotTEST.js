@@ -1,4 +1,4 @@
-/** version: 2.1.4.00022.20
+/** version: 2.1.4.00022.21
 
 Ban Forever:
 {"userID":5226916,"reason":1,"duration":"f"}
@@ -202,7 +202,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.20",
+        version: "2.1.4.00022.21",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -981,13 +981,10 @@ Grab - Playlist Insert:
 				  {
 				      randomMins = basicBot.settings.randomCommentMin + ((basicBot.settings.randomCommentMax - basicBot.settings.randomCommentMin) / 2.0)
 				  }
-				  console.log("Random mins: " + randomMins);
 				  var nextTime = new Date();
-				  //nextTime.setMinutes(nextTime.getMinutes() + randomMins);
 				  var myTimeSpan;
 				  myTimeSpan = randomMins*60*1000; // 5 minutes in milliseconds
 				  nextTime.setTime(nextTime.getTime() + myTimeSpan);
-				  console.log("HH:NN " + nextTime.getHours() + ":" + nextTime.getMinutes());
 				  basicBot.settings.nextRandomComment = nextTime;
 				  console.log("RANDOM TIME: " + basicBot.settings.nextRandomComment);
 				  console.log("NOW TIME: " + Date.now());
@@ -1020,8 +1017,6 @@ Grab - Playlist Insert:
 				      if (basicBot.settings.randomComments === true) API.sendChat(basicBot.roomUtilities.randomCommentSelect());
 				  }
 				  */
-  				  console.log("HH:NN " + basicBot.settings.nextRandomComment.getHours() + ":" + basicBot.settings.nextRandomComment.getMinutes());
-
 				  if (basicBot.settings.nextRandomComment <= Date.now())
 				  {
 				      basicBot.roomUtilities.randomCommentSetTimer();
@@ -1134,7 +1129,6 @@ Grab - Playlist Insert:
                     }
                 },
                 actionRPC: function (service, args, callback) {
-                    var _this = this;
                     var sendData = JSON.stringify({
                       service: service,
                       body: args
@@ -1143,7 +1137,7 @@ Grab - Playlist Insert:
                     var post_options = {
                         host: 'plug.dj',
                         port: '80',
-                        Cookie: 'usr=' + _this.key, 
+                        Cookie: 'usr=' + this.key, 
                         path: '/_/gateway/' + service,
                         method: 'POST',
                         headers: {
@@ -2682,8 +2676,8 @@ Grab - Playlist Insert:
                 }
             },
 
-            botDjCommand: {
-                command: 'botdj',
+            botDjaCommand: {
+                command: 'botdja',
                 rank: 'manager',
                 type: 'exact',
                 functionality: function (chat, cmd) {
@@ -2691,6 +2685,18 @@ Grab - Playlist Insert:
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
 					    basicBot.roomUtilities.booth.actionRPC("booth.join_1", [], callback);
+                    }
+                }
+            },
+            botDjbCommand: {
+                command: 'botdjb',
+                rank: 'manager',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+					    API.moderateAddDJ();
                     }
                 }
             },
