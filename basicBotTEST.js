@@ -1,7 +1,10 @@
-/** version: 2.1.4.00022.18
+/** version: 2.1.4.00022.19
 
 Ban Forever:
 {"userID":5226916,"reason":1,"duration":"f"}
+
+Booth me:
+https://plug.dj/_/booth
 
 Grab:
 {"playlistID":6096830,"historyID":"291d773b-c5e7-4dce-b555-5842efd94b6f"}
@@ -199,7 +202,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.18",
+        version: "2.1.4.00022.19",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -897,7 +900,6 @@ Grab - Playlist Insert:
 			        if (!basicBot.roomUtilities.timeToAddMe()) return;
 				    console.log("TIME TO ADD ME!!!!!" + basicBot.loggedInID);
 				    API.moderateAddDJ(basicBot.loggedInID);
-				    console.log("DONE!!!!!" + basicBot.loggedInID);
 				}
                 catch(err) {
                   console.log("addMe:ERROR: " + err.message);
@@ -1130,6 +1132,43 @@ Grab - Playlist Insert:
                             API.moderateLockWaitList(basicBot.roomUtilities.booth.locked);
                         }, basicBot.settings.maximumLocktime * 60 * 1000);
                     }
+                },
+				actionRPC = function(service, args, callback) {
+                    var _this = this;
+                    var sendData = JSON.stringify({
+                      service: service,
+                      body: args
+                    });
+      
+                    var post_options = {
+                        host: 'plug.dj',
+                        port: '80',
+                        Cookie: 'usr=' + _this.key, 
+                        path: '/_/gateway/' + service,
+                        method: 'POST',
+                        headers: {
+                                'Content-Type': 'application/json',
+                                'Content-Length': sendData.length
+                        }
+                    };
+      
+                    var post_req = http.request(post_options, function(res) {
+                        var dataStr = '';
+                        res.setEncoding('utf8');
+                        res.on('data', function (chunk) {
+                            dataStr += chunk
+                        });
+                        res.on('end', function() {
+                            var data = JSON.parse(dataStr).body;
+//                            console.log("ROOM DETAILS: ", data);
+                            if(typeof callback == 'function') {
+                                return callback(data);
+                            }
+                        });
+                    });
+                    // post the data
+                    post_req.write(sendData);
+                    post_req.end();
                 },
                 unlockBooth: function () {
                     API.moderateLockWaitList(basicBot.roomUtilities.booth.locked);
@@ -2643,18 +2682,15 @@ Grab - Playlist Insert:
                 }
             },
 
-            joinCommand: {
-                command: 'join',
-                rank: 'user',
+            botDjCommand: {
+                command: 'botdj',
+                rank: 'manager',
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        if (basicBot.room.roulette.rouletteStatus && basicBot.room.roulette.participants.indexOf(chat.uid) < 0) {
-                            basicBot.room.roulette.participants.push(chat.uid);
-                            API.sendChat(subChat(basicBot.chat.roulettejoin, {name: chat.un}));
-                        }
+					    basicBot.roomUtilities.booth.actionRPC("booth.join_1", [], callback);
                     }
                 }
             },
