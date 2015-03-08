@@ -1,4 +1,7 @@
-/** version: 2.1.4.00022.23
+/** version: 2.1.4.00022.24
+
+Quit DJing<div id="eta-container"><small class="eta-time"></small></div>
+#dj-button > span
 
 OOB command
 
@@ -203,7 +206,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.23",
+        version: "2.1.4.00022.24",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -896,7 +899,6 @@ Grab - Playlist Insert:
             addMe: function () {
 			    try {
 				    if (!basicBot.settings.autoAddBot) return;
-					basicBot.roomUtilities.testfunc();
 					if (basicBot.loggedInID < 0) return;
 			        if (!basicBot.roomUtilities.timeToAddMe()) return;
 				    console.log("TIME TO ADD ME!!!!!" + basicBot.loggedInID);
@@ -904,14 +906,6 @@ Grab - Playlist Insert:
 				}
                 catch(err) {
                   console.log("addMe:ERROR: " + err.message);
-                }
-			},
-			testfunc: function () {
-                for (var i = 0; i < basicBot.room.users.length; i++) {
-                  console.log("-----------------------------------");
-                  console.log("USER: " + basicBot.room.users[i].id);
-                  console.log("NAME: " + basicBot.room.users[i].username);
-                  console.log("PERM: " + basicBot.userUtilities.getPermission(basicBot.room.users[i].id));
                 }
 			},
 			timeToAddMe: function () {
@@ -2650,7 +2644,7 @@ Grab - Playlist Insert:
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-					    $("#join").click();
+					    $("#dj-button").click();
                     }
                 }
             },
