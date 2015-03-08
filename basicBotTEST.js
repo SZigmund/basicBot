@@ -1,4 +1,4 @@
-/** version: 2.1.4.00022.25
+/** version: 2.1.4.00022.26
 
 OOB command
 BOOT command
@@ -217,7 +217,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.25",
+        version: "2.1.4.00022.26",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2668,7 +2668,7 @@ Grab - Playlist Insert:
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
 					var msg = chat.message;
 					var name;
-					var byusername = "";
+					var byusername = " ";
 					if (msg.length === cmd.length) name = chat.un;
 					else {
 						name = msg.substring(cmd.length + 2);
@@ -2680,11 +2680,11 @@ Grab - Playlist Insert:
 					if (typeof user === 'boolean') return API.sendChat(subChat(basicBot.chat.invaliduserspecified, {name: chat.un}));
 					if (user.bootable) {
 					    user.bootable = false;
-					    API.sendChat(subChat(basicBot.chat.bootableDisabled, {name: name}, {byname: byusername}));
+					    API.sendChat(subChat(basicBot.chat.bootableDisabled, {name: name}, {userbyname: byusername}));
 					}
 					else {
 					    user.bootable = true;
-					    API.sendChat(subChat(basicBot.chat.bootableEnabled, {name: name}, {byname: byusername}));
+					    API.sendChat(subChat(basicBot.chat.bootableEnabled, {name: name}, {userbyname: byusername}));
 					}
                 }
             },
