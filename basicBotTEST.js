@@ -1,4 +1,4 @@
-/** version: 2.1.4.00022.26
+/** version: 2.1.4.00022.27
 
 OOB command
 BOOT command
@@ -217,7 +217,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.26",
+        version: "2.1.4.00022.27",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1434,7 +1434,7 @@ Grab - Playlist Insert:
                 }
 				//Check to see if DJ should get booted:
 				if (basicBot.userUtilities.getBootableID(lastplay.dj.username)) {
-    			    var bootuser = basicBot.userUtilities.lookupUserName(username);
+    			    var bootuser = basicBot.userUtilities.lookupUserName(lastplay.dj.username);
                     setTimeout(function () {  API.moderateRemoveDJ(bootuser.id); }, 1 * 1000, user);
 				}
 				basicBot.userUtilities.setBootableID(lastplay.dj.username);
@@ -2680,11 +2680,11 @@ Grab - Playlist Insert:
 					if (typeof user === 'boolean') return API.sendChat(subChat(basicBot.chat.invaliduserspecified, {name: chat.un}));
 					if (user.bootable) {
 					    user.bootable = false;
-					    API.sendChat(subChat(basicBot.chat.bootableDisabled, {name: name}, {userbyname: byusername}));
+					    API.sendChat(subChat(basicBot.chat.bootableDisabled, {name: name, userbyname: byusername}));
 					}
 					else {
 					    user.bootable = true;
-					    API.sendChat(subChat(basicBot.chat.bootableEnabled, {name: name}, {userbyname: byusername}));
+					    API.sendChat(subChat(basicBot.chat.bootableEnabled, {name: name, userbyname: byusername}));
 					}
                 }
             },
