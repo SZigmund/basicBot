@@ -1,4 +1,6 @@
-/** version: 2.1.4.00022.21
+/** version: 2.1.4.00022.23
+
+OOB command
 
 Ban Forever:
 {"userID":5226916,"reason":1,"duration":"f"}
@@ -22,7 +24,6 @@ Grab - Playlist Insert:
  */
 
 (function () {
-
     API.getWaitListPosition = function(id){
         if(typeof id === 'undefined' || id === null){
             id = API.getUser().id;
@@ -202,7 +203,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.21",
+        version: "2.1.4.00022.23",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1067,6 +1068,7 @@ Grab - Playlist Insert:
                 if (hourofday >= basicBot.settings.skipSoundStart && hourofday < basicBot.settings.skipSoundEnd) return true;
                 return false;
             },
+
             msToStr: function (msTime) {
                 var ms, msg, timeAway;
                 msg = '';
@@ -1127,42 +1129,6 @@ Grab - Playlist Insert:
                             API.moderateLockWaitList(basicBot.roomUtilities.booth.locked);
                         }, basicBot.settings.maximumLocktime * 60 * 1000);
                     }
-                },
-                actionRPC: function (service, args, callback) {
-                    var sendData = JSON.stringify({
-                      service: service,
-                      body: args
-                    });
-      
-                    var post_options = {
-                        host: 'plug.dj',
-                        port: '80',
-                        Cookie: 'usr=' + this.key, 
-                        path: '/_/gateway/' + service,
-                        method: 'POST',
-                        headers: {
-                                'Content-Type': 'application/json',
-                                'Content-Length': sendData.length
-                        }
-                    };
-      
-                    var post_req = http.request(post_options, function(res) {
-                        var dataStr = '';
-                        res.setEncoding('utf8');
-                        res.on('data', function (chunk) {
-                            dataStr += chunk
-                        });
-                        res.on('end', function() {
-                            var data = JSON.parse(dataStr).body;
-//                            console.log("ROOM DETAILS: ", data);
-                            if(typeof callback == 'function') {
-                                return callback(data);
-                            }
-                        });
-                    });
-                    // post the data
-                    post_req.write(sendData);
-                    post_req.end();
                 },
                 unlockBooth: function () {
                     API.moderateLockWaitList(basicBot.roomUtilities.booth.locked);
@@ -1340,7 +1306,7 @@ Grab - Playlist Insert:
             chat.message = chat.message.trim();
 			basicBot.userUtilities.setLastActivityID(chat.uid);
 			basicBot.userUtilities.setUserName(chat.uid, chat.un);
-			/* todoer
+			/* todoer TEST setLastActivityID
             for (var i = 0; i < basicBot.room.users.length; i++) {
                 if (basicBot.room.users[i].id === chat.uid) {
                     basicBot.userUtilities.setLastActivity(basicBot.room.users[i]);
@@ -1443,6 +1409,7 @@ Grab - Playlist Insert:
                  basicBot.room.users[i].votes.curate++;
                  }
               }
+			  //todoer TEST
 			  basicBot.userUtilities.setLastActivityID(obj.user.id);
               API.sendChat(":musical_note: " + obj.user.username + " snagged this song. :heart: :musical_note:");
           }
@@ -1485,7 +1452,7 @@ Grab - Playlist Insert:
 			}
             basicBot.room.roomstats.songCount++;
             basicBot.roomUtilities.intervalMessage();
-            if (typeof obj.dj === 'undefined') { return; }
+            //if (typeof obj.dj === 'undefined') { return; }  //todoer not sure about re-adding this....? (Was commented out previously)
             basicBot.room.currentDJID = obj.dj.id;
 
             //console.log("eventDjadvance:4a");
@@ -1843,7 +1810,6 @@ Grab - Playlist Insert:
             };
             //console.log("TODO - STARTUP Starting");
             var u = API.getUser();
-			console.log("I AM BOT: " + u.id);
             if (basicBot.userUtilities.getPermission(u) < 2) return API.chatLog(basicBot.chat.greyuser);
             if (basicBot.userUtilities.getPermission(u) === 2) API.chatLog(basicBot.chat.bouncer);
             basicBot.connectAPI();
@@ -2684,7 +2650,7 @@ Grab - Playlist Insert:
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-					    basicBot.roomUtilities.booth.actionRPC("booth.join_1", [], callback);
+					    $("#join").click();
                     }
                 }
             },
@@ -2696,11 +2662,23 @@ Grab - Playlist Insert:
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-					    API.moderateAddDJ();
+					    $("#dj").click();
                     }
                 }
             },
 
+            botDjcCommand: {
+                command: 'botdjc',
+                rank: 'manager',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+					    API.moderateAddDJ(basicBot.loggedInID);
+                    }
+                }
+            },
             jointimeCommand: {
                 command: 'jointime',
                 rank: 'bouncer',
@@ -3420,7 +3398,9 @@ Grab - Playlist Insert:
                                 basicBot.room.skippable = true
                             }, 5 * 1000);
                             API.sendChat(msgSend);
-							API.sendChat(subChat(basicBot.chat.roomrules, {link: basicBot.settings.rulesLink}));
+							setTimeout(function () {
+							    API.sendChat(subChat(basicBot.chat.roomrules, {link: basicBot.settings.rulesLink}));
+                            }, 1000);
                         }
                         catch (e) {
                             console.log("oob:ERROR: " + err.message);
