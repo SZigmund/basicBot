@@ -1,9 +1,12 @@
-/** version: 2.1.4.00022.24
-
-Quit DJing<div id="eta-container"><small class="eta-time"></small></div>
-#dj-button > span
+/** version: 2.1.4.00022.25
 
 OOB command
+BOOT command
+3 strikes and you're out (for 10 mins)
+Bot Dj's if < 2 DJ's and no Mgr in line
+Bot hops down if > 2 DJ's
+Hop Up Count
+Hop Down
 
 Ban Forever:
 {"userID":5226916,"reason":1,"duration":"f"}
@@ -39,6 +42,14 @@ Grab - Playlist Insert:
         }
         return -1;
     };
+    API.botDjNow = function () {
+        try {
+            $("#dj-button").click();
+        }
+        catch(err) {
+            console.log("addMe:ERROR: " + err.message);
+        }
+	};
 
     var kill = function () {
         clearInterval(basicBot.room.autodisableInterval);
@@ -206,7 +217,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.24",
+        version: "2.1.4.00022.25",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -701,6 +712,7 @@ Grab - Playlist Insert:
                 curate: 0
             };
             this.lastEta = null;
+			this.bootable = false;
             this.afkWarningCount = 0;
 			this.badSongCount = 0;
             this.afkCountdown = null;
@@ -744,6 +756,14 @@ Grab - Playlist Insert:
             getLastActivity: function (user) {
                 return user.lastActivity;
             },
+            setBootableID: function (username, value) {
+			    var user = basicBot.userUtilities.lookupUserName(username);
+				user.bootable = value;
+            },
+            getBootableID: function (username) {
+			    var user = basicBot.userUtilities.lookupUserName(username);
+				return user.bootable;
+            },
             getWarningCount: function (user) {
                 return user.afkWarningCount;
             },
@@ -783,7 +803,11 @@ Grab - Playlist Insert:
                 user.badSongCount = value;
 				console.log("Bad Count: " + value);
             },
-            lookupUser: function (id) { //todoer
+            setJoinTime: function (userId, value) {
+			    var user = basicBot.userUtilities.lookupUser(userId);
+                user.jointime = Date.now();
+            },
+            lookupUser: function (id) {
                 for (var i = 0; i < basicBot.room.users.length; i++) {
                     if (basicBot.room.users[i].id === id) {
                         return basicBot.room.users[i];
@@ -902,7 +926,7 @@ Grab - Playlist Insert:
 					if (basicBot.loggedInID < 0) return;
 			        if (!basicBot.roomUtilities.timeToAddMe()) return;
 				    console.log("TIME TO ADD ME!!!!!" + basicBot.loggedInID);
-				    API.moderateAddDJ(basicBot.loggedInID);
+				    API.botDjNow();
 				}
                 catch(err) {
                   console.log("addMe:ERROR: " + err.message);
@@ -1300,16 +1324,6 @@ Grab - Playlist Insert:
             chat.message = chat.message.trim();
 			basicBot.userUtilities.setLastActivityID(chat.uid);
 			basicBot.userUtilities.setUserName(chat.uid, chat.un);
-			/* todoer TEST setLastActivityID
-            for (var i = 0; i < basicBot.room.users.length; i++) {
-                if (basicBot.room.users[i].id === chat.uid) {
-                    basicBot.userUtilities.setLastActivity(basicBot.room.users[i]);
-                    if (basicBot.room.users[i].username !== chat.un) {
-                        basicBot.room.users[i].username = chat.un;
-                    }
-                }
-            }
-			*/
             if (basicBot.chatUtilities.chatFilter(chat)) return void (0);
             if (!basicBot.chatUtilities.commandCheck(chat))
                 basicBot.chatUtilities.action(chat);
@@ -1341,25 +1355,20 @@ Grab - Playlist Insert:
                 basicBot.room.users.push(new basicBot.User(user.id, user.username));
                 welcomeback = false;
             }
+			//todoer TEST
+			basicBot.userUtilities.setLastActivityID(user.id);
 			basicBot.userUtilities.setBadSongCount(user.id, 0);
-            for (var j = 0; j < basicBot.room.users.length; j++) {
-                if (basicBot.userUtilities.getUser(basicBot.room.users[j]).id === user.id) {
-                    basicBot.userUtilities.setLastActivity(basicBot.room.users[j]);  //XX
-                    basicBot.room.users[j].jointime = Date.now();
-                }
-
-            }
+			basicBot.userUtilities.setJoinTime(user.id);
+			
             if (basicBot.settings.welcome && greet) {
                 welcomeback ?
                     setTimeout(function (user) {
                         console.log("WelcomeBack: " + user.id + ": " + user.username);
-                        //API.sendChat(subChat(basicBot.chat.welcomeback, {name: user.username}) + " [" + user.id + "]");
                         API.sendChat(subChat(basicBot.chat.welcomeback, {name: user.username}));
                     }, 1 * 1000, user)
                     :
                     setTimeout(function (user) {
                         console.log("Welcome: " + user.id + ": " + user.username);
-                        //API.sendChat(subChat(basicBot.chat.welcome, {name: user.username}) + " [" + user.id + "]");
                         API.sendChat(subChat(basicBot.chat.welcome, {name: user.username}));
                     }, 1 * 1000, user);
             }
@@ -1403,7 +1412,6 @@ Grab - Playlist Insert:
                  basicBot.room.users[i].votes.curate++;
                  }
               }
-			  //todoer TEST
 			  basicBot.userUtilities.setLastActivityID(obj.user.id);
               API.sendChat(":musical_note: " + obj.user.username + " snagged this song. :heart: :musical_note:");
           }
@@ -1424,6 +1432,12 @@ Grab - Playlist Insert:
                 else {
                     API.sendChat(subChat(basicBot.chat.songstatistics, {user: lastplay.dj.username, artist: lastplay.media.author, title: lastplay.media.title, woots: lastplay.score.positive, grabs: lastplay.score.grabs, mehs: lastplay.score.negative}))
                 }
+				//Check to see if DJ should get booted:
+				if (basicBot.userUtilities.getBootableID(lastplay.dj.username)) {
+    			    var bootuser = basicBot.userUtilities.lookupUserName(username);
+                    setTimeout(function () {  API.moderateRemoveDJ(bootuser.id); }, 1 * 1000, user);
+				}
+				basicBot.userUtilities.setBootableID(lastplay.dj.username);
             }
             
 			basicBot.roomUtilities.addMe();
@@ -1727,15 +1741,12 @@ Grab - Playlist Insert:
                 return executed;
             },
             action: function (chat) {
-                var user = basicBot.userUtilities.lookupUser(chat.uid);
                 if (chat.type === 'message') {
-                    for (var j = 0; j < basicBot.room.users.length; j++) {
-                        if (basicBot.userUtilities.getUser(basicBot.room.users[j]).id === chat.uid) {
-                            basicBot.userUtilities.setLastActivity(basicBot.room.users[j]);  //XX
-                        }
-
-                    }
+                    basicBot.userUtilities.setLastActivityID(chat.uid);
                 }
+				else {
+				  console.log("CHAT.TYPE: " + chat.type);
+				}
                 basicBot.room.roomstats.chatmessages++;
             },
             spam: [
@@ -2636,43 +2647,48 @@ Grab - Playlist Insert:
                 }
             },
 
-            botDjaCommand: {
-                command: 'botdja',
+            botdjCommand: {
+                command: 'botdj',
                 rank: 'manager',
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-					    $("#dj-button").click();
+					    API.botDjNow();
                     }
                 }
             },
-            botDjbCommand: {
-                command: 'botdjb',
-                rank: 'manager',
-                type: 'exact',
+            bootCommand: {  //todoer
+                command: 'boot',
+                rank: 'user',
+                type: 'startsWith',
                 functionality: function (chat, cmd) {
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                    else {
-					    $("#dj").click();
-                    }
+					var msg = chat.message;
+					var name;
+					var byusername = "";
+					if (msg.length === cmd.length) name = chat.un;
+					else {
+						name = msg.substring(cmd.length + 2);
+						var perm = basicBot.userUtilities.getPermission(chat.uid);
+						if (perm < 2) return API.sendChat(subChat(basicBot.chat.bootrank, {name: chat.un}));
+						byusername = " [ executed by " + chat.un + "]";
+					}
+					var user = basicBot.userUtilities.lookupUserName(name);
+					if (typeof user === 'boolean') return API.sendChat(subChat(basicBot.chat.invaliduserspecified, {name: chat.un}));
+					if (user.bootable) {
+					    user.bootable = false;
+					    API.sendChat(subChat(basicBot.chat.bootableDisabled, {name: name}, {byname: byusername}));
+					}
+					else {
+					    user.bootable = true;
+					    API.sendChat(subChat(basicBot.chat.bootableEnabled, {name: name}, {byname: byusername}));
+					}
                 }
             },
 
-            botDjcCommand: {
-                command: 'botdjc',
-                rank: 'manager',
-                type: 'exact',
-                functionality: function (chat, cmd) {
-                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                    else {
-					    API.moderateAddDJ(basicBot.loggedInID);
-                    }
-                }
-            },
             jointimeCommand: {
                 command: 'jointime',
                 rank: 'bouncer',
