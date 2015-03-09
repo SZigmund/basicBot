@@ -1,7 +1,8 @@
-/** version: 2.1.4.00022.29
+/** version: 2.1.4.00022.30
 
 OOB command
 BOOT command
+Hop up / Down
 
 3 strikes and you're out (for 10 mins)
 Bot Dj's if < 2 DJ's and no Mgr in line
@@ -222,7 +223,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.29",
+        version: "2.1.4.00022.30",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -954,7 +955,7 @@ Grab - Playlist Insert:
             bouncerDjing: function () {
 			    try {
 					var dj = API.getDJ();
-					if (typeof dj === 'undefined') && (wlist.length > 0)) return true;
+					if ((typeof dj === 'undefined') && (wlist.length > 0)) return true;
 					if (typeof dj === 'undefined') return false;
 					if (basicBot.userUtilities.getPermission(dj.id) > 1) return true;
 					var wl = API.getWaitList();
