@@ -1,14 +1,8 @@
-/** version: 2.1.4.00022.32
-
-OOB command
-BOOT command
-Hop up / Down
+/** version: 2.1.4.00022.33
 
 3 strikes and you're out (for 10 mins)
 Bot Dj's if < 2 DJ's and no Mgr in line
 Bot hops down if > 2 DJ's
-Hop Up Count
-Hop Down
 
 Ban Forever:
 {"userID":5226916,"reason":1,"duration":"f"}
@@ -223,7 +217,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.32",
+        version: "2.1.4.00022.33",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -979,7 +973,7 @@ Grab - Playlist Insert:
 				    basicBot.userUtilities.removeDJ(basicBot.loggedInID)
 				}
                 catch(err) {
-                  console.log("checkHopUp:ERROR: " + err.message);
+                  console.log("checkHopDown:ERROR: " + err.message);
                 }
 			},
             checkHopUp: function () {
@@ -2695,6 +2689,18 @@ Grab - Playlist Insert:
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
 					    API.botDjNow();
+                    }
+                }
+            },
+            hopdownCommand: {
+                command: 'hopdown',
+                rank: 'bouncer',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        API.moderateRemoveDJ(basicBot.loggedInID);
                     }
                 }
             },
