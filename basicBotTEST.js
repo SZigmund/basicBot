@@ -1,4 +1,4 @@
-/** version: 2.1.4.00022.35
+/** version: 2.1.4.00022.36
 
 3 strikes and you're out (for 10 mins)
 Bot Dj's if < 2 DJ's and no Mgr in line
@@ -230,7 +230,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.35",
+        version: "2.1.4.00022.36",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -983,7 +983,7 @@ Grab - Playlist Insert:
 					if (!basicBot.roomUtilities.botInWaitList()) return;
 					if (API.getWaitListCount() < basicBot.settings.autoHopDownCount) return;
 				    console.log("TIME TO HOP DOWN!!!!!" + basicBot.loggedInID);
-				    basicBot.userUtilities.removeDJ(basicBot.loggedInID)
+					API.botHopDown();
 				}
                 catch(err) {
                   console.log("checkHopDown:ERROR: " + err.message);
@@ -2713,7 +2713,7 @@ Grab - Playlist Insert:
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        API.moderateRemoveDJ(basicBot.loggedInID);
+						API.botHopDown();
                     }
                 }
             },
