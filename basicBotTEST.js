@@ -1,7 +1,8 @@
-/** version: 2.1.4.00022.28
+/** version: 2.1.4.00022.29
 
 OOB command
 BOOT command
+
 3 strikes and you're out (for 10 mins)
 Bot Dj's if < 2 DJ's and no Mgr in line
 Bot hops down if > 2 DJ's
@@ -42,12 +43,16 @@ Grab - Playlist Insert:
         }
         return -1;
     };
+    API.getWaitListCount = function(){
+        var wl = API.getWaitList();
+        return wl.length;
+    };
     API.botDjNow = function () {
         try {
             $("#dj-button").click();
         }
         catch(err) {
-            console.log("addMe:ERROR: " + err.message);
+            console.log("botDjNow:ERROR: " + err.message);
         }
 	};
 
@@ -217,7 +222,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.28",
+        version: "2.1.4.00022.29",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -231,7 +236,9 @@ Grab - Playlist Insert:
         retrieveFromStorage: retrieveFromStorage,
         settings: {
             autoWootBot: true,
-            autoAddBot: true,
+            autoHopUp: true,
+            autoHopUpCount: 1,
+            autoHopDownCount: 4,
             botName: "Larry the LAW",
             language: "english",
             chatLink: "https://rawgit.com/SZigmund/basicBot/master/lang/en.json",
@@ -920,42 +927,83 @@ Grab - Playlist Insert:
         },
 
         roomUtilities: {
-            addMe: function () {
+            botIsDj: function () {
 			    try {
-				    if (!basicBot.settings.autoAddBot) return;
+				    var dj = API.getDJ();
+                    if ((typeof dj === 'undefined') && (wlist.length > 0)) return true;
+                    if (typeof dj === 'undefined') return false;
+				    if (dj.id === basicBot.loggedInID) return true;
+					return false;
+				}
+                catch(err) {
+                  console.log("botIsDj:ERROR: " + err.message);
+                }
+			},
+            botInWaitList: function () {
+			    try {
+				var wl = API.getWaitList();
+				for(var i = 0; i < wl.length; i++){
+				    if (wl[i].id === basicBot.loggedInID) return true;
+				}
+				return false;
+				}
+                catch(err) {
+                  console.log("botInWaitList:ERROR: " + err.message);
+                }
+			},
+            bouncerDjing: function () {
+			    try {
+					var dj = API.getDJ();
+					if (typeof dj === 'undefined') && (wlist.length > 0)) return true;
+					if (typeof dj === 'undefined') return false;
+					if (basicBot.userUtilities.getPermission(dj.id) > 1) return true;
+					var wl = API.getWaitList();
+					for(var i = 0; i < wl.length; i++){
+						if (basicBot.userUtilities.getPermission(wl[i].id) > 1) return true;
+					}
+					return false;
+				}
+                catch(err) {
+                  console.log("bouncerDjing:ERROR: " + err.message);
+                }
+			},
+            checkHopDown: function () {
+			    try {
+				    if (!basicBot.settings.autoHopUp) return;
 					if (basicBot.loggedInID < 0) return;
-			        if (!basicBot.roomUtilities.timeToAddMe()) return;
-				    console.log("TIME TO ADD ME!!!!!" + basicBot.loggedInID);
+				    if (basicBot.roomUtilities.botIsDj()) return;
+					if (!basicBot.roomUtilities.botInWaitList()) return;
+					if (API.getWaitListCount() < basicBot.settings.autoHopDownCount) return;
+				    console.log("TIME TO HOP DOWN!!!!!" + basicBot.loggedInID);
+				    basicBot.userUtilities.removeDJ(basicBot.loggedInID)
+				}
+                catch(err) {
+                  console.log("checkHopUp:ERROR: " + err.message);
+                }
+			},
+            checkHopUp: function () {
+			    try {
+				    if (!basicBot.settings.autoHopUp) return;
+					if (basicBot.loggedInID < 0) return;
+				    if (basicBot.roomUtilities.botIsDj()) return;
+					if (basicBot.roomUtilities.botInWaitList()) return;
+			        if (basicBot.roomUtilities.bouncerDjing()) return;
+					console.log("API.getWaitListCount(): " + API.getWaitListCount());
+					if (API.getWaitListCount() <= basicBot.settings.autoHopUpCount) return;
+				    console.log("TIME TO HOP UP!!!!!" + basicBot.loggedInID);
 				    API.botDjNow();
 				}
                 catch(err) {
-                  console.log("addMe:ERROR: " + err.message);
+                  console.log("checkHopUp:ERROR: " + err.message);
                 }
 			},
-			timeToAddMe: function () {
+			timeToHopUp: function () {
 			    try {
-                var wlist = API.getWaitList();
-				console.log("Waitlist count: " + wlist.length);
-                if (wlist.length > 1) return false;
-				var dj = API.getDJ();
-                if ((typeof dj === 'undefined') && (wlist.length > 0)) return true;
-                if (typeof dj === 'undefined') return false;
-				console.log("DJUID: " + dj.id);
-				if (dj.id === basicBot.loggedInID) return false;
-                if (basicBot.userUtilities.getPermission(dj.id) > 1) return false;
-				API.getWaitList()
-				var wl = API.getWaitList();
-				for(var i = 0; i < wl.length; i++){
-				    var user = basicBot.userUtilities.lookupUser(wl[i].id);
-                    var name = user.username;
-				    console.log("WL: ID: " + wl[i].id + " NAME: " + name);
-				    if (wl[i].id === basicBot.loggedInID) return false;
-					//if (basicBot.userUtilities.getPermission(wl[i].id) > 1) return false;
 				}
 				return true;
 				}
                 catch(err) {
-                  console.log("timeToAddMe:ERROR: " + err.message);
+                  console.log("timeToHopUp:ERROR: " + err.message);
                 }
 			},
             rankToNumber: function (rankString) {
@@ -1439,7 +1487,7 @@ Grab - Playlist Insert:
 				basicBot.userUtilities.setBootableID(lastplay.dj.username);
             }
             
-			basicBot.roomUtilities.addMe();
+			basicBot.roomUtilities.checkHopUp();
             var dj = API.getDJ();
             if (!(typeof dj === 'undefined')) {
             //console.log("eventDjadvance:2");
@@ -2646,9 +2694,9 @@ Grab - Playlist Insert:
                 }
             },
 
-            botdjCommand: {
-                command: 'botdj',
-                rank: 'manager',
+            hopupCommand: {
+                command: 'hopup',
+                rank: 'bouncer',
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
@@ -2658,7 +2706,7 @@ Grab - Playlist Insert:
                     }
                 }
             },
-            bootCommand: {  //todoer
+            bootCommand: {
                 command: 'boot',
                 rank: 'user',
                 type: 'startsWith',
