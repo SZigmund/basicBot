@@ -1,4 +1,4 @@
-/** version: 2.1.4.00022.27
+/** version: 2.1.4.00022.28
 
 OOB command
 BOOT command
@@ -217,7 +217,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.27",
+        version: "2.1.4.00022.28",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1355,7 +1355,6 @@ Grab - Playlist Insert:
                 basicBot.room.users.push(new basicBot.User(user.id, user.username));
                 welcomeback = false;
             }
-			//todoer TEST
 			basicBot.userUtilities.setLastActivityID(user.id);
 			basicBot.userUtilities.setBadSongCount(user.id, 0);
 			basicBot.userUtilities.setJoinTime(user.id);
@@ -1435,7 +1434,7 @@ Grab - Playlist Insert:
 				//Check to see if DJ should get booted:
 				if (basicBot.userUtilities.getBootableID(lastplay.dj.username)) {
     			    var bootuser = basicBot.userUtilities.lookupUserName(lastplay.dj.username);
-                    setTimeout(function () {  API.moderateRemoveDJ(bootuser.id); }, 1 * 1000, user);
+                    setTimeout(function () {  API.moderateRemoveDJ(bootuser.id); }, 1 * 1000);
 				}
 				basicBot.userUtilities.setBootableID(lastplay.dj.username);
             }
