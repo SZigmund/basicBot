@@ -1,4 +1,4 @@
-/** version: 2.1.4.00022.33
+/** version: 2.1.4.00022.34
 
 3 strikes and you're out (for 10 mins)
 Bot Dj's if < 2 DJ's and no Mgr in line
@@ -48,6 +48,24 @@ Grab - Playlist Insert:
         }
         catch(err) {
             console.log("botDjNow:ERROR: " + err.message);
+        }
+	};
+	API.botHopDown = function () {
+        try {
+		    if (!basicBot.roomUtilities.botInWaitList() && !basicBot.roomUtilities.botIsDj()) return;
+            $("#dj-button").click();
+			/*
+			setTimeout(function () { basicBot.userUtilities.removeDJ(userId); }, 1 * 1000);
+			#dialog-confirm > div:nth-child(3) > div.button.cancel > span
+			#dialog-confirm > div:nth-child(3) > div.button.submit > span
+			#dj-button > span
+			//*[@id="dj-button"]/span
+			//*[@id="dialog-confirm"]/div[3]/div[2]/span
+			// document.getElementById(":1vq.post").click(); 
+			*/
+        }
+        catch(err) {
+            console.log("botHopDown:ERROR: " + err.message);
         }
 	};
 
@@ -217,7 +235,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.33",
+        version: "2.1.4.00022.34",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -4039,7 +4057,90 @@ Grab - Playlist Insert:
                 type: 'exact',
                 functionality: function (chat, cmd)                 {
 				    try {
-				        basicBot.roomUtilities.updateBlacklists();
+                         $("#dj-button").click();
+						 setTimeout(function () { $("#dialog-confirm > div:nth-child(3) > div.button.submit > span").click(); }, 1 * 1000);
+			/*
+			#dialog-confirm > div:nth-child(3) > div.button.cancel > span
+			#dialog-confirm > div:nth-child(3) > div.button.submit > span
+			#dj-button > span
+			//*[@id="dj-button"]/span
+			//*[@id="dialog-confirm"]/div[3]/div[2]/span
+			// document.getElementById(":1vq.post").click(); 
+			*/
+				        
+                    }
+					catch(err) {
+					    console.log("zigCommand:ERROR: " + err.message);
+					}
+                }
+            },
+			zigaCommand: {   //Added 01/27/2015 Zig
+                command: 'ziga',
+                rank: 'mod',
+                type: 'exact',
+                functionality: function (chat, cmd)                 {
+				    try {
+                         $("#dj-button").click();
+						 setTimeout(function () { $("#dialog-confirm > div:nth-child(3) > div.button.submit").click(); }, 1 * 1000);
+			/*#dialog-confirm > div:nth-child(3) > div.button.submit
+			#dialog-confirm > div:nth-child(3) > div.button.cancel > span
+			#dialog-confirm > div:nth-child(3) > div.button.submit > span
+			#dj-button > span
+			//*[@id="dj-button"]/span
+			//*[@id="dialog-confirm"]/div[3]/div[2]/span
+			// document.getElementById(":1vq.post").click(); 
+			*/
+				        
+                    }
+					catch(err) {
+					    console.log("zigCommand:ERROR: " + err.message);
+					}
+                }
+            },
+			zigbCommand: {   //Added 01/27/2015 Zig
+                command: 'zigb',
+                rank: 'mod',
+                type: 'exact',
+                functionality: function (chat, cmd)                 {
+				    try {
+                         $("#dj-button").click();
+						 setTimeout(function () { 
+						   document.getElementById("#dialog-confirm > div:nth-child(3) > div.button.submit > span").click();
+						 }, 1 * 1000);
+			/*#dialog-confirm > div:nth-child(3) > div.button.submit
+			#dialog-confirm > div:nth-child(3) > div.button.cancel > span
+			#dialog-confirm > div:nth-child(3) > div.button.submit > span
+			#dj-button > span
+			//*[@id="dj-button"]/span
+			//*[@id="dialog-confirm"]/div[3]/div[2]/span
+			//  
+			*/
+				        
+                    }
+					catch(err) {
+					    console.log("zigCommand:ERROR: " + err.message);
+					}
+                }
+            },
+			zigcCommand: {   //Added 01/27/2015 Zig
+                command: 'zigc',
+                rank: 'mod',
+                type: 'exact',
+                functionality: function (chat, cmd)                 {
+				    try {
+                         $("#dj-button").click();
+						 setTimeout(function () { 
+						   document.getElementById("#dialog-confirm > div:nth-child(3) > div.button.submit").click();
+						 }, 1 * 1000);
+			/*#dialog-confirm > div:nth-child(3) > div.button.submit
+			#dialog-confirm > div:nth-child(3) > div.button.cancel > span
+			#dialog-confirm > div:nth-child(3) > div.button.submit > span
+			#dj-button > span
+			//*[@id="dj-button"]/span
+			//*[@id="dialog-confirm"]/div[3]/div[2]/span
+			//  
+			*/
+				        
                     }
 					catch(err) {
 					    console.log("zigCommand:ERROR: " + err.message);
