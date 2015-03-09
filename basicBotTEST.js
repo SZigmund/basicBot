@@ -1,4 +1,4 @@
-/** version: 2.1.4.00022.31
+/** version: 2.1.4.00022.32
 
 OOB command
 BOOT command
@@ -223,7 +223,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.31",
+        version: "2.1.4.00022.32",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -990,7 +990,7 @@ Grab - Playlist Insert:
 					if (basicBot.roomUtilities.botInWaitList()) return;
 			        if (basicBot.roomUtilities.bouncerDjing()) return;
 					console.log("API.getWaitListCount(): " + API.getWaitListCount());
-					if (API.getWaitListCount() <= basicBot.settings.autoHopUpCount) return;
+					if (API.getWaitListCount() >= basicBot.settings.autoHopUpCount) return;
 				    console.log("TIME TO HOP UP!!!!!" + basicBot.loggedInID);
 				    API.botDjNow();
 				}
