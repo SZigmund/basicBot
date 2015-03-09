@@ -1,4 +1,4 @@
-/** version: 2.1.4.00022.30
+/** version: 2.1.4.00022.31
 
 OOB command
 BOOT command
@@ -223,7 +223,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.30",
+        version: "2.1.4.00022.31",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -996,15 +996,6 @@ Grab - Playlist Insert:
 				}
                 catch(err) {
                   console.log("checkHopUp:ERROR: " + err.message);
-                }
-			},
-			timeToHopUp: function () {
-			    try {
-				}
-				return true;
-				}
-                catch(err) {
-                  console.log("timeToHopUp:ERROR: " + err.message);
                 }
 			},
             rankToNumber: function (rankString) {
