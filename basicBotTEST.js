@@ -1,4 +1,4 @@
-/** version: 2.1.4.00022.37
+/** version: 2.1.4.00022.38
 
 3 strikes and you're out (for 10 mins)
 Bot Dj's if < 2 DJ's and no Mgr in line
@@ -230,7 +230,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.37",
+        version: "2.1.4.00022.38",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -834,6 +834,14 @@ Grab - Playlist Insert:
                 for (var i = 0; i < basicBot.room.users.length; i++) {
                     var match = basicBot.room.users[i].username.trim() == name.trim();
                     if (match) {
+                        return basicBot.room.users[i];
+                    }
+                }
+                return false;
+            },
+            lookupUserNameX: function (name) {
+                for (var i = 0; i < basicBot.room.users.length; i++) {
+                    if (basicBot.room.users[i].username.trim() == name.trim()) {
                         return basicBot.room.users[i];
                     }
                 }
@@ -2790,7 +2798,7 @@ Grab - Playlist Insert:
                             name = msg.substring(cmd.length + 2, lastSpace);
                         }
 
-                        var user = basicBot.userUtilities.lookupUserName(name);
+                        var user = basicBot.userUtilities.lookupUserNameX(name);
                         var from = chat.un;
                         if (typeof user === 'boolean') return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
 
