@@ -1,4 +1,4 @@
-/** version: 2.1.4.00022.38
+/** version: 2.1.4.00023.01
 
 3 strikes and you're out (for 10 mins)
 Bot Dj's if < 2 DJ's and no Mgr in line
@@ -230,7 +230,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00022.38",
+        version: "2.1.4.00023.01",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -832,15 +832,6 @@ Grab - Playlist Insert:
             },
             lookupUserName: function (name) {
                 for (var i = 0; i < basicBot.room.users.length; i++) {
-                    var match = basicBot.room.users[i].username.trim() == name.trim();
-                    if (match) {
-                        return basicBot.room.users[i];
-                    }
-                }
-                return false;
-            },
-            lookupUserNameX: function (name) {
-                for (var i = 0; i < basicBot.room.users.length; i++) {
                     if (basicBot.room.users[i].username.trim() == name.trim()) {
                         return basicBot.room.users[i];
                     }
@@ -1203,6 +1194,9 @@ Grab - Playlist Insert:
                         }, basicBot.settings.maximumLocktime * 60 * 1000);
                     }
                 },
+				checkIfUserLeft:  function () {
+                    console.log("eventWaitlistupdate");
+                },
                 unlockBooth: function () {
                     API.moderateLockWaitList(basicBot.roomUtilities.booth.locked);
                     clearTimeout(basicBot.roomUtilities.booth.lockTimer);
@@ -1475,7 +1469,7 @@ Grab - Playlist Insert:
         },
         eventDjadvance: function (obj) {
         try {
-            //console.log("eventDjadvance:1");
+            console.log("eventDjadvance");
             var SongSkipped = false;
             var lastplay = obj.lastPlay;
             if (basicBot.settings.songstats && !(typeof lastplay === 'undefined')) {
@@ -1611,6 +1605,7 @@ Grab - Playlist Insert:
 
         },
         eventWaitlistupdate: function (users) {
+            basicBot.roomUtilities.booth.checkIfUserLeft();
             if (users.length < 50) {
                 if (basicBot.room.queue.id.length > 0 && basicBot.room.queueable) {
                     basicBot.room.queueable = false;
