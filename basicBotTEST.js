@@ -1,4 +1,4 @@
-/** version: 2.1.4.00023.02
+/** version: 2.1.4.00023.03
 
 3 strikes and you're out (for 10 mins)
 Bot Dj's if < 2 DJ's and no Mgr in line
@@ -230,7 +230,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00023.02",
+        version: "2.1.4.00023.03",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -4053,6 +4053,7 @@ Grab - Playlist Insert:
                     var bootid = msg.substr(cmd.length + 1);
 					if (isNaN(bootid)) return API.sendChat("Invalid ID");
 					console.log("Boot ID: " + bootid);
+					zigunban
                     API.moderateBanUser(bootid, 1, API.BAN.PERMA);
                 }
             },
@@ -4080,6 +4081,66 @@ Grab - Playlist Insert:
 					catch(err) {
 					    console.log("whoisCommand:ERROR: " + err.message);
 					}
+                }
+            },
+            zigunbanCommand: {
+                command: 'zigunban',
+                rank: 'bouncer',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        $(".icon-population").click();
+                        $(".icon-ban").click();
+                        setTimeout(function (chat) {
+                            var msg = chat.message;
+                            if (msg.length === cmd.length) return API.sendChat();
+                            var name = msg.substring(cmd.length + 2);
+                            var bannedUsers = API.getBannedUsers();
+                            var found = false;
+                            var bannedUser = null;
+                            for (var i = 0; i < bannedUsers.length; i++) {
+                                var user = bannedUsers[i];
+                                if (user.username === name) {
+                                    bannedUser = user;
+                                    found = true;
+                                }
+                            }
+                            if (!found) {
+                                $(".icon-chat").click();
+                                return API.sendChat(subChat(basicBot.chat.notbanned, {name: chat.un}));
+                            }
+                            //API.moderateUnbanUser(bannedUser.id);
+                            console.log("Unbanned: " + name);
+                            console.log("Unban ID: " + bannedUser.id);
+                            setTimeout(function () {
+                                $(".icon-chat").click();
+                            }, 1000);
+                        }, 1000, chat);
+                    }
+                }
+            },
+            zigbanCommand: {
+                command: 'zigban',
+                rank: 'manager',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+					var msg = chat.message;
+					if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
+					var bootid = msg.substr(cmd.length + 1);
+					if (isNaN(bootid)) return API.sendChat("Invalid ID");
+                    $(".icon-population").click();
+                    $(".icon-ban").click();
+					setTimeout(function (bootid) {
+						console.log("Boot ID: " + bootid);
+						//API.moderateBanUser(bootid, 1, API.BAN.PERMA);
+						setTimeout(function () {
+							$(".icon-chat").click();
+						}, 1000);
+					}, 1000);
                 }
             },
 			zigCommand: {   //Added 01/27/2015 Zig
