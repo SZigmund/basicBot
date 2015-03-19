@@ -1,4 +1,4 @@
-/** version: 2.1.4.00023.01
+/** version: 2.1.4.00023.02
 
 3 strikes and you're out (for 10 mins)
 Bot Dj's if < 2 DJ's and no Mgr in line
@@ -230,7 +230,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00023.01",
+        version: "2.1.4.00023.02",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1195,7 +1195,7 @@ Grab - Playlist Insert:
                     }
                 },
 				checkIfUserLeft:  function () {
-                    console.log("eventWaitlistupdate");
+                    console.log("eventWaitlistupdate-happens 1st");
                 },
                 unlockBooth: function () {
                     API.moderateLockWaitList(basicBot.roomUtilities.booth.locked);
@@ -1469,7 +1469,7 @@ Grab - Playlist Insert:
         },
         eventDjadvance: function (obj) {
         try {
-            console.log("eventDjadvance");
+            console.log("eventDjadvance-happens 2nd");
             var SongSkipped = false;
             var lastplay = obj.lastPlay;
             if (basicBot.settings.songstats && !(typeof lastplay === 'undefined')) {
@@ -3995,6 +3995,38 @@ Grab - Playlist Insert:
                   console.log("mehCommand:ERROR: " + err.message);
                 }
               }
+            },
+            englishCommand: {
+                command: 'english',
+                rank: 'bouncer',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        if(chat.message.length === cmd.length) return API.sendChat('/me No user specified.');
+                        var name = chat.message.substring(cmd.length + 2);
+                        var user = basicBot.userUtilities.lookupUserName(name);
+                        if(typeof user === 'boolean') return API.sendChat('/me Invalid user specified.');
+                        var lang = basicBot.userUtilities.getUser(user).language;
+                        var ch = '/me @' + name + ' ';
+                        switch(lang){
+                            case 'en': break;
+                            case 'da': ch += 'Vær venlig at tale engelsk.'; break;
+                            case 'de': ch += 'Bitte sprechen Sie Englisch.'; break;
+                            case 'es': ch += 'Por favor, hable Inglés.'; break;
+                            case 'fr': ch += 'Parlez anglais, s\'il vous plaît.'; break;
+                            case 'nl': ch += 'Spreek Engels, alstublieft.'; break;
+                            case 'pl': ch += 'Proszę mówić po angielsku.'; break;
+                            case 'pt': ch += 'Por favor, fale Inglês.'; break;
+                            case 'sk': ch += 'Hovorte po anglicky, prosím.'; break;
+                            case 'cs': ch += 'Mluvte prosím anglicky.'; break;
+                            case 'sr': ch += 'Молим Вас, говорите енглески.'; break;                                  
+                        }
+                        ch += ' English please.';
+                        API.sendChat(ch);
+                    }
+                }
             },
             grabCommand: {  //Added 02/14/2015 Zig
                 command: 'grab',
