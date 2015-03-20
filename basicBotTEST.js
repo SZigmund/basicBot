@@ -1,4 +1,4 @@
-/** version: 2.1.4.00023.03
+/** version: 2.1.4.00023.04
 
 3 strikes and you're out (for 10 mins)
 Bot Dj's if < 2 DJ's and no Mgr in line
@@ -230,7 +230,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00023.03",
+        version: "2.1.4.00023.04",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -672,6 +672,7 @@ Grab - Playlist Insert:
                 totalWoots: 0,
                 totalCurates: 0,
                 totalMehs: 0,
+                tastyCount: 0,
                 launchTime: null,
                 songCount: 0,
                 chatmessages: 0
@@ -726,6 +727,7 @@ Grab - Playlist Insert:
                 meh: 0,
                 curate: 0
             };
+            this.tastyVote = false;
             this.lastEta = null;
 			this.bootable = false;
             this.afkWarningCount = 0;
@@ -750,6 +752,24 @@ Grab - Playlist Insert:
             updatePosition: function (user, newPos) {
                 user.lastKnownPosition = newPos;
             },
+			tastyVote: function (userId) {
+			    try {
+                var user = basicBot.userUtilities.lookupUser(userId);
+                if (user.tastyVote) return;
+			    var dj = API.getDJ();
+                if (typeof dj === 'undefined') return;
+	            if (dj.id === userId) 
+				{
+				   API.sendChat("I'm glad you find your own play tasty @" + user.username);
+				   return;
+				}
+				user.tastyVote = true;
+				basicBot.room.roomstats.tastyCount += 1;
+				}
+                catch(err) {
+                  console.log("userUtilities.tastyVote:ERROR: " + err.message);
+                }
+			},
             updateDC: function (user) {
                 user.lastDC.time = Date.now();
                 user.lastDC.position = user.lastKnownPosition;
@@ -944,6 +964,17 @@ Grab - Playlist Insert:
 				}
                 catch(err) {
                   console.log("botIsDj:ERROR: " + err.message);
+                }
+			},
+			resetTastyCount: function () {
+			    try {
+				    basicBot.room.roomstats.tastyCount = 0;
+                    for (var i = 0; i < basicBot.room.users.length; i++) {
+					    basicBot.room.users[i].tastyVote = false;
+					}
+				}
+                catch(err) {
+                  console.log("resetTastyCount:ERROR: " + err.message);
                 }
 			},
             botInWaitList: function () {
@@ -1195,7 +1226,7 @@ Grab - Playlist Insert:
                     }
                 },
 				checkIfUserLeft:  function () {
-                    console.log("eventWaitlistupdate-happens 1st");
+                    //console.log("eventWaitlistupdate-happens 1st");
                 },
                 unlockBooth: function () {
                     API.moderateLockWaitList(basicBot.roomUtilities.booth.locked);
@@ -1469,17 +1500,23 @@ Grab - Playlist Insert:
         },
         eventDjadvance: function (obj) {
         try {
-            console.log("eventDjadvance-happens 2nd");
+            //console.log("eventDjadvance-happens 2nd");
             var SongSkipped = false;
+			var tastyCount = basicBot.room.roomstats.tastyCount;
+			basicBot.roomUtilities.resetTastyCount();
             var lastplay = obj.lastPlay;
             if (basicBot.settings.songstats && !(typeof lastplay === 'undefined')) {
                 //console.log("Last DJ: " + lastplay.dj.username);
                 if (typeof basicBot.chat.songstatistics === "undefined") {
-                    API.sendChat("/me " + lastplay.dj.username + " played " + lastplay.media.author + " - " + lastplay.media.title + ": " + lastplay.score.positive + "W/" + lastplay.score.grabs + "G/" + lastplay.score.negative + "M.")
+                    statsMsg = "/me " + lastplay.dj.username + " played " + lastplay.media.author + " - " + lastplay.media.title + ": " + lastplay.score.positive + "W/" + lastplay.score.grabs + "G/" + lastplay.score.negative + "M.";
+                }
+                else if (tastyCount > 0) {
+                    statsMsg = subChat(basicBot.chat.songstatisticstasty, {user: lastplay.dj.username, artist: lastplay.media.author, title: lastplay.media.title, woots: lastplay.score.positive, grabs: lastplay.score.grabs, mehs: lastplay.score.negative, tasty: tastyCount});
                 }
                 else {
-                    API.sendChat(subChat(basicBot.chat.songstatistics, {user: lastplay.dj.username, artist: lastplay.media.author, title: lastplay.media.title, woots: lastplay.score.positive, grabs: lastplay.score.grabs, mehs: lastplay.score.negative}))
+                    statsMsg = subChat(basicBot.chat.songstatistics, {user: lastplay.dj.username, artist: lastplay.media.author, title: lastplay.media.title, woots: lastplay.score.positive, grabs: lastplay.score.grabs, mehs: lastplay.score.negative});
                 }
+				API.sendChat(statsMsg);
 				//Check to see if DJ should get booted:
 				if (basicBot.userUtilities.getBootableID(lastplay.dj.username)) {
     			    var bootuser = basicBot.userUtilities.lookupUserName(lastplay.dj.username);
@@ -4121,6 +4158,19 @@ Grab - Playlist Insert:
                     }
                 }
             },
+            tastyCommand: {
+                command: 'zigban',
+                rank: 'manager',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+				    try {
+					    basicBot.userUtilities.tastyVote(chat.uid);
+                    }
+					catch(err) {
+					    console.log("zigCommand:ERROR: " + err.message);
+					}
+				}
+			},
             zigbanCommand: {
                 command: 'zigban',
                 rank: 'manager',
