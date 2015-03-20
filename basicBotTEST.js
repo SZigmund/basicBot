@@ -1,8 +1,12 @@
-/** version: 2.1.4.00023.05
+/** version: 2.1.4.00023.06
 
 3 strikes and you're out (for 10 mins)
 Bot Dj's if < 2 DJ's and no Mgr in line
 Bot hops down if > 2 DJ's
+
+Levis Homer: 5226916
+Dexter Nix:  5226880
+Doc_Z:       3837756
 
 Ban Forever:
 {"userID":5226916,"reason":1,"duration":"f"}
@@ -230,7 +234,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00023.05",
+        version: "2.1.4.00023.06",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -247,6 +251,7 @@ Grab - Playlist Insert:
             autoHopUp: true,
             autoHopUpCount: 1,
             autoHopDownCount: 4,
+            hoppingDownNow: false,
             botName: "Larry the LAW",
             language: "english",
             chatLink: "https://rawgit.com/SZigmund/basicBot/master/lang/en.json",
@@ -764,6 +769,7 @@ Grab - Playlist Insert:
 				   return;
 				}
 				user.tastyVote = true;
+			    API.sendChat("["user.username + ":heart:]");
 				basicBot.room.roomstats.tastyCount += 1;
 				}
                 catch(err) {
@@ -1021,6 +1027,7 @@ Grab - Playlist Insert:
 			},
             checkHopUp: function () {
 			    try {
+				    if (basicBot.settings.hoppingDownNow) return;
 				    if (!basicBot.settings.autoHopUp) return;
 					if (basicBot.loggedInID < 0) return;
 				    if (basicBot.roomUtilities.botIsDj()) return;
@@ -1123,13 +1130,29 @@ Grab - Playlist Insert:
                   console.log("randomCommentCheck:ERROR: " + err.message);
                 }
 			},
+			isStaff:  function (obj) {  //Added 03/20/2015 Zig
+			    try {
+			        if (basicBot.userUtilities.getPermission(obj) > 0) return true;
+					return false;
+				}
+                catch(err) {
+                  console.log("isStaff:ERROR: " + err.message);
+                }
+			},
 			canSkip: function () {  //Added 02/24/2015 Zig
-               var timeRemaining = API.getTimeRemaining();
-                var newMedia = API.getMedia();
-				//console.log("timeRemaining: " + timeRemaining);
-                //console.log("newMedia.duration: " + newMedia.duration);
-				if ((newMedia.duration - timeRemaining) > 4) return true;
-                return false;
+			    try {
+			        var dj = API.getDJ();
+				    if (!basicBot.roomUtilities.isStaff(dj)) return true;
+			        var timeRemaining = API.getTimeRemaining();
+                    var newMedia = API.getMedia();
+		    		//console.log("timeRemaining: " + timeRemaining);
+                    //console.log("newMedia.duration: " + newMedia.duration);
+    				if ((newMedia.duration - timeRemaining) > 2) return true;
+                    return false;
+				}
+                catch(err) {
+                  console.log("canSkip:ERROR: " + err.message);
+                }
 			},
             wootThisSong: function () {  //Added 02/18/2015 Zig
                 try  {
@@ -1250,10 +1273,8 @@ Grab - Playlist Insert:
                         if (typeof user !== 'boolean') {
                             //console.log("afkCheck ID: " + user.id);
                             var plugUser = basicBot.userUtilities.getUser(user);
-                            //console.log("afkCheck plugUser.username: " + plugUser.username);
-                            var userRank = basicBot.userUtilities.getPermission(plugUser);
-                            //console.log("afkCheck Rank: " + userRank + " MinRank: " + rank + " " + basicBot.settings.afkRankCheck);
-                            if (rank !== null && basicBot.userUtilities.getPermission(plugUser) <= rank) {
+                            //if (rank !== null && basicBot.userUtilities.getPermission(plugUser) <= rank) {
+                            if (rank !== null) {
                                 //console.log("afkCheck rank: " + rank);
                                 var name = plugUser.username;
                                 var lastActive = basicBot.userUtilities.getLastActivity(user);
@@ -2754,6 +2775,10 @@ Grab - Playlist Insert:
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
+					    basicBot.settings.hoppingDownNow = true;
+						setTimeout(function () {
+                            basicBot.settings.hoppingDownNow = false;
+                            }, 1000);
 						API.botHopDown();
                     }
                 }
@@ -4090,14 +4115,13 @@ Grab - Playlist Insert:
                     var bootid = msg.substr(cmd.length + 1);
 					if (isNaN(bootid)) return API.sendChat("Invalid ID");
 					console.log("Boot ID: " + bootid);
-					zigunban
                     API.moderateBanUser(bootid, 1, API.BAN.PERMA);
                 }
             },
 
             whoisCommand: {
                 command: 'whois',
-                rank: 'manager',
+                rank: 'bouncer',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
 				    try {
@@ -4107,11 +4131,12 @@ Grab - Playlist Insert:
                         if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
                         var whoisuser = msg.substr(cmd.length + 2);
 					    console.log("whois: " + whoisuser);
-                        var user = basicBot.userUtilities.lookupUserName(whoisuser);
+						var user;
+						if (isNaN(whoisuser)) user = basicBot.userUtilities.lookupUserName(whoisuser);
+						else                  user = API.getUser(whoisuser);
                         if (typeof user !== 'undefined')  {
-						    console.log("USER ID: ");
 						    console.log("USER ID: " + user.id);
-						    API.sendChat("USER ID: " + user.id);
+						    API.sendChat("USER: " user.username + " " + user.id);
 						}
 					    console.log("TYPE: " + typeof user);
                     }
