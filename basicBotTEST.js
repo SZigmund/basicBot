@@ -1,4 +1,4 @@
-/** version: 2.1.4.00023.04
+/** version: 2.1.4.00023.05
 
 3 strikes and you're out (for 10 mins)
 Bot Dj's if < 2 DJ's and no Mgr in line
@@ -230,7 +230,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00023.04",
+        version: "2.1.4.00023.05",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -4159,15 +4159,15 @@ Grab - Playlist Insert:
                 }
             },
             tastyCommand: {
-                command: 'zigban',
+                command: 'tasty',
                 rank: 'manager',
-                type: 'startsWith',
+                type: 'exact',
                 functionality: function (chat, cmd) {
 				    try {
 					    basicBot.userUtilities.tastyVote(chat.uid);
                     }
 					catch(err) {
-					    console.log("zigCommand:ERROR: " + err.message);
+					    console.log("tastyCommand:ERROR: " + err.message);
 					}
 				}
 			},
