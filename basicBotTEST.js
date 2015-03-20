@@ -1,4 +1,4 @@
-/** version: 2.1.4.00023.08
+/** version: 2.1.4.00023.09
 
 3 strikes and you're out (for 10 mins)
 Bot Dj's if < 2 DJ's and no Mgr in line
@@ -234,7 +234,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00023.08",
+        version: "2.1.4.00023.09",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2778,7 +2778,7 @@ Grab - Playlist Insert:
 					    basicBot.settings.hoppingDownNow = true;
 						setTimeout(function () {
                             basicBot.settings.hoppingDownNow = false;
-                            }, 1000);
+                            }, 2000);
 						API.botHopDown();
                     }
                 }
