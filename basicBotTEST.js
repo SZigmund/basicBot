@@ -1,8 +1,12 @@
-/** version: 2.1.4.00023.09
+/** version: 2.1.4.00023.10
 
 3 strikes and you're out (for 10 mins)
 Bot Dj's if < 2 DJ's and no Mgr in line
 Bot hops down if > 2 DJ's
+
+.unban Dexter Nix
+.ban @Dexter Nix
+.dasboot 5226880
 
 Levis Homer: 5226916
 Dexter Nix:  5226880
@@ -234,7 +238,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00023.09",
+        version: "2.1.4.00023.10",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1849,7 +1853,7 @@ Grab - Playlist Insert:
                 return executed;
             },
             action: function (chat) {
-                if (chat.type === 'message') {
+                if (chat.type === 'message' || chat.type === 'emote')  {
                     basicBot.userUtilities.setLastActivityID(chat.uid);
                 }
 				else {
