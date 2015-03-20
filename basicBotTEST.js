@@ -1,4 +1,4 @@
-/** version: 2.1.4.00023.07
+/** version: 2.1.4.00023.08
 
 3 strikes and you're out (for 10 mins)
 Bot Dj's if < 2 DJ's and no Mgr in line
@@ -234,7 +234,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00023.07",
+        version: "2.1.4.00023.08",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -4136,7 +4136,7 @@ Grab - Playlist Insert:
 						else                  user = API.getUser(whoisuser);
                         if (typeof user !== 'undefined')  {
 						    console.log("USER ID: " + user.id);
-						    API.sendChat("USER: " user.username + " " + user.id);
+						    API.sendChat("USER: " + user.username + " " + user.id);
 						}
 					    console.log("TYPE: " + typeof user);
                     }
