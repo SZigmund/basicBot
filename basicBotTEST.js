@@ -1,4 +1,4 @@
-/** version: 2.1.4.00023.11
+/** version: 2.1.4.00023.12
 
 3 strikes and you're out (for 10 mins)
 Bot Dj's if < 2 DJ's and no Mgr in line
@@ -238,7 +238,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00023.11",
+        version: "2.1.4.00023.12",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -773,7 +773,7 @@ Grab - Playlist Insert:
 				   return;
 				}
 				user.tastyVote = true;
-			    API.sendChat("[" + user.username + " found this tune tasty :heart:]");
+			    API.sendChat("[" + user.username + " found this tune tasty :cake:]");
 				basicBot.room.roomstats.tastyCount += 1;
 				}
                 catch(err) {
