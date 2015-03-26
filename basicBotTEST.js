@@ -1,4 +1,4 @@
-/** version: 2.1.4.00023.13
+/** version: 2.1.4.00024.01
 
 3 strikes and you're out (for 10 mins)
 Bot Dj's if < 2 DJ's and no Mgr in line
@@ -238,7 +238,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00023.13",
+        version: "2.1.4.00024.01",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1798,6 +1798,7 @@ Grab - Playlist Insert:
             },
             commandCheck: function (chat) {
                 var cmd;
+                console.log("01: " + chat.message);
                 if (chat.message.charAt(0) === '.') {
                     var space = chat.message.indexOf(' ');
                     if (space === -1) {
@@ -1806,11 +1807,15 @@ Grab - Playlist Insert:
                     else cmd = chat.message.substring(0, space);
                 }
                 else return false;
+                console.log("02: " + chat.message);
                 var userPerm = basicBot.userUtilities.getPermission(chat.uid);
                 if (chat.message !== ".join" && chat.message !== ".leave") {
+                    console.log("02: checking usercommand");
                     if (userPerm === 0 && !basicBot.room.usercommand) return void (0);
+                    console.log("02: checking allcommand");
                     if (!basicBot.room.allcommand) return void (0);
                 }
+                console.log("03: " + chat.message);
                 if (chat.message === '.eta' && basicBot.settings.etaRestriction) {
                     if (userPerm < 2) {
                         var u = basicBot.userUtilities.lookupUser(chat.uid);
@@ -1821,6 +1826,7 @@ Grab - Playlist Insert:
                         else u.lastEta = Date.now();
                     }
                 }
+                console.log("04: " + chat.message);
                 var executed = false;
 
                 for (var comm in basicBot.commands) {
@@ -1836,13 +1842,16 @@ Grab - Playlist Insert:
                         }
                     }
                 }
+                console.log("05: " + chat.message + " Excecuted = " + executed);
 
                 if (executed && userPerm === 0) {
+                    console.log("05-2: commandCooldown");
                     basicBot.room.usercommand = false;
                     setTimeout(function () {
                         basicBot.room.usercommand = true;
                     }, basicBot.settings.commandCooldown * 1000);
                 }
+                console.log("06: " + chat.message + " Excecuted = " + executed);
                 if (executed) {
                     API.moderateDeleteChat(chat.cid);
                     basicBot.room.allcommand = false;
@@ -1850,6 +1859,7 @@ Grab - Playlist Insert:
                         basicBot.room.allcommand = true;
                     }, 5 * 1000);
                 }
+                console.log("07: " + chat.message + " Excecuted = " + executed);
                 return executed;
             },
             action: function (chat) {
