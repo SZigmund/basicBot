@@ -1,4 +1,4 @@
-/** version: 2.1.4.00024
+/** version: 2.1.4.00025
 
 3 strikes and you're out (for 10 mins)
 Bot Dj's if < 2 DJ's and no Mgr in line
@@ -238,7 +238,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00024",
+        version: "2.1.4.00025",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1807,7 +1807,7 @@ Grab - Playlist Insert:
                 }
                 else return false;
                 var userPerm = basicBot.userUtilities.getPermission(chat.uid);
-                if (chat.message !== ".join" && chat.message !== ".leave") {
+                if (chat.message !== ".join" && chat.message !== ".leave" && chat.message !== ".tasty") {
                     if (userPerm === 0 && !basicBot.room.usercommand) return void (0);
                     if (!basicBot.room.allcommand) return void (0);
                 }
