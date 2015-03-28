@@ -1,4 +1,4 @@
-/** version: 2.1.4.00025.01
+/** version: 2.1.4.00025.02
 
 .tasty is now a starts with command, Also you can .rock .props
 
@@ -240,7 +240,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00025.01",
+        version: "2.1.4.00025.02",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -986,13 +986,13 @@ Grab - Playlist Insert:
                 if (newPosition <= 0) newPosition = 1;
 
                 var msg = "";
-                if (user.beerRun) {
+                if (user.beerRun === true) {
                     msg = subChat(basicBot.chat.beerrunreturn, {name: basicBot.userUtilities.getUser(user).username, time: time, position: newPosition});
                 }
-                else if (user.inMeeting) {
+                else if (user.inMeeting === true) {
                     msg = subChat(basicBot.chat.meetingreturn, {name: basicBot.userUtilities.getUser(user).username, time: time, position: newPosition});
                 }
-                else if (user.atLunch) {
+                else if (user.atLunch === true) {
                     msg = subChat(basicBot.chat.lunchreturn, {name: basicBot.userUtilities.getUser(user).username, time: time, position: newPosition});
                 }
                 else {
@@ -1000,6 +1000,11 @@ Grab - Playlist Insert:
                 }
                 basicBot.userUtilities.moveUser(user.id, newPosition, true);
                 basicBot.userUtilities.setMeetingStatus(user, false);
+				user.lastDC = {
+					time: null,
+					position: null,
+					songCount: 0
+				};
                 return msg;
             }
         },
