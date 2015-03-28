@@ -29,6 +29,9 @@
     "noposition": "/me No last position known. The waitlist needs to update at least once to register a user's last position.",
     "toolongago": "/me @%%NAME%%'s last disconnect (DC or leave) was too long ago: %%TIME%%.",
     "valid": "/me @%%NAME%% disconnected %%TIME%% ago and should be at position %%POSITION%%.",
+    "meetingreturn": "/me @%%NAME%% how was your meeting?  You left %%TIME%% ago and should be at position %%POSITION%%.",
+    "lunchreturn": "/me @%%NAME%% how was lunch?  You left %%TIME%% ago and should be at position %%POSITION%%.",
+    "beerrunreturn": "/me @%%NAME%% You get the :beer:?  You left %%TIME%% ago and should be at position %%POSITION%%.",
 
 
     "warning1": "/me @%%NAME%% you have been afk for %%TIME%%, please respond within 2 minutes or you will be removed.",
