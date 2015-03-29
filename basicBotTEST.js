@@ -1,4 +1,4 @@
-/** version: 2.1.4.00025.06
+/** version: 2.1.4.00025.07
 
 .tasty is now a starts with command, Also you can .rock .props
 
@@ -240,7 +240,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00025.06",
+        version: "2.1.4.00025.07",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -4269,7 +4269,7 @@ Grab - Playlist Insert:
             meetingCommand: {   //Added 03/28/2015 Zig
                 command: ['meeting', 'lunch', 'beerrun'],
                 rank: 'user',
-                type: 'exact',
+                type: 'startsWith',
                 functionality: function (chat, cmd) {
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
@@ -4293,9 +4293,9 @@ Grab - Playlist Insert:
                         basicBot.userUtilities.updateDC(user);
 						console.log("CHATx: " + msg);
 						console.log("CHATx: " + cmd);
-                        if (msg.substring(cmd.length + 2) == 'beerrun') basicBot.userUtilities.setBeerRunStatus(user, true);
-                        if (msg.substring(cmd.length + 2) == 'lunch') basicBot.userUtilities.setLunchStatus(user, true);
-                        if (msg.substring(cmd.length + 2) == 'meeting') basicBot.userUtilities.setMeetingStatus(user, true);
+                        if (cmd == '.beerrun') basicBot.userUtilities.setBeerRunStatus(user, true);
+                        if (cmd == '.lunch') basicBot.userUtilities.setLunchStatus(user, true);
+                        if (cmd == '.meeting') basicBot.userUtilities.setMeetingStatus(user, true);
                         API.moderateRemoveDJ(user.id);
                     }
                     catch(err) {
