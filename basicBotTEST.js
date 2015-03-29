@@ -1,4 +1,4 @@
-/** version: 2.1.4.00025.07
+/** version: 2.1.4.00025.08
 
 .tasty is now a starts with command, Also you can .rock .props
 
@@ -240,7 +240,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00025.07",
+        version: "2.1.4.00025.08",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -799,13 +799,6 @@ Grab - Playlist Insert:
                 basicBot.userUtilities.setLastActivity(user);
             },
             didUserDisconnect: function (user) {
-				console.log("------ didUserDisconnect -------");
-				console.log("user.beerRun: " + user.beerRun);
-				console.log("user.inMeeting: " + user.inMeeting);
-				console.log("user.atLunch: " + user.atLunch);
-				console.log("user.username: " + user.username);
-				console.log("user.time: " + user.lastDC.time);
-				console.log("--------------------------------");
                 if (user.beerRun) return true;
                 if (user.inMeeting) return true;
                 if (user.atLunch) return true;
@@ -993,10 +986,6 @@ Grab - Playlist Insert:
                 if (newPosition <= 0) newPosition = 1;
 
                 var msg = "";
-				console.log("user.beerRun: " + user.beerRun);
-				console.log("user.inMeeting: " + user.inMeeting);
-				console.log("user.atLunch: " + user.atLunch);
-				console.log("user.username: " + user.username);
                 if (user.beerRun === true) {
                     msg = subChat(basicBot.chat.beerrunreturn, {name: basicBot.userUtilities.getUser(user).username, time: time, position: newPosition});
                 }
@@ -4285,18 +4274,27 @@ Grab - Playlist Insert:
                             if (perm < 2) return API.sendChat(subChat(basicBot.chat.bootrank, {name: chat.un}));
                             byusername = " [ executed by " + chat.un + "]";
                         }
-						console.log("CHAT: " + cmd);
                         var user = basicBot.userUtilities.lookupUserName(name);
                         var currPos = API.getWaitListPosition(user.id);
                         if (currPos === -1) return API.sendChat(subChat(basicBot.chat.notinwaitlist, {name: name}));
                         user.lastKnownPosition = currPos;
                         basicBot.userUtilities.updateDC(user);
-						console.log("CHATx: " + msg);
-						console.log("CHATx: " + cmd);
-                        if (cmd == '.beerrun') basicBot.userUtilities.setBeerRunStatus(user, true);
-                        if (cmd == '.lunch') basicBot.userUtilities.setLunchStatus(user, true);
-                        if (cmd == '.meeting') basicBot.userUtilities.setMeetingStatus(user, true);
-                        API.moderateRemoveDJ(user.id);
+						var msg;
+                        if (cmd == '.beerrun') {
+						    basicBot.userUtilities.setBeerRunStatus(user, true);
+							msg = subChat(basicBot.chat.beerrunleave, {name: basicBot.userUtilities.getUser(user).username});
+						}
+                        if (cmd == '.lunch') {
+						    basicBot.userUtilities.setLunchStatus(user, true);
+							msg = subChat(basicBot.chat.lunchleave, {name: basicBot.userUtilities.getUser(user).username});
+						}
+                        if (cmd == '.meeting') {
+						    basicBot.userUtilities.setMeetingStatus(user, true);
+							msg = subChat(basicBot.chat.meetingleave, {name: basicBot.userUtilities.getUser(user).username});
+
+						}
+						setTimeout(function () { API.moderateRemoveDJ(user.id); }, 1000);
+						API.sendChat(msg);
                     }
                     catch(err) {
                         console.log("meetingCommand:ERROR: " + err.message);
@@ -4338,6 +4336,8 @@ Grab - Playlist Insert:
                     }, 1000);
                 }
             },
+            rollCommand: {   //Added 03/29/2015 Zig
+			},
             zigCommand: {   //Added 01/27/2015 Zig
                 command: 'zig',
                 rank: 'mod',
