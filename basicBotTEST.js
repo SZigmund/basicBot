@@ -1,4 +1,4 @@
-/** version: 2.1.4.00025.03
+/** version: 2.1.4.00025.04
 
 .tasty is now a starts with command, Also you can .rock .props
 
@@ -240,7 +240,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00025.03",
+        version: "2.1.4.00025.04",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -799,6 +799,13 @@ Grab - Playlist Insert:
                 basicBot.userUtilities.setLastActivity(user);
             },
             didUserDisconnect: function (user) {
+				console.log("------ didUserDisconnect -------");
+				console.log("user.beerRun: " + user.beerRun);
+				console.log("user.inMeeting: " + user.inMeeting);
+				console.log("user.atLunch: " + user.atLunch);
+				console.log("user.username: " + user.username);
+				console.log("user.time: " + user.lastDC.time);
+				console.log("--------------------------------");
                 if (user.beerRun) return true;
                 if (user.inMeeting) return true;
                 if (user.atLunch) return true;
