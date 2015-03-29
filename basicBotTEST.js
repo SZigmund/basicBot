@@ -1,4 +1,4 @@
-/** version: 2.1.4.00025.05
+/** version: 2.1.4.00025.06
 
 .tasty is now a starts with command, Also you can .rock .props
 
@@ -240,7 +240,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00025.05",
+        version: "2.1.4.00025.06",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -4285,14 +4285,14 @@ Grab - Playlist Insert:
                             if (perm < 2) return API.sendChat(subChat(basicBot.chat.bootrank, {name: chat.un}));
                             byusername = " [ executed by " + chat.un + "]";
                         }
-						console.log("CHAT: " + msg);
-						console.log("CHAT: " + msg.substring(cmd.length + 2));
+						console.log("CHAT: " + cmd);
                         var user = basicBot.userUtilities.lookupUserName(name);
                         var currPos = API.getWaitListPosition(user.id);
                         if (currPos === -1) return API.sendChat(subChat(basicBot.chat.notinwaitlist, {name: name}));
                         user.lastKnownPosition = currPos;
                         basicBot.userUtilities.updateDC(user);
-						console.log("CHAT: " + msg.substring(cmd.length + 2));
+						console.log("CHATx: " + msg);
+						console.log("CHATx: " + cmd);
                         if (msg.substring(cmd.length + 2) == 'beerrun') basicBot.userUtilities.setBeerRunStatus(user, true);
                         if (msg.substring(cmd.length + 2) == 'lunch') basicBot.userUtilities.setLunchStatus(user, true);
                         if (msg.substring(cmd.length + 2) == 'meeting') basicBot.userUtilities.setMeetingStatus(user, true);
