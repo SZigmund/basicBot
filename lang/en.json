@@ -16,7 +16,7 @@
     "isblacklisted": "/me This track is on the %%BLACKLIST%% blacklist! Skipping...",
 
 
-    "isopen": "/me The roulette is now open! Type !join to participate!",
+    "isopen": "/me The roulette is now open! Type .join to participate!",
     "winnerpicked": "/me A winner has been picked! @%%NAME%% to position %%POSITION%%.",
 
 
@@ -31,7 +31,10 @@
     "valid": "/me @%%NAME%% disconnected %%TIME%% ago and should be at position %%POSITION%%.",
     "meetingreturn": "/me @%%NAME%% how was your meeting?  You left %%TIME%% ago and should be at position %%POSITION%%.",
     "lunchreturn": "/me @%%NAME%% how was lunch?  You left %%TIME%% ago and should be at position %%POSITION%%.",
-    "beerrunreturn": "/me @%%NAME%% You get the :beer:?  You left %%TIME%% ago and should be at position %%POSITION%%.",
+    "beerrunreturn": "/me @%%NAME%% What kind of :beer: did you buy?  You left %%TIME%% ago and should be at position %%POSITION%%.",
+    "meetingleave": "/me %%NAME%% enjoy your meeting.",
+    "lunchleave": "/me %%NAME%% enjoy your lunch. Hurry back.",
+    "beerrunleave": "/me %%NAME%% Going to get some :beer:.",
 
 
     "warning1": "/me @%%NAME%% you have been afk for %%TIME%%, please respond within 2 minutes or you will be removed.",
