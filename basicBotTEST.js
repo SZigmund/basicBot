@@ -1,4 +1,4 @@
-/** version: 2.1.4.00025.18
+/** version: 2.1.4.00025.19
 
 
 3 strikes and you're out (for 10 mins)
@@ -239,7 +239,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00025.18",
+        version: "2.1.4.00025.19",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -912,10 +912,12 @@ Grab - Playlist Insert:
 
             },
             getPermission: function (obj) { //1 requests
+			    try {
                 var u;
                 if (typeof obj === "object") u = obj;
                 else u = API.getUser(obj);
                 if (botCreatorIDs.indexOf(u.id) > -1) return 10;
+				console.log("Role: " + u.role);
                 if (u.gRole < 2) return u.role;
                 else {
                     switch (u.gRole) {
@@ -930,6 +932,10 @@ Grab - Playlist Insert:
                     }
                 }
                 return 0;
+				}
+                catch(err) {
+                  console.log("getPermission:ERROR: " + err.message);
+                }
             },
             moveUser: function (id, pos, priority) {
                 var user = basicBot.userUtilities.lookupUser(id);
@@ -1884,7 +1890,9 @@ Grab - Playlist Insert:
                 }
                 else return false;
 				console.log("commandCheck cmd: " + cmd);
+				console.log("commandCheck chat.uid: " + chat.uid);
                 var userPerm = basicBot.userUtilities.getPermission(chat.uid);
+			    console.log("commandCheck chat.userPerm: " + chat.userPerm);
                 if (chat.message !== ".join" && chat.message !== ".leave" && chat.message !== ".tasty") {
 				console.log("commandCheck1: " + cmd);
                     if (userPerm === 0 && !basicBot.room.usercommand) return void (0);
