@@ -1,4 +1,4 @@
-/** version: 2.1.4.00027
+/** version: 2.1.4.00028
 
 3 strikes and you're out (for 10 mins)
 
@@ -236,7 +236,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00027",
+        version: "2.1.4.00028",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -746,6 +746,12 @@ Grab - Playlist Insert:
             this.afkCountdown = null;
             this.inRoom = true;
             this.isMuted = false;
+            this.myStats = {
+                songcount: 0,
+                woots: 0,
+                mehs: 0,
+				tasty: 0
+            };
             this.lastDC = {
                 time: null,
                 position: null,
@@ -799,19 +805,20 @@ Grab - Playlist Insert:
                 var user = basicBot.userUtilities.lookupUser(userId);
                 if (user.username !== userName) user.username = userName;
             },
-            setLastActivityID: function (userId) {
+            setLastActivityID: function (userId, dispMsg) {
                 var user = basicBot.userUtilities.lookupUser(userId);
-                basicBot.userUtilities.setLastActivity(user);
+                basicBot.userUtilities.setLastActivity(user, dispMsg);
             },
             didUserDisconnect: function (user) {
                 if (user.beerRun) return true;
                 if (user.inMeeting) return true;
                 if (user.atLunch) return true;
-                if (user.lastDC.time !== null) return true;
+                if (user.lastDC.time !== null && user.lastDC.position > 0) return true;
                 return false;
             },
-            setLastActivity: function (user) {
+            setLastActivity: function (user, dispMsg) {
                 user.lastActivity = Date.now();
+				if ((user.afkWarningCount > 0) && (dispMsg === true)) API.sendChat(subChat(basicBot.chat.afkUserReset, {name: user.username}));
                 user.afkWarningCount = 0;
                 clearTimeout(user.afkCountdown);
             },
@@ -1521,7 +1528,7 @@ Grab - Playlist Insert:
             try {
             chat.message = linkFixer(chat.message);
             chat.message = chat.message.trim();
-            basicBot.userUtilities.setLastActivityID(chat.uid);
+            basicBot.userUtilities.setLastActivityID(chat.uid, true);
             basicBot.userUtilities.setUserName(chat.uid, chat.un);
             if (basicBot.chatUtilities.chatFilter(chat)) return void (0);
             if (!basicBot.chatUtilities.commandCheck(chat))
@@ -1555,7 +1562,7 @@ Grab - Playlist Insert:
                 basicBot.room.users.push(new basicBot.User(user.id, user.username));
                 welcomeback = false;
             }
-            basicBot.userUtilities.setLastActivityID(user.id);
+            basicBot.userUtilities.setLastActivityID(user.id, false);
             basicBot.userUtilities.setBadSongCount(user.id, 0);
             basicBot.userUtilities.setJoinTime(user.id);
             
@@ -1611,7 +1618,7 @@ Grab - Playlist Insert:
                  basicBot.room.users[i].votes.curate++;
                  }
               }
-              basicBot.userUtilities.setLastActivityID(obj.user.id);
+              basicBot.userUtilities.setLastActivityID(obj.user.id, true);
               API.sendChat(":musical_note: " + obj.user.username + " snagged this song. :heart: :musical_note:");
           }
           catch(err) {
@@ -1963,7 +1970,7 @@ Grab - Playlist Insert:
             },
             action: function (chat) {
                 if (chat.type === 'message' || chat.type === 'emote')  {
-                    basicBot.userUtilities.setLastActivityID(chat.uid);
+                    basicBot.userUtilities.setLastActivityID(chat.uid, true);
                 }
                 else {
                   console.log("CHAT.TYPE: " + chat.type);
@@ -2329,7 +2336,7 @@ Grab - Playlist Insert:
                         var name = msg.substring(cmd.length + 2);
                         var user = basicBot.userUtilities.lookupUserName(name);
                         if (typeof user === 'boolean') return API.sendChat(subChat(basicBot.chat.invaliduserspecified, {name: chat.un}));
-                        basicBot.userUtilities.setLastActivity(user);
+                        basicBot.userUtilities.setLastActivity(user, false);
                         API.sendChat(subChat(basicBot.chat.afkstatusreset, {name: chat.un, username: name}));
                     }
                 }
@@ -4438,6 +4445,5 @@ Grab - Playlist Insert:
             }
         }
     };
-
     loadChat(basicBot.startup);
 }).call(this);
