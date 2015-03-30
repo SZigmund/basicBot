@@ -105,7 +105,9 @@
     "bootableDisabled": "/me [@%%NAME%%] line removal canceled. %%USERBYNAME%%",
     "bootableEnabled": "/me By request [@%%NAME%%] will get removed from line after next song. %%USERBYNAME%%",
     "emojilist": "/me Emoji list: %%LINK%%",
-    "notinwaitlist": "/me @%%NAME%% you are not on the waitlist.",
+    "notinwaitlist": "/me %%NAME%% you are not on the waitlist.",
+    "rollresults": "/me %%NAME%% you rolled a %%ROLL%%",
+    "notcurrentdj": "/me %%NAME%% you are not the current dj.",
     "eta": "/me @%%NAME%% you will reach the booth in approximately %%TIME%%.",
     "facebook": "/me Like us on facebook: %%LINK%%",
     "starterhelp": "/me This image will get you started on plug: %%LINK%%",
@@ -152,5 +154,6 @@
     "website": "/me Please visit our website: %%LINK%%",
     "youtube": "/me [%%NAME%%] Subscribe to us on youtube: %%LINK%%",
     "songstatistics": "[:thumbsup: %%WOOTS%% :star: %%GRABS%% :thumbsdown: %%MEHS%%] %%USER%% [%%ARTIST%% - %%TITLE%%]",
+    "tastyvote": "[%%NAME%% finds this tune tasty :cake:]",
     "songstatisticstasty": "[:thumbsup: %%WOOTS%% :star: %%GRABS%% :thumbsdown: %%MEHS%% :cake: %%TASTY%%] %%USER%% [%%ARTIST%% - %%TITLE%%]"
 }
