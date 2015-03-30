@@ -1,9 +1,10 @@
-/** version: 2.1.4.00025.13
+/** version: 2.1.4.00025.14
 
-.tasty is now a starts with command, Also you can .rock .props 
-.roll command
-.meeting command ( also .lunch .beerrun )
-Auto dc update (No advance for songs while out)
+.tasty command can now have words after .tasty.  Ex: .tasty play BK!! Also you can use .rock .props 
+.roll command - DJ can roll the dice.  5 or 6 earns a tasty point from Larry
+.meeting command ( also .lunch .beerrun ) Removes you from waitlist and remembers your spot.
+.dc no longer adds for missed songs while disconnected.
+.dc is no longer required.  Just hop in line and Larry will put you where you belong.
 
 3 strikes and you're out (for 10 mins)
 Bot Dj's if < 2 DJ's and no Mgr in line
@@ -243,7 +244,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00025.13",
+        version: "2.1.4.00025.14",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -783,6 +784,7 @@ Grab - Playlist Insert:
                 }
                 user.tastyVote = true;
                 API.sendChat(subChat(basicBot.chat.tastyvote, {name: user.username}));
+				basicBot.room.roomstats.tastyCount += 1;
                 }
                 catch(err) {
                   console.log("userUtilities.tastyVote:ERROR: " + err.message);
@@ -791,6 +793,7 @@ Grab - Playlist Insert:
             updateDC: function (user) {
                 user.lastDC.time = Date.now();
                 user.lastDC.position = user.lastKnownPosition;
+				console.log("user.lastKnownPosition: " + user.lastKnownPosition);
                 user.lastDC.songCount = basicBot.room.roomstats.songCount;
             },
             setUserName: function (userId, userName) {
@@ -994,6 +997,7 @@ Grab - Playlist Insert:
                     }
                 }
                 var newPosition = user.lastDC.position; // - songsPassed - afksRemoved;
+				console.log("New POS: " + newPosition);
                 if (newPosition <= 0) newPosition = 1;
 
                 var msg = "";
@@ -1009,6 +1013,7 @@ Grab - Playlist Insert:
                 else {
                     msg = subChat(basicBot.chat.valid, {name: basicBot.userUtilities.getUser(user).username, time: time, position: newPosition});
                 }
+				console.log("New POS: " + newPosition);
                 basicBot.userUtilities.moveUser(user.id, newPosition, true);
                 basicBot.userUtilities.setMeetingStatus(user, false);
 				user.lastDC = {
@@ -4276,7 +4281,7 @@ Grab - Playlist Insert:
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                         if (API.getDJ().id !== chat.uid) return API.sendChat(subChat(basicBot.chat.notcurrentdj, {name: chat.un}));
-						//if (basicBot.userUtilities.getRolled(chat.un))  return API.sendChat(subChat(basicBot.chat.doubleroll, {name: chat.un}));
+						if (basicBot.userUtilities.getRolled(chat.un))  return API.sendChat(subChat(basicBot.chat.doubleroll, {name: chat.un}));
                         var msg = chat.message;
                         var dicesides = 6;
                         if (msg.length > cmd.length){
@@ -4321,15 +4326,15 @@ Grab - Playlist Insert:
 						var msg;
                         if (cmd == '.beerrun') {
 						    basicBot.userUtilities.setBeerRunStatus(user, true);
-							msg = subChat(basicBot.chat.beerrunleave, {name: basicBot.userUtilities.getUser(user).username});
+							msg = subChat(basicBot.chat.beerrunleave, {name: basicBot.userUtilities.getUser(user).username, pos: currPos});
 						}
                         if (cmd == '.lunch') {
 						    basicBot.userUtilities.setLunchStatus(user, true);
-							msg = subChat(basicBot.chat.lunchleave, {name: basicBot.userUtilities.getUser(user).username});
+							msg = subChat(basicBot.chat.lunchleave, {name: basicBot.userUtilities.getUser(user).username, pos: currPos});
 						}
                         if (cmd == '.meeting') {
 						    basicBot.userUtilities.setMeetingStatus(user, true);
-							msg = subChat(basicBot.chat.meetingleave, {name: basicBot.userUtilities.getUser(user).username});
+							msg = subChat(basicBot.chat.meetingleave, {name: basicBot.userUtilities.getUser(user).username, pos: currPos});
 
 						}
 						setTimeout(function () { API.moderateRemoveDJ(user.id); }, 1000);
