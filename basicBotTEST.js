@@ -1,10 +1,5 @@
-/** version: 2.1.4.00025.17
+/** version: 2.1.4.00025.18
 
-.tasty command can now have words after .tasty.  Ex: .tasty play BK!! Also you can use .rock .props 
-.roll command - DJ can roll the dice.  5 or 6 earns a tasty point from Larry
-.meeting command ( also .lunch .beerrun ) Removes you from waitlist and remembers your spot.
-.dc no longer adds for missed songs while disconnected.
-.dc is no longer required.  Just hop in line and Larry will put you where you belong.
 
 3 strikes and you're out (for 10 mins)
 Bot Dj's if < 2 DJ's and no Mgr in line
@@ -244,7 +239,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00025.17",
+        version: "2.1.4.00025.18",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -793,7 +788,6 @@ Grab - Playlist Insert:
             updateDC: function (user) {
                 user.lastDC.time = Date.now();
                 user.lastDC.position = user.lastKnownPosition;
-				console.log("user.lastKnownPosition: " + user.lastKnownPosition);
                 user.lastDC.songCount = basicBot.room.roomstats.songCount;
             },
             setUserName: function (userId, userName) {
@@ -1880,6 +1874,7 @@ Grab - Playlist Insert:
             },
             commandCheck: function (chat) {
                 var cmd;
+				console.log("commandCheck chat: " + chat.message);
                 if (chat.message.charAt(0) === '.') {
                     var space = chat.message.indexOf(' ');
                     if (space === -1) {
@@ -1888,21 +1883,27 @@ Grab - Playlist Insert:
                     else cmd = chat.message.substring(0, space);
                 }
                 else return false;
+				console.log("commandCheck cmd: " + cmd);
                 var userPerm = basicBot.userUtilities.getPermission(chat.uid);
                 if (chat.message !== ".join" && chat.message !== ".leave" && chat.message !== ".tasty") {
+				console.log("commandCheck1: " + cmd);
                     if (userPerm === 0 && !basicBot.room.usercommand) return void (0);
+				console.log("commandCheck2: " + cmd);
                     if (!basicBot.room.allcommand) return void (0);
+				console.log("commandCheck3: " + cmd);
                 }
                 if (chat.message === '.eta' && basicBot.settings.etaRestriction) {
                     if (userPerm < 2) {
                         var u = basicBot.userUtilities.lookupUser(chat.uid);
                         if (u.lastEta !== null && (Date.now() - u.lastEta) < 1 * 60 * 60 * 1000) {
                             API.moderateDeleteChat(chat.cid);
+				console.log("commandCheck4: " + cmd);
                             return void (0);
                         }
                         else u.lastEta = Date.now();
                     }
                 }
+				console.log("commandCheck5: " + cmd);
                 var executed = false;
 
                 for (var comm in basicBot.commands) {
@@ -1919,12 +1920,14 @@ Grab - Playlist Insert:
                     }
                 }
 
+				console.log("commandCheck6: executed: " + executed);
                 if (executed && userPerm === 0) {
                     basicBot.room.usercommand = false;
                     setTimeout(function () {
                         basicBot.room.usercommand = true;
                     }, basicBot.settings.commandCooldown * 1000);
                 }
+				console.log("commandCheck7: executed: " + executed);
                 if (executed) {
                     API.moderateDeleteChat(chat.cid);
                     basicBot.room.allcommand = false;
@@ -1932,6 +1935,7 @@ Grab - Playlist Insert:
                         basicBot.room.allcommand = true;
                     }, 5 * 1000);
                 }
+				console.log("commandCheck8: executed: " + executed);
                 return executed;
             },
             action: function (chat) {
