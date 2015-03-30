@@ -32,8 +32,8 @@
     "meetingreturn": "/me @%%NAME%% how was your meeting?  You left %%TIME%% ago and should be at position %%POSITION%%.",
     "lunchreturn": "/me @%%NAME%% how was lunch?  You left %%TIME%% ago and should be at position %%POSITION%%.",
     "beerrunreturn": "/me @%%NAME%% What kind of :beer: did you buy?  You left %%TIME%% ago and should be at position %%POSITION%%.",
-    "meetingleave": "/me %%NAME%% enjoy your meeting. (Position: %%POS%%)",
-    "lunchleave": "/me %%NAME%% enjoy your lunch. Hurry back. (Position: %%POS%%)",
+    "meetingleave": "/me %%NAME%% enjoy your meeting. :sleeping: (Position: %%POS%%)",
+    "lunchleave": "/me %%NAME%% enjoy your lunch. :pizza: Hurry back. (Position: %%POS%%)",
     "beerrunleave": "/me %%NAME%% Going to get some :beer:. (Position: %%POS%%)",
 
 
