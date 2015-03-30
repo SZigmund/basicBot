@@ -1,4 +1,4 @@
-/** version: 2.1.4.00026.01
+/** version: 2.1.4.00026.02
 
 3 strikes and you're out (for 10 mins)
 
@@ -236,7 +236,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00026.01",
+        version: "2.1.4.00026.02",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1048,6 +1048,16 @@ Grab - Playlist Insert:
                   console.log("botIsDj:ERROR: " + err.message);
                 }
             },
+			checkDisconnect: function(user) {
+                try {
+                    if (!basicBot.userUtilities.didUserDisconnect(user)) return;
+                    var toChat = basicBot.userUtilities.dclookup(user.id);
+                    API.sendChat(toChat);
+                }
+                catch(err) {
+                  console.log("checkDisconnect:ERROR: " + err.message);
+                }
+            },
             resetTastyCount: function () {
                 try {
                     basicBot.room.roomstats.tastyCount = 0;
@@ -1324,27 +1334,24 @@ Grab - Playlist Insert:
                         }, basicBot.settings.maximumLocktime * 60 * 1000);
                     }
                 },
-                checkForDcReconnect: function () {
+                checkForReconnect: function () {
                     try {
                         var wl = API.getWaitList();
                         for(var i = 0; i < wl.length; i++){
                             var user = basicBot.userUtilities.lookupUser(wl[i].id);
-                            if (basicBot.userUtilities.didUserDisconnect(user)) {
-                              var toChat = basicBot.userUtilities.dclookup(user.id);
-                              API.sendChat(toChat);
-                            }
+						    basicBot.roomUtilities.checkDisconnect(user);
                         }
                     }
                     catch(err) {
-                        console.log("checkForDcReconnect:ERROR: " + err.message);
+                        console.log("checkForReconnect:ERROR: " + err.message);
                     }
                 },
-                checkIfUserLeft:  function () {
+                checkForDisconnect:  function () {
                     try {
                         //console.log("eventWaitlistupdate-happens 1st");
                     }
                     catch(err) {
-                        console.log("checkIfUserLeft:ERROR: " + err.message);
+                        console.log("checkForDisconnect:ERROR: " + err.message);
                     }
                 },
                 unlockBooth: function () {
@@ -1542,6 +1549,7 @@ Grab - Playlist Insert:
                 var t = Date.now() - jt;
                 if (t < 10 * 1000) greet = false;
                 else welcomeback = true;
+			    basicBot.roomUtilities.checkDisconnect(u);
             }
             else {
                 basicBot.room.users.push(new basicBot.User(user.id, user.username));
@@ -1755,8 +1763,8 @@ Grab - Playlist Insert:
 
         },
         eventWaitlistupdate: function (users) {
-            basicBot.roomUtilities.booth.checkIfUserLeft();
-            basicBot.roomUtilities.booth.checkForDcReconnect();
+            basicBot.roomUtilities.booth.checkForDisconnect();
+            basicBot.roomUtilities.booth.checkForReconnect();
             if (users.length < 50) {
                 if (basicBot.room.queue.id.length > 0 && basicBot.room.queueable) {
                     basicBot.room.queueable = false;
