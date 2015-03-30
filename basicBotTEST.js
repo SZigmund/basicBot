@@ -1,4 +1,4 @@
-/** version: 2.1.4.00025.14
+/** version: 2.1.4.00025.15
 
 .tasty command can now have words after .tasty.  Ex: .tasty play BK!! Also you can use .rock .props 
 .roll command - DJ can roll the dice.  5 or 6 earns a tasty point from Larry
@@ -244,7 +244,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00025.14",
+        version: "2.1.4.00025.15",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -997,7 +997,6 @@ Grab - Playlist Insert:
                     }
                 }
                 var newPosition = user.lastDC.position; // - songsPassed - afksRemoved;
-				console.log("New POS: " + newPosition);
                 if (newPosition <= 0) newPosition = 1;
 
                 var msg = "";
@@ -1013,7 +1012,6 @@ Grab - Playlist Insert:
                 else {
                     msg = subChat(basicBot.chat.valid, {name: basicBot.userUtilities.getUser(user).username, time: time, position: newPosition});
                 }
-				console.log("New POS: " + newPosition);
                 basicBot.userUtilities.moveUser(user.id, newPosition, true);
                 basicBot.userUtilities.setMeetingStatus(user, false);
 				user.lastDC = {
@@ -1316,7 +1314,6 @@ Grab - Playlist Insert:
                 },
                 checkForDcReconnect: function () {
                     try {
-                        console.log("checkForDcReconnect");
                         var wl = API.getWaitList();
                         for(var i = 0; i < wl.length; i++){
                             var user = basicBot.userUtilities.lookupUser(wl[i].id);
@@ -4319,7 +4316,7 @@ Grab - Playlist Insert:
                             byusername = " [ executed by " + chat.un + "]";
                         }
                         var user = basicBot.userUtilities.lookupUserName(name);
-                        var currPos = API.getWaitListPosition(user.id);
+                        var currPos = API.getWaitListPosition(user.id) + 1;
                         if (currPos === -1) return API.sendChat(subChat(basicBot.chat.notinwaitlist, {name: name}));
                         user.lastKnownPosition = currPos;
                         basicBot.userUtilities.updateDC(user);
