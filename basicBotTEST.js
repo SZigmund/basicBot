@@ -1,9 +1,9 @@
-/** version: 2.1.4.00025.09
+/** version: 2.1.4.00025.10
 
 .tasty is now a starts with command, Also you can .rock .props 
 .roll command
 .meeting command ( also .lunch .beerrun )
-Auto dc update
+Auto dc update (No advance for songs while out)
 
 3 strikes and you're out (for 10 mins)
 Bot Dj's if < 2 DJ's and no Mgr in line
@@ -243,7 +243,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00025.09",
+        version: "2.1.4.00025.10",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -993,7 +993,7 @@ Grab - Playlist Insert:
                         afksRemoved++;
                     }
                 }
-                var newPosition = user.lastDC.position - songsPassed - afksRemoved;
+                var newPosition = user.lastDC.position; // - songsPassed - afksRemoved;
                 if (newPosition <= 0) newPosition = 1;
 
                 var msg = "";
@@ -4276,7 +4276,7 @@ Grab - Playlist Insert:
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                         if (API.getDJ().id !== chat.uid) return API.sendChat(subChat(basicBot.chat.notcurrentdj, {name: chat.un}));
-						if (basicBot.userUtilities.getRolled(chat.un))  return API.sendChat(subChat(basicBot.chat.doubleroll, {name: chat.un}));
+						//if (basicBot.userUtilities.getRolled(chat.un))  return API.sendChat(subChat(basicBot.chat.doubleroll, {name: chat.un}));
                         var msg = chat.message;
                         var dicesides = 6;
                         if (msg.length > cmd.length){
