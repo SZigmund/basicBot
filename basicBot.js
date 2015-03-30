@@ -1,9 +1,6 @@
-/** version: 2.1.4.00026
-
+/** version: 2.1.4.00027
 
 3 strikes and you're out (for 10 mins)
-Bot Dj's if < 2 DJ's and no Mgr in line
-Bot hops down if > 2 DJ's
 
 .unban Dexter Nix
 .ban @Dexter Nix
@@ -239,7 +236,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00026",
+        version: "2.1.4.00027",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -785,6 +782,14 @@ Grab - Playlist Insert:
                   console.log("userUtilities.tastyVote:ERROR: " + err.message);
                 }
             },
+            resetDC: function (user) {
+                user.lastDC.time = null;
+                user.lastDC.position = null;
+                user.lastDC.songCount = 0;
+                user.beerRun = false;
+                user.inMeeting = false;
+                user.atLunch = false;
+           },
             updateDC: function (user) {
                 user.lastDC.time = Date.now();
                 user.lastDC.position = user.lastKnownPosition;
@@ -977,17 +982,26 @@ Grab - Playlist Insert:
                 var user = basicBot.userUtilities.lookupUser(id);
                 if (typeof user === 'boolean') return basicBot.chat.usernotfound;
                 var name = user.username;
-                if (user.lastDC.time === null) return subChat(basicBot.chat.notdisconnected, {name: name});
+                if (user.lastDC.time === null) {
+                    basicBot.userUtilities.resetDC(user);
+				    return subChat(basicBot.chat.notdisconnected, {name: name});
+				}
                 var dc = user.lastDC.time;
                 var pos = user.lastDC.position;
-                if (pos === null) return basicBot.chat.noposition;
+                if (pos === null) {
+				    basicBot.userUtilities.resetDC(user);
+				    return basicBot.chat.noposition;
+				}
                 var timeDc = Date.now() - dc;
                 var validDC = false;
                 if (basicBot.settings.maximumDc * 60 * 1000 > timeDc) {
                     validDC = true;
                 }
                 var time = basicBot.roomUtilities.msToStr(timeDc);
-                if (!validDC) return (subChat(basicBot.chat.toolongago, {name: basicBot.userUtilities.getUser(user).username, time: time}));
+                if (!validDC) {
+                    basicBot.userUtilities.resetDC(user);
+				    return (subChat(basicBot.chat.toolongago, {name: basicBot.userUtilities.getUser(user).username, time: time}));
+				}
                 var songsPassed = basicBot.room.roomstats.songCount - user.lastDC.songCount;
                 var afksRemoved = 0;
                 var afkList = basicBot.room.afkList;
@@ -1016,11 +1030,7 @@ Grab - Playlist Insert:
                 }
                 basicBot.userUtilities.moveUser(user.id, newPosition, true);
                 basicBot.userUtilities.setMeetingStatus(user, false);
-				user.lastDC = {
-					time: null,
-					position: null,
-					songCount: 0
-				};
+                basicBot.userUtilities.resetDC(user);
                 return msg;
             }
         },
@@ -1036,6 +1046,16 @@ Grab - Playlist Insert:
                 }
                 catch(err) {
                   console.log("botIsDj:ERROR: " + err.message);
+                }
+            },
+			checkDisconnect: function(user) {
+                try {
+                    if (!basicBot.userUtilities.didUserDisconnect(user)) return;
+                    var toChat = basicBot.userUtilities.dclookup(user.id);
+                    API.sendChat(toChat);
+                }
+                catch(err) {
+                  console.log("checkDisconnect:ERROR: " + err.message);
                 }
             },
             resetTastyCount: function () {
@@ -1314,27 +1334,24 @@ Grab - Playlist Insert:
                         }, basicBot.settings.maximumLocktime * 60 * 1000);
                     }
                 },
-                checkForDcReconnect: function () {
+                checkForReconnect: function () {
                     try {
                         var wl = API.getWaitList();
                         for(var i = 0; i < wl.length; i++){
                             var user = basicBot.userUtilities.lookupUser(wl[i].id);
-                            if (basicBot.userUtilities.didUserDisconnect(user)) {
-                              var toChat = basicBot.userUtilities.dclookup(user.id);
-                              API.sendChat(toChat);
-                            }
+						    basicBot.roomUtilities.checkDisconnect(user);
                         }
                     }
                     catch(err) {
-                        console.log("checkForDcReconnect:ERROR: " + err.message);
+                        console.log("checkForReconnect:ERROR: " + err.message);
                     }
                 },
-                checkIfUserLeft:  function () {
+                checkForDisconnect:  function () {
                     try {
                         //console.log("eventWaitlistupdate-happens 1st");
                     }
                     catch(err) {
-                        console.log("checkIfUserLeft:ERROR: " + err.message);
+                        console.log("checkForDisconnect:ERROR: " + err.message);
                     }
                 },
                 unlockBooth: function () {
@@ -1389,12 +1406,7 @@ Grab - Playlist Insert:
                                         if (pos !== -1) {
                                             pos++;
                                             basicBot.room.afkList.push([id, Date.now(), pos]);
-                                            user.lastDC = {
-
-                                                time: null,
-                                                position: null,
-                                                songCount: 0
-                                            };
+                                            basicBot.userUtilities.resetDC(user);
                                             API.moderateRemoveDJ(id);
                                             API.sendChat(subChat(basicBot.chat.afkremove, {name: name, time: time, position: pos, maximumafk: basicBot.settings.maximumAfk}));
                                         }
@@ -1537,6 +1549,7 @@ Grab - Playlist Insert:
                 var t = Date.now() - jt;
                 if (t < 10 * 1000) greet = false;
                 else welcomeback = true;
+			    basicBot.roomUtilities.checkDisconnect(u);
             }
             else {
                 basicBot.room.users.push(new basicBot.User(user.id, user.username));
@@ -1639,7 +1652,7 @@ Grab - Playlist Insert:
             //console.log("eventDjadvance:2");
               for(var i = 0; i < basicBot.room.users.length; i++){
                 if(basicBot.room.users[i].id === dj.id){
-                    basicBot.room.users[i].lastDC = {time: null,position: null,songCount: 0};
+                    basicBot.userUtilities.resetDC(basicBot.room.users[i]);
                 }
               }
             }
@@ -1750,8 +1763,8 @@ Grab - Playlist Insert:
 
         },
         eventWaitlistupdate: function (users) {
-            basicBot.roomUtilities.booth.checkIfUserLeft();
-            basicBot.roomUtilities.booth.checkForDcReconnect();
+            basicBot.roomUtilities.booth.checkForDisconnect();
+            basicBot.roomUtilities.booth.checkForReconnect();
             if (users.length < 50) {
                 if (basicBot.room.queue.id.length > 0 && basicBot.room.queueable) {
                     basicBot.room.queueable = false;
@@ -2717,7 +2730,7 @@ Grab - Playlist Insert:
             },
 
             dclookupCommand: {
-                command: ['dclookup', 'dc'],
+                command: ['dclookup', 'dc', 'back'],
                 rank: 'user',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
@@ -3482,11 +3495,7 @@ Grab - Playlist Insert:
                             var name = msg.substr(cmd.length + 2);
                             var user = basicBot.userUtilities.lookupUserName(name);
                             if (typeof user !== 'boolean') {
-                                user.lastDC = {
-                                    time: null,
-                                    position: null,
-                                    songCount: 0
-                                };
+                                basicBot.userUtilities.resetDC(user);
                                 if (API.getDJ().id === user.id) {
                                     API.moderateForceSkip();
                                     setTimeout(function () {
