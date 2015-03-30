@@ -1,4 +1,4 @@
-/** version: 2.1.4.00025.19
+/** version: 2.1.4.00025.20
 
 
 3 strikes and you're out (for 10 mins)
@@ -239,7 +239,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00025.19",
+        version: "2.1.4.00025.20",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -918,6 +918,8 @@ Grab - Playlist Insert:
                 else u = API.getUser(obj);
                 if (botCreatorIDs.indexOf(u.id) > -1) return 10;
 				console.log("Role: " + u.role);
+				console.log("Name: " + u.username);
+				console.log("ID: " + u.id);
                 if (u.gRole < 2) return u.role;
                 else {
                     switch (u.gRole) {
@@ -1894,24 +1896,24 @@ Grab - Playlist Insert:
                 var userPerm = basicBot.userUtilities.getPermission(chat.uid);
 			    console.log("commandCheck chat.userPerm: " + chat.userPerm);
                 if (chat.message !== ".join" && chat.message !== ".leave" && chat.message !== ".tasty") {
-				console.log("commandCheck1: " + cmd);
+				    console.log("commandCheck1: " + cmd);
                     if (userPerm === 0 && !basicBot.room.usercommand) return void (0);
-				console.log("commandCheck2: " + cmd);
+				    console.log("commandCheck2: " + cmd);
                     if (!basicBot.room.allcommand) return void (0);
-				console.log("commandCheck3: " + cmd);
+				    console.log("commandCheck3: " + cmd);
                 }
                 if (chat.message === '.eta' && basicBot.settings.etaRestriction) {
                     if (userPerm < 2) {
                         var u = basicBot.userUtilities.lookupUser(chat.uid);
                         if (u.lastEta !== null && (Date.now() - u.lastEta) < 1 * 60 * 60 * 1000) {
                             API.moderateDeleteChat(chat.cid);
-				console.log("commandCheck4: " + cmd);
+				            //console.log("commandCheck4: " + cmd);
                             return void (0);
                         }
                         else u.lastEta = Date.now();
                     }
                 }
-				console.log("commandCheck5: " + cmd);
+				//console.log("commandCheck5: " + cmd);
                 var executed = false;
 
                 for (var comm in basicBot.commands) {
@@ -1928,14 +1930,14 @@ Grab - Playlist Insert:
                     }
                 }
 
-				console.log("commandCheck6: executed: " + executed);
+				//console.log("commandCheck6: executed: " + executed);
                 if (executed && userPerm === 0) {
                     basicBot.room.usercommand = false;
                     setTimeout(function () {
                         basicBot.room.usercommand = true;
                     }, basicBot.settings.commandCooldown * 1000);
                 }
-				console.log("commandCheck7: executed: " + executed);
+				//console.log("commandCheck7: executed: " + executed);
                 if (executed) {
                     API.moderateDeleteChat(chat.cid);
                     basicBot.room.allcommand = false;
@@ -1943,7 +1945,7 @@ Grab - Playlist Insert:
                         basicBot.room.allcommand = true;
                     }, 5 * 1000);
                 }
-				console.log("commandCheck8: executed: " + executed);
+				//console.log("commandCheck8: executed: " + executed);
                 return executed;
             },
             action: function (chat) {
@@ -4315,11 +4317,8 @@ Grab - Playlist Insert:
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
                     try {
-					    console.log("beerrun:1");
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-					    console.log("beerrun:2");
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-					    console.log("beerrun:3");
                         var msg = chat.message;
                         var name;
                         var byusername = " ";
@@ -4327,20 +4326,15 @@ Grab - Playlist Insert:
                         else {
                             name = msg.substring(cmd.length + 2);
                             var perm = basicBot.userUtilities.getPermission(chat.uid);
-					    console.log("beerrun:4");
                             if (perm < 2) return API.sendChat(subChat(basicBot.chat.bootrank, {name: chat.un}));
-					    console.log("beerrun:5");
                             byusername = " [ executed by " + chat.un + "]";
                         }
                         var user = basicBot.userUtilities.lookupUserName(name);
                         var currPos = API.getWaitListPosition(user.id) + 1;
-					    console.log("beerrun:6");
-                        if (currPos === -1) return API.sendChat(subChat(basicBot.chat.notinwaitlist, {name: name}));
-					    console.log("beerrun:7");
+                        if (currPos < 1) return API.sendChat(subChat(basicBot.chat.notinwaitlist, {name: name}));
                         user.lastKnownPosition = currPos;
                         basicBot.userUtilities.updateDC(user);
 						var msg;
-					    console.log("beerrun:8");
                         if (cmd == '.beerrun') {
 						    basicBot.userUtilities.setBeerRunStatus(user, true);
 							msg = subChat(basicBot.chat.beerrunleave, {name: basicBot.userUtilities.getUser(user).username, pos: currPos});
@@ -4354,7 +4348,6 @@ Grab - Playlist Insert:
 							msg = subChat(basicBot.chat.meetingleave, {name: basicBot.userUtilities.getUser(user).username, pos: currPos});
 
 						}
-					    console.log("beerrun:9");
 						setTimeout(function () { API.moderateRemoveDJ(user.id); }, 1000);
 						API.sendChat(msg);
                     }
