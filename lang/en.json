@@ -106,6 +106,7 @@
     "bootableEnabled": "/me By request [@%%NAME%%] will get removed from line after next song. %%USERBYNAME%%",
     "emojilist": "/me Emoji list: %%LINK%%",
     "notinwaitlist": "/me %%NAME%% you are not on the waitlist.",
+    "doubleroll": "/me %%NAME%% you rolled already. Sorry no double dipping.",
     "rollresults": "/me %%NAME%% you rolled a %%ROLL%%",
     "notcurrentdj": "/me %%NAME%% you are not the current dj.",
     "eta": "/me @%%NAME%% you will reach the booth in approximately %%TIME%%.",
