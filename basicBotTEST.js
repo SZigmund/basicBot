@@ -1,4 +1,4 @@
-/** version: 2.1.4.00025.16
+/** version: 2.1.4.00025.17
 
 .tasty command can now have words after .tasty.  Ex: .tasty play BK!! Also you can use .rock .props 
 .roll command - DJ can roll the dice.  5 or 6 earns a tasty point from Larry
@@ -244,7 +244,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00025.16",
+        version: "2.1.4.00025.17",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -4303,11 +4303,11 @@ Grab - Playlist Insert:
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
                     try {
-					    console.log("beerrun:1);
+					    console.log("beerrun:1");
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-					    console.log("beerrun:2);
+					    console.log("beerrun:2");
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-					    console.log("beerrun:3);
+					    console.log("beerrun:3");
                         var msg = chat.message;
                         var name;
                         var byusername = " ";
@@ -4315,20 +4315,20 @@ Grab - Playlist Insert:
                         else {
                             name = msg.substring(cmd.length + 2);
                             var perm = basicBot.userUtilities.getPermission(chat.uid);
-					    console.log("beerrun:4);
+					    console.log("beerrun:4");
                             if (perm < 2) return API.sendChat(subChat(basicBot.chat.bootrank, {name: chat.un}));
-					    console.log("beerrun:5);
+					    console.log("beerrun:5");
                             byusername = " [ executed by " + chat.un + "]";
                         }
                         var user = basicBot.userUtilities.lookupUserName(name);
                         var currPos = API.getWaitListPosition(user.id) + 1;
-					    console.log("beerrun:6);
+					    console.log("beerrun:6");
                         if (currPos === -1) return API.sendChat(subChat(basicBot.chat.notinwaitlist, {name: name}));
-					    console.log("beerrun:7);
+					    console.log("beerrun:7");
                         user.lastKnownPosition = currPos;
                         basicBot.userUtilities.updateDC(user);
 						var msg;
-					    console.log("beerrun:8);
+					    console.log("beerrun:8");
                         if (cmd == '.beerrun') {
 						    basicBot.userUtilities.setBeerRunStatus(user, true);
 							msg = subChat(basicBot.chat.beerrunleave, {name: basicBot.userUtilities.getUser(user).username, pos: currPos});
@@ -4342,7 +4342,7 @@ Grab - Playlist Insert:
 							msg = subChat(basicBot.chat.meetingleave, {name: basicBot.userUtilities.getUser(user).username, pos: currPos});
 
 						}
-					    console.log("beerrun:9);
+					    console.log("beerrun:9");
 						setTimeout(function () { API.moderateRemoveDJ(user.id); }, 1000);
 						API.sendChat(msg);
                     }
