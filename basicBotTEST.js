@@ -1,6 +1,9 @@
-/** version: 2.1.4.00025.08
+/** version: 2.1.4.00025.09
 
-.tasty is now a starts with command, Also you can .rock .props
+.tasty is now a starts with command, Also you can .rock .props 
+.roll command
+.meeting command ( also .lunch .beerrun )
+Auto dc update
 
 3 strikes and you're out (for 10 mins)
 Bot Dj's if < 2 DJ's and no Mgr in line
@@ -240,7 +243,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00025.08",
+        version: "2.1.4.00025.09",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -739,6 +742,7 @@ Grab - Playlist Insert:
                 curate: 0
             };
             this.tastyVote = false;
+            this.rolled = false;
             this.lastEta = null;
             this.bootable = false;
             this.beerRun = false;
@@ -778,8 +782,7 @@ Grab - Playlist Insert:
                    return;
                 }
                 user.tastyVote = true;
-                API.sendChat("[" + user.username + " finds this tune tasty :cake:]");
-                basicBot.room.roomstats.tastyCount += 1;
+                API.sendChat(subChat(basicBot.chat.tastyvote, {name: user.username}));
                 }
                 catch(err) {
                   console.log("userUtilities.tastyVote:ERROR: " + err.message);
@@ -835,6 +838,14 @@ Grab - Playlist Insert:
             getBootableID: function (username) {
                 var user = basicBot.userUtilities.lookupUserName(username);
                 return user.bootable;
+            },
+            setRolled: function (username, value) {
+                var user = basicBot.userUtilities.lookupUserName(username);
+                user.rolled = value;
+            },
+            getRolled: function (username) {
+                var user = basicBot.userUtilities.lookupUserName(username);
+                return user.rolled;
             },
             getWarningCount: function (user) {
                 return user.afkWarningCount;
@@ -1298,7 +1309,7 @@ Grab - Playlist Insert:
                         }, basicBot.settings.maximumLocktime * 60 * 1000);
                     }
                 },
-                checkForDcReconnect: function () {  // todoer TEST
+                checkForDcReconnect: function () {
                     try {
                         console.log("checkForDcReconnect");
                         var wl = API.getWaitList();
@@ -1640,6 +1651,7 @@ Grab - Playlist Insert:
             basicBot.roomUtilities.intervalMessage();
             //if (typeof obj.dj === 'undefined') { return; }  //todoer not sure about re-adding this....? (Was commented out previously)
             basicBot.room.currentDJID = obj.dj.id;
+			basicBot.userUtilities.setRolled(obj.dj.username, false);
 
             //console.log("eventDjadvance:4a");
             setTimeout(basicBot.roomUtilities.wootThisSong, 3000);
@@ -4255,6 +4267,33 @@ Grab - Playlist Insert:
                     }
                 }
             },
+            rollCommand: {   //Added 03/30/2015 Zig
+                command: 'roll',
+                rank: 'user',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        if (API.getDJ().id !== chat.uid) return API.sendChat(subChat(basicBot.chat.notcurrentdj, {name: chat.un}));
+						if (basicBot.userUtilities.getRolled(chat.un))  return API.sendChat(subChat(basicBot.chat.doubleroll, {name: chat.un}));
+                        var msg = chat.message;
+                        var dicesides = 6;
+                        if (msg.length > cmd.length){
+                            var dice = msg.substr(cmd.length + 1);
+                            if (!isNaN(bootid)) dicesides = dice;
+						    if (dicesides < 4) dicesides = 4;
+                        }
+	                    var roll = Math.floor(Math.random() * dicesides);
+						basicBot.userUtilities.setRolled(chat.un, true);
+						API.sendChat(subChat(basicBot.chat.rollresults, {name: chat.un, roll: roll}));
+						if (dicesides > Math.floor(dicesides * 0.8)) basicBot.userUtilities.tastyVote(API.getUser().id);
+                    }
+                    catch(err) {
+                        console.log("meetingCommand:ERROR: " + err.message);
+                    }
+                }
+            },
             meetingCommand: {   //Added 03/28/2015 Zig
                 command: ['meeting', 'lunch', 'beerrun'],
                 rank: 'user',
@@ -4268,7 +4307,6 @@ Grab - Playlist Insert:
                         var byusername = " ";
                         if (msg.length === cmd.length) name = chat.un;
                         else {
-						    // todoer complete this part
                             name = msg.substring(cmd.length + 2);
                             var perm = basicBot.userUtilities.getPermission(chat.uid);
                             if (perm < 2) return API.sendChat(subChat(basicBot.chat.bootrank, {name: chat.un}));
@@ -4336,8 +4374,6 @@ Grab - Playlist Insert:
                     }, 1000);
                 }
             },
-            rollCommand: {   //Added 03/29/2015 Zig
-			},
             zigCommand: {   //Added 01/27/2015 Zig
                 command: 'zig',
                 rank: 'mod',
