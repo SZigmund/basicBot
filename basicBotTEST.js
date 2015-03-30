@@ -1,4 +1,4 @@
-/** version: 2.1.4.00025.11
+/** version: 2.1.4.00025.12
 
 .tasty is now a starts with command, Also you can .rock .props 
 .roll command
@@ -243,7 +243,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00025.11",
+        version: "2.1.4.00025.12",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -4281,16 +4281,16 @@ Grab - Playlist Insert:
                         var dicesides = 6;
                         if (msg.length > cmd.length){
                             var dice = msg.substr(cmd.length + 1);
-                            if (!isNaN(bootid)) dicesides = dice;
+                            if (!isNaN(dice)) dicesides = dice;
 						    if (dicesides < 4) dicesides = 4;
                         }
 	                    var roll = Math.floor(Math.random() * dicesides) + 1;
 						basicBot.userUtilities.setRolled(chat.un, true);
 						API.sendChat(subChat(basicBot.chat.rollresults, {name: chat.un, roll: roll}));
-						if (dicesides > Math.floor(dicesides * 0.8)) basicBot.userUtilities.tastyVote(API.getUser().id);
+						if (roll > (dicesides * 0.8)) basicBot.userUtilities.tastyVote(API.getUser().id);
                     }
                     catch(err) {
-                        console.log("meetingCommand:ERROR: " + err.message);
+                        console.log("rollCommand:ERROR: " + err.message);
                     }
                 }
             },
