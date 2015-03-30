@@ -40,6 +40,7 @@
     "warning1": "/me @%%NAME%% you have been afk for %%TIME%%, please respond within 2 minutes or you will be removed.",
     "warning2": "/me @%%NAME%% you will be removed due to AFK soon if you don't respond.",
     "afkremove": "/me @%%NAME%% you have been removed for being afk for %%TIME%%. You were at position %%POSITION%%. Chat at least once every %%MAXIMUMAFK%% minutes if you want to play a song.",
+    "afkUserReset": "/me Thanks @%%NAME%% your afk status has been reset. ",
 
 
     "caps": "/me @%%NAME%% unglue your capslock button please.",
