@@ -1,4 +1,4 @@
-/** version: 2.1.4.00028
+/** version: 2.1.4.00029
 
 3 strikes and you're out (for 10 mins)
 
@@ -236,7 +236,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00028",
+        version: "2.1.4.00029",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1057,9 +1057,10 @@ Grab - Playlist Insert:
             },
 			checkDisconnect: function(user) {
                 try {
-                    if (!basicBot.userUtilities.didUserDisconnect(user)) return;
+                    if (!basicBot.userUtilities.didUserDisconnect(user)) return false;
                     var toChat = basicBot.userUtilities.dclookup(user.id);
                     API.sendChat(toChat);
+					return true;
                 }
                 catch(err) {
                   console.log("checkDisconnect:ERROR: " + err.message);
@@ -1344,9 +1345,10 @@ Grab - Playlist Insert:
                 checkForReconnect: function () {
                     try {
                         var wl = API.getWaitList();
+						var disconnected = false;
                         for(var i = 0; i < wl.length; i++){
                             var user = basicBot.userUtilities.lookupUser(wl[i].id);
-						    basicBot.roomUtilities.checkDisconnect(user);
+						    disconnected = basicBot.roomUtilities.checkDisconnect(user);
                         }
                     }
                     catch(err) {
@@ -1549,6 +1551,7 @@ Grab - Playlist Insert:
             }
             var greet = true;
             var welcomeback = null;
+			var disconnected = false;
             if (known) {
                 basicBot.room.users[index].inRoom = true;
                 var u = basicBot.userUtilities.lookupUser(user.id);
@@ -1556,7 +1559,7 @@ Grab - Playlist Insert:
                 var t = Date.now() - jt;
                 if (t < 10 * 1000) greet = false;
                 else welcomeback = true;
-			    basicBot.roomUtilities.checkDisconnect(u);
+			    disconnected = basicBot.roomUtilities.checkDisconnect(u);
             }
             else {
                 basicBot.room.users.push(new basicBot.User(user.id, user.username));
@@ -1566,7 +1569,7 @@ Grab - Playlist Insert:
             basicBot.userUtilities.setBadSongCount(user.id, 0);
             basicBot.userUtilities.setJoinTime(user.id);
             
-            if (basicBot.settings.welcome && greet) {
+            if (basicBot.settings.welcome && greet && (disconnected === false)) {
                 welcomeback ?
                     setTimeout(function (user) {
                         console.log("WelcomeBack: " + user.id + ": " + user.username);
@@ -1649,7 +1652,7 @@ Grab - Playlist Insert:
                     var bootuser = basicBot.userUtilities.lookupUserName(lastplay.dj.username);
                     setTimeout(function () {  API.moderateRemoveDJ(bootuser.id); }, 1 * 1000);
                 }
-                basicBot.userUtilities.setBootableID(lastplay.dj.username);
+                basicBot.userUtilities.setBootableID(lastplay.dj.username, false);
             }
             
             basicBot.roomUtilities.checkHopUp();
@@ -1915,7 +1918,7 @@ Grab - Playlist Insert:
 				//console.log("commandCheck chat.uid: " + chat.uid);
                 var userPerm = basicBot.userUtilities.getPermission(chat.uid);
 			    //console.log("commandCheck chat.userPerm: " + userPerm);
-                if (chat.message !== ".join" && chat.message !== ".leave" && chat.message !== ".tasty") {
+                if (chat.message !== ".join" && chat.message !== ".leave" && cmd !== ".tasty"  && cmd !== ".props"  && cmd !== ".rock") {
 				    //console.log("commandCheck1: " + cmd);
                     if (userPerm === 0 && !basicBot.room.usercommand) return void (0);
 				    //console.log("commandCheck2: " + cmd);
@@ -4445,5 +4448,6 @@ Grab - Playlist Insert:
             }
         }
     };
+
     loadChat(basicBot.startup);
 }).call(this);
