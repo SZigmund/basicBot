@@ -1,4 +1,4 @@
-/** version: 2.1.4.00028.03
+/** version: 2.1.4.00028.04
 x
 3 strikes and you're out (for 10 mins)
 
@@ -236,7 +236,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00028.03",
+        version: "2.1.4.00028.04",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1586,8 +1586,8 @@ Grab - Playlist Insert:
             for (var i = 0; i < basicBot.room.users.length; i++) {
                 if (basicBot.room.users[i].id === user.id) {
 				    var currPos = API.getWaitListPosition(user.id) + 1;
-                    if (currPos > 0) basicBot.userUtilities.updateDC(user);
-					else basicBot.userUtilities.resetDC(user);
+                    if (currPos > 0) basicBot.userUtilities.updateDC(basicBot.room.users[i]);
+					else basicBot.userUtilities.resetDC(basicBot.room.users[i]);
                     basicBot.room.users[i].inRoom = false;
                 }
             }
