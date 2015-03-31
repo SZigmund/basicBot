@@ -1,4 +1,4 @@
-/** version: 2.1.4.00028.20
+/** version: 2.1.4.00028.21
 
 3 strikes and you're out (for 10 mins)
 
@@ -241,7 +241,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00028.20",
+        version: "2.1.4.00028.21",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1925,73 +1925,75 @@ Grab - Playlist Insert:
                 return false;
             },
             commandCheck: function (chat) {
-                var cmd;
-				//console.log("commandCheck chat: " + chat.message);
-                if (chat.message.charAt(0) === '.') {
-                    var space = chat.message.indexOf(' ');
-                    if (space === -1) {
-                        cmd = chat.message;
-                    }
-                    else cmd = chat.message.substring(0, space);
-                }
-                else return false;
-				//console.log("commandCheck cmd: " + cmd);
-				//console.log("commandCheck chat.uid: " + chat.uid);
-                var userPerm = basicBot.userUtilities.getPermission(chat.uid);
-			    //console.log("commandCheck chat.userPerm: " + userPerm);
-                if (chat.message !== ".join" && chat.message !== ".leave" && cmd !== ".woot" && cmd !== ".tasty"  && cmd !== ".props"  && cmd !== ".rock") {
-                if (chat.message !== ".join" && chat.message !== ".leave" && chat.message !== ".tasty") {
-				    //console.log("commandCheck1: " + cmd);
-                    if (userPerm === 0 && !basicBot.room.usercommand) return void (0);
-				    //console.log("commandCheck2: " + cmd);
-                    if (!basicBot.room.allcommand) return void (0);
-				    //console.log("commandCheck3: " + cmd);
-                }
-                if (chat.message === '.eta' && basicBot.settings.etaRestriction) {
-                    if (userPerm < 2) {
-                        var u = basicBot.userUtilities.lookupUser(chat.uid);
-                        if (u.lastEta !== null && (Date.now() - u.lastEta) < 1 * 60 * 60 * 1000) {
-                            API.moderateDeleteChat(chat.cid);
-				            //console.log("commandCheck4: " + cmd);
-                            return void (0);
-                        }
-                        else u.lastEta = Date.now();
-                    }
-                }
-				//console.log("commandCheck5: " + cmd);
-                var executed = false;
+			    try {
+					var cmd;
+					//console.log("commandCheck chat: " + chat.message);
+					if (chat.message.charAt(0) === '.') {
+						var space = chat.message.indexOf(' ');
+						if (space === -1) {
+							cmd = chat.message;
+						}
+						else cmd = chat.message.substring(0, space);
+					}
+					else return false;
+					//console.log("commandCheck cmd: " + cmd);
+					//console.log("commandCheck chat.uid: " + chat.uid);
+					var userPerm = basicBot.userUtilities.getPermission(chat.uid);
+					//console.log("commandCheck chat.userPerm: " + userPerm);
+					if (chat.message !== ".join" && chat.message !== ".leave" && cmd !== ".woot" && cmd !== ".tasty"  && cmd !== ".props"  && cmd !== ".rock") {
+						//console.log("commandCheck1: " + cmd);
+						if (userPerm === 0 && !basicBot.room.usercommand) return void (0);
+						//console.log("commandCheck2: " + cmd);
+						if (!basicBot.room.allcommand) return void (0);
+						//console.log("commandCheck3: " + cmd);
+					}
+					if (chat.message === '.eta' && basicBot.settings.etaRestriction) {
+						if (userPerm < 2) {
+							var u = basicBot.userUtilities.lookupUser(chat.uid);
+							if (u.lastEta !== null && (Date.now() - u.lastEta) < 1 * 60 * 60 * 1000) {
+								API.moderateDeleteChat(chat.cid);
+								//console.log("commandCheck4: " + cmd);
+								return void (0);
+							}
+							else u.lastEta = Date.now();
+						}
+					}
+					//console.log("commandCheck5: " + cmd);
+					var executed = false;
 
-                for (var comm in basicBot.commands) {
-                    var cmdCall = basicBot.commands[comm].command;
-                    if (!Array.isArray(cmdCall)) {
-                        cmdCall = [cmdCall]
-                    }
-                    for (var i = 0; i < cmdCall.length; i++) {
-                        if (basicBot.settings.commandLiteral + cmdCall[i] === cmd) {
-                            basicBot.commands[comm].functionality(chat, basicBot.settings.commandLiteral + cmdCall[i]);
-                            executed = true;
-                            break;
-                        }
-                    }
-                }
+					for (var comm in basicBot.commands) {
+						var cmdCall = basicBot.commands[comm].command;
+						if (!Array.isArray(cmdCall)) {
+							cmdCall = [cmdCall]
+						}
+						for (var i = 0; i < cmdCall.length; i++) {
+							if (basicBot.settings.commandLiteral + cmdCall[i] === cmd) {
+								basicBot.commands[comm].functionality(chat, basicBot.settings.commandLiteral + cmdCall[i]);
+								executed = true;
+								break;
+							}
+						}
+					}
 
-				//console.log("commandCheck6: executed: " + executed);
-                if (executed && userPerm === 0) {
-                    basicBot.room.usercommand = false;
-                    setTimeout(function () {
-                        basicBot.room.usercommand = true;
-                    }, basicBot.settings.commandCooldown * 1000);
-                }
-				//console.log("commandCheck7: executed: " + executed);
-                if (executed) {
-                    API.moderateDeleteChat(chat.cid);
-                    basicBot.room.allcommand = false;
-                    setTimeout(function () {
-                        basicBot.room.allcommand = true;
-                    }, 5 * 1000);
-                }
-				//console.log("commandCheck8: executed: " + executed);
-                return executed;
+					//console.log("commandCheck6: executed: " + executed);
+					if (executed && userPerm === 0) {
+						basicBot.room.usercommand = false;
+						setTimeout(function () {
+							basicBot.room.usercommand = true;
+						}, basicBot.settings.commandCooldown * 1000);
+					}
+					//console.log("commandCheck7: executed: " + executed);
+					if (executed) {
+						API.moderateDeleteChat(chat.cid);
+						basicBot.room.allcommand = false;
+						setTimeout(function () {
+							basicBot.room.allcommand = true;
+						}, 5 * 1000);
+					}
+					//console.log("commandCheck8: executed: " + executed);
+					return executed;
+				}
+				catch(err) { console.log("commandCheck:ERROR: " + err.message); }
             },
             action: function (chat) {
                 if (chat.type === 'message' || chat.type === 'emote')  {
