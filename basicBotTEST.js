@@ -1,5 +1,5 @@
-/** version: 2.1.4.00028.02
-
+/** version: 2.1.4.00028.03
+x
 3 strikes and you're out (for 10 mins)
 
 .unban Dexter Nix
@@ -236,7 +236,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00028.02",
+        version: "2.1.4.00028.03",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1585,7 +1585,9 @@ Grab - Playlist Insert:
         eventUserleave: function (user) {
             for (var i = 0; i < basicBot.room.users.length; i++) {
                 if (basicBot.room.users[i].id === user.id) {
-                    basicBot.userUtilities.updateDC(basicBot.room.users[i]);
+				    var currPos = API.getWaitListPosition(user.id) + 1;
+                    if (currPos > 0) basicBot.userUtilities.updateDC(user);
+					else basicBot.userUtilities.resetDC(user);
                     basicBot.room.users[i].inRoom = false;
                 }
             }
