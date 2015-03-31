@@ -1,4 +1,4 @@
-/** version: 2.1.4.00028.05
+/** version: 2.1.4.00028.06
 x
 3 strikes and you're out (for 10 mins)
 
@@ -236,7 +236,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00028.05",
+        version: "2.1.4.00028.06",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -789,7 +789,7 @@ Grab - Playlist Insert:
                 }
             },
             resetDC: function (user) {
- 			    console.log("resetDC position: " + user.lastKnownPosition
+ 			    console.log("resetDC position: " + user.lastKnownPosition);
                 user.lastDC.time = null;
                 user.lastDC.position = null;
                 user.lastDC.songCount = 0;
@@ -798,7 +798,7 @@ Grab - Playlist Insert:
                 user.atLunch = false;
            },
             updateDC: function (user) {
-			    console.log("updateDC position: " + user.lastKnownPosition
+			    console.log("updateDC position: " + user.lastKnownPosition);
                 user.lastDC.time = Date.now();
                 user.lastDC.position = user.lastKnownPosition;
                 user.lastDC.songCount = basicBot.room.roomstats.songCount;
