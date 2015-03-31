@@ -1,4 +1,4 @@
-/** version: 2.1.4.00028.08
+/** version: 2.1.4.00028.09
 x
 3 strikes and you're out (for 10 mins)
 
@@ -33,17 +33,26 @@ Grab - Playlist Insert:
 
 (function () {
     API.getWaitListPosition = function(id){
-        if(typeof id === 'undefined' || id === null){
-            id = API.getUser().id;
-        }
-        var wl = API.getWaitList();
-        for(var i = 0; i < wl.length; i++){
-            if(wl[i].id === id){
-                return i;
-            }
-        }
-        return -1;
-    };
+	    try {
+			if(typeof id === 'undefined' || id === null){
+				id = API.getUser().id;
+			}
+			console.log("API.getWaitListPosition: " + id);
+			var wl = API.getWaitList();
+			console.log("API.getWaitListPosition Len: " + wl.length);
+			for(var i = 0; i < wl.length; i++){
+				console.log("wl[i].id: " + wl[i].id);
+				if(wl[i].id === id){
+					console.log("return: " + i);
+					return i;
+				}
+			}
+			return -1;
+		}
+		catch(err) {
+		   console.log("getWaitListPosition:ERROR: " + err.message);
+		}
+   };
     API.getWaitListCount = function(){
         var wl = API.getWaitList();
         return wl.length;
@@ -236,7 +245,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00028.08",
+        version: "2.1.4.00028.09",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1593,7 +1602,8 @@ Grab - Playlist Insert:
 						var user = basicBot.userUtilities.lookupUser(user.id);
 						console.log("user.username: " + user.username);
 						console.log("user.username: " + basicBot.room.users[i].username);
-                        var currPos = API.getWaitListPosition(user.id) + 1;
+                        var currPos = 0;
+						currPos = API.getWaitListPosition(user.id) + 1;
                         console.log("currPos: " + currPos);
                         if (currPos > 0) {
                             basicBot.room.users[i].lastKnownPosition = currPos;
