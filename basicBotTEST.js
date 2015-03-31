@@ -1,4 +1,4 @@
-/** version: 2.1.4.00028.01
+/** version: 2.1.4.00028.02
 
 3 strikes and you're out (for 10 mins)
 
@@ -236,7 +236,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00028.01",
+        version: "2.1.4.00028.02",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1652,7 +1652,7 @@ Grab - Playlist Insert:
                     var bootuser = basicBot.userUtilities.lookupUserName(lastplay.dj.username);
                     setTimeout(function () {  API.moderateRemoveDJ(bootuser.id); }, 1 * 1000);
                 }
-                basicBot.userUtilities.setBootableID(lastplay.dj.username);
+                basicBot.userUtilities.setBootableID(lastplay.dj.username, false);
             }
             
             basicBot.roomUtilities.checkHopUp();
