@@ -1,4 +1,4 @@
-/** version: 2.1.4.00028.04
+/** version: 2.1.4.00028.05
 x
 3 strikes and you're out (for 10 mins)
 
@@ -236,7 +236,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00028.04",
+        version: "2.1.4.00028.05",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -789,6 +789,7 @@ Grab - Playlist Insert:
                 }
             },
             resetDC: function (user) {
+ 			    console.log("resetDC position: " + user.lastKnownPosition
                 user.lastDC.time = null;
                 user.lastDC.position = null;
                 user.lastDC.songCount = 0;
@@ -797,6 +798,7 @@ Grab - Playlist Insert:
                 user.atLunch = false;
            },
             updateDC: function (user) {
+			    console.log("updateDC position: " + user.lastKnownPosition
                 user.lastDC.time = Date.now();
                 user.lastDC.position = user.lastKnownPosition;
                 user.lastDC.songCount = basicBot.room.roomstats.songCount;
@@ -1586,7 +1588,10 @@ Grab - Playlist Insert:
             for (var i = 0; i < basicBot.room.users.length; i++) {
                 if (basicBot.room.users[i].id === user.id) {
 				    var currPos = API.getWaitListPosition(user.id) + 1;
-                    if (currPos > 0) basicBot.userUtilities.updateDC(basicBot.room.users[i]);
+                    if (currPos > 0) {
+					    basicBot.room.users[i].lastKnownPosition = currPos;
+					    basicBot.userUtilities.updateDC(basicBot.room.users[i]);
+					}
 					else basicBot.userUtilities.resetDC(basicBot.room.users[i]);
                     basicBot.room.users[i].inRoom = false;
                 }
