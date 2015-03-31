@@ -1,4 +1,4 @@
-/** version: 2.1.4.00028.07
+/** version: 2.1.4.00028.08
 x
 3 strikes and you're out (for 10 mins)
 
@@ -236,7 +236,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00028.07",
+        version: "2.1.4.00028.08",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -901,7 +901,7 @@ Grab - Playlist Insert:
                 var user = basicBot.userUtilities.lookupUser(userId);
                 user.jointime = Date.now();
             },
-            lookupUser: function (id) {
+            lookupUser: function (id) {   //getroomuser
                 for (var i = 0; i < basicBot.room.users.length; i++) {
                     if (basicBot.room.users[i].id === id) {
                         return basicBot.room.users[i];
@@ -1584,11 +1584,15 @@ Grab - Playlist Insert:
                     }, 1 * 1000, user);
             }
         },
-        eventUserleave: function (user) {
+        eventUserleave: function (user) {   //todoer
             try {
                 console.log("eventUserleave Start");
                 for (var i = 0; i < basicBot.room.users.length; i++) {
                     if (basicBot.room.users[i].id === user.id) {
+                        console.log("user.id: " + user.id);
+						var user = basicBot.userUtilities.lookupUser(user.id);
+						console.log("user.username: " + user.username);
+						console.log("user.username: " + basicBot.room.users[i].username);
                         var currPos = API.getWaitListPosition(user.id) + 1;
                         console.log("currPos: " + currPos);
                         if (currPos > 0) {
@@ -1598,8 +1602,8 @@ Grab - Playlist Insert:
                         else basicBot.userUtilities.resetDC(basicBot.room.users[i]);
                         basicBot.room.users[i].inRoom = false;
                     }
-                console.log("eventUserleave End");
                 }
+                console.log("eventUserleave End");
             }
             catch(err) {
                console.log("eventCurateupdate:ERROR: " + err.message);
