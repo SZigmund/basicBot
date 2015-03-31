@@ -1,4 +1,4 @@
-/** version: 2.1.4.00028.10
+/** version: 2.1.4.00028.11
 x
 3 strikes and you're out (for 10 mins)
 
@@ -241,7 +241,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00028.10",
+        version: "2.1.4.00028.11",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1591,13 +1591,13 @@ Grab - Playlist Insert:
         },
         eventUserleave: function (user) {   //todoer
             try {
-			    var user = basicBot.userUtilities.lookupUser(user.id);
-                if (user.lastKnownPosition > 0) basicBot.userUtilities.updateDC(basicBot.room.users[i]);
-                else basicBot.userUtilities.resetDC(basicBot.room.users[i]);
-                basicBot.room.users[i].inRoom = false;
+			    var roomUser = basicBot.userUtilities.lookupUser(user.id);
+                if (roomUser.lastKnownPosition > 0) basicBot.userUtilities.updateDC(roomUser);
+                else basicBot.userUtilities.resetDC(roomUser);
+                roomUser.inRoom = false;
             }
             catch(err) {
-               console.log("eventCurateupdate:ERROR: " + err.message);
+               console.log("eventUserleave:ERROR: " + err.message);
             }
         },
         eventVoteupdate: function (obj) {
