@@ -1,4 +1,4 @@
-/** version: 2.1.4.00028.09
+/** version: 2.1.4.00028.10
 x
 3 strikes and you're out (for 10 mins)
 
@@ -37,13 +37,9 @@ Grab - Playlist Insert:
 			if(typeof id === 'undefined' || id === null){
 				id = API.getUser().id;
 			}
-			console.log("API.getWaitListPosition: " + id);
 			var wl = API.getWaitList();
-			console.log("API.getWaitListPosition Len: " + wl.length);
 			for(var i = 0; i < wl.length; i++){
-				console.log("wl[i].id: " + wl[i].id);
 				if(wl[i].id === id){
-					console.log("return: " + i);
 					return i;
 				}
 			}
@@ -245,7 +241,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00028.09",
+        version: "2.1.4.00028.10",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1595,25 +1591,10 @@ Grab - Playlist Insert:
         },
         eventUserleave: function (user) {   //todoer
             try {
-                console.log("eventUserleave Start");
-                for (var i = 0; i < basicBot.room.users.length; i++) {
-                    if (basicBot.room.users[i].id === user.id) {
-                        console.log("user.id: " + user.id);
-						var user = basicBot.userUtilities.lookupUser(user.id);
-						console.log("user.username: " + user.username);
-						console.log("user.username: " + basicBot.room.users[i].username);
-                        var currPos = 0;
-						currPos = API.getWaitListPosition(user.id) + 1;
-                        console.log("currPos: " + currPos);
-                        if (currPos > 0) {
-                            basicBot.room.users[i].lastKnownPosition = currPos;
-                            basicBot.userUtilities.updateDC(basicBot.room.users[i]);
-                        }
-                        else basicBot.userUtilities.resetDC(basicBot.room.users[i]);
-                        basicBot.room.users[i].inRoom = false;
-                    }
-                }
-                console.log("eventUserleave End");
+			    var user = basicBot.userUtilities.lookupUser(user.id);
+                if (user.lastKnownPosition > 0) basicBot.userUtilities.updateDC(basicBot.room.users[i]);
+                else basicBot.userUtilities.resetDC(basicBot.room.users[i]);
+                basicBot.room.users[i].inRoom = false;
             }
             catch(err) {
                console.log("eventCurateupdate:ERROR: " + err.message);
@@ -1828,6 +1809,7 @@ Grab - Playlist Insert:
                         }, 1000 + basicBot.room.queueing * 2500);
                 }
             }
+			// Waitlist LastKnow update: (Add logic for dropping out of line)
             for (var i = 0; i < users.length; i++) {
                 var user = basicBot.userUtilities.lookupUser(users[i].id);
                 basicBot.userUtilities.updatePosition(user, API.getWaitListPosition(users[i].id) + 1);
