@@ -1,4 +1,4 @@
-/** version: 2.1.4.00028.34
+/** version: 2.1.4.00028.35
 
 3 strikes and you're out (for 10 mins)
 
@@ -241,7 +241,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00028.34",
+        version: "2.1.4.00028.35",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1240,9 +1240,11 @@ Grab - Playlist Insert:
                     var wl = API.getWaitList();
                     for(var pos = 0; pos < wl.length; pos++){
                         roomUser = basicBot.userUtilities.lookupUser(wl[pos].id);
-                        basicBot.roomUtilities.logDebug("User: " + roomUser.username + " Pos: " + (pos + 1) + " Time: " + roomUser.lastSeenInLine);
-                        //todoer roomUser.lastKnownPosition = pos + 1;
-                        //todoer roomUser.lastSeenInLine = Date.now();
+                        //basicBot.roomUtilities.logDebug("User: " + roomUser.username + " Pos: " + (pos + 1) + " Time: " + roomUser.lastSeenInLine);
+						// NEW METH: //
+                        roomUser.lastKnownPosition = pos + 1;
+                        roomUser.lastSeenInLine = Date.now();
+						// NEW METH: //
                     }
                     basicBot.roomUtilities.logDebug("============================updateWaitlist============================");
                 }
@@ -2047,47 +2049,51 @@ Grab - Playlist Insert:
           "Updating last know dj position" basicBotTEST.js:1822:3
           "eventUserleave happens..... tododer"*/
         eventWaitlistupdate: function (users) {
-            basicBot.roomUtilities.logDebug("eventWaitlistupdate happens..... tododer");
-            basicBot.roomUtilities.booth.checkForDisconnect();
-            basicBot.roomUtilities.booth.checkForReconnect();
-            if (users.length < 50) {
-                if (basicBot.room.queue.id.length > 0 && basicBot.room.queueable) {
-                    basicBot.room.queueable = false;
-                    setTimeout(function () {
-                        basicBot.room.queueable = true;
-                    }, 500);
-                    basicBot.room.queueing++;
-                    var id, pos;
-                    setTimeout(
-                        function () {
-                            id = basicBot.room.queue.id.splice(0, 1)[0];
-                            pos = basicBot.room.queue.position.splice(0, 1)[0];
-                            API.moderateAddDJ(id, pos);
-                            setTimeout(
-                                function (id, pos) {
-                                    API.moderateMoveDJ(id, pos);
-                                    basicBot.room.queueing--;
-                                    if (basicBot.room.queue.id.length === 0) setTimeout(function () {
-                                        basicBot.roomUtilities.booth.unlockBooth();
-                                    }, 1000);
-                                }, 1000, id, pos);
-                        }, 1000 + basicBot.room.queueing * 2500);
-                }
-            }
-            // This hits the API too much. Once for each dj in the waitlist:
-            // CALL:  todoer 
-            basicBot.roomUtilities.logDebug("=====================Updating last know dj position======================");
-            for (var i = 0; i < users.length; i++) {
-                var user = basicBot.userUtilities.lookupUser(users[i].id);
-                wlPos = API.getWaitListPosition(users[i].id) + 1;
-                if (wlPos > 0) {
-                    user.lastSeenInLine = Date.now();
-                    user.lastKnownPosition = wlPos;
-                }
-                basicBot.roomUtilities.logDebug("User: " + user.username + " Pos: " + user.lastKnownPosition + " Time: " + user.lastSeenInLine);
-            }
-            basicBot.roomUtilities.updateWaitlist();
-            basicBot.roomUtilities.booth.resetOldDisconnects();
+		    try {
+				basicBot.roomUtilities.logDebug("eventWaitlistupdate happens..... tododer");
+				basicBot.roomUtilities.booth.checkForDisconnect();
+				basicBot.roomUtilities.booth.checkForReconnect();
+				if (users.length < 50) {
+					if (basicBot.room.queue.id.length > 0 && basicBot.room.queueable) {
+						basicBot.room.queueable = false;
+						setTimeout(function () {
+							basicBot.room.queueable = true;
+						}, 500);
+						basicBot.room.queueing++;
+						var id, pos;
+						setTimeout(
+							function () {
+								id = basicBot.room.queue.id.splice(0, 1)[0];
+								pos = basicBot.room.queue.position.splice(0, 1)[0];
+								API.moderateAddDJ(id, pos);
+								setTimeout(
+									function (id, pos) {
+										API.moderateMoveDJ(id, pos);
+										basicBot.room.queueing--;
+										if (basicBot.room.queue.id.length === 0) setTimeout(function () {
+											basicBot.roomUtilities.booth.unlockBooth();
+										}, 1000);
+									}, 1000, id, pos);
+							}, 1000 + basicBot.room.queueing * 2500);
+					}
+				}
+				// This hits the API too much. Once for each dj in the waitlist:
+				// CALL:  todoer 
+				// OLD METH: //
+				//basicBot.roomUtilities.logDebug("=====================Updating last know dj position======================");
+				//for (var i = 0; i < users.length; i++) {
+				//    var user = basicBot.userUtilities.lookupUser(users[i].id);
+				//    wlPos = API.getWaitListPosition(users[i].id) + 1;
+				//    if (wlPos > 0) {
+				//        user.lastSeenInLine = Date.now();
+				//        user.lastKnownPosition = wlPos;
+				//    }
+				//    basicBot.roomUtilities.logDebug("User: " + user.username + " Pos: " + user.lastKnownPosition + " Time: " + user.lastSeenInLine);
+				//}
+				basicBot.roomUtilities.updateWaitlist();
+				basicBot.roomUtilities.booth.resetOldDisconnects();
+			}
+			catch(err) { basicBot.roomUtilities.logException("eventWaitlistupdate: " + err.message); }
         },
         chatcleaner: function (chat) {
             if (!basicBot.settings.filterChat) return false;
@@ -4779,6 +4785,7 @@ Grab - Playlist Insert:
                 functionality: function (chat, cmd)                 {
                     try {
 		    			basicBot.room.debug = (!basicBot.room.debug);
+						basicBot.roomUtilities.logInfo("Debug = " + basicBot.room.debug);
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("debugCommand: " + err.message);
