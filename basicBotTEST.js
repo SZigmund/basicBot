@@ -1,4 +1,4 @@
-/** version: 2.1.4.00028.26
+/** version: 2.1.4.00028.27
 
 3 strikes and you're out (for 10 mins)
 
@@ -241,7 +241,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00028.26",
+        version: "2.1.4.00028.27",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -391,7 +391,7 @@ Grab - Playlist Insert:
 			"You can bet your ass on it",
 			"Hell No",
 			"Are you stupid?",
-			"Hell Yes"
+			"Hell Yes",
 			"Give it up",
 			"Maybe if you weren't so lazy",
 			"Make it happen",
@@ -409,8 +409,8 @@ Grab - Playlist Insert:
 			"Boring! Ask something exciting",
 			"Swear on my 8 balls it's true",
 			"Shit Happens",
-			"F' Yeah",
-			"F' No",
+			"F*ck Yeah",
+			"F*ck No",
 			"What the F*ck?",
 			"Hell F*cking Yes",
 			"Hell F*cking No",
