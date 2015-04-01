@@ -1,4 +1,4 @@
-/** version: 2.1.4.00028.31
+/** version: 2.1.4.00028.32
 
 3 strikes and you're out (for 10 mins)
 
@@ -241,7 +241,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00028.31",
+        version: "2.1.4.00028.32",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2346,7 +2346,6 @@ Grab - Playlist Insert:
             // Detect room change and disable the bot:
             // ==========================================================
             var roomURL = window.location.pathname;
-			room.
             var Check;
             var detect = function(){
                 if(roomURL != window.location.pathname){
