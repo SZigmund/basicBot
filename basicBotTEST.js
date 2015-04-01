@@ -1,4 +1,4 @@
-/** version: 2.1.4.00028.30
+/** version: 2.1.4.00028.31
 
 3 strikes and you're out (for 10 mins)
 
@@ -241,7 +241,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00028.30",
+        version: "2.1.4.00028.31",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1479,6 +1479,7 @@ Grab - Playlist Insert:
                 return false;
             },
 		    logInfo: function(msg) {
+			    try {
 				   console.log("INFO: " + msg);
 				}
 				catch(err) { basicBot.roomUtilities.logException("logInfo: " + err.message); }
