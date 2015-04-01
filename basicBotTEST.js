@@ -1,4 +1,4 @@
-/** version: 2.1.4.00028.32
+/** version: 2.1.4.00028.33
 
 3 strikes and you're out (for 10 mins)
 
@@ -241,7 +241,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00028.32",
+        version: "2.1.4.00028.33",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -487,6 +487,8 @@ Grab - Playlist Insert:
             "And there goes the last F*ck I gave!",
             "My girlfriend woke up this morning with a huge smile on her face.....I love Sharpies!",
             "You don't have to like me...I'm not a Facebook status",
+			"I would love to visit you, but I live on the Internet.",
+			"If you were running for President, I would vote for you. And clear your search history.  Don't worry I got you.",
             "Lord, please give me patience because if you give me strength, I'll need bail money too...",
             "DRAMA = Dumbass Rejects Asking for More Attention",
             "It's been 55 minutes since the last pearl jam song, what is wrong with you people?",
@@ -2202,7 +2204,8 @@ Grab - Playlist Insert:
                     //basicBot.roomUtilities.logDebug("commandCheck chat.uid: " + chat.uid);
                     var userPerm = basicBot.userUtilities.getPermission(chat.uid);
                     //basicBot.roomUtilities.logDebug("commandCheck chat.userPerm: " + userPerm);
-                    if (chat.message !== ".join" && chat.message !== ".leave" && cmd !== ".woot" && cmd !== ".tasty"  && cmd !== ".props"  && cmd !== ".rock") {
+                    if (chat.message !== ".join" && chat.message !== ".leave" && cmd !== ".woot" && cmd !== ".tasty"  && cmd !== ".props"  && cmd !== ".rock"
+					                             && cmd !== ".groot" && cmd !== ".groove" && cmd !== ".jam") {
                         //basicBot.roomUtilities.logDebug("commandCheck1: " + cmd);
                         if (userPerm === 0 && !basicBot.room.usercommand) return void (0);
                         //basicBot.roomUtilities.logDebug("commandCheck2: " + cmd);
@@ -2351,6 +2354,8 @@ Grab - Playlist Insert:
                 if(roomURL != window.location.pathname){
                     clearInterval(Check)
                     basicBot.roomUtilities.logInfo("Killing bot after room change.");
+                    basicBot.roomUtilities.logInfo("roomURL1: " + roomURL);
+                    basicBot.roomUtilities.logInfo("roomURL2: " + window.location.pathname);
                     storeToStorage();
                     basicBot.disconnectAPI();
                     setTimeout(function () {
@@ -4690,7 +4695,7 @@ Grab - Playlist Insert:
                 }
             },
             tastyCommand: {
-                command: ['tasty', 'rock', 'props', 'woot'],
+                command: ['tasty', 'rock', 'props', 'woot', 'groot', 'groove', 'jam'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
