@@ -1,4 +1,4 @@
-/** version: 2.1.4.00028.25
+/** version: 2.1.4.00028.26
 
 3 strikes and you're out (for 10 mins)
 
@@ -241,7 +241,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00028.25",
+        version: "2.1.4.00028.26",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -305,6 +305,134 @@ Grab - Playlist Insert:
                 ["nsfw", "The song you contained was NSFW (image or sound). "],
                 ["unavailable", "The song you played was not available for some users. "]
             ],
+			EightBallArray: [
+			"As I See It Yes", 
+			"Ask Again Later", 
+			"Better Not Tell You Now", 
+			"Cannot Predict Now", 
+			"Concentrate and Ask Again", 
+			"Don't Count On It", 
+			"It Is Certain", 
+			"It Is Decidedly So", 
+			"Most Likely", 
+			"My Reply Is No", 
+			"My Sources Say No", 
+			"Outlook Good", 
+			"Outlook Not So Good", 
+			"Reply Hazy Try Again", 
+			"Signs Point to Yes", 
+			"Very Doubtful", 
+			"Without A Doubt", 
+			"Yes", 
+			"Yes - Definitely", 
+			"You May Rely On It",
+			"Absolutely", 
+			"Answer Unclear Ask Later", 
+			"Cannot Foretell Now", 
+			"Can't Say Now", 
+			"Chances Aren't Good", 
+			"Consult Me Later", 
+			"Don't Bet On It", 
+			"Focus And Ask Again", 
+			"Indications Say Yes", 
+			"Looks Like Yes", 
+			"No", 
+			"No Doubt About It", 
+			"Positively", 
+			"Prospect Good", 
+			"So It Shall Be", 
+			"The Stars Say No", 
+			"Unlikely", 
+			"Very Likely", 
+			"You Can Count On It",
+			"As If",
+			"Ask Me If I Care",
+			"Dumb Question Ask Another",
+			"Forget About It",
+			"Get A Clue",
+			"In Your Dreams",
+			"Not A Chance",
+			"Obviously",
+			"Oh Please",
+			"Sure",
+			"That's Ridiculous",
+			"Well Maybe",
+			"What Do You Think?",
+			"Whatever",
+			"Who Cares?",
+			"Yeah And I'm The Pope",
+			"Yeah Right",
+			"You Wish",
+			"You've Got To Be Kidding",
+			"You Look Marvelous", 
+			"Your Breath Is So Minty", 
+			"You're 100% Fun!", 
+			"You're A Winner",
+			"At Least I Love You",
+			"Have You Lost Weight?",
+			"Go flip a quarter",
+			"Never gonna happen",
+			"Smells like a Yes",
+			"Si Amigo, like cheese on nachos",
+			"When pigs fly!",
+			"No, but I still love you",
+			"Give me a dollar, then I'll answer",
+			"I got yes written on my forehead",
+			"Sorry, but no way",
+			"I know, but I'm not telling",
+			"I guess so, maybe",
+			"Yes! Hooray, Yippee!",
+			"Ha Ha Ha, no!",
+			"Of course silly",
+			"My dog thinks so",
+			"Um.. Ok, sure, why not?",
+			"Will the sun rise tomorrow?",
+			"Yep, like a bird has feathers",
+			"You can bet your ass on it",
+			"Hell No",
+			"Are you stupid?",
+			"Hell Yes"
+			"Give it up",
+			"Maybe if you weren't so lazy",
+			"Make it happen",
+			"No way, sucka!",
+			"Wow, you are an idiot!",
+			"Yes, now stop asking!",
+			"Ha Ha Ha! Nope!",
+			"Don't you have something better to do?",
+			"Of course, shit head",
+			"5 letters, LOL NO!",
+			"Go ask your mama",
+			"Just a wild guess, but yes",
+			"I really don't care",
+			"Damn Right",
+			"Boring! Ask something exciting",
+			"Swear on my 8 balls it's true",
+			"Shit Happens",
+			"F' Yeah",
+			"F' No",
+			"What the F*ck?",
+			"Hell F*cking Yes",
+			"Hell F*cking No",
+			"You F*cking Crazy?",
+			"Of course F*cker",
+			"No way F*cker",
+			"Who F*cking cares",
+			"God Damn F*cking Right!",
+			"Not a F*cking chance",
+			"I don't F*cking know",
+			"No F*cking doubt",
+			"No F*cking way",
+			"Seriously F*cker?",
+			"F*ck, why not.",
+			"Don't F*cking count on it",
+			"It could F*cking happen",
+			"You must be out of your F*cking mind",
+			"Sure F*cking thing",
+			"F*cking Right",
+			"Signs point to F*cking Yes",
+			"It is F*cking certain"
+			],
             randomCommentArray: [
             "I told him we already got one",
             "You don't think she'd yada yada sex?....I've yada yada'd sex.",
@@ -515,7 +643,7 @@ Grab - Playlist Insert:
             "I don't negotiate with terrorists - 'Merica!!",
             "Would you think guanaria should cure diarrhea.... think about it...",
             "What's the point of having a democracy, if everybody's going to vote wrong?",
-            "Would you rather: A. Eat a bowl of shit once OR B. have explosive diarrhoea for the rest of your life?",
+            "Would you rather: A. Eat a bowl of shit once OR B. have explosive diarrhea for the rest of your life?",
             "Would you rather: A. Have sex with a goat, but no one would know OR B. not have sex with one, but everyone would think you did?",
             "Would you rather: A. Always have to say everything on your mind OR B. never speak again?",
             "Would you rather: A. Be able to turn invisible OR B. be able to fly?",
@@ -532,7 +660,7 @@ Grab - Playlist Insert:
             "I refer you to on-line sources, which can be changed at any time.",
             "It seems normal when they tell you about it, but then a whole camera crew appears and suddenly it's not so fun any more.",
             "Bugs like to touch themselves with their antennae while they watch you sleeping.",
-            "I apologise for being the only person who truly comprehends how screwed we are!",
+            "I apologize for being the only person who truly comprehends how screwed we are!",
             "Imagination will often carry us to worlds that never were. But without it we go nowhere.",
             "The important thing is not to stop questioning; curiosity has its own reason for existing.",
             "I've got thrills to seek, deaths to defy, mattress tags to tear off.",
@@ -1214,12 +1342,22 @@ Grab - Playlist Insert:
             },
             randomCommentSelect: function()  {  //Added 02/19/2015 Zig
                 try  {
-                    var randomCount = basicBot.settings.randomCommentArray.length;
-                    var randomID = Math.floor(Math.random() * randomCount);
+                    var arrayCount = basicBot.settings.randomCommentArray.length;
+                    var randomID = Math.floor(Math.random() * arrayCount);
                     return basicBot.settings.randomCommentArray[randomID];
                 }
                 catch(err) {
                   console.log("randomCommentSelect:ERROR: " + err.message);
+                }
+            },
+            eightBallSelect: function()  {  //Added 04/01/2015 Zig
+                try  {
+                    var arrayCount = basicBot.settings.EightBallArray.length;
+                    var arrayID = Math.floor(Math.random() * arrayCount);
+                    return basicBot.settings.EightBallArray[arrayIDID];
+                }
+                catch(err) {
+                  console.log("eightBallSelect:ERROR: " + err.message);
                 }
             },
             randomCommentCheck: function() {  //Added 02/19/2015 Zig
@@ -1723,7 +1861,8 @@ Grab - Playlist Insert:
                 //Check to see if DJ should get booted:
                 if (basicBot.userUtilities.getBootableID(lastplay.dj.username)) {
                     var bootuser = basicBot.userUtilities.lookupUserName(lastplay.dj.username);
-                    setTimeout(function () {  API.moderateRemoveDJ(bootuser.id); }, 1 * 1000);
+                    setTimeout(function () {  API.moderateRemoveDJ(bootuser.id); }, 1000);
+					setTimeout(function () {  basicBot.userUtilities.resetDC(bootuser); }, 3500);
                 }
                 basicBot.userUtilities.setBootableID(lastplay.dj.username);
             }
@@ -4492,6 +4631,28 @@ Grab - Playlist Insert:
                 functionality: function (chat, cmd) {
                     try {
                         basicBot.userUtilities.tastyVote(chat.uid);
+                    }
+                    catch(err) {
+                        console.log("tastyCommand:ERROR: " + err.message);
+                    }
+                }
+            },
+            eightballCommand: {   //Added 04/01/2015 Zig
+                command: ['8ball', 'eightball'],
+                rank: 'user',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    try {
+						if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+						if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+						var msg = chat.message;
+						var magicResponse = basicBot.roomUtilities.eightBallSelect();
+						if (msg.length === cmd.length)  return API.sendChat(subChat(basicBot.chat.eightballresponse2, {name: chat.un, response: magicResponse }));
+						var myQuestion = msg.substring(cmd.length + 1);
+						API.sendChat(subChat(basicBot.chat.eightballquestion, {name: chat.un, question: myQuestion}));
+                        setTimeout(function () {
+                            API.sendChat(subChat(basicBot.chat.eightballresponse1, {response: magicResponse}));
+                        }, 500);
                     }
                     catch(err) {
                         console.log("tastyCommand:ERROR: " + err.message);
