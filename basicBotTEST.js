@@ -1,4 +1,4 @@
-/** version: 2.1.4.00028.23
+/** version: 2.1.4.00028.24
 
 3 strikes and you're out (for 10 mins)
 
@@ -241,7 +241,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00028.23",
+        version: "2.1.4.00028.24",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1634,7 +1634,7 @@ Grab - Playlist Insert:
 			    console.log("eventUserleave happens..... tododer");
 			    var roomUser = basicBot.userUtilities.lookupUser(user.id);
 				// If user has not been in line for over 10 mins and they leave reset the DC
-                if (roomUser.lastKnownPosition > 0 && (roomUser.lastSeenInLine !== null) {
+                if ((roomUser.lastKnownPosition > 0) && (roomUser.lastSeenInLine !== null)) {
 					basicBot.userUtilities.updateDC(roomUser);
 				    var miaTime = Date.now() - roomUser.lastSeenInLine;
 					console.log("Line miaTime: " + miaTime);
