@@ -1,4 +1,4 @@
-/** version: 2.1.4.00028.21
+/** version: 2.1.4.00028.23
 
 3 strikes and you're out (for 10 mins)
 
@@ -241,7 +241,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00028.21",
+        version: "2.1.4.00028.23",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -763,6 +763,7 @@ Grab - Playlist Insert:
                 songCount: 0
             };
             this.lastKnownPosition = -1;
+            this.lastSeenInLine = null;
         },
         userUtilities: {
             getJointime: function (user) {
@@ -770,9 +771,6 @@ Grab - Playlist Insert:
             },
             getUser: function (user) {
                 return API.getUser(user.id);
-            },
-            updatePosition: function (user, newPos) {
-                user.lastKnownPosition = newPos;
             },
             tastyVote: function (userId) {
                 try {
@@ -797,6 +795,7 @@ Grab - Playlist Insert:
                 user.lastDC.time = null;
                 user.lastDC.position = -1;
 				user.lastKnownPosition = -1;
+				user.lastSeenInLine = null;
                 user.lastDC.songCount = 0;
                 user.beerRun = false;
                 user.inMeeting = false;
@@ -1001,7 +1000,7 @@ Grab - Playlist Insert:
 				}
                 var dc = user.lastDC.time;
                 var pos = user.lastDC.position;
-                if (pos === null) {
+                if (pos < 1) {
 				    basicBot.userUtilities.resetDC(user);
 				    return basicBot.chat.noposition;
 				}
@@ -1044,6 +1043,7 @@ Grab - Playlist Insert:
                 basicBot.userUtilities.moveUser(user.id, newPosition, true);
                 basicBot.userUtilities.resetDC(user);
 				user.lastKnownPosition = newPosition;
+				user.lastSeenInLine = Date.now();
                 return msg;
             }
         },
@@ -1063,12 +1063,16 @@ Grab - Playlist Insert:
             },
             updateWaitlist: function () {
                 try {
+				    console.log("============================updateWaitlist============================");
 				    var roomUser;
 				    var wl = API.getWaitList();
 					for(var pos = 0; pos < wl.length; pos++){
 					    roomUser = basicBot.userUtilities.lookupUser(wl[pos].id);
-					    roomUser.lastKnownPosition = pos + 1;
+						console.log("User: " + roomUser.username + " Pos: " + user.lastKnownPosition + " Time: " + user.lastSeenInLine);
+					    //todoer roomUser.lastKnownPosition = pos + 1;
+						//todoer roomUser.lastSeenInLine = Date.now();
 					}
+				    console.log("============================updateWaitlist============================");
 				}
                 catch(err) {
                   console.log("updateWaitlist:ERROR: " + err.message);
@@ -1360,6 +1364,33 @@ Grab - Playlist Insert:
                         }, basicBot.settings.maximumLocktime * 60 * 1000);
                     }
                 },
+				resetOldDisconnects: function () {   //todoer
+				    try {
+						for (var i = 0; i < basicBot.room.users.length; i++) {
+						    var roomUser = basicBot.room.users[i];
+							var dcTime = roomUser.lastDC.time;
+							var dcPos = roomUser.lastDC.position;
+							var miaTime = 0;
+							console.log("User: " + roomUser.username);
+							// DC Time without pos is invalid:
+						    if ((dcTime !== null) && (dcPos < 1)) 
+								basicBot.userUtilities.resetDC(roomUser);
+						    // If have not been in line for > max DC mins + 30 reset:
+							if ((roomUser.lastSeenInLine !== null) && (dcPos > 0)) {
+							    miaTime = Date.now() - roomUser.lastSeenInLine;
+								console.log("Line miaTime: " + miaTime);
+								if (miaTime > ((basicBot.settings.maximumDc + 30) * 60 * 1000)) basicBot.userUtilities.resetDC(roomUser);
+							}
+						    // If last disconnect > max DC mins + 30 reset:
+							if ((dcTime !== null) && (dcPos > 0)) {
+							    miaTime = Date.now() - dcTime;
+								console.log("DC miaTime: " + miaTime);
+								if (miaTime > ((basicBot.settings.maximumDc + 30) * 60 * 1000)) basicBot.userUtilities.resetDC(roomUser);
+							}
+						}
+					}
+                    catch(err) { console.log("resetOldDisconnects:ERROR: " + err.message); }
+				},
                 checkForReconnect: function () {
                     try {
                         var wl = API.getWaitList();
@@ -1602,9 +1633,20 @@ Grab - Playlist Insert:
             try {
 			    console.log("eventUserleave happens..... tododer");
 			    var roomUser = basicBot.userUtilities.lookupUser(user.id);
-                //todoer test: if (roomUser.lastKnownPosition > 0 && roomUser.inWaitlist === true) basicBot.userUtilities.updateDC(roomUser);
-                if (roomUser.lastKnownPosition > 0) basicBot.userUtilities.updateDC(roomUser);
-                else basicBot.userUtilities.resetDC(roomUser);
+				// If user has not been in line for over 10 mins and they leave reset the DC
+                if (roomUser.lastKnownPosition > 0 && (roomUser.lastSeenInLine !== null) {
+					basicBot.userUtilities.updateDC(roomUser);
+				    var miaTime = Date.now() - roomUser.lastSeenInLine;
+					console.log("Line miaTime: " + miaTime);
+					if (miaTime > (10 * 60 * 1000)) {
+					    console.log("Line miaTime: " + miaTime + "RESET");
+						basicBot.userUtilities.resetDC(roomUser);
+					}
+				}
+                if (roomUser.lastKnownPosition > 0) 
+					basicBot.userUtilities.updateDC(roomUser);
+                else 
+					basicBot.userUtilities.resetDC(roomUser);
                 roomUser.inRoom = false;
             }
             catch(err) {
@@ -1789,6 +1831,9 @@ Grab - Playlist Insert:
                console.log("eventDjadvance:ERROR: " + err.message);
             }
         },
+		/*"eventWaitlistupdate happens..... tododer" basicBotTEST.js:1793:6
+          "Updating last know dj position" basicBotTEST.js:1822:3
+          "eventUserleave happens..... tododer"*/
         eventWaitlistupdate: function (users) {
 		    console.log("eventWaitlistupdate happens..... tododer");
             basicBot.roomUtilities.booth.checkForDisconnect();
@@ -1818,12 +1863,19 @@ Grab - Playlist Insert:
                 }
             }
 			// This hits the API too much. Once for each dj in the waitlist:
-			// CALL:  basicBot.roomUtilities.updateWaitlist();
-			console.log("Updating last know dj position");
+			// CALL:  todoer 
+			console.log("=====================Updating last know dj position======================");
             for (var i = 0; i < users.length; i++) {
                 var user = basicBot.userUtilities.lookupUser(users[i].id);
-				user.lastKnownPosition = API.getWaitListPosition(users[i].id) + 1;
+				wlPos = API.getWaitListPosition(users[i].id) + 1;
+				if (wlPos > 0) {
+				    user.lastSeenInLine = Date.now();
+					user.lastKnownPosition = wlPos;
+				}
+				console.log("User: " + user.username + " Pos: " + user.lastKnownPosition + " Time: " + user.lastSeenInLine);
             }
+			basicBot.roomUtilities.updateWaitlist();
+			basicBot.roomUtilities.booth.resetOldDisconnects();
         },
         chatcleaner: function (chat) {
             if (!basicBot.settings.filterChat) return false;
@@ -2139,7 +2191,8 @@ Grab - Playlist Insert:
                     ind = basicBot.room.users.length - 1;
                 }
                 var wlIndex = API.getWaitListPosition(basicBot.room.users[ind].id) + 1;
-                basicBot.userUtilities.updatePosition(basicBot.room.users[ind], wlIndex);
+				basicBot.room.users[ind].lastKnownPosition = wlIndex;
+				if (wlIndex > 0) basicBot.room.users[ind].lastSeenInLine = Date.now();
             }
             //console.log("TODO - STARTUP 5");
             basicBot.room.afkInterval = setInterval(function () {
@@ -4396,6 +4449,7 @@ Grab - Playlist Insert:
                         var currPos = API.getWaitListPosition(user.id) + 1;
                         if (currPos < 1) return API.sendChat(subChat(basicBot.chat.notinwaitlist, {name: name}));
                         user.lastKnownPosition = currPos;
+						user.lastSeenInLine = Date.now();
                         basicBot.userUtilities.updateDC(user);
 						var msg;
                         if (cmd == '.beerrun') {
