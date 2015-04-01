@@ -1,4 +1,4 @@
-/** version: 2.1.4.00028.33
+/** version: 2.1.4.00028.34
 
 3 strikes and you're out (for 10 mins)
 
@@ -241,7 +241,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00028.33",
+        version: "2.1.4.00028.34",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2354,8 +2354,6 @@ Grab - Playlist Insert:
                 if(roomURL != window.location.pathname){
                     clearInterval(Check)
                     basicBot.roomUtilities.logInfo("Killing bot after room change.");
-                    basicBot.roomUtilities.logInfo("roomURL1: " + roomURL);
-                    basicBot.roomUtilities.logInfo("roomURL2: " + window.location.pathname);
                     storeToStorage();
                     basicBot.disconnectAPI();
                     setTimeout(function () {
@@ -2379,7 +2377,7 @@ Grab - Playlist Insert:
             basicBot.getNewBlacklistedSongs = basicBot.roomUtilities.exportNewBlacklistedSongs;
             basicBot.logNewBlacklistedSongs = basicBot.roomUtilities.logNewBlacklistedSongs;
 			
-			if (roomURL = "https://plug.dj/-752559695349757775") basicBot.room.debug = true;
+			if (roomURL === "/-752559695349757775") basicBot.room.debug = true;
 			basicBot.roomUtilities.logDebug("roomURL = " + roomURL);
 			console.log("roomURL = " + roomURL);
             //basicBot.roomUtilities.logDebug("TODO - STARTUP 2");
@@ -4774,6 +4772,19 @@ Grab - Playlist Insert:
                     }
                 }
             },
+			debugCommand: {
+                command: 'debug',
+                rank: 'cohost',
+                type: 'exact',
+                functionality: function (chat, cmd)                 {
+                    try {
+		    			basicBot.room.debug = (!basicBot.room.debug);
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("debugCommand: " + err.message);
+                    }
+                }
+			},
             youtubeCommand: {
                 command: 'youtube',
                 rank: 'user',
