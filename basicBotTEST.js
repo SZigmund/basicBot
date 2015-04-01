@@ -1,4 +1,4 @@
-/** version: 2.1.4.00028.27
+/** version: 2.1.4.00028.28
 
 3 strikes and you're out (for 10 mins)
 
@@ -241,7 +241,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00028.27",
+        version: "2.1.4.00028.28",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1354,7 +1354,7 @@ Grab - Playlist Insert:
                 try  {
                     var arrayCount = basicBot.settings.EightBallArray.length;
                     var arrayID = Math.floor(Math.random() * arrayCount);
-                    return basicBot.settings.EightBallArray[arrayIDID];
+                    return basicBot.settings.EightBallArray[arrayID];
                 }
                 catch(err) {
                   console.log("eightBallSelect:ERROR: " + err.message);
