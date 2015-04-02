@@ -1,4 +1,4 @@
-/** version: 2.1.4.00029
+/** version: 2.1.4.00030
 
 3 strikes and you're out (for 10 mins)
 
@@ -33,16 +33,21 @@ Grab - Playlist Insert:
 
 (function () {
     API.getWaitListPosition = function(id){
-        if(typeof id === 'undefined' || id === null){
-            id = API.getUser().id;
-        }
-        var wl = API.getWaitList();
-        for(var i = 0; i < wl.length; i++){
-            if(wl[i].id === id){
-                return i;
+        try {
+            if(typeof id === 'undefined' || id === null){
+                id = API.getUser().id;
             }
+            var wl = API.getWaitList();
+            for(var i = 0; i < wl.length; i++){
+                if(wl[i].id === id){
+                    return i;
+                }
+            }
+            return -1;
         }
-        return -1;
+           catch(err) {
+           basicBot.roomUtilities.logException("getWaitListPosition: " + err.message);
+        }
     };
     API.getWaitListCount = function(){
         var wl = API.getWaitList();
@@ -53,7 +58,7 @@ Grab - Playlist Insert:
             $("#dj-button").click();
         }
         catch(err) {
-            console.log("botDjNow:ERROR: " + err.message);
+            basicBot.roomUtilities.logException("botDjNow: " + err.message);
         }
     };
     API.botHopDown = function () {
@@ -66,7 +71,7 @@ Grab - Playlist Insert:
             */
         }
         catch(err) {
-            console.log("botHopDown:ERROR: " + err.message);
+            basicBot.roomUtilities.logException("botHopDown: " + err.message);
         }
     };
 
@@ -91,7 +96,7 @@ Grab - Playlist Insert:
     var subChat = function (chat, obj) {
         if (typeof chat === "undefined") {
             API.chatLog("There is a chat text missing.");
-            console.log("There is a chat text missing.");
+            basicBot.roomUtilities.logDebug("There is a chat text missing.");
             return "[Error] No text message found.";
         }
         var lit = '%%';
@@ -193,7 +198,7 @@ Grab - Playlist Insert:
         }
         }
         catch(err) {
-           console.log("retrieveFromStorage:ERROR: " + err.message);
+           basicBot.roomUtilities.logException("retrieveFromStorage: " + err.message);
         }
 
     };
@@ -236,7 +241,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00029",
+        version: "2.1.4.00030",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -300,11 +305,180 @@ Grab - Playlist Insert:
                 ["nsfw", "The song you contained was NSFW (image or sound). "],
                 ["unavailable", "The song you played was not available for some users. "]
             ],
+            EightBallArray: [
+            "As I See It Yes", 
+            "Ask Again Later", 
+            "Better Not Tell You Now", 
+            "Cannot Predict Now", 
+            "Concentrate and Ask Again", 
+            "Don't Count On It", 
+            "It Is Certain", 
+            "It Is Decidedly So", 
+            "Most Likely", 
+            "My Reply Is No", 
+            "My Sources Say No", 
+            "Outlook Good", 
+            "Outlook Not So Good", 
+            "Reply Hazy Try Again", 
+            "Signs Point to Yes", 
+            "Very Doubtful", 
+            "Without A Doubt", 
+            "Yes", 
+            "Yes - Definitely", 
+            "You May Rely On It",
+            "Absolutely", 
+            "Answer Unclear Ask Later", 
+            "Cannot Foretell Now", 
+            "Can't Say Now", 
+            "Chances Aren't Good", 
+            "Consult Me Later", 
+            "Don't Bet On It", 
+            "Focus And Ask Again", 
+            "Indications Say Yes", 
+            "Looks Like Yes", 
+            "No", 
+            "No Doubt About It", 
+            "Positively", 
+            "Prospect Good", 
+            "So It Shall Be", 
+            "The Stars Say No", 
+            "Unlikely", 
+            "Very Likely", 
+            "You Can Count On It",
+            "As If",
+            "Ask Me If I Care",
+            "Dumb Question Ask Another",
+            "Forget About It",
+            "Get A Clue",
+            "In Your Dreams",
+            "Not A Chance",
+            "Obviously",
+            "Oh Please",
+            "Sure",
+            "That's Ridiculous",
+            "Well Maybe",
+            "What Do You Think?",
+            "Whatever",
+            "Who Cares?",
+            "Yeah And I'm The Pope",
+            "Yeah Right",
+            "You Wish",
+            "You've Got To Be Kidding",
+            "You Look Marvelous", 
+            "Your Breath Is So Minty", 
+            "You're 100% Fun!", 
+            "You're A Winner",
+            "At Least I Love You",
+            "Have You Lost Weight?",
+            "Go flip a quarter",
+            "Never gonna happen",
+            "Smells like a Yes",
+            "Si Amigo, like cheese on nachos",
+            "When pigs fly!",
+            "No, but I still love you",
+            "Give me a dollar, then I'll answer",
+            "I got yes written on my forehead",
+            "Sorry, but no way",
+            "I know, but I'm not telling",
+            "I guess so, maybe",
+            "Yes! Hooray, Yippee!",
+            "Ha Ha Ha, no!",
+            "Of course silly",
+            "My dog thinks so",
+            "Um.. Ok, sure, why not?",
+            "Will the sun rise tomorrow?",
+            "Yep, like a bird has feathers",
+            "You can bet your ass on it",
+            "Hell No",
+            "Are you stupid?",
+            "Hell Yes",
+            "Give it up",
+            "Maybe if you weren't so lazy",
+            "Make it happen",
+            "No way, sucka!",
+            "Wow, you are an idiot!",
+            "Yes, now stop asking!",
+            "Ha Ha Ha! Nope!",
+            "Don't you have something better to do?",
+            "Of course, shit head",
+            "5 letters, LOL NO!",
+            "Go ask your mama",
+            "Just a wild guess, but yes",
+            "I really don't care",
+            "Damn Right",
+            "Boring! Ask something exciting",
+            "Swear on my 8 balls it's true",
+            "Shit Happens",
+            "F*ck Yeah",
+            "F*ck No",
+            "What the F*ck?",
+            "Hell F*cking Yes",
+            "Hell F*cking No",
+            "You F*cking Crazy?",
+            "Of course F*cker",
+            "No way F*cker",
+            "Who F*cking cares",
+            "God Damn F*cking Right!",
+            "Not a F*cking chance",
+            "I don't F*cking know",
+            "No F*cking doubt",
+            "No F*cking way",
+            "Seriously F*cker?",
+            "F*ck, why not.",
+            "Don't F*cking count on it",
+            "It could F*cking happen",
+            "You must be out of your F*cking mind",
+            "Sure F*cking thing",
+            "F*cking Right",
+            "Signs point to F*cking Yes",
+            "It is F*cking certain"
+            ],
             randomCommentArray: [
             "I told him we already got one",
             "You don't think she'd yada yada sex?....I've yada yada'd sex.",
             "@Bacon_Cheeseburger time for another PBR!",
             "You can't make somebody love you.  You can only stalk them and hope for the best",
+            "I stayed up all night to see where the sun went, then it dawned on me.",
+            "I went to a chiropractor yesterday for the first time.... he cracked me up!",
+            "I know a guy thats addicted to break fluid....... he says he can stop anytime!",
+            "A soldier who survived mustard gas and pepper spray is now a seasoned veteran!",
+            "Irish Handcuffs:  Holding an alcoholic drink in each hand.",
+            "If Apple made a car, would it have Windows?",
+            "An apple a day keeps anyone away, If you throw it hard enough",
+            "Yesterday at the bank an old lady asked if i could help her check her balance... so i pushed her over",
+            "To the guy who invented Zero: Thanks for nothing!",
+            "I can hear music coming out of my printer. I think the paper's jammin' again.",
+            "People who drink light 'beer' don't like the taste of beer; they just like to pee a lot.",
+            "No one looks back on their life and remembers the nights they had plenty of sleep.",
+            "Give a man a beer, and he wastes an hour, but teach a man how to brew, and he wastes a lifetime.",
+            "Give a man a fish and he will eat for a day. Teach him how to fish, and he will sit in a boat and drink beer all day.",
+            "Squats?  I thought you said let's do shots!",
+            "I want a beer. I want a giant, ice-cold bottle of beer... and shower sex.",
+            "Beer makes you feel the way you ought to feel without beer.",
+            "Larry no function beer well without.",
+            "Drunk is when you feel sophisticated, but can't pronounce it...",
+            "My girlfriend's favorite beer is water. I mean Bud Light.",
+            "It's a zombie apocalypse! Quick, grab the beer!",
+            "He who drinks beer sleeps well. He who sleeps well cannot sin. He who does not sin goes to heaven. Amen.",
+            "There are more old drunks than there are old doctors.",
+            "I don't think I've drunk enough beer to understand that.",
+            "In dog beers, I've only had one.",
+            "There's a time and place for beer....In my hand and NOW!",
+            "When I read about the evils of drinking, I gave up reading.",
+            "You can drink at 7AM Because the Beastie Boys fought for that kind of thing",
+            "I rescued some beer last night.  It was trapped inside a bottle.",
+            "There comes a time in the day that no matter the question...the answer is beer!",
+            "I've been working out a lot lately. My favorite exercise is a mix between a lunge and a crunch....I call it Lunch.",
+            "I call my bathroom the Jim instead of the the John.  So now I can tell all my friends I hit the Jim before I go to work everyday.",
+            "When people get a little too chummy with me I like to call them by the wrong name to let them know I don't really care about them",
+            "That's what happens when you rub it.",
+            "I'm not interested in caring about people",
+            "Chase you?  Bitch please, I don't even chase my liquor!",
+            "I don't get nearly enough credit for managing not to be a violent psychopath.",
+            "Yes I walked away mid-conversation.  You were boring me to death and my survival instincts kicked in",
+            "Fishing relaxes me. It'd like yoga, except I still get to kill something.",
+            "All is well, the PBR is in the fridge",
+            "Quick somebody pull my finger!!",
             "Women, can't live with them....pass the beer nuts!",
             "The older I get, the more people can kiss my a$$",
             "I can't tell if you are on too many drugs or not enough.",
@@ -313,6 +487,8 @@ Grab - Playlist Insert:
             "And there goes the last F*ck I gave!",
             "My girlfriend woke up this morning with a huge smile on her face.....I love Sharpies!",
             "You don't have to like me...I'm not a Facebook status",
+			"I would love to visit you, but I live on the Internet.",
+			"If you were running for President, I would vote for you. And clear your search history.  Don't worry I got you.",
             "Lord, please give me patience because if you give me strength, I'll need bail money too...",
             "DRAMA = Dumbass Rejects Asking for More Attention",
             "It's been 55 minutes since the last pearl jam song, what is wrong with you people?",
@@ -510,7 +686,7 @@ Grab - Playlist Insert:
             "I don't negotiate with terrorists - 'Merica!!",
             "Would you think guanaria should cure diarrhea.... think about it...",
             "What's the point of having a democracy, if everybody's going to vote wrong?",
-            "Would you rather: A. Eat a bowl of shit once OR B. have explosive diarrhoea for the rest of your life?",
+            "Would you rather: A. Eat a bowl of shit once OR B. have explosive diarrhea for the rest of your life?",
             "Would you rather: A. Have sex with a goat, but no one would know OR B. not have sex with one, but everyone would think you did?",
             "Would you rather: A. Always have to say everything on your mind OR B. never speak again?",
             "Would you rather: A. Be able to turn invisible OR B. be able to fly?",
@@ -527,7 +703,7 @@ Grab - Playlist Insert:
             "I refer you to on-line sources, which can be changed at any time.",
             "It seems normal when they tell you about it, but then a whole camera crew appears and suddenly it's not so fun any more.",
             "Bugs like to touch themselves with their antennae while they watch you sleeping.",
-            "I apologise for being the only person who truly comprehends how screwed we are!",
+            "I apologize for being the only person who truly comprehends how screwed we are!",
             "Imagination will often carry us to worlds that never were. But without it we go nowhere.",
             "The important thing is not to stop questioning; curiosity has its own reason for existing.",
             "I've got thrills to seek, deaths to defy, mattress tags to tear off.",
@@ -650,6 +826,7 @@ Grab - Playlist Insert:
         },
         room: {
             users: [],
+			debug: false,
             afkList: [],
             mutedUsers: [],
             bannedUsers: [],
@@ -750,14 +927,15 @@ Grab - Playlist Insert:
                 songcount: 0,
                 woots: 0,
                 mehs: 0,
-				tasty: 0
+                tasty: 0
             };
             this.lastDC = {
                 time: null,
-                position: null,
+                position: -1,
                 songCount: 0
             };
-            this.lastKnownPosition = null;
+            this.lastKnownPosition = -1;
+            this.lastSeenInLine = null;
         },
         userUtilities: {
             getJointime: function (user) {
@@ -765,9 +943,6 @@ Grab - Playlist Insert:
             },
             getUser: function (user) {
                 return API.getUser(user.id);
-            },
-            updatePosition: function (user, newPos) {
-                user.lastKnownPosition = newPos;
             },
             tastyVote: function (userId) {
                 try {
@@ -782,15 +957,17 @@ Grab - Playlist Insert:
                 }
                 user.tastyVote = true;
                 API.sendChat(subChat(basicBot.chat.tastyvote, {name: user.username}));
-				basicBot.room.roomstats.tastyCount += 1;
+                basicBot.room.roomstats.tastyCount += 1;
                 }
                 catch(err) {
-                  console.log("userUtilities.tastyVote:ERROR: " + err.message);
+                  basicBot.roomUtilities.logException("userUtilities.tastyVote: " + err.message);
                 }
             },
             resetDC: function (user) {
                 user.lastDC.time = null;
-                user.lastDC.position = null;
+                user.lastDC.position = -1;
+                user.lastKnownPosition = -1;
+                user.lastSeenInLine = null;
                 user.lastDC.songCount = 0;
                 user.beerRun = false;
                 user.inMeeting = false;
@@ -818,7 +995,7 @@ Grab - Playlist Insert:
             },
             setLastActivity: function (user, dispMsg) {
                 user.lastActivity = Date.now();
-				if ((user.afkWarningCount > 0) && (dispMsg === true)) API.sendChat(subChat(basicBot.chat.afkUserReset, {name: user.username}));
+                if ((user.afkWarningCount > 0) && (dispMsg === true)) API.sendChat(subChat(basicBot.chat.afkUserReset, {name: user.username}));
                 user.afkWarningCount = 0;
                 clearTimeout(user.afkCountdown);
             },
@@ -865,12 +1042,12 @@ Grab - Playlist Insert:
             },
             removeDJ: function (userId) {
                 try {
-                    console.log("Remove DJ1: " + userId);
+                    basicBot.roomUtilities.logDebug("Remove DJ1: " + userId);
                     API.moderateRemoveDJ(userId);
-                    console.log("Remove DJ2: " + userId);
+                    basicBot.roomUtilities.logDebug("Remove DJ2: " + userId);
                 }
                 catch(err) {
-                  console.log("removeDJ:ERROR: " + err.message);
+                  basicBot.roomUtilities.logException("removeDJ: " + err.message);
                 }
             },
             skipBadSong: function (userId) {
@@ -893,13 +1070,13 @@ Grab - Playlist Insert:
             setBadSongCount: function (userId, value) {
                 var user = basicBot.userUtilities.lookupUser(userId);
                 user.badSongCount = value;
-                console.log("Bad Count: " + value);
+                basicBot.roomUtilities.logDebug("Bad Count: " + value);
             },
             setJoinTime: function (userId, value) {
                 var user = basicBot.userUtilities.lookupUser(userId);
                 user.jointime = Date.now();
             },
-            lookupUser: function (id) {
+            lookupUser: function (id) {   //getroomuser
                 for (var i = 0; i < basicBot.room.users.length; i++) {
                     if (basicBot.room.users[i].id === id) {
                         return basicBot.room.users[i];
@@ -924,14 +1101,14 @@ Grab - Playlist Insert:
 
             },
             getPermission: function (obj) { //1 requests
-			    try {
+                try {
                 var u;
                 if (typeof obj === "object") u = obj;
                 else u = API.getUser(obj);
                 if (botCreatorIDs.indexOf(u.id) > -1) return 10;
-				//console.log("Role: " + u.role);
-				//console.log("Name: " + u.username);
-				//console.log("ID: " + u.id);
+                //basicBot.roomUtilities.logDebug("Role: " + u.role);
+                //basicBot.roomUtilities.logDebug("Name: " + u.username);
+                //basicBot.roomUtilities.logDebug("ID: " + u.id);
                 if (u.gRole < 2) return u.role;
                 else {
                     switch (u.gRole) {
@@ -946,9 +1123,9 @@ Grab - Playlist Insert:
                     }
                 }
                 return 0;
-				}
+                }
                 catch(err) {
-                  console.log("getPermission:ERROR: " + err.message);
+                  basicBot.roomUtilities.logException("getPermission: " + err.message);
                 }
             },
             moveUser: function (id, pos, priority) {
@@ -991,14 +1168,14 @@ Grab - Playlist Insert:
                 var name = user.username;
                 if (user.lastDC.time === null) {
                     basicBot.userUtilities.resetDC(user);
-				    return subChat(basicBot.chat.notdisconnected, {name: name});
-				}
+                    return subChat(basicBot.chat.notdisconnected, {name: name});
+                }
                 var dc = user.lastDC.time;
                 var pos = user.lastDC.position;
-                if (pos === null) {
-				    basicBot.userUtilities.resetDC(user);
-				    return basicBot.chat.noposition;
-				}
+                if (pos < 1) {
+                    basicBot.userUtilities.resetDC(user);
+                    return basicBot.chat.noposition;
+                }
                 var timeDc = Date.now() - dc;
                 var validDC = false;
                 if (basicBot.settings.maximumDc * 60 * 1000 > timeDc) {
@@ -1007,8 +1184,8 @@ Grab - Playlist Insert:
                 var time = basicBot.roomUtilities.msToStr(timeDc);
                 if (!validDC) {
                     basicBot.userUtilities.resetDC(user);
-				    return (subChat(basicBot.chat.toolongago, {name: basicBot.userUtilities.getUser(user).username, time: time}));
-				}
+                    return (subChat(basicBot.chat.toolongago, {name: basicBot.userUtilities.getUser(user).username, time: time}));
+                }
                 var songsPassed = basicBot.room.roomstats.songCount - user.lastDC.songCount;
                 var afksRemoved = 0;
                 var afkList = basicBot.room.afkList;
@@ -1036,8 +1213,9 @@ Grab - Playlist Insert:
                     msg = subChat(basicBot.chat.valid, {name: basicBot.userUtilities.getUser(user).username, time: time, position: newPosition});
                 }
                 basicBot.userUtilities.moveUser(user.id, newPosition, true);
-                basicBot.userUtilities.setMeetingStatus(user, false);
                 basicBot.userUtilities.resetDC(user);
+                user.lastKnownPosition = newPosition;
+                user.lastSeenInLine = Date.now();
                 return msg;
             }
         },
@@ -1052,18 +1230,36 @@ Grab - Playlist Insert:
                     return false;
                 }
                 catch(err) {
-                  console.log("botIsDj:ERROR: " + err.message);
+                  basicBot.roomUtilities.logException("botIsDj: " + err.message);
                 }
             },
-			checkDisconnect: function(user) {
+            updateWaitlist: function () {
                 try {
-                    if (!basicBot.userUtilities.didUserDisconnect(user)) return false;
-                    var toChat = basicBot.userUtilities.dclookup(user.id);
-                    API.sendChat(toChat);
-					return true;
+                    basicBot.roomUtilities.logDebug("============================updateWaitlist============================");
+                    var roomUser;
+                    var wl = API.getWaitList();
+                    for(var pos = 0; pos < wl.length; pos++){
+                        roomUser = basicBot.userUtilities.lookupUser(wl[pos].id);
+                        //basicBot.roomUtilities.logDebug("User: " + roomUser.username + " Pos: " + (pos + 1) + " Time: " + roomUser.lastSeenInLine);
+						// NEW METH: //
+                        roomUser.lastKnownPosition = pos + 1;
+                        roomUser.lastSeenInLine = Date.now();
+						// NEW METH: //
+                    }
+                    basicBot.roomUtilities.logDebug("============================updateWaitlist============================");
                 }
                 catch(err) {
-                  console.log("checkDisconnect:ERROR: " + err.message);
+                  basicBot.roomUtilities.logException("updateWaitlist: " + err.message);
+                }
+            },
+            checkDisconnect: function(user) {
+                try {
+                    if (!basicBot.userUtilities.didUserDisconnect(user)) return;
+                    var toChat = basicBot.userUtilities.dclookup(user.id);
+                    API.sendChat(toChat);
+                }
+                catch(err) {
+                  basicBot.roomUtilities.logException("checkDisconnect: " + err.message);
                 }
             },
             resetTastyCount: function () {
@@ -1074,7 +1270,7 @@ Grab - Playlist Insert:
                     }
                 }
                 catch(err) {
-                  console.log("resetTastyCount:ERROR: " + err.message);
+                  basicBot.roomUtilities.logException("resetTastyCount: " + err.message);
                 }
             },
             botInWaitList: function () {
@@ -1086,7 +1282,7 @@ Grab - Playlist Insert:
                 return false;
                 }
                 catch(err) {
-                  console.log("botInWaitList:ERROR: " + err.message);
+                  basicBot.roomUtilities.logException("botInWaitList: " + err.message);
                 }
             },
             bouncerDjing: function () {
@@ -1102,7 +1298,7 @@ Grab - Playlist Insert:
                     return false;
                 }
                 catch(err) {
-                  console.log("bouncerDjing:ERROR: " + err.message);
+                  basicBot.roomUtilities.logException("bouncerDjing: " + err.message);
                 }
         },
             checkHopDown: function () {
@@ -1112,11 +1308,11 @@ Grab - Playlist Insert:
                     if (basicBot.roomUtilities.botIsDj()) return;
                     if (!basicBot.roomUtilities.botInWaitList()) return;
                     if (API.getWaitListCount() < basicBot.settings.autoHopDownCount) return;
-                    console.log("TIME TO HOP DOWN!!!!!" + basicBot.loggedInID);
+                    basicBot.roomUtilities.logDebug("TIME TO HOP DOWN!!!!!" + basicBot.loggedInID);
                     API.botHopDown();
                 }
                 catch(err) {
-                  console.log("checkHopDown:ERROR: " + err.message);
+                  basicBot.roomUtilities.logException("checkHopDown: " + err.message);
                 }
             },
             checkHopUp: function () {
@@ -1127,13 +1323,13 @@ Grab - Playlist Insert:
                     if (basicBot.roomUtilities.botIsDj()) return;
                     if (basicBot.roomUtilities.botInWaitList()) return;
                     if (basicBot.roomUtilities.bouncerDjing()) return;
-                    console.log("API.getWaitListCount(): " + API.getWaitListCount());
+                    basicBot.roomUtilities.logDebug("API.getWaitListCount(): " + API.getWaitListCount());
                     if (API.getWaitListCount() >= basicBot.settings.autoHopUpCount) return;
-                    console.log("TIME TO HOP UP!!!!!" + basicBot.loggedInID);
+                    basicBot.roomUtilities.logDebug("TIME TO HOP UP!!!!!" + basicBot.loggedInID);
                     API.botDjNow();
                 }
                 catch(err) {
-                  console.log("checkHopUp:ERROR: " + err.message);
+                  basicBot.roomUtilities.logException("checkHopUp: " + err.message);
                 }
             },
             rankToNumber: function (rankString) {
@@ -1168,11 +1364,11 @@ Grab - Playlist Insert:
             },
             randomCommentSetTimer: function() {   //Added 02/19/2015 Zig
                 try  {
-                  //console.log("SETTING randomCommentSetTimer: " + basicBot.settings.nextRandomComment);
+                  //basicBot.roomUtilities.logDebug("SETTING randomCommentSetTimer: " + basicBot.settings.nextRandomComment);
                   var randomRange = (basicBot.settings.randomCommentMax - basicBot.settings.randomCommentMin)
                   var randomMins = Math.floor(Math.random() * randomRange);
                   randomMins += basicBot.settings.randomCommentMin;
-                  console.log("Random mins: " + randomMins);
+                  basicBot.roomUtilities.logDebug("Random mins: " + randomMins);
                   //JIC: Ensure we are in the correct time range:
                   if ((randomMins > basicBot.settings.randomCommentMax) || (randomMins < basicBot.settings.randomCommentMin))
                   {
@@ -1183,21 +1379,31 @@ Grab - Playlist Insert:
                   myTimeSpan = randomMins*60*1000; // 5 minutes in milliseconds
                   nextTime.setTime(nextTime.getTime() + myTimeSpan);
                   basicBot.settings.nextRandomComment = nextTime;
-                  console.log("RANDOM TIME: " + basicBot.settings.nextRandomComment);
-                  console.log("NOW TIME: " + Date.now());
+                  basicBot.roomUtilities.logDebug("RANDOM TIME: " + basicBot.settings.nextRandomComment);
+                  basicBot.roomUtilities.logDebug("NOW TIME: " + Date.now());
                 }  
                 catch(err) {
-                  console.log("randomCommentSetTimer:ERROR: " + err.message);
+                  basicBot.roomUtilities.logException("randomCommentSetTimer: " + err.message);
                 }
             },
             randomCommentSelect: function()  {  //Added 02/19/2015 Zig
                 try  {
-                    var randomCount = basicBot.settings.randomCommentArray.length;
-                    var randomID = Math.floor(Math.random() * randomCount);
+                    var arrayCount = basicBot.settings.randomCommentArray.length;
+                    var randomID = Math.floor(Math.random() * arrayCount);
                     return basicBot.settings.randomCommentArray[randomID];
                 }
                 catch(err) {
-                  console.log("randomCommentSelect:ERROR: " + err.message);
+                  basicBot.roomUtilities.logException("randomCommentSelect: " + err.message);
+                }
+            },
+            eightBallSelect: function()  {  //Added 04/01/2015 Zig
+                try  {
+                    var arrayCount = basicBot.settings.EightBallArray.length;
+                    var arrayID = Math.floor(Math.random() * arrayCount);
+                    return basicBot.settings.EightBallArray[arrayID];
+                }
+                catch(err) {
+                  basicBot.roomUtilities.logException("eightBallSelect: " + err.message);
                 }
             },
             randomCommentCheck: function() {  //Added 02/19/2015 Zig
@@ -1205,9 +1411,9 @@ Grab - Playlist Insert:
 /*
                   var testTime = new Date();
                   var timeDiff = testTime.getMinutes() - basicBot.settings.nextRandomComment.getMinutes();
-                  console.log("randomCommentCheck:" + testTime.getMinutes() + " - " + basicBot.settings.nextRandomComment.getMinutes());
-                  console.log("randomCommentCheck-NOW TIME: " + Date.now());
-                  console.log("randomCommentCheck-timeDiff: " + timeDiff);
+                  basicBot.roomUtilities.logDebug("randomCommentCheck:" + testTime.getMinutes() + " - " + basicBot.settings.nextRandomComment.getMinutes());
+                  basicBot.roomUtilities.logDebug("randomCommentCheck-NOW TIME: " + Date.now());
+                  basicBot.roomUtilities.logDebug("randomCommentCheck-timeDiff: " + timeDiff);
                   if (timeDiff > 0)
                   {
                       basicBot.roomUtilities.randomCommentSetTimer();
@@ -1221,7 +1427,7 @@ Grab - Playlist Insert:
                   }
                 }  
                 catch(err) {
-                  console.log("randomCommentCheck:ERROR: " + err.message);
+                  basicBot.roomUtilities.logException("randomCommentCheck: " + err.message);
                 }
             },
             isStaff:  function (obj) {  //Added 03/20/2015 Zig
@@ -1230,7 +1436,7 @@ Grab - Playlist Insert:
                     return false;
                 }
                 catch(err) {
-                  console.log("isStaff:ERROR: " + err.message);
+                  basicBot.roomUtilities.logException("isStaff: " + err.message);
                 }
             },
             canSkip: function () {  //Added 02/24/2015 Zig
@@ -1239,13 +1445,21 @@ Grab - Playlist Insert:
                     if (!basicBot.roomUtilities.isStaff(dj)) return true;
                     var timeRemaining = API.getTimeRemaining();
                     var newMedia = API.getMedia();
-                    //console.log("timeRemaining: " + timeRemaining);
-                    //console.log("newMedia.duration: " + newMedia.duration);
+                    //basicBot.roomUtilities.logDebug("timeRemaining: " + timeRemaining);
+                    //basicBot.roomUtilities.logDebug("newMedia.duration: " + newMedia.duration);
                     if ((newMedia.duration - timeRemaining) > 2) return true;
                     return false;
                 }
                 catch(err) {
-                  console.log("canSkip:ERROR: " + err.message);
+                  basicBot.roomUtilities.logException("canSkip: " + err.message);
+                }
+            },
+            mehThisSong: function () {  //Added 02/18/2015 Zig
+                try  {
+                    $("#meh").click();
+                }  
+                catch(err) {
+                  basicBot.roomUtilities.logException("mehThisSong: " + err.message);
                 }
             },
             wootThisSong: function () {  //Added 02/18/2015 Zig
@@ -1253,7 +1467,7 @@ Grab - Playlist Insert:
                     if (basicBot.settings.autoWootBot === true) $("#woot").click();
                 }  
                 catch(err) {
-                  console.log("wootThisSong:ERROR: " + err.message);
+                  basicBot.roomUtilities.logException("wootThisSong: " + err.message);
                 }
             },
             afkRemovalNow: function () {
@@ -1268,6 +1482,25 @@ Grab - Playlist Insert:
                 if (hourofday >= basicBot.settings.afkRemoveStart && hourofday < basicBot.settings.afkRemoveEnd) return true;
                 return false;
             },
+		    logInfo: function(msg) {
+			    try {
+				   console.log("INFO: " + msg);
+				}
+				catch(err) { basicBot.roomUtilities.logException("logInfo: " + err.message); }
+			},
+		    logDebug: function(msg) {
+			    try {
+				   if (basicBot.room.debug === false) return;
+				   console.log("DEBUG: " + msg);
+				}
+				catch(err) { basicBot.roomUtilities.logException("logDebug: " + err.message); }
+			},
+			logException: function(msg) {
+			    try {
+				   console.log("ERROR: " + msg);
+				}
+				catch(err) { console.log("ERROR:logException: " + err.message); }
+			},
             skipSoundCloudNow: function () {
                 if (!basicBot.settings.skipSound5Days && !basicBot.settings.skipSound7Days) return false;
                 var currDate = new Date();
@@ -1342,25 +1575,53 @@ Grab - Playlist Insert:
                         }, basicBot.settings.maximumLocktime * 60 * 1000);
                     }
                 },
+                resetOldDisconnects: function () {   //todoer
+                    try {
+                        basicBot.roomUtilities.logDebug("======================resetOldDisconnects======================");
+                        for (var i = 0; i < basicBot.room.users.length; i++) {
+                            var roomUser = basicBot.room.users[i];
+                            var dcTime = roomUser.lastDC.time;
+                            var dcPos = roomUser.lastDC.position;
+                            var miaTime = 0;
+                            basicBot.roomUtilities.logDebug("User: " + roomUser.username);
+                            // DC Time without pos is invalid:
+                            if ((dcTime !== null) && (dcPos < 1)) 
+                                basicBot.userUtilities.resetDC(roomUser);
+                            // If have not been in line for > max DC mins + 30 reset:
+                            if ((roomUser.lastSeenInLine !== null) && (dcPos > 0)) {
+                                miaTime = Date.now() - roomUser.lastSeenInLine;
+                                basicBot.roomUtilities.logDebug("Line miaTime: " + miaTime);
+                                if (miaTime > ((basicBot.settings.maximumDc + 30) * 60 * 1000)) basicBot.userUtilities.resetDC(roomUser);
+                            }
+                            // If last disconnect > max DC mins + 30 reset:
+                            if ((dcTime !== null) && (dcPos > 0)) {
+                                miaTime = Date.now() - dcTime;
+                                basicBot.roomUtilities.logDebug("DC miaTime: " + miaTime);
+                                if (miaTime > ((basicBot.settings.maximumDc + 30) * 60 * 1000)) basicBot.userUtilities.resetDC(roomUser);
+                            }
+                        }
+                        basicBot.roomUtilities.logDebug("======================resetOldDisconnects======================");
+                    }
+                    catch(err) { basicBot.roomUtilities.logException("resetOldDisconnects: " + err.message); }
+                },
                 checkForReconnect: function () {
                     try {
                         var wl = API.getWaitList();
-						var disconnected = false;
                         for(var i = 0; i < wl.length; i++){
                             var user = basicBot.userUtilities.lookupUser(wl[i].id);
-						    disconnected = basicBot.roomUtilities.checkDisconnect(user);
+                            basicBot.roomUtilities.checkDisconnect(user);
                         }
                     }
                     catch(err) {
-                        console.log("checkForReconnect:ERROR: " + err.message);
+                        basicBot.roomUtilities.logException("checkForReconnect: " + err.message);
                     }
                 },
                 checkForDisconnect:  function () {
                     try {
-                        //console.log("eventWaitlistupdate-happens 1st");
+                        //basicBot.roomUtilities.logDebug("eventWaitlistupdate-happens 1st");
                     }
                     catch(err) {
-                        console.log("checkForDisconnect:ERROR: " + err.message);
+                        basicBot.roomUtilities.logException("checkForDisconnect: " + err.message);
                     }
                 },
                 unlockBooth: function () {
@@ -1379,23 +1640,23 @@ Grab - Playlist Insert:
                 for (var i = 0; i < lastPos; i++) {
                     if (typeof djlist[i] !== 'undefined') {
                         var id = djlist[i].id;
-                        //console.log("---------------------------------------------------------------------");
-                        //console.log("afkCheck ID: " + id);
+                        //basicBot.roomUtilities.logDebug("---------------------------------------------------------------------");
+                        //basicBot.roomUtilities.logDebug("afkCheck ID: " + id);
                         var user = basicBot.userUtilities.lookupUser(id);
                         if (typeof user !== 'boolean') {
-                            //console.log("afkCheck ID: " + user.id);
+                            //basicBot.roomUtilities.logDebug("afkCheck ID: " + user.id);
                             var plugUser = basicBot.userUtilities.getUser(user);
                             //if (rank !== null && basicBot.userUtilities.getPermission(plugUser) <= rank) {
                             if (rank !== null) {
-                                //console.log("afkCheck rank: " + rank);
+                                //basicBot.roomUtilities.logDebug("afkCheck rank: " + rank);
                                 var name = plugUser.username;
                                 var lastActive = basicBot.userUtilities.getLastActivity(user);
                                 var inactivity = Date.now() - lastActive;
                                 var time = basicBot.roomUtilities.msToStr(inactivity);
                                 var warncount = user.afkWarningCount;
-                                //console.log("afkCheck: Act: " + lastActive + " Inact: " + inactivity + " Time: " + time + " Warn: " + warncount);
+                                //basicBot.roomUtilities.logDebug("afkCheck: Act: " + lastActive + " Inact: " + inactivity + " Time: " + time + " Warn: " + warncount);
                                 if (inactivity > basicBot.settings.maximumAfk * 60 * 1000) {
-                                    //console.log("afkCheck: INACTIVE USER");
+                                    //basicBot.roomUtilities.logDebug("afkCheck: INACTIVE USER");
                                     if (warncount === 0) {
                                         API.sendChat(subChat(basicBot.chat.warning1, {name: name, time: time}));
                                         user.afkWarningCount = 3;
@@ -1428,7 +1689,7 @@ Grab - Playlist Insert:
                 }
                 }
                 catch(err) {
-                    console.log("afkCheck:ERROR: " + err.message);
+                    basicBot.roomUtilities.logException("afkCheck: " + err.message);
                 }
                 
             },
@@ -1465,30 +1726,30 @@ Grab - Playlist Insert:
                 }
             },
             updateBlacklists: function () {
-                console.log("-------------------------- BLACKLISTS --------------------------");
+                basicBot.roomUtilities.logDebug("-------------------------- BLACKLISTS --------------------------");
                 for (var bl in basicBot.settings.blacklists) {
-                    console.log("BlackList: " + bl);
+                    basicBot.roomUtilities.logDebug("BlackList: " + bl);
                     basicBot.room.blacklists[bl] = [];
                     if (typeof basicBot.settings.blacklists[bl] === 'function') {
-                        console.log("BlackList: function");
+                        basicBot.roomUtilities.logDebug("BlackList: function");
                         basicBot.room.blacklists[bl] = basicBot.settings.blacklists();
                     }
                     else if (typeof basicBot.settings.blacklists[bl] === 'string') {
                         if (basicBot.settings.blacklists[bl] === '') {
-                            console.log("BlackList: ''");
+                            basicBot.roomUtilities.logDebug("BlackList: ''");
                             continue;
                         }
                         try {
                             (function (l) {
                                 $.get(basicBot.settings.blacklists[l], function (data) {
                                     if (typeof data === 'string') {
-                                        console.log("BlackList: data");
+                                        basicBot.roomUtilities.logDebug("BlackList: data");
                                         data = JSON.parse(data);
                                     }
                                     var list = [];
                                     for (var prop in data) {
                                         if (typeof data[prop].mid !== 'undefined') {
-                                            console.log("BlackList: push");
+                                            basicBot.roomUtilities.logDebug("BlackList: push");
                                             list.push(data[prop].mid);
                                         }
                                     }
@@ -1498,8 +1759,8 @@ Grab - Playlist Insert:
                         }
                         catch (e) {
                             API.chatLog('Error setting' + bl + 'blacklist.');
-                            console.log('Error setting' + bl + 'blacklist.');
-                            console.log(e);
+                            basicBot.roomUtilities.logException('Error setting' + bl + 'blacklist.');
+                            basicBot.roomUtilities.logException(e.message);
                         }
                     }
                 }
@@ -1509,7 +1770,7 @@ Grab - Playlist Insert:
                     console.table(basicBot.room.newBlacklisted);
                 }
                 else {
-                    console.log(basicBot.room.newBlacklisted);
+                    basicBot.roomUtilities.logDebug(basicBot.room.newBlacklisted);
                 }
             },
             exportNewBlacklistedSongs: function () {
@@ -1537,7 +1798,7 @@ Grab - Playlist Insert:
                 basicBot.chatUtilities.action(chat);
             }
             catch(err) {
-               console.log("eventChat:ERROR: " + err.message);
+               basicBot.roomUtilities.logException("eventChat: " + err.message);
             }
         },
         eventUserjoin: function (user) {
@@ -1551,7 +1812,6 @@ Grab - Playlist Insert:
             }
             var greet = true;
             var welcomeback = null;
-			var disconnected = false;
             if (known) {
                 basicBot.room.users[index].inRoom = true;
                 var u = basicBot.userUtilities.lookupUser(user.id);
@@ -1559,7 +1819,7 @@ Grab - Playlist Insert:
                 var t = Date.now() - jt;
                 if (t < 10 * 1000) greet = false;
                 else welcomeback = true;
-			    disconnected = basicBot.roomUtilities.checkDisconnect(u);
+                basicBot.roomUtilities.checkDisconnect(u);
             }
             else {
                 basicBot.room.users.push(new basicBot.User(user.id, user.username));
@@ -1569,25 +1829,41 @@ Grab - Playlist Insert:
             basicBot.userUtilities.setBadSongCount(user.id, 0);
             basicBot.userUtilities.setJoinTime(user.id);
             
-            if (basicBot.settings.welcome && greet && (disconnected === false)) {
+            if (basicBot.settings.welcome && greet) {
                 welcomeback ?
                     setTimeout(function (user) {
-                        console.log("WelcomeBack: " + user.id + ": " + user.username);
+                        basicBot.roomUtilities.logDebug("WelcomeBack: " + user.id + ": " + user.username);
                         API.sendChat(subChat(basicBot.chat.welcomeback, {name: user.username}));
                     }, 1 * 1000, user)
                     :
                     setTimeout(function (user) {
-                        console.log("Welcome: " + user.id + ": " + user.username);
+                        basicBot.roomUtilities.logInfo("Welcome: " + user.id + ": " + user.username);
                         API.sendChat(subChat(basicBot.chat.welcome, {name: user.username}));
                     }, 1 * 1000, user);
             }
         },
-        eventUserleave: function (user) {
-            for (var i = 0; i < basicBot.room.users.length; i++) {
-                if (basicBot.room.users[i].id === user.id) {
-                    basicBot.userUtilities.updateDC(basicBot.room.users[i]);
-                    basicBot.room.users[i].inRoom = false;
+        eventUserleave: function (user) {   //todoer
+            try {
+                basicBot.roomUtilities.logDebug("eventUserleave happens..... tododer");
+                var roomUser = basicBot.userUtilities.lookupUser(user.id);
+                // If user has not been in line for over 10 mins and they leave reset the DC
+                if ((roomUser.lastKnownPosition > 0) && (roomUser.lastSeenInLine !== null)) {
+                    basicBot.userUtilities.updateDC(roomUser);
+                    var miaTime = Date.now() - roomUser.lastSeenInLine;
+                    basicBot.roomUtilities.logDebug("Line miaTime: " + miaTime);
+                    if (miaTime > (10 * 60 * 1000)) {
+                        basicBot.roomUtilities.logDebug("Line miaTime: " + miaTime + "RESET");
+                        basicBot.userUtilities.resetDC(roomUser);
+                    }
                 }
+                if (roomUser.lastKnownPosition > 0) 
+                    basicBot.userUtilities.updateDC(roomUser);
+                else 
+                    basicBot.userUtilities.resetDC(roomUser);
+                roomUser.inRoom = false;
+            }
+            catch(err) {
+               basicBot.roomUtilities.logException("eventUserleave: " + err.message);
             }
         },
         eventVoteupdate: function (obj) {
@@ -1625,18 +1901,18 @@ Grab - Playlist Insert:
               API.sendChat(":musical_note: " + obj.user.username + " snagged this song. :heart: :musical_note:");
           }
           catch(err) {
-               console.log("eventCurateupdate:ERROR: " + err.message);
+               basicBot.roomUtilities.logException("eventCurateupdate: " + err.message);
             }
         },
         eventDjadvance: function (obj) {
         try {
-            //console.log("eventDjadvance-happens 2nd");
+            //basicBot.roomUtilities.logDebug("eventDjadvance-happens 2nd");
             var SongSkipped = false;
             var tastyCount = basicBot.room.roomstats.tastyCount;
             basicBot.roomUtilities.resetTastyCount();
             var lastplay = obj.lastPlay;
             if (basicBot.settings.songstats && !(typeof lastplay === 'undefined')) {
-                //console.log("Last DJ: " + lastplay.dj.username);
+                //basicBot.roomUtilities.logDebug("Last DJ: " + lastplay.dj.username);
                 if (typeof basicBot.chat.songstatistics === "undefined") {
                     statsMsg = "/me " + lastplay.dj.username + " played " + lastplay.media.author + " - " + lastplay.media.title + ": " + lastplay.score.positive + "W/" + lastplay.score.grabs + "G/" + lastplay.score.negative + "M.";
                 }
@@ -1650,26 +1926,24 @@ Grab - Playlist Insert:
                 //Check to see if DJ should get booted:
                 if (basicBot.userUtilities.getBootableID(lastplay.dj.username)) {
                     var bootuser = basicBot.userUtilities.lookupUserName(lastplay.dj.username);
-                    setTimeout(function () {  API.moderateRemoveDJ(bootuser.id); }, 1 * 1000);
+                    setTimeout(function () {  API.moderateRemoveDJ(bootuser.id); }, 1000);
+                    setTimeout(function () {  basicBot.userUtilities.resetDC(bootuser); }, 3500);
                 }
-                basicBot.userUtilities.setBootableID(lastplay.dj.username, false);
+                basicBot.userUtilities.setBootableID(lastplay.dj.username);
             }
             
             basicBot.roomUtilities.checkHopUp();
             basicBot.roomUtilities.checkHopDown();
             var dj = API.getDJ();
             if (!(typeof dj === 'undefined')) {
-            //console.log("eventDjadvance:2");
-              for(var i = 0; i < basicBot.room.users.length; i++){
-                if(basicBot.room.users[i].id === dj.id){
-                    basicBot.userUtilities.resetDC(basicBot.room.users[i]);
-                }
-              }
+                //basicBot.roomUtilities.logDebug("eventDjadvance:2");
+                var roomUser = basicBot.userUtilities.lookupUser(dj.id);
+                basicBot.userUtilities.resetDC(roomUser);
             }
-            //console.log("eventDjadvance:3");
+            //basicBot.roomUtilities.logDebug("eventDjadvance:3");
             if (typeof lastplay !== 'undefined')
             {
-              //console.log("eventDjadvance:4");
+              //basicBot.roomUtilities.logDebug("eventDjadvance:4");
               basicBot.room.roomstats.totalWoots += lastplay.score.positive;
               basicBot.room.roomstats.totalMehs += lastplay.score.negative;
               basicBot.room.roomstats.totalCurates += lastplay.score.grabs;
@@ -1678,12 +1952,12 @@ Grab - Playlist Insert:
             basicBot.roomUtilities.intervalMessage();
             //if (typeof obj.dj === 'undefined') { return; }  //todoer not sure about re-adding this....? (Was commented out previously)
             basicBot.room.currentDJID = obj.dj.id;
-			basicBot.userUtilities.setRolled(obj.dj.username, false);
+            basicBot.userUtilities.setRolled(obj.dj.username, false);
 
-            //console.log("eventDjadvance:4a");
+            //basicBot.roomUtilities.logDebug("eventDjadvance:4a");
             setTimeout(basicBot.roomUtilities.wootThisSong, 3000);
 
-            //console.log("eventDjadvance:5");
+            //basicBot.roomUtilities.logDebug("eventDjadvance:5");
             var mid = obj.media.format + ':' + obj.media.cid;
             for (var bl in basicBot.room.blacklists) {
                 if (basicBot.settings.blacklistEnabled) {
@@ -1695,13 +1969,13 @@ Grab - Playlist Insert:
                     }
                 }
             }
-            //console.log("eventDjadvance:5-2");
+            //basicBot.roomUtilities.logDebug("eventDjadvance:5-2");
             // Auto-skip SC song during restricted hours (7AM-3PM EST)
             if ((basicBot.settings.skipSound5Days || basicBot.settings.skipSound7Days) && !SongSkipped){
-                //console.log("Checking for SC Skip");
+                //basicBot.roomUtilities.logDebug("Checking for SC Skip");
                 var currMedia = API.getMedia();
                 if (basicBot.roomUtilities.skipSoundCloudNow() && currMedia.format === 2) {
-                    //console.log("Skipping SC song");
+                    //basicBot.roomUtilities.logDebug("Skipping SC song");
                     var msg = "Sorry @" + obj.dj.username + " Sound Cloud songs are not permitted in this room " + basicBot.settings.skipSoundRange + " too many regulars cannot hear them.";
                     API.sendChat(msg);
                     basicBot.userUtilities.skipBadSong(obj.dj.id);
@@ -1709,7 +1983,7 @@ Grab - Playlist Insert:
                 }
             }
         
-            //console.log("eventDjadvance:6");
+            //basicBot.roomUtilities.logDebug("eventDjadvance:6");
             var alreadyPlayed = false;
             for (var i = 0; i < basicBot.room.historyList.length; i++) {
                 if (basicBot.room.historyList[i][0] === obj.media.cid) {
@@ -1720,7 +1994,7 @@ Grab - Playlist Insert:
                     var repeatLimit = (basicBot.settings.repeatSongTime * 60 * 1000);
                     if (basicBot.settings.repeatSongs && (lastPlayedMs < repeatLimit) && (lastPlayedMs > 5000))
                     {
-                        //console.log("Skipping - Last Played: (" + lastPlayedMs + ") Limit: (" +  repeatLimit + ")");
+                        //basicBot.roomUtilities.logDebug("Skipping - Last Played: (" + lastPlayedMs + ") Limit: (" +  repeatLimit + ")");
                         API.sendChat(subChat(basicBot.chat.songknown2, {name: obj.dj.username, lasttime: basicBot.roomUtilities.msToStr(Date.now() - lastPlayed)}));
                         basicBot.userUtilities.skipBadSong(obj.dj.id);
                         SongSkipped = true;
@@ -1732,11 +2006,11 @@ Grab - Playlist Insert:
                     alreadyPlayed = true;
                 }
             }
-            //console.log("eventDjadvance:7");
+            //basicBot.roomUtilities.logDebug("eventDjadvance:7");
             if (!alreadyPlayed) {
                 basicBot.room.historyList.push([obj.media.cid, +new Date()]);
             }
-            //console.log("eventDjadvance:8");
+            //basicBot.roomUtilities.logDebug("eventDjadvance:8");
             var newMedia = obj.media;
             if (basicBot.settings.timeGuard && newMedia.duration > basicBot.settings.maximumSongLength * 60 && !basicBot.room.roomevent && !SongSkipped) {
                 var name = obj.dj.username;
@@ -1745,64 +2019,81 @@ Grab - Playlist Insert:
                 SongSkipped = true;
             }
             /*
-            console.log("eventDjadvance:9");
+            basicBot.roomUtilities.logDebug("eventDjadvance:9");
             if (user.ownSong) {
                 API.sendChat(subChat(basicBot.chat.permissionownsong, {name: user.username}));
                 user.ownSong = false;
             }
             */
-            //console.log("eventDjadvance:10");
+            //basicBot.roomUtilities.logDebug("eventDjadvance:10");
             clearTimeout(basicBot.room.autoskipTimer);
-            //console.log("eventDjadvance:11");
+            //basicBot.roomUtilities.logDebug("eventDjadvance:11");
             if (basicBot.room.autoskip) {
                 var remaining = obj.media.duration * 1000;
                 basicBot.room.autoskipTimer = setTimeout(function () {
-                    //console.log("Skipping track.");
+                    //basicBot.roomUtilities.logDebug("Skipping track.");
                     //API.sendChat('Song stuck, skipping...');
                     API.moderateForceSkip();
                 }, remaining + 3000);
             }
             if (!SongSkipped) basicBot.userUtilities.setBadSongCount(obj.dj.id, 0);
-            //console.log("eventDjadvance:12");
+            //basicBot.roomUtilities.logDebug("eventDjadvance:12");
             storeToStorage();
-            //console.log("eventDjadvance:13");
+            //basicBot.roomUtilities.logDebug("eventDjadvance:13");
             }
             catch(err) {
-               console.log("eventDjadvance:ERROR: " + err.message);
-            }        
-
+               basicBot.roomUtilities.logException("eventDjadvance: " + err.message);
+            }
         },
+        /*"eventWaitlistupdate happens..... tododer" basicBotTEST.js:1793:6
+          "Updating last know dj position" basicBotTEST.js:1822:3
+          "eventUserleave happens..... tododer"*/
         eventWaitlistupdate: function (users) {
-            basicBot.roomUtilities.booth.checkForDisconnect();
-            basicBot.roomUtilities.booth.checkForReconnect();
-            if (users.length < 50) {
-                if (basicBot.room.queue.id.length > 0 && basicBot.room.queueable) {
-                    basicBot.room.queueable = false;
-                    setTimeout(function () {
-                        basicBot.room.queueable = true;
-                    }, 500);
-                    basicBot.room.queueing++;
-                    var id, pos;
-                    setTimeout(
-                        function () {
-                            id = basicBot.room.queue.id.splice(0, 1)[0];
-                            pos = basicBot.room.queue.position.splice(0, 1)[0];
-                            API.moderateAddDJ(id, pos);
-                            setTimeout(
-                                function (id, pos) {
-                                    API.moderateMoveDJ(id, pos);
-                                    basicBot.room.queueing--;
-                                    if (basicBot.room.queue.id.length === 0) setTimeout(function () {
-                                        basicBot.roomUtilities.booth.unlockBooth();
-                                    }, 1000);
-                                }, 1000, id, pos);
-                        }, 1000 + basicBot.room.queueing * 2500);
-                }
-            }
-            for (var i = 0; i < users.length; i++) {
-                var user = basicBot.userUtilities.lookupUser(users[i].id);
-                basicBot.userUtilities.updatePosition(user, API.getWaitListPosition(users[i].id) + 1);
-            }
+		    try {
+				basicBot.roomUtilities.logDebug("eventWaitlistupdate happens..... tododer");
+				basicBot.roomUtilities.booth.checkForDisconnect();
+				basicBot.roomUtilities.booth.checkForReconnect();
+				if (users.length < 50) {
+					if (basicBot.room.queue.id.length > 0 && basicBot.room.queueable) {
+						basicBot.room.queueable = false;
+						setTimeout(function () {
+							basicBot.room.queueable = true;
+						}, 500);
+						basicBot.room.queueing++;
+						var id, pos;
+						setTimeout(
+							function () {
+								id = basicBot.room.queue.id.splice(0, 1)[0];
+								pos = basicBot.room.queue.position.splice(0, 1)[0];
+								API.moderateAddDJ(id, pos);
+								setTimeout(
+									function (id, pos) {
+										API.moderateMoveDJ(id, pos);
+										basicBot.room.queueing--;
+										if (basicBot.room.queue.id.length === 0) setTimeout(function () {
+											basicBot.roomUtilities.booth.unlockBooth();
+										}, 1000);
+									}, 1000, id, pos);
+							}, 1000 + basicBot.room.queueing * 2500);
+					}
+				}
+				// This hits the API too much. Once for each dj in the waitlist:
+				// CALL:  todoer 
+				// OLD METH: //
+				//basicBot.roomUtilities.logDebug("=====================Updating last know dj position======================");
+				//for (var i = 0; i < users.length; i++) {
+				//    var user = basicBot.userUtilities.lookupUser(users[i].id);
+				//    wlPos = API.getWaitListPosition(users[i].id) + 1;
+				//    if (wlPos > 0) {
+				//        user.lastSeenInLine = Date.now();
+				//        user.lastKnownPosition = wlPos;
+				//    }
+				//    basicBot.roomUtilities.logDebug("User: " + user.username + " Pos: " + user.lastKnownPosition + " Time: " + user.lastSeenInLine);
+				//}
+				basicBot.roomUtilities.updateWaitlist();
+				basicBot.roomUtilities.booth.resetOldDisconnects();
+			}
+			catch(err) { basicBot.roomUtilities.logException("eventWaitlistupdate: " + err.message); }
         },
         chatcleaner: function (chat) {
             if (!basicBot.settings.filterChat) return false;
@@ -1904,79 +2195,83 @@ Grab - Playlist Insert:
                 return false;
             },
             commandCheck: function (chat) {
-                var cmd;
-				//console.log("commandCheck chat: " + chat.message);
-                if (chat.message.charAt(0) === '.') {
-                    var space = chat.message.indexOf(' ');
-                    if (space === -1) {
-                        cmd = chat.message;
-                    }
-                    else cmd = chat.message.substring(0, space);
-                }
-                else return false;
-				//console.log("commandCheck cmd: " + cmd);
-				//console.log("commandCheck chat.uid: " + chat.uid);
-                var userPerm = basicBot.userUtilities.getPermission(chat.uid);
-			    //console.log("commandCheck chat.userPerm: " + userPerm);
-                if (chat.message !== ".join" && chat.message !== ".leave" && cmd !== ".tasty"  && cmd !== ".props"  && cmd !== ".rock") {
-				    //console.log("commandCheck1: " + cmd);
-                    if (userPerm === 0 && !basicBot.room.usercommand) return void (0);
-				    //console.log("commandCheck2: " + cmd);
-                    if (!basicBot.room.allcommand) return void (0);
-				    //console.log("commandCheck3: " + cmd);
-                }
-                if (chat.message === '.eta' && basicBot.settings.etaRestriction) {
-                    if (userPerm < 2) {
-                        var u = basicBot.userUtilities.lookupUser(chat.uid);
-                        if (u.lastEta !== null && (Date.now() - u.lastEta) < 1 * 60 * 60 * 1000) {
-                            API.moderateDeleteChat(chat.cid);
-				            //console.log("commandCheck4: " + cmd);
-                            return void (0);
+                try {
+                    var cmd;
+                    //basicBot.roomUtilities.logDebug("commandCheck chat: " + chat.message);
+                    if (chat.message.charAt(0) === '.') {
+                        var space = chat.message.indexOf(' ');
+                        if (space === -1) {
+                            cmd = chat.message;
                         }
-                        else u.lastEta = Date.now();
+                        else cmd = chat.message.substring(0, space);
                     }
-                }
-				//console.log("commandCheck5: " + cmd);
-                var executed = false;
-
-                for (var comm in basicBot.commands) {
-                    var cmdCall = basicBot.commands[comm].command;
-                    if (!Array.isArray(cmdCall)) {
-                        cmdCall = [cmdCall]
+                    else return false;
+                    //basicBot.roomUtilities.logDebug("commandCheck cmd: " + cmd);
+                    //basicBot.roomUtilities.logDebug("commandCheck chat.uid: " + chat.uid);
+                    var userPerm = basicBot.userUtilities.getPermission(chat.uid);
+                    //basicBot.roomUtilities.logDebug("commandCheck chat.userPerm: " + userPerm);
+                    if (chat.message !== ".join" && chat.message !== ".leave" && cmd !== ".woot" && cmd !== ".tasty"  && cmd !== ".props"  && cmd !== ".rock"
+					                             && cmd !== ".groot" && cmd !== ".groove" && cmd !== ".jam") {
+                        //basicBot.roomUtilities.logDebug("commandCheck1: " + cmd);
+                        if (userPerm === 0 && !basicBot.room.usercommand) return void (0);
+                        //basicBot.roomUtilities.logDebug("commandCheck2: " + cmd);
+                        if (!basicBot.room.allcommand) return void (0);
+                        //basicBot.roomUtilities.logDebug("commandCheck3: " + cmd);
                     }
-                    for (var i = 0; i < cmdCall.length; i++) {
-                        if (basicBot.settings.commandLiteral + cmdCall[i] === cmd) {
-                            basicBot.commands[comm].functionality(chat, basicBot.settings.commandLiteral + cmdCall[i]);
-                            executed = true;
-                            break;
+                    if (chat.message === '.eta' && basicBot.settings.etaRestriction) {
+                        if (userPerm < 2) {
+                            var u = basicBot.userUtilities.lookupUser(chat.uid);
+                            if (u.lastEta !== null && (Date.now() - u.lastEta) < 1 * 60 * 60 * 1000) {
+                                API.moderateDeleteChat(chat.cid);
+                                //basicBot.roomUtilities.logDebug("commandCheck4: " + cmd);
+                                return void (0);
+                            }
+                            else u.lastEta = Date.now();
                         }
                     }
-                }
+                    //basicBot.roomUtilities.logDebug("commandCheck5: " + cmd);
+                    var executed = false;
 
-				//console.log("commandCheck6: executed: " + executed);
-                if (executed && userPerm === 0) {
-                    basicBot.room.usercommand = false;
-                    setTimeout(function () {
-                        basicBot.room.usercommand = true;
-                    }, basicBot.settings.commandCooldown * 1000);
+                    for (var comm in basicBot.commands) {
+                        var cmdCall = basicBot.commands[comm].command;
+                        if (!Array.isArray(cmdCall)) {
+                            cmdCall = [cmdCall]
+                        }
+                        for (var i = 0; i < cmdCall.length; i++) {
+                            if (basicBot.settings.commandLiteral + cmdCall[i] === cmd) {
+                                basicBot.commands[comm].functionality(chat, basicBot.settings.commandLiteral + cmdCall[i]);
+                                executed = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    //basicBot.roomUtilities.logDebug("commandCheck6: executed: " + executed);
+                    if (executed && userPerm === 0) {
+                        basicBot.room.usercommand = false;
+                        setTimeout(function () {
+                            basicBot.room.usercommand = true;
+                        }, basicBot.settings.commandCooldown * 1000);
+                    }
+                    //basicBot.roomUtilities.logDebug("commandCheck7: executed: " + executed);
+                    if (executed) {
+                        API.moderateDeleteChat(chat.cid);
+                        basicBot.room.allcommand = false;
+                        setTimeout(function () {
+                            basicBot.room.allcommand = true;
+                        }, 5 * 1000);
+                    }
+                    //basicBot.roomUtilities.logDebug("commandCheck8: executed: " + executed);
+                    return executed;
                 }
-				//console.log("commandCheck7: executed: " + executed);
-                if (executed) {
-                    API.moderateDeleteChat(chat.cid);
-                    basicBot.room.allcommand = false;
-                    setTimeout(function () {
-                        basicBot.room.allcommand = true;
-                    }, 5 * 1000);
-                }
-				//console.log("commandCheck8: executed: " + executed);
-                return executed;
+                catch(err) { basicBot.roomUtilities.logException("commandCheck: " + err.message); }
             },
             action: function (chat) {
                 if (chat.type === 'message' || chat.type === 'emote')  {
                     basicBot.userUtilities.setLastActivityID(chat.uid, true);
                 }
                 else {
-                  console.log("CHAT.TYPE: " + chat.type);
+                  basicBot.roomUtilities.logDebug("CHAT.TYPE: " + chat.type);
                 }
                 basicBot.room.roomstats.chatmessages++;
             },
@@ -2044,7 +2339,7 @@ Grab - Playlist Insert:
             Function.prototype.toString = function () {
                 return 'Function.'
             };
-            //console.log("TODO - STARTUP Starting");
+            //basicBot.roomUtilities.logDebug("TODO - STARTUP Starting");
             var u = API.getUser();
             if (basicBot.userUtilities.getPermission(u) < 2) return API.chatLog(basicBot.chat.greyuser);
             if (basicBot.userUtilities.getPermission(u) === 2) API.chatLog(basicBot.chat.bouncer);
@@ -2055,11 +2350,31 @@ Grab - Playlist Insert:
                     type: "DELETE"
                 })
             };
-            //console.log("TODO - STARTUP retrieveSettings");
+
+            // ==========================================================
+            // Detect room change and disable the bot:
+            // ==========================================================
+            var roomURL = window.location.pathname;
+            var Check;
+            var detect = function(){
+                if(roomURL != window.location.pathname){
+                    clearInterval(Check)
+                    basicBot.roomUtilities.logInfo("Killing bot after room change.");
+                    storeToStorage();
+                    basicBot.disconnectAPI();
+                    setTimeout(function () {
+                        kill();
+                    }, 1000);
+                }
+            };
+            Check = setInterval(function(){ detect() }, 100);
+            // ==========================================================
+            
+            //basicBot.roomUtilities.logDebug("TODO - STARTUP retrieveSettings");
             retrieveSettings();
-            //console.log("TODO - STARTUP retrieveFromStorage");
+            //basicBot.roomUtilities.logDebug("TODO - STARTUP retrieveFromStorage");
             retrieveFromStorage();
-            //console.log("TODO - STARTUP 1");
+            //basicBot.roomUtilities.logDebug("TODO - STARTUP 1");
             window.bot = basicBot;
             blacklistInterval = setInterval(function () {
                 basicBot.roomUtilities.updateBlacklists()
@@ -2067,16 +2382,20 @@ Grab - Playlist Insert:
             basicBot.roomUtilities.updateBlacklists();
             basicBot.getNewBlacklistedSongs = basicBot.roomUtilities.exportNewBlacklistedSongs;
             basicBot.logNewBlacklistedSongs = basicBot.roomUtilities.logNewBlacklistedSongs;
-            //console.log("TODO - STARTUP 2");
+			
+			if (roomURL === "/-752559695349757775") basicBot.room.debug = true;
+			basicBot.roomUtilities.logDebug("roomURL = " + roomURL);
+			console.log("roomURL = " + roomURL);
+            //basicBot.roomUtilities.logDebug("TODO - STARTUP 2");
             if (basicBot.room.roomstats.launchTime === null) {
                 basicBot.room.roomstats.launchTime = Date.now();
             }
 
-            //console.log("TODO - STARTUP 3");
+            //basicBot.roomUtilities.logDebug("TODO - STARTUP 3");
             for (var j = 0; j < basicBot.room.users.length; j++) {
                 basicBot.room.users[j].inRoom = false;
             }
-            //console.log("TODO - STARTUP 4");
+            //basicBot.roomUtilities.logDebug("TODO - STARTUP 4");
             var userlist = API.getUsers();
             for (var i = 0; i < userlist.length; i++) {
                 var known = false;
@@ -2095,17 +2414,18 @@ Grab - Playlist Insert:
                     ind = basicBot.room.users.length - 1;
                 }
                 var wlIndex = API.getWaitListPosition(basicBot.room.users[ind].id) + 1;
-                basicBot.userUtilities.updatePosition(basicBot.room.users[ind], wlIndex);
+                basicBot.room.users[ind].lastKnownPosition = wlIndex;
+                if (wlIndex > 0) basicBot.room.users[ind].lastSeenInLine = Date.now();
             }
-            //console.log("TODO - STARTUP 5");
+            //basicBot.roomUtilities.logDebug("TODO - STARTUP 5");
             basicBot.room.afkInterval = setInterval(function () {
                 basicBot.roomUtilities.afkCheck()
             }, 10 * 1000);
-            //console.log("TODO - STARTUP 6");
+            //basicBot.roomUtilities.logDebug("TODO - STARTUP 6");
             //basicBot.room.autodisableInterval = setInterval(function () {
             //    basicBot.room.autodisableFunc();
             //}, 60 * 60 * 1000);
-            //console.log("TODO - STARTUP 7");
+            //basicBot.roomUtilities.logDebug("TODO - STARTUP 7");
             //BotID: Current User:
             basicBot.loggedInID = API.getUser().id;
             basicBot.status = true;
@@ -2118,11 +2438,11 @@ Grab - Playlist Insert:
             }
             */
 
-            //console.log("TODO - STARTUP 9");
+            //basicBot.roomUtilities.logDebug("TODO - STARTUP 9");
             setTimeout(basicBot.roomUtilities.wootThisSong, 3000);
             loadChat(API.sendChat(subChat(basicBot.chat.online, {botname: basicBot.settings.botName, version: basicBot.version})));
-            //console.log(basicBot.settings.botName + basicBot.version);
-            //console.log("TODO - STARTUP 10");
+            //basicBot.roomUtilities.logDebug(basicBot.settings.botName + basicBot.version);
+            //basicBot.roomUtilities.logDebug("TODO - STARTUP 10");
             basicBot.roomUtilities.randomCommentSetTimer();
             basicBot.room.randomInterval = setInterval(function () { 
                 basicBot.roomUtilities.randomCommentCheck() 
@@ -2469,7 +2789,7 @@ Grab - Playlist Insert:
 //                      data: JSON.stringify( postData )
 //                    })
 //                }
-//                    catch(err) { console.log("blacklistCommand:ERROR: " + err.message); }
+//                    catch(err) { basicBot.roomUtilities.logException("blacklistCommand: " + err.message); }
 //                }
 //            },
             blacklistCommand: {
@@ -2503,7 +2823,7 @@ Grab - Playlist Insert:
                         }
                     }
                     }
-                    catch(err) { console.log("blacklistCommand:ERROR: " + err.message); }
+                    catch(err) { basicBot.roomUtilities.logException("blacklistCommand: " + err.message); }
                 }
             },
 
@@ -2994,7 +3314,7 @@ Grab - Playlist Insert:
                             else API.moderateBanUser(user.id, 1, API.BAN.DAY);
                             setTimeout(function (id, name) {
                                 API.moderateUnbanUser(id);
-                                //console.log('Unbanned @' + name + '. (' + id + ')');
+                                //basicBot.roomUtilities.logDebug('Unbanned @' + name + '. (' + id + ')');
                             }, time * 60 * 1000, user.id, name);
                         }
                         else API.sendChat(subChat(basicBot.chat.invalidtime, {name: chat.un}));
@@ -3594,7 +3914,7 @@ Grab - Playlist Insert:
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        console.log(subChat(basicBot.chat.skip, {name: chat.un}));
+                        basicBot.roomUtilities.logInfo(subChat(basicBot.chat.skip, {name: chat.un}));
                         API.moderateForceSkip();
                         basicBot.room.skippable = false;
                         setTimeout(function () {
@@ -3615,7 +3935,7 @@ Grab - Playlist Insert:
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         try {
-                            console.log(subChat(basicBot.chat.skip, {name: chat.un}));
+                            basicBot.roomUtilities.logInfo(subChat(basicBot.chat.skip, {name: chat.un}));
                             var dj = API.getDJ();
                             var msgSend = '@' + dj.username + ': this song has been blocked in the US. please find another version.';
                             API.moderateForceSkip();
@@ -3626,7 +3946,7 @@ Grab - Playlist Insert:
                             API.sendChat(msgSend);
                         }
                         catch (e) {
-                            console.log("blockedCommand:ERROR: " + err.message);
+                            basicBot.roomUtilities.logException("blockedCommand: " + err.message);
                         }
                     }
                 }
@@ -3642,7 +3962,7 @@ Grab - Playlist Insert:
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         try {
-                            console.log(subChat(basicBot.chat.skip, {name: chat.un}));
+                            basicBot.roomUtilities.logInfo(subChat(basicBot.chat.skip, {name: chat.un}));
                             var dj = API.getDJ();
                             var msgSend = '@' + dj.username + ': your song has been skipped. Please read the rules before you play your next song.';
                             API.moderateForceSkip();
@@ -3656,7 +3976,7 @@ Grab - Playlist Insert:
                             }, 1000);
                         }
                         catch (e) {
-                            console.log("oob:ERROR: " + err.message);
+                            basicBot.roomUtilities.logException("oob: " + err.message);
                         }
                     }
                 }
@@ -3908,7 +4228,7 @@ Grab - Playlist Insert:
                                 return API.sendChat(subChat(basicBot.chat.notbanned, {name: chat.un}));
                             }
                             API.moderateUnbanUser(bannedUser.id);
-                            //console.log("Unbanned " + name);
+                            //basicBot.roomUtilities.logDebug("Unbanned " + name);
                             setTimeout(function () {
                                 $(".icon-chat").click();
                             }, 1000);
@@ -4079,20 +4399,20 @@ Grab - Playlist Insert:
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
                 try{
-                    //console.log("echoCommand:1");
+                    //basicBot.roomUtilities.logDebug("echoCommand:1");
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                    //console.log("echoCommand:2");
+                    //basicBot.roomUtilities.logDebug("echoCommand:2");
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                    //console.log("echoCommand:3");
+                    //basicBot.roomUtilities.logDebug("echoCommand:3");
                     var msg = chat.message;
                     if (msg.length === cmd.length) return;
-                    //console.log("echoCommand:4");
+                    //basicBot.roomUtilities.logDebug("echoCommand:4");
                     var msgContent = msg.substring(cmd.length + 1);
-                    console.log(chat.un + " used echo: " + msgContent);
+                    basicBot.roomUtilities.logInfo(chat.un + " used echo: " + msgContent);
                     return API.sendChat(msgContent);
                     }
                 catch(err) {
-                    console.log("echoCommand:ERROR: " + err.message);
+                    basicBot.roomUtilities.logException("echoCommand: " + err.message);
                 }
                 }
             },
@@ -4107,7 +4427,7 @@ Grab - Playlist Insert:
                     return API.sendChat("@Bacon_Cheeseburger time for another PBR!");
                     }
                 catch(err) {
-                    console.log("beerCommand:ERROR: " + err.message);
+                    basicBot.roomUtilities.logException("beerCommand: " + err.message);
                 }
                 }
             },
@@ -4122,7 +4442,7 @@ Grab - Playlist Insert:
                     return API.sendChat(basicBot.roomUtilities.randomCommentSelect());
                     }
                 catch(err) {
-                    console.log("larryCommand:ERROR: " + err.message);
+                    basicBot.roomUtilities.logException("larryCommand: " + err.message);
                 }
                 }
             },
@@ -4140,18 +4460,18 @@ Grab - Playlist Insert:
                 }
             },
 
-            wootCommand: {   //Added 02/18/2015 Zig
-                command: 'woot',
-                rank: 'user',
-                type: 'exact',
-                functionality: function (chat, cmd) {
-                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                    else {
-                        basicBot.roomUtilities.wootThisSong();
-                    }
-                }
-            },
+            //wootCommand: {   //Added 02/18/2015 Zig
+            //    command: 'woot',
+            //    rank: 'user',
+            //    type: 'exact',
+            //    functionality: function (chat, cmd) {
+            //        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+            //        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+            //        else {
+            //            basicBot.roomUtilities.wootThisSong();
+            //        }
+            //    }
+            //},
             origemCommand: {
                 command: 'origem',
                 rank: 'user',
@@ -4173,7 +4493,7 @@ Grab - Playlist Insert:
                     $("#meh").click();
                   }  
                 catch(err) {
-                  console.log("mehCommand:ERROR: " + err.message);
+                  basicBot.roomUtilities.logException("mehCommand: " + err.message);
                 }
               }
             },
@@ -4218,7 +4538,7 @@ Grab - Playlist Insert:
                     $("#grab").click();
                   }  
                 catch(err) {
-                  console.log("grabCommand:ERROR: " + err.message);
+                  basicBot.roomUtilities.logException("grabCommand: " + err.message);
                 }
               }
             },
@@ -4233,7 +4553,7 @@ Grab - Playlist Insert:
                     if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
                     var bootid = msg.substr(cmd.length + 1);
                     if (isNaN(bootid)) return API.sendChat("Invalid ID");
-                    console.log("Boot ID: " + bootid);
+                    basicBot.roomUtilities.logInfo("Boot ID: " + bootid);
                     API.moderateBanUser(bootid, 1, API.BAN.PERMA);
                 }
             },
@@ -4249,18 +4569,18 @@ Grab - Playlist Insert:
                         var msg = chat.message;
                         if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
                         var whoisuser = msg.substr(cmd.length + 2);
-                        console.log("whois: " + whoisuser);
+                        basicBot.roomUtilities.logDebug("whois: " + whoisuser);
                         var user;
                         if (isNaN(whoisuser)) user = basicBot.userUtilities.lookupUserName(whoisuser);
                         else                  user = API.getUser(whoisuser);
                         if (typeof user !== 'undefined')  {
-                            console.log("USER ID: " + user.id);
+                            basicBot.roomUtilities.logDebug("USER ID: " + user.id);
                             API.sendChat("USER: " + user.username + " " + user.id);
                         }
-                        console.log("TYPE: " + typeof user);
+                        basicBot.roomUtilities.logDebug("TYPE: " + typeof user);
                     }
                     catch(err) {
-                        console.log("whoisCommand:ERROR: " + err.message);
+                        basicBot.roomUtilities.logException("whoisCommand: " + err.message);
                     }
                 }
             },
@@ -4293,8 +4613,8 @@ Grab - Playlist Insert:
                                 return API.sendChat(subChat(basicBot.chat.notbanned, {name: chat.un}));
                             }
                             //API.moderateUnbanUser(bannedUser.id);
-                            console.log("Unbanned: " + name);
-                            console.log("Unban ID: " + bannedUser.id);
+                            basicBot.roomUtilities.logDebug("Unbanned: " + name);
+                            basicBot.roomUtilities.logDebug("Unban ID: " + bannedUser.id);
                             setTimeout(function () {
                                 $(".icon-chat").click();
                             }, 1000);
@@ -4311,22 +4631,24 @@ Grab - Playlist Insert:
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                         if (API.getDJ().id !== chat.uid) return API.sendChat(subChat(basicBot.chat.notcurrentdj, {name: chat.un}));
-						if (basicBot.userUtilities.getRolled(chat.un))  return API.sendChat(subChat(basicBot.chat.doubleroll, {name: chat.un}));
+                        if (basicBot.userUtilities.getRolled(chat.un))  return API.sendChat(subChat(basicBot.chat.doubleroll, {name: chat.un}));
                         var msg = chat.message;
                         var dicesides = 6;
                         if (msg.length > cmd.length){
                             var dice = msg.substr(cmd.length + 1);
                             if (!isNaN(dice)) dicesides = dice;
-						    if (dicesides < 4) dicesides = 4;
+                            if (dicesides < 4) dicesides = 4;
                         }
-	                    var rollResults = Math.floor(Math.random() * dicesides) + 1;
-						basicBot.userUtilities.setRolled(chat.un, true);
-						if (rollResults > (dicesides * 0.8))
-							setTimeout(function () { basicBot.userUtilities.tastyVote(API.getUser().id); }, 1000);
-						API.sendChat(subChat(basicBot.chat.rollresults, {name: chat.un, roll: rollResults}));
+                        var rollResults = Math.floor(Math.random() * dicesides) + 1;
+                        basicBot.userUtilities.setRolled(chat.un, true);
+                        if (rollResults >= (dicesides * 0.8))
+                            setTimeout(function () { basicBot.userUtilities.tastyVote(API.getUser().id); }, 1000);
+                        else if (rollResults <= (dicesides * 0.2))
+                            setTimeout(function () { basicBot.roomUtilities.mehThisSong(); }, 1000);
+                        API.sendChat(subChat(basicBot.chat.rollresults, {name: chat.un, roll: rollResults}));
                     }
                     catch(err) {
-                        console.log("rollCommand:ERROR: " + err.message);
+                        basicBot.roomUtilities.logException("rollCommand: " + err.message);
                     }
                 }
             },
@@ -4352,31 +4674,32 @@ Grab - Playlist Insert:
                         var currPos = API.getWaitListPosition(user.id) + 1;
                         if (currPos < 1) return API.sendChat(subChat(basicBot.chat.notinwaitlist, {name: name}));
                         user.lastKnownPosition = currPos;
+                        user.lastSeenInLine = Date.now();
                         basicBot.userUtilities.updateDC(user);
-						var msg;
+                        var msg;
                         if (cmd == '.beerrun') {
-						    basicBot.userUtilities.setBeerRunStatus(user, true);
-							msg = subChat(basicBot.chat.beerrunleave, {name: basicBot.userUtilities.getUser(user).username, pos: currPos});
-						}
+                            basicBot.userUtilities.setBeerRunStatus(user, true);
+                            msg = subChat(basicBot.chat.beerrunleave, {name: basicBot.userUtilities.getUser(user).username, pos: currPos});
+                        }
                         if (cmd == '.lunch') {
-						    basicBot.userUtilities.setLunchStatus(user, true);
-							msg = subChat(basicBot.chat.lunchleave, {name: basicBot.userUtilities.getUser(user).username, pos: currPos});
-						}
+                            basicBot.userUtilities.setLunchStatus(user, true);
+                            msg = subChat(basicBot.chat.lunchleave, {name: basicBot.userUtilities.getUser(user).username, pos: currPos});
+                        }
                         if (cmd == '.meeting') {
-						    basicBot.userUtilities.setMeetingStatus(user, true);
-							msg = subChat(basicBot.chat.meetingleave, {name: basicBot.userUtilities.getUser(user).username, pos: currPos});
+                            basicBot.userUtilities.setMeetingStatus(user, true);
+                            msg = subChat(basicBot.chat.meetingleave, {name: basicBot.userUtilities.getUser(user).username, pos: currPos});
 
-						}
-						setTimeout(function () { API.moderateRemoveDJ(user.id); }, 1000);
-						API.sendChat(msg);
+                        }
+                        setTimeout(function () { API.moderateRemoveDJ(user.id); }, 1000);
+                        API.sendChat(msg);
                     }
                     catch(err) {
-                        console.log("meetingCommand:ERROR: " + err.message);
+                        basicBot.roomUtilities.logException("meetingCommand: " + err.message);
                     }
                 }
             },
             tastyCommand: {
-                command: ['tasty', 'rock', 'props'],
+                command: ['tasty', 'rock', 'props', 'woot', 'groot', 'groove', 'jam'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
@@ -4384,7 +4707,29 @@ Grab - Playlist Insert:
                         basicBot.userUtilities.tastyVote(chat.uid);
                     }
                     catch(err) {
-                        console.log("tastyCommand:ERROR: " + err.message);
+                        basicBot.roomUtilities.logException("tastyCommand: " + err.message);
+                    }
+                }
+            },
+            eightballCommand: {   //Added 04/01/2015 Zig
+                command: ['8ball', 'eightball'],
+                rank: 'user',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        var msg = chat.message;
+                        var magicResponse = basicBot.roomUtilities.eightBallSelect();
+                        if (msg.length === cmd.length)  return API.sendChat(subChat(basicBot.chat.eightballresponse2, {name: chat.un, response: magicResponse }));
+                        var myQuestion = msg.substring(cmd.length + 1);
+                        API.sendChat(subChat(basicBot.chat.eightballquestion, {name: chat.un, question: myQuestion}));
+                        setTimeout(function () {
+                            API.sendChat(subChat(basicBot.chat.eightballresponse1, {response: magicResponse}));
+                        }, 500);
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("tastyCommand: " + err.message);
                     }
                 }
             },
@@ -4402,7 +4747,7 @@ Grab - Playlist Insert:
                     $(".icon-population").click();
                     $(".icon-ban").click();
                     setTimeout(function (bootid) {
-                        console.log("Boot ID: " + bootid);
+                        basicBot.roomUtilities.logDebug("Boot ID: " + bootid);
                         //API.moderateBanUser(bootid, 1, API.BAN.PERMA);
                         setTimeout(function () {
                             $(".icon-chat").click();
@@ -4429,10 +4774,24 @@ Grab - Playlist Insert:
                         
                     }
                     catch(err) {
-                        console.log("zigCommand:ERROR: " + err.message);
+                        basicBot.roomUtilities.logException("zigCommand: " + err.message);
                     }
                 }
             },
+			debugCommand: {
+                command: 'debug',
+                rank: 'cohost',
+                type: 'exact',
+                functionality: function (chat, cmd)                 {
+                    try {
+		    			basicBot.room.debug = (!basicBot.room.debug);
+						basicBot.roomUtilities.logInfo("Debug = " + basicBot.room.debug);
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("debugCommand: " + err.message);
+                    }
+                }
+			},
             youtubeCommand: {
                 command: 'youtube',
                 rank: 'user',
@@ -4448,6 +4807,5 @@ Grab - Playlist Insert:
             }
         }
     };
-
     loadChat(basicBot.startup);
 }).call(this);
