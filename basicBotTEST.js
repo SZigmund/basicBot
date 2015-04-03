@@ -1,9 +1,9 @@
-/** version: 2.1.4.00030.06
+/** version: 2.1.4.00030.07
 
 currdj.votes.tasty += 1;
 .lastplayed
 .mystats
-				
+                
 3 strikes and you're out (for 10 mins)
 
 .unban Dexter Nix
@@ -98,16 +98,21 @@ Grab - Playlist Insert:
     };
 
     var subChat = function (chat, obj) {
-        if (typeof chat === "undefined") {
-            API.chatLog("There is a chat text missing.");
-            basicBot.roomUtilities.logDebug("There is a chat text missing.");
-            return "[Error] No text message found.";
+        try {
+            if (typeof chat === "undefined") {
+                API.chatLog("There is a chat text missing.");
+                basicBot.roomUtilities.logDebug("There is a chat text missing.");
+                return "[Error] No text message found.";
+            }
+            var lit = '%%';
+            for (var prop in obj) {
+                chat = chat.replace(lit + prop.toUpperCase() + lit, obj[prop]);
+            }
+            return chat;
         }
-        var lit = '%%';
-        for (var prop in obj) {
-            chat = chat.replace(lit + prop.toUpperCase() + lit, obj[prop]);
+        catch(err) {
+           basicBot.roomUtilities.logException("subChat: " + err.message);
         }
-        return chat;
     };
 
     var loadChat = function (cb) {
@@ -245,7 +250,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.06",
+        version: "2.1.4.00030.07",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1002,7 +1007,7 @@ Grab - Playlist Insert:
                 API.sendChat(subChat(basicBot.chat.tastyvote, {name: user.username}));
                 basicBot.room.roomstats.tastyCount += 1;
                 var currdj = basicBot.userUtilities.lookupUser(dj.id);
-				currdj.votes.tasty += 1;
+                currdj.votes.tasty += 1;
                 }
                 catch(err) {
                   basicBot.roomUtilities.logException("userUtilities.tastyVote: " + err.message);
@@ -1441,7 +1446,7 @@ Grab - Playlist Insert:
                   basicBot.roomUtilities.logException("randomCommentSelect: " + err.message);
                 }
             },
-            getSongInfo: function(cid, media) {
+            getSongInfo: function(media) {
                 try  {
                     for (var i = 0; i < basicBot.room.historyList.length; i++) {
                         if (basicBot.room.historyList[i][0] === media.cid) {
@@ -2015,7 +2020,7 @@ Grab - Playlist Insert:
                 //basicBot.roomUtilities.logDebug("eventDjadvance:2");
                 var roomUser = basicBot.userUtilities.lookupUser(dj.id);
                 basicBot.userUtilities.resetDC(roomUser);
-			    roomUser.votes.songs += 1;
+                roomUser.votes.songs += 1;
             }
             //basicBot.roomUtilities.logDebug("eventDjadvance:3");
             if (typeof lastplay !== 'undefined')
@@ -4440,34 +4445,34 @@ Grab - Playlist Insert:
                 }
             },
 
-			mystatsCommand: {
+            mystatsCommand: {
                 command: 'mystats',
                 rank: 'user',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
-				    try {
-						if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-						if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-						var msg = chat.message;
-						var name = "";
-						if (msg.length === cmd.length) name = chat.un
-						else name = msg.substring(cmd.length + 2);
-						var user = basicBot.userUtilities.lookupUserName(name);
-						if (user === false) return API.sendChat(subChat(basicBot.chat.invaliduserspecified, {name: chat.un}));
-						var msg = subChat(basicBot.chat.mystats, {name: user.username, 
-																	 songs: user.votes.songs,
-																	 woot: user.votes.woot, 
-																	 mehs: user.votes.meh, 
-																	 grabs: user.votes.curate, 
-																	 tasty: user.votes.tasty});
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        var msg = chat.message;
+                        var name = "";
+                        if (msg.length === cmd.length) name = chat.un
+                        else name = msg.substring(cmd.length + 2);
+                        var user = basicBot.userUtilities.lookupUserName(name);
+                        if (user === false) return API.sendChat(subChat(basicBot.chat.invaliduserspecified, {name: chat.un}));
+                        var msg = subChat(basicBot.chat.mystats, {name: user.username, 
+                                                                     songs: user.votes.songs,
+                                                                     woot: user.votes.woot, 
+                                                                     mehs: user.votes.meh, 
+                                                                     grabs: user.votes.curate, 
+                                                                     tasty: user.votes.tasty});
                         var byusername = " [ executed by " + chat.un + " ]";
-						if (chat.un !== name) msg += byusername;
-						API.sendChat(msg);
-					}
-					catch(err) {
-						basicBot.roomUtilities.logException("mystatsCommand: " + err.message);
-					}
-			    }
+                        if (chat.un !== name) msg += byusername;
+                        API.sendChat(msg);
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("mystatsCommand: " + err.message);
+                    }
+                }
             },
             voteratioCommand: {
                 command: 'voteratio',
