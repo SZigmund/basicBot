@@ -156,6 +156,7 @@
     "website": "/me Please visit our website: %%LINK%%",
     "youtube": "/me [%%NAME%%] Subscribe to us on youtube: %%LINK%%",
     "songstatistics": "[:thumbsup: %%WOOTS%% :star: %%GRABS%% :thumbsdown: %%MEHS%%] %%USER%% [%%ARTIST%% - %%TITLE%%]",
+    "mystats":  "%%NAME%% [:musical_note: %%SONGS%% :thumbsup: %%WOOT%% :star: %%GRABS%% :thumbsdown: %%MEHS%% :cake: %%TASTY%%]",
     "tastyvote": "[%%NAME%%  gave you a fake point for this tasty tune :cake:]",
     "songstatisticstasty": "[:thumbsup: %%WOOTS%% :star: %%GRABS%% :thumbsdown: %%MEHS%% :cake: %%TASTY%%] %%USER%% [%%ARTIST%% - %%TITLE%%]",
     "eightballquestion": "%%NAME%% Question: [%%QUESTION%%]",
