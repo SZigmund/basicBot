@@ -1,5 +1,9 @@
-/** version: 2.1.4.00028.35
+/** version: 2.1.4.00030.01
 
+currdj.votes.tasty += 1;
+.lastplayed
+.mystats
+				
 3 strikes and you're out (for 10 mins)
 
 .unban Dexter Nix
@@ -241,7 +245,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00028.35",
+        version: "2.1.4.00030.01",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -253,6 +257,12 @@ Grab - Playlist Insert:
         loadChat: loadChat,
         retrieveSettings: retrieveSettings,
         retrieveFromStorage: retrieveFromStorage,
+        songinfo: {
+            songName = "",
+            firstPlayed = null,
+            playCount = 0,
+            lastPlayed = null
+        },
         settings: {
             autoWootBot: true,
             autoHopUp: true,
@@ -304,6 +314,39 @@ Grab - Playlist Insert:
                 ["sound", "The song you played had bad sound quality or no sound. "],
                 ["nsfw", "The song you contained was NSFW (image or sound). "],
                 ["unavailable", "The song you played was not available for some users. "]
+            ],
+            tastyCommentArray: [
+            ":cake: *** Tasty point for you, you go Glen Coco!  From %%POINTFROM%% *** :cake:",
+            ":cake: *** I don't feel I have to explain my fake points to you Warren. From %%POINTFROM%% *** :cake:",
+            ":cake: *** %%POINTFROM%% thinks this song is pretty fetch. Stop trying to make fetch happen. *** :cake:",
+            ":cake: *** That tasty point from %%POINTFROM%% really brings the room together. *** :cake:",
+            ":cake: *** The jury may be out on this song but %%POINTFROM%% thinks it’s pretty tasty *** :cake:",
+            ":cake: *** %%POINTFROM%% salutes those who rock. *** :cake:",
+            ":cake: *** This tune is more soothing than Morgan Freeman's voice. From %%POINTFROM%% *** :cake:",
+            ":cake: *** The Tasty Tasty cake is a lie. From %%POINTFROM%% *** :cake:",
+            ":cake: *** You deserve a promotion. But since %%POINTFROM%% can't do that here, have a tasty point. *** :cake:",
+            ":cake: *** %%POINTFROM%% loves this tune more than bacon! *** :cake:",
+            ":cake: *** %%POINTFROM%% thinks you listen to the coolest songs. *** :cake:",
+            ":cake: *** %%POINTFROM%% loves this song more than a drunk college student loves tacos. *** :cake:",
+            ":cake: *** Being awesome is hard, but you make it work. From %%POINTFROM%% *** :cake:",
+            ":cake: *** %%POINTFROM%% likes your style.  *** :cake:",
+            ":cake: *** You have a good taste in tunes. From %%POINTFROM%% *** :cake:",
+            ":cake: *** %%POINTFROM%% appreciates this tune more than Santa appreciates chimney grease. *** :cake:",
+            ":cake: *** This tune is sweeter than than a bucket of bon-bons! From %%POINTFROM%% *** :cake:",
+            ":cake: *** %%POINTFROM%% enjoys your decision on playing this tune *** :cake:",
+            ":cake: *** %%POINTFROM%% finds this song is as fun as a hot tub full of chocolate pudding. *** :cake:",
+            ":cake: *** %%POINTFROM%% likes the cut of your jib. *** :cake:",
+            ":cake: *** %%POINTFROM%% thinks this song is smoother than a fresh jar of skippy. *** :cake:",
+            ":cake: *** %%POINTFROM%% can’t come up with something funny to say so here’s a worthless tasty point. *** :cake:",
+            ":cake: *** It may be 106 miles to Chicago but here’s a tasty point from %%POINTFROM%% *** :cake:",
+            ":cake: *** Illinois Tasty Points? %%POINTFROM%% hates Illinois Tasty Points! *** :cake:",
+            ":cake: *** %%POINTFROM%% says 'Hey Girl, have a Tasty Point' *** :cake:",
+            ":cake: *** %%POINTFROM%% thinks you’re a tasty, tasty rockstar *** :cake:",
+            ":cake: *** %%POINTFROM%% thinks this song is the bee’s knees *** :cake:",
+            ":cake: *** Now you’re on the trolley! From %%POINTFROM%% *** :cake:",
+            ":cake: *** :cake: Thanks to Al Gore %%POINTFROM%% can give you this: *** :cake:",
+            ":cake: *** Goose, take me to bed or lose me forever. From %%POINTFROM%% *** :cake:",
+            ":cake: *** If we weren’t on the internet %%POINTFROM%% would get you tin roof rusted. *** :cake:"
             ],
             EightBallArray: [
             "As I See It Yes", 
@@ -487,8 +530,8 @@ Grab - Playlist Insert:
             "And there goes the last F*ck I gave!",
             "My girlfriend woke up this morning with a huge smile on her face.....I love Sharpies!",
             "You don't have to like me...I'm not a Facebook status",
-			"I would love to visit you, but I live on the Internet.",
-			"If you were running for President, I would vote for you. And clear your search history.  Don't worry I got you.",
+            "I would love to visit you, but I live on the Internet.",
+            "If you were running for President, I would vote for you. And clear your search history.  Don't worry I got you.",
             "Lord, please give me patience because if you give me strength, I'll need bail money too...",
             "DRAMA = Dumbass Rejects Asking for More Attention",
             "It's been 55 minutes since the last pearl jam song, what is wrong with you people?",
@@ -826,7 +869,7 @@ Grab - Playlist Insert:
         },
         room: {
             users: [],
-			debug: false,
+            debug: false,
             afkList: [],
             mutedUsers: [],
             bannedUsers: [],
@@ -907,6 +950,8 @@ Grab - Playlist Insert:
             this.jointime = Date.now();
             this.lastActivity = Date.now();
             this.votes = {
+                songs: 0,
+                tasty: 0,
                 woot: 0,
                 meh: 0,
                 curate: 0
@@ -923,12 +968,6 @@ Grab - Playlist Insert:
             this.afkCountdown = null;
             this.inRoom = true;
             this.isMuted = false;
-            this.myStats = {
-                songcount: 0,
-                woots: 0,
-                mehs: 0,
-                tasty: 0
-            };
             this.lastDC = {
                 time: null,
                 position: -1,
@@ -938,6 +977,9 @@ Grab - Playlist Insert:
             this.lastSeenInLine = null;
         },
         userUtilities: {
+            getSongStats: function () {
+                room.songstat.found
+            },
             getJointime: function (user) {
                 return user.jointime;
             },
@@ -955,9 +997,12 @@ Grab - Playlist Insert:
                    API.sendChat("I'm glad you find your own play tasty @" + user.username);
                    return;
                 }
+                var tastyComment = basicBot.roomUtilities.tastyComment();
                 user.tastyVote = true;
                 API.sendChat(subChat(basicBot.chat.tastyvote, {name: user.username}));
                 basicBot.room.roomstats.tastyCount += 1;
+                var currdj = basicBot.userUtilities.lookupUser(dj.id);
+				currdj.votes.tasty += 1;
                 }
                 catch(err) {
                   basicBot.roomUtilities.logException("userUtilities.tastyVote: " + err.message);
@@ -1241,10 +1286,10 @@ Grab - Playlist Insert:
                     for(var pos = 0; pos < wl.length; pos++){
                         roomUser = basicBot.userUtilities.lookupUser(wl[pos].id);
                         //basicBot.roomUtilities.logDebug("User: " + roomUser.username + " Pos: " + (pos + 1) + " Time: " + roomUser.lastSeenInLine);
-						// NEW METH: //
+                        // NEW METH: //
                         roomUser.lastKnownPosition = pos + 1;
                         roomUser.lastSeenInLine = Date.now();
-						// NEW METH: //
+                        // NEW METH: //
                     }
                     basicBot.roomUtilities.logDebug("============================updateWaitlist============================");
                 }
@@ -1396,6 +1441,37 @@ Grab - Playlist Insert:
                   basicBot.roomUtilities.logException("randomCommentSelect: " + err.message);
                 }
             },
+            getSongInfo: function(cid, media) {
+                try  {
+                    for (var i = 0; i < basicBot.room.historyList.length; i++) {
+                        if (basicBot.room.historyList[i][0] === media.cid) {
+                            basicBot.songinfo.songName = media.title;
+                            basicBot.songinfo.firstPlayed = basicBot.room.historyList[i][1];
+                            basicBot.songinfo.playCount = basicBot.room.historyList[i].length - 1;
+                            basicBot.songinfo.lastPlayed = basicBot.room.historyList[i][basicBot.playCount];
+                            /*  todoer Add these counts to songs:
+                            wootCount: 0,
+                            grabCount: 0,
+                            mehCount: 0,
+                            tastyCount: 0,
+                            */
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+                catch(err) { basicBot.roomUtilities.logException("getSongInfo: " + err.message); }
+            },
+            tastyComment: function()  {  //Added 04/03/2015 Zig
+                try  {
+                    var arrayCount = basicBot.settings.tastyCommentArray.length;
+                    var arrayID = Math.floor(Math.random() * arrayCount);
+                    return basicBot.settings.tastyCommentArray[arrayID];
+                }
+                catch(err) {
+                  basicBot.roomUtilities.logException("tastyComment: " + err.message);
+                }
+            },
             eightBallSelect: function()  {  //Added 04/01/2015 Zig
                 try  {
                     var arrayCount = basicBot.settings.EightBallArray.length;
@@ -1482,25 +1558,25 @@ Grab - Playlist Insert:
                 if (hourofday >= basicBot.settings.afkRemoveStart && hourofday < basicBot.settings.afkRemoveEnd) return true;
                 return false;
             },
-		    logInfo: function(msg) {
-			    try {
-				   console.log("INFO: " + msg);
-				}
-				catch(err) { basicBot.roomUtilities.logException("logInfo: " + err.message); }
-			},
-		    logDebug: function(msg) {
-			    try {
-				   if (basicBot.room.debug === false) return;
-				   console.log("DEBUG: " + msg);
-				}
-				catch(err) { basicBot.roomUtilities.logException("logDebug: " + err.message); }
-			},
-			logException: function(msg) {
-			    try {
-				   console.log("ERROR: " + msg);
-				}
-				catch(err) { console.log("ERROR:logException: " + err.message); }
-			},
+            logInfo: function(msg) {
+                try {
+                   console.log("INFO: " + msg);
+                }
+                catch(err) { basicBot.roomUtilities.logException("logInfo: " + err.message); }
+            },
+            logDebug: function(msg) {
+                try {
+                   if (basicBot.room.debug === false) return;
+                   console.log("DEBUG: " + msg);
+                }
+                catch(err) { basicBot.roomUtilities.logException("logDebug: " + err.message); }
+            },
+            logException: function(msg) {
+                try {
+                   console.log("ERROR: " + msg);
+                }
+                catch(err) { console.log("ERROR:logException: " + err.message); }
+            },
             skipSoundCloudNow: function () {
                 if (!basicBot.settings.skipSound5Days && !basicBot.settings.skipSound7Days) return false;
                 var currDate = new Date();
@@ -1575,7 +1651,7 @@ Grab - Playlist Insert:
                         }, basicBot.settings.maximumLocktime * 60 * 1000);
                     }
                 },
-                resetOldDisconnects: function () {   //todoer
+                resetOldDisconnects: function () {
                     try {
                         basicBot.roomUtilities.logDebug("======================resetOldDisconnects======================");
                         for (var i = 0; i < basicBot.room.users.length; i++) {
@@ -1842,7 +1918,7 @@ Grab - Playlist Insert:
                     }, 1 * 1000, user);
             }
         },
-        eventUserleave: function (user) {   //todoer
+        eventUserleave: function (user) {
             try {
                 basicBot.roomUtilities.logDebug("eventUserleave happens..... tododer");
                 var roomUser = basicBot.userUtilities.lookupUser(user.id);
@@ -1939,6 +2015,7 @@ Grab - Playlist Insert:
                 //basicBot.roomUtilities.logDebug("eventDjadvance:2");
                 var roomUser = basicBot.userUtilities.lookupUser(dj.id);
                 basicBot.userUtilities.resetDC(roomUser);
+			    roomUser.votes.songs += 1;
             }
             //basicBot.roomUtilities.logDebug("eventDjadvance:3");
             if (typeof lastplay !== 'undefined')
@@ -1985,6 +2062,22 @@ Grab - Playlist Insert:
         
             //basicBot.roomUtilities.logDebug("eventDjadvance:6");
             var alreadyPlayed = false;
+            if (basicBot.roomUtilities.getSongInfo(obj.media)) {
+                var lastPlayedMs = (Date.now() - basicBot.songinfo.lastPlayed);
+                var repeatLimit = (basicBot.settings.repeatSongTime * 60 * 1000);
+                if (basicBot.settings.repeatSongs && (lastPlayedMs < repeatLimit) && (lastPlayedMs > 5000))
+                {
+                    API.sendChat(subChat(basicBot.chat.songknown2, {name: obj.dj.username, lasttime: basicBot.roomUtilities.msToStr(lastPlayedMs)}));
+                    basicBot.userUtilities.skipBadSong(obj.dj.id);
+                    SongSkipped = true;
+                }
+                else
+                {
+                    basicBot.room.historyList[basicBot.room.historyList.length].push(+new Date());
+                }
+                alreadyPlayed = true;
+            }
+            /* TODOER DELETE after testing:
             for (var i = 0; i < basicBot.room.historyList.length; i++) {
                 if (basicBot.room.historyList[i][0] === obj.media.cid) {
                     var firstPlayed = basicBot.room.historyList[i][1];
@@ -2006,9 +2099,12 @@ Grab - Playlist Insert:
                     alreadyPlayed = true;
                 }
             }
+            */
+
             //basicBot.roomUtilities.logDebug("eventDjadvance:7");
             if (!alreadyPlayed) {
                 basicBot.room.historyList.push([obj.media.cid, +new Date()]);
+                //todoer add a 1st time played message? Maybe??
             }
             //basicBot.roomUtilities.logDebug("eventDjadvance:8");
             var newMedia = obj.media;
@@ -2049,51 +2145,51 @@ Grab - Playlist Insert:
           "Updating last know dj position" basicBotTEST.js:1822:3
           "eventUserleave happens..... tododer"*/
         eventWaitlistupdate: function (users) {
-		    try {
-				basicBot.roomUtilities.logDebug("eventWaitlistupdate happens..... tododer");
-				basicBot.roomUtilities.booth.checkForDisconnect();
-				basicBot.roomUtilities.booth.checkForReconnect();
-				if (users.length < 50) {
-					if (basicBot.room.queue.id.length > 0 && basicBot.room.queueable) {
-						basicBot.room.queueable = false;
-						setTimeout(function () {
-							basicBot.room.queueable = true;
-						}, 500);
-						basicBot.room.queueing++;
-						var id, pos;
-						setTimeout(
-							function () {
-								id = basicBot.room.queue.id.splice(0, 1)[0];
-								pos = basicBot.room.queue.position.splice(0, 1)[0];
-								API.moderateAddDJ(id, pos);
-								setTimeout(
-									function (id, pos) {
-										API.moderateMoveDJ(id, pos);
-										basicBot.room.queueing--;
-										if (basicBot.room.queue.id.length === 0) setTimeout(function () {
-											basicBot.roomUtilities.booth.unlockBooth();
-										}, 1000);
-									}, 1000, id, pos);
-							}, 1000 + basicBot.room.queueing * 2500);
-					}
-				}
-				// This hits the API too much. Once for each dj in the waitlist:
-				// CALL:  todoer 
-				// OLD METH: //
-				//basicBot.roomUtilities.logDebug("=====================Updating last know dj position======================");
-				//for (var i = 0; i < users.length; i++) {
-				//    var user = basicBot.userUtilities.lookupUser(users[i].id);
-				//    wlPos = API.getWaitListPosition(users[i].id) + 1;
-				//    if (wlPos > 0) {
-				//        user.lastSeenInLine = Date.now();
-				//        user.lastKnownPosition = wlPos;
-				//    }
-				//    basicBot.roomUtilities.logDebug("User: " + user.username + " Pos: " + user.lastKnownPosition + " Time: " + user.lastSeenInLine);
-				//}
-				basicBot.roomUtilities.updateWaitlist();
-				basicBot.roomUtilities.booth.resetOldDisconnects();
-			}
-			catch(err) { basicBot.roomUtilities.logException("eventWaitlistupdate: " + err.message); }
+            try {
+                basicBot.roomUtilities.logDebug("eventWaitlistupdate happens..... tododer");
+                basicBot.roomUtilities.booth.checkForDisconnect();
+                basicBot.roomUtilities.booth.checkForReconnect();
+                if (users.length < 50) {
+                    if (basicBot.room.queue.id.length > 0 && basicBot.room.queueable) {
+                        basicBot.room.queueable = false;
+                        setTimeout(function () {
+                            basicBot.room.queueable = true;
+                        }, 500);
+                        basicBot.room.queueing++;
+                        var id, pos;
+                        setTimeout(
+                            function () {
+                                id = basicBot.room.queue.id.splice(0, 1)[0];
+                                pos = basicBot.room.queue.position.splice(0, 1)[0];
+                                API.moderateAddDJ(id, pos);
+                                setTimeout(
+                                    function (id, pos) {
+                                        API.moderateMoveDJ(id, pos);
+                                        basicBot.room.queueing--;
+                                        if (basicBot.room.queue.id.length === 0) setTimeout(function () {
+                                            basicBot.roomUtilities.booth.unlockBooth();
+                                        }, 1000);
+                                    }, 1000, id, pos);
+                            }, 1000 + basicBot.room.queueing * 2500);
+                    }
+                }
+                // This hits the API too much. Once for each dj in the waitlist:
+                // CALL:  todoer 
+                // OLD METH: //
+                //basicBot.roomUtilities.logDebug("=====================Updating last know dj position======================");
+                //for (var i = 0; i < users.length; i++) {
+                //    var user = basicBot.userUtilities.lookupUser(users[i].id);
+                //    wlPos = API.getWaitListPosition(users[i].id) + 1;
+                //    if (wlPos > 0) {
+                //        user.lastSeenInLine = Date.now();
+                //        user.lastKnownPosition = wlPos;
+                //    }
+                //    basicBot.roomUtilities.logDebug("User: " + user.username + " Pos: " + user.lastKnownPosition + " Time: " + user.lastSeenInLine);
+                //}
+                basicBot.roomUtilities.updateWaitlist();
+                basicBot.roomUtilities.booth.resetOldDisconnects();
+            }
+            catch(err) { basicBot.roomUtilities.logException("eventWaitlistupdate: " + err.message); }
         },
         chatcleaner: function (chat) {
             if (!basicBot.settings.filterChat) return false;
@@ -2211,7 +2307,7 @@ Grab - Playlist Insert:
                     var userPerm = basicBot.userUtilities.getPermission(chat.uid);
                     //basicBot.roomUtilities.logDebug("commandCheck chat.userPerm: " + userPerm);
                     if (chat.message !== ".join" && chat.message !== ".leave" && cmd !== ".woot" && cmd !== ".tasty"  && cmd !== ".props"  && cmd !== ".rock"
-					                             && cmd !== ".groot" && cmd !== ".groove" && cmd !== ".jam") {
+                                                 && cmd !== ".groot" && cmd !== ".groovy" && cmd !== ".jam" && cmd !== ".nice") {
                         //basicBot.roomUtilities.logDebug("commandCheck1: " + cmd);
                         if (userPerm === 0 && !basicBot.room.usercommand) return void (0);
                         //basicBot.roomUtilities.logDebug("commandCheck2: " + cmd);
@@ -2382,10 +2478,10 @@ Grab - Playlist Insert:
             basicBot.roomUtilities.updateBlacklists();
             basicBot.getNewBlacklistedSongs = basicBot.roomUtilities.exportNewBlacklistedSongs;
             basicBot.logNewBlacklistedSongs = basicBot.roomUtilities.logNewBlacklistedSongs;
-			
-			if (roomURL === "/-752559695349757775") basicBot.room.debug = true;
-			basicBot.roomUtilities.logDebug("roomURL = " + roomURL);
-			console.log("roomURL = " + roomURL);
+            
+            if (roomURL === "/-752559695349757775") basicBot.room.debug = true;
+            basicBot.roomUtilities.logDebug("roomURL = " + roomURL);
+            console.log("roomURL = " + roomURL);
             //basicBot.roomUtilities.logDebug("TODO - STARTUP 2");
             if (basicBot.room.roomstats.launchTime === null) {
                 basicBot.room.roomstats.launchTime = Date.now();
@@ -3241,7 +3337,7 @@ Grab - Playlist Insert:
                         name = msg.substring(cmd.length + 2);
                         var perm = basicBot.userUtilities.getPermission(chat.uid);
                         if (perm < 2) return API.sendChat(subChat(basicBot.chat.bootrank, {name: chat.un}));
-                        byusername = " [ executed by " + chat.un + "]";
+                        byusername = " [ executed by " + chat.un + " ]";
                     }
                     var user = basicBot.userUtilities.lookupUserName(name);
                     if (typeof user === 'boolean') return API.sendChat(subChat(basicBot.chat.invaliduserspecified, {name: chat.un}));
@@ -4344,6 +4440,36 @@ Grab - Playlist Insert:
                 }
             },
 
+			mystatsCommand: {
+                command: 'mystats',
+                rank: 'user',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+				    try {
+						if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+						if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+						var msg = chat.message;
+						var name = "";
+						if (msg.length === cmd.length) name = chat.un
+						else name = msg.substring(cmd.length + 2);
+						var user = basicBot.userUtilities.lookupUserName(name);
+						if (user === false) return API.sendChat(subChat(basicBot.chat.invaliduserspecified, {name: chat.un}));
+						var msg = subChat(basicBot.chat.mystats, {name: chat.un, 
+																	 username: user.username, 
+																	 songs: user.votes.songs,
+																	 woot: user.votes.woot, 
+																	 mehs: user.votes.meh, 
+																	 grabs: user.votes.curate, 
+																	 tasty: user.votes.tasty});
+                        byusername = " [ executed by " + chat.un + " ]";
+						if (chat.un !=== name) msg += byusername;
+						API.sendChat(msg);
+					}
+					catch(err) {
+						basicBot.roomUtilities.logException("mystatsCommand: " + err.message);
+					}
+			    }
+            },
             voteratioCommand: {
                 command: 'voteratio',
                 rank: 'bouncer',
@@ -4668,7 +4794,7 @@ Grab - Playlist Insert:
                             name = msg.substring(cmd.length + 2);
                             var perm = basicBot.userUtilities.getPermission(chat.uid);
                             if (perm < 2) return API.sendChat(subChat(basicBot.chat.bootrank, {name: chat.un}));
-                            byusername = " [ executed by " + chat.un + "]";
+                            byusername = " [ executed by " + chat.un + " ]";
                         }
                         var user = basicBot.userUtilities.lookupUserName(name);
                         var currPos = API.getWaitListPosition(user.id) + 1;
@@ -4691,7 +4817,7 @@ Grab - Playlist Insert:
 
                         }
                         setTimeout(function () { API.moderateRemoveDJ(user.id); }, 1000);
-                        API.sendChat(msg);
+                        API.sendChat(msg + byusername);
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("meetingCommand: " + err.message);
@@ -4699,7 +4825,7 @@ Grab - Playlist Insert:
                 }
             },
             tastyCommand: {
-                command: ['tasty', 'rock', 'props', 'woot', 'groot', 'groove', 'jam'],
+                command: ['tasty', 'rock', 'props', 'woot', 'groot', 'groovy', 'jam','nice'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
@@ -4708,6 +4834,28 @@ Grab - Playlist Insert:
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("tastyCommand: " + err.message);
+                    }
+                }
+            },
+            lastplayedCommand: {
+                command: 'lastplayed', 'statscomm',
+                rank: 'user',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        if (basicBot.songinfo.playCount === 1)
+                           msg = basicBot.chat.lastplayed1;
+                        else
+                           msg = basicBot.chat.lastplayed2;
+                        API.sendChat(subChat(msg, {songname:    basicBot.songinfo.songName , 
+                                                   firstPlayed: basicBot.songinfo.firstPlayed,
+                                                   playCount:   basicBot.songinfo.playCount,
+                                                   lastPlayed:  basicBot.songinfo.lastPlayed }));
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("lastplayed: " + err.message);
                     }
                 }
             },
@@ -4729,7 +4877,7 @@ Grab - Playlist Insert:
                         }, 500);
                     }
                     catch(err) {
-                        basicBot.roomUtilities.logException("tastyCommand: " + err.message);
+                        basicBot.roomUtilities.logException("eightballCommand: " + err.message);
                     }
                 }
             },
@@ -4778,20 +4926,20 @@ Grab - Playlist Insert:
                     }
                 }
             },
-			debugCommand: {
+            debugCommand: {
                 command: 'debug',
                 rank: 'cohost',
                 type: 'exact',
                 functionality: function (chat, cmd)                 {
                     try {
-		    			basicBot.room.debug = (!basicBot.room.debug);
-						basicBot.roomUtilities.logInfo("Debug = " + basicBot.room.debug);
+                        basicBot.room.debug = (!basicBot.room.debug);
+                        basicBot.roomUtilities.logInfo("Debug = " + basicBot.room.debug);
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("debugCommand: " + err.message);
                     }
                 }
-			},
+            },
             youtubeCommand: {
                 command: 'youtube',
                 rank: 'user',
