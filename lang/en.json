@@ -160,6 +160,7 @@
     "songstatisticstasty": "[:thumbsup: %%WOOTS%% :star: %%GRABS%% :thumbsdown: %%MEHS%% :cake: %%TASTY%%] %%USER%% [%%ARTIST%% - %%TITLE%%]",
     "eightballquestion": "%%NAME%% Question: [%%QUESTION%%]",
     "eightballresponse1": "The all knowing Larry says: %%RESPONSE%%",
-    "eightballresponse2": "%%NAME%% The all knowing Larry says: %%RESPONSE%%"
-    
+    "eightballresponse2": "%%NAME%% The all knowing Larry says: %%RESPONSE%%",
+    "lastplayed1": "This song has only been played once: %%LASTPLAYED%%",
+    "lastplayed2": "This song has been played %%PLAYCOUNT%% times: [%%FIRSTPLAYED%% - %%LASTPLAYED%%]"
 }
