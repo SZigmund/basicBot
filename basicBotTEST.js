@@ -1,4 +1,4 @@
-/** version: 2.1.4.00030.03
+/** version: 2.1.4.00030.04
 
 currdj.votes.tasty += 1;
 .lastplayed
@@ -245,7 +245,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.03",
+        version: "2.1.4.00030.04",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -4462,7 +4462,7 @@ Grab - Playlist Insert:
 																	 grabs: user.votes.curate, 
 																	 tasty: user.votes.tasty});
                         var byusername = " [ executed by " + chat.un + " ]";
-						if (chat.un !=== name) msg = msg + byusername;
+						if (chat.un !== name) msg += byusername;
 						API.sendChat(msg);
 					}
 					catch(err) {
