@@ -1,4 +1,4 @@
-/** version: 2.1.4.00030.05
+/** version: 2.1.4.00030.06
 
 currdj.votes.tasty += 1;
 .lastplayed
@@ -245,7 +245,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.05",
+        version: "2.1.4.00030.06",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -4454,8 +4454,7 @@ Grab - Playlist Insert:
 						else name = msg.substring(cmd.length + 2);
 						var user = basicBot.userUtilities.lookupUserName(name);
 						if (user === false) return API.sendChat(subChat(basicBot.chat.invaliduserspecified, {name: chat.un}));
-						var msg = subChat(basicBot.chat.mystats, {name: chat.un, 
-																	 username: user.username, 
+						var msg = subChat(basicBot.chat.mystats, {name: user.username, 
 																	 songs: user.votes.songs,
 																	 woot: user.votes.woot, 
 																	 mehs: user.votes.meh, 
