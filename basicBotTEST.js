@@ -1,4 +1,4 @@
-/** version: 2.1.4.00030.07
+/** version: 2.1.4.00030.08
 
 currdj.votes.tasty += 1;
 .lastplayed
@@ -250,7 +250,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.07",
+        version: "2.1.4.00030.08",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1004,7 +1004,9 @@ Grab - Playlist Insert:
                 }
                 var tastyComment = basicBot.roomUtilities.tastyComment();
                 user.tastyVote = true;
-                API.sendChat(subChat(basicBot.chat.tastyvote, {name: user.username}));
+                //API.sendChat(subChat(basicBot.chat.tastyvote, {name: user.username}));
+                API.sendChat(subChat(tastyComment, {pointfrom: user.username}));
+				
                 basicBot.room.roomstats.tastyCount += 1;
                 var currdj = basicBot.userUtilities.lookupUser(dj.id);
                 currdj.votes.tasty += 1;
