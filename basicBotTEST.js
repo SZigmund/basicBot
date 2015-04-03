@@ -1,4 +1,4 @@
-/** version: 2.1.4.00030.01
+/** version: 2.1.4.00030.02
 
 currdj.votes.tasty += 1;
 .lastplayed
@@ -245,7 +245,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.01",
+        version: "2.1.4.00030.02",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -258,10 +258,10 @@ Grab - Playlist Insert:
         retrieveSettings: retrieveSettings,
         retrieveFromStorage: retrieveFromStorage,
         songinfo: {
-            songName = "",
-            firstPlayed = null,
-            playCount = 0,
-            lastPlayed = null
+            songName: "",
+            firstPlayed: null,
+            playCount: 0,
+            lastPlayed: null
         },
         settings: {
             autoWootBot: true,
