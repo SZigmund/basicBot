@@ -1,4 +1,4 @@
-/** version: 2.1.4.00030.04
+/** version: 2.1.4.00030.05
 
 currdj.votes.tasty += 1;
 .lastplayed
@@ -245,7 +245,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.04",
+        version: "2.1.4.00030.05",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -4838,7 +4838,7 @@ Grab - Playlist Insert:
                 }
             },
             lastplayedCommand: {
-                command: 'lastplayed', 'statscomm',
+                command: 'lastplayed',
                 rank: 'user',
                 type: 'exact',
                 functionality: function (chat, cmd) {
