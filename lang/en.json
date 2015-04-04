@@ -7,6 +7,11 @@
     "bouncer": "The bot can't move people when it's run as a bouncer.",
     "online": "/me %%BOTNAME%% v%%VERSION%% online!",
 
+    "validgiftags": "/me [@%%NAME%%] http://media.giphy.com/media/%%ID%%/giphy.gif [Tags: %%TAGS%%]",
+    "invalidgiftags": "/me [@%%NAME%%] Invalid tags, try something different. [Tags: %%TAGS%%]",
+    "validgifrandom": "/me [@%%NAME%%] http://media.giphy.com/media/%%ID%%/giphy.gif [Random GIF]",
+    "invalidgifrandom": "/me [@%%NAME%%] Invalid request, try again.",
+
     "welcome": "/me Welcome %%NAME%%.  Check out our room rules here: http://tinyurl.com/MuricaRules",
     "welcomeback": "/me Welcome back, %%NAME%%",
     "songknown": "/me :repeat: This song has been played %%PLAYS%% time(s) in the last %%TIMETOTAL%%, last play was %%LASTTIME%% ago. :repeat:",
