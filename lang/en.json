@@ -14,6 +14,7 @@
     "timelimit": "/me @%%NAME%% your song is longer than %%MAXLENGTH%% minutes, you need permission to play longer songs.",
     "permissionownsong": "/me :up: @%%NAME%% has permission to play their own production!",
     "isblacklisted": "/me This track is on the %%BLACKLIST%% blacklist! Skipping...",
+    "whois": "/me [%%NAME1%%] Username: %%NAME2%%, ID: %%ID%%, Rank: %%RANK%%, Joined: %%JOINED%%, Level: %%LEVEL%%, Language: %%LANGUAGE%%, Avatar: %%AVATAR%%, Status: %%STATUS%%%%PROFILE%%",
 
 
     "isopen": "/me The roulette is now open! Type .join to participate!",
