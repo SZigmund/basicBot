@@ -16,6 +16,8 @@
     "isblacklisted": "/me This track is on the %%BLACKLIST%% blacklist! Skipping...",
     "whois": "/me [%%NAME1%%] Username: %%NAME2%%, ID: %%ID%%, Rank: %%RANK%%, Joined: %%JOINED%%, Level: %%LEVEL%%, Language: %%LANGUAGE%%, Avatar: %%AVATAR%%, Status: %%STATUS%%%%PROFILE%%",
 
+    "notghosting": "[%%NAME1%%] %%NAME2%% is not ghosting.",
+    "ghosting": "[%%NAME1%%] %%NAME2%% is either ghosting or not here.",
 
     "isopen": "/me The roulette is now open! Type .join to participate!",
     "winnerpicked": "/me A winner has been picked! @%%NAME%% to position %%POSITION%%.",
