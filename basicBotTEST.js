@@ -1,4 +1,4 @@
-/** version: 2.1.4.00030.10
+/** version: 2.1.4.00030.11
 
 .whois bouncer
 .gif user
@@ -256,7 +256,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.10",
+        version: "2.1.4.00030.11",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1610,7 +1610,6 @@ Grab - Playlist Insert:
 				    //todoer use: pluguser = basicBot.userUtilities.getPlugUser(user.id)
 					users = API.getUsers();
 					var len = users.length;
-					var whoismsg = "";
 					for (var i = 0; i < len; ++i){
 						if (users[i].username == name){
 							var id = users[i].id;
@@ -1645,6 +1644,7 @@ Grab - Playlist Insert:
 							} else { var profile = "";
 							}
 							var whoismsg = subChat(basicBot.chat.whois, {name1: chat.un, name2: name, id: id, avatar: avatar, profile: profile, language: language, level: level, joined: joined, rank: rank});
+							return whoismsg;
 						}
 					}
 				}
