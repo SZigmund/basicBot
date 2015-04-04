@@ -1,10 +1,11 @@
-/** version: 2.1.4.00030.09
+/** version: 2.1.4.00030.10
 
-.whois
-.gif
-.ghostbuster
-.lastplayed
-.mystats
+.whois bouncer
+.gif user
+.ghostbuster user
+.lastplayed user
+.mystats user
+.logout cohost
 currdj.votes.tasty += 1;
 Random tasty commands
 
@@ -44,7 +45,7 @@ Grab - Playlist Insert:
     API.getWaitListPosition = function(id){
         try {
             if(typeof id === 'undefined' || id === null){
-                id = API.getUser().id;
+			    id = basicBot.userUtilities.getCurrentPlugUser().id;
             }
             var wl = API.getWaitList();
             for(var i = 0; i < wl.length; i++){
@@ -255,7 +256,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.09",
+        version: "2.1.4.00030.10",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -987,11 +988,45 @@ Grab - Playlist Insert:
             this.lastSeenInLine = null;
         },
         userUtilities: {
+            englishMessage: function(lang) {
+			    try {
+					var engMsg = '/me @' + name + ' ';
+					switch(lang){
+						case 'en': break;
+						case 'bg': engMsg += 'Моля, говорете Inglês'; break;
+						case 'fi': engMsg += 'Ole hyvä puhua Inglês'; break;
+						case 'zh': engMsg += '请讲英语'; break;
+						case 'ms': engMsg += 'Sila berbahasa Inggeris'; break;
+						case 'xx': engMsg += 'xx'; break;
+						case 'da': engMsg += 'Vær venlig at tale engelsk.'; break;
+						case 'de': engMsg += 'Bitte sprechen Sie Englisch.'; break;
+						case 'es': engMsg += 'Por favor, hable Inglés.'; break;
+						case 'fr': engMsg += 'Parlez anglais, s\'il vous plaît.'; break;
+						case 'nl': engMsg += 'Spreek Engels, alstublieft.'; break;
+						case 'pl': engMsg += 'Proszę mówić po angielsku.'; break;
+						case 'pt': engMsg += 'Por favor, fale Inglês.'; break;
+						case 'sk': engMsg += 'Hovorte po anglicky, prosím.'; break;
+						case 'cs': engMsg += 'Mluvte prosím anglicky.'; break;
+						case 'sr': engMsg += 'Молим Вас, говорите енглески.'; break;                                  
+					}
+					engMsg += ' English please.';
+					return engMsg;
+                }
+				catch(err) {
+                  basicBot.roomUtilities.logException("englishMessage: " + err.message);
+                }
+		    },
             getSongStats: function () {
                 room.songstat.found
             },
             getJointime: function (user) {
                 return user.jointime;
+            },
+            getCurrentPlugUser: function () {
+                return API.getUser();
+            },
+            getPlugUser: function (user) {
+			    return basicBot.userUtilities.getUser(user);
             },
             getUser: function (user) {
                 return API.getUser(user.id);
@@ -1161,7 +1196,7 @@ Grab - Playlist Insert:
                 try {
                 var u;
                 if (typeof obj === "object") u = obj;
-                else u = API.getUser(obj);
+                else u = basicBot.userUtilities.getPlugUser(obj);
                 if (botCreatorIDs.indexOf(u.id) > -1) return 10;
                 //basicBot.roomUtilities.logDebug("Role: " + u.role);
                 //basicBot.roomUtilities.logDebug("Name: " + u.username);
@@ -1241,7 +1276,7 @@ Grab - Playlist Insert:
                 var time = basicBot.roomUtilities.msToStr(timeDc);
                 if (!validDC) {
                     basicBot.userUtilities.resetDC(user);
-                    return (subChat(basicBot.chat.toolongago, {name: basicBot.userUtilities.getUser(user).username, time: time}));
+                    return (subChat(basicBot.chat.toolongago, {name: basicBot.userUtilities.getPlugUser(user).username, time: time}));
                 }
                 var songsPassed = basicBot.room.roomstats.songCount - user.lastDC.songCount;
                 var afksRemoved = 0;
@@ -1258,16 +1293,16 @@ Grab - Playlist Insert:
 
                 var msg = "";
                 if (user.beerRun === true) {
-                    msg = subChat(basicBot.chat.beerrunreturn, {name: basicBot.userUtilities.getUser(user).username, time: time, position: newPosition});
+                    msg = subChat(basicBot.chat.beerrunreturn, {name: basicBot.userUtilities.getPlugUser(user).username, time: time, position: newPosition});
                 }
                 else if (user.inMeeting === true) {
-                    msg = subChat(basicBot.chat.meetingreturn, {name: basicBot.userUtilities.getUser(user).username, time: time, position: newPosition});
+                    msg = subChat(basicBot.chat.meetingreturn, {name: basicBot.userUtilities.getPlugUser(user).username, time: time, position: newPosition});
                 }
                 else if (user.atLunch === true) {
-                    msg = subChat(basicBot.chat.lunchreturn, {name: basicBot.userUtilities.getUser(user).username, time: time, position: newPosition});
+                    msg = subChat(basicBot.chat.lunchreturn, {name: basicBot.userUtilities.getPlugUser(user).username, time: time, position: newPosition});
                 }
                 else {
-                    msg = subChat(basicBot.chat.valid, {name: basicBot.userUtilities.getUser(user).username, time: time, position: newPosition});
+                    msg = subChat(basicBot.chat.valid, {name: basicBot.userUtilities.getPlugUser(user).username, time: time, position: newPosition});
                 }
                 basicBot.userUtilities.moveUser(user.id, newPosition, true);
                 basicBot.userUtilities.resetDC(user);
@@ -1570,6 +1605,51 @@ Grab - Playlist Insert:
                 if (hourofday >= basicBot.settings.afkRemoveStart && hourofday < basicBot.settings.afkRemoveEnd) return true;
                 return false;
             },
+			whoisinfo: function (name) {
+			    try {
+				    //todoer use: pluguser = basicBot.userUtilities.getPlugUser(user.id)
+					users = API.getUsers();
+					var len = users.length;
+					var whoismsg = "";
+					for (var i = 0; i < len; ++i){
+						if (users[i].username == name){
+							var id = users[i].id;
+							var avatar = users[i].avatarID;
+							var level = users[i].level;
+							var rawjoined = users[i].joined;
+							var joined = rawjoined.substr(0, 10);
+							var rawlang = users[i].language;
+							if (rawlang == "en"){ var language = "English";
+							} else if (rawlang == "bg"){ var language = "Bulgarian";
+							} else if (rawlang == "cs"){ var language = "Czech";
+							} else if (rawlang == "fi"){ var language = "Finnish"
+							} else if (rawlang == "fr"){ var language = "French"
+							} else if (rawlang == "pt"){ var language = "Portuguese"
+							} else if (rawlang == "zh"){ var language = "Chinese"
+							} else if (rawlang == "sk"){ var language = "Slovak"
+							} else if (rawlang == "nl"){ var language = "Dutch"
+							} else if (rawlang == "ms"){ var language = "Malay"
+							}
+							var rawrank = users[i].role;
+							if (rawrank == "0"){ var rank = "User";
+							} else if (rawrank == "1"){ var rank = "Resident DJ";
+							} else if (rawrank == "2"){ var rank = "Bouncer";
+							} else if (rawrank == "3"){ var rank = "Manager"
+							} else if (rawrank == "4"){ var rank = "Co-Host"
+							} else if (rawrank == "5"){ var rank = "Host"
+							} else if (rawrank == "7"){ var rank = "Brand Ambassador"
+							} else if (rawrank == "10"){ var rank = "Admin"
+							}
+							var slug = users[i].slug;
+							if (typeof slug !== 'undefined') { var profile = ", Profile: http://plug.dj/@/" + slug;
+							} else { var profile = "";
+							}
+							var whoismsg = subChat(basicBot.chat.whois, {name1: chat.un, name2: name, id: id, avatar: avatar, profile: profile, language: language, level: level, joined: joined, rank: rank});
+						}
+					}
+				}
+                catch(err) { basicBot.roomUtilities.logException("whoisinfo: " + err.message); }
+			},
             logInfo: function(msg) {
                 try {
                    console.log("INFO: " + msg);
@@ -1733,7 +1813,7 @@ Grab - Playlist Insert:
                         var user = basicBot.userUtilities.lookupUser(id);
                         if (typeof user !== 'boolean') {
                             //basicBot.roomUtilities.logDebug("afkCheck ID: " + user.id);
-                            var plugUser = basicBot.userUtilities.getUser(user);
+                            var plugUser = basicBot.userUtilities.getPlugUser(user);
                             //if (rank !== null && basicBot.userUtilities.getPermission(plugUser) <= rank) {
                             if (rank !== null) {
                                 //basicBot.roomUtilities.logDebug("afkCheck rank: " + rank);
@@ -1913,6 +1993,19 @@ Grab - Playlist Insert:
                 basicBot.room.users.push(new basicBot.User(user.id, user.username));
                 welcomeback = false;
             }
+			var whoismsg = basicBot.roomUtilities.whoisinfo(user.username);
+			if (whoismsg.length > 0) API.chatLog(whoismsg);
+
+			// If user doesn't speak English let em know we do:
+			if (user.language.toUpperCase() !== "EN") {
+			    var engMsg = basicBot.userUtilities.englishMessage(user.language);
+				if (engMsg.length > 0) {
+			        setTimeout(function (user) {
+                        API.sendChat(subChat(basicBot.chat.welcomeback, {name: user.username}));
+                    }, 1 * 1000, user)
+				}
+			}
+
             basicBot.userUtilities.setLastActivityID(user.id, false);
             basicBot.userUtilities.setBadSongCount(user.id, 0);
             basicBot.userUtilities.setJoinTime(user.id);
@@ -2448,7 +2541,7 @@ Grab - Playlist Insert:
                 return 'Function.'
             };
             //basicBot.roomUtilities.logDebug("TODO - STARTUP Starting");
-            var u = API.getUser();
+            var u = basicBot.userUtilities.getCurrentPlugUser();
             if (basicBot.userUtilities.getPermission(u) < 2) return API.chatLog(basicBot.chat.greyuser);
             if (basicBot.userUtilities.getPermission(u) === 2) API.chatLog(basicBot.chat.bouncer);
             basicBot.connectAPI();
@@ -2492,8 +2585,6 @@ Grab - Playlist Insert:
             basicBot.logNewBlacklistedSongs = basicBot.roomUtilities.logNewBlacklistedSongs;
             
             if (roomURL === "/-752559695349757775") basicBot.room.debug = true;
-            basicBot.roomUtilities.logDebug("roomURL = " + roomURL);
-            console.log("roomURL = " + roomURL);
             //basicBot.roomUtilities.logDebug("TODO - STARTUP 2");
             if (basicBot.room.roomstats.launchTime === null) {
                 basicBot.room.roomstats.launchTime = Date.now();
@@ -2535,7 +2626,7 @@ Grab - Playlist Insert:
             //}, 60 * 60 * 1000);
             //basicBot.roomUtilities.logDebug("TODO - STARTUP 7");
             //BotID: Current User:
-            basicBot.loggedInID = API.getUser().id;
+            basicBot.loggedInID = basicBot.userUtilities.getCurrentPlugUser().id;
             basicBot.status = true;
             API.sendChat('/cap 1');
             API.setVolume(0);
@@ -3745,6 +3836,22 @@ Grab - Playlist Insert:
                 }
             },
 
+            logoutCommand: {
+                command: 'logout',
+                rank: 'cohost',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        API.sendChat(subChat(basicBot.chat.logout, {name: chat.un, botname: basicBot.settings.botName}));
+                        setTimeout(function () {
+                            $(".logout").mousedown()
+                        }, 1000);
+                    }
+                }
+            },
+
             historytimeCommand: {  //Added 02/14/2015 Zig 
                 command: 'historytime',
                 rank: 'manager',
@@ -4749,31 +4856,20 @@ Grab - Playlist Insert:
                 rank: 'bouncer',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
-                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                    else {
-                        if(chat.message.length === cmd.length) return API.sendChat('/me No user specified.');
-                        var name = chat.message.substring(cmd.length + 2);
-                        var user = basicBot.userUtilities.lookupUserName(name);
-                        if(typeof user === 'boolean') return API.sendChat('/me Invalid user specified.');
-                        var lang = basicBot.userUtilities.getUser(user).language;
-                        var ch = '/me @' + name + ' ';
-                        switch(lang){
-                            case 'en': break;
-                            case 'da': ch += 'Vær venlig at tale engelsk.'; break;
-                            case 'de': ch += 'Bitte sprechen Sie Englisch.'; break;
-                            case 'es': ch += 'Por favor, hable Inglés.'; break;
-                            case 'fr': ch += 'Parlez anglais, s\'il vous plaît.'; break;
-                            case 'nl': ch += 'Spreek Engels, alstublieft.'; break;
-                            case 'pl': ch += 'Proszę mówić po angielsku.'; break;
-                            case 'pt': ch += 'Por favor, fale Inglês.'; break;
-                            case 'sk': ch += 'Hovorte po anglicky, prosím.'; break;
-                            case 'cs': ch += 'Mluvte prosím anglicky.'; break;
-                            case 'sr': ch += 'Молим Вас, говорите енглески.'; break;                                  
-                        }
-                        ch += ' English please.';
-                        API.sendChat(ch);
-                    }
+				    try {
+						if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+						if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+						else {
+							if(chat.message.length === cmd.length) return API.sendChat('/me No user specified.');
+							var name = chat.message.substring(cmd.length + 2);
+							var roomUser = basicBot.userUtilities.lookupUserName(name);
+							if(typeof roomUser === 'boolean') return API.sendChat('/me Invalid user specified.');
+							var lang = basicBot.userUtilities.getPlugUser(roomUser).language;
+							var englishMessage = basicBot.userUtilities.englishMessage(lang);
+							API.sendChat(englishMessage);
+						}
+					}
+                    catch(err) { basicBot.roomUtilities.logException("englishCommand: " + err.message); }
                 }
             },
             grabCommand: {  //Added 02/14/2015 Zig
@@ -4863,7 +4959,7 @@ Grab - Playlist Insert:
                         var rollResults = Math.floor(Math.random() * dicesides) + 1;
                         basicBot.userUtilities.setRolled(chat.un, true);
                         if (rollResults >= (dicesides * 0.8))
-                            setTimeout(function () { basicBot.userUtilities.tastyVote(API.getUser().id); }, 1000);
+                            setTimeout(function () { basicBot.userUtilities.tastyVote(basicBot.userUtilities.getCurrentPlugUser().id); }, 1000);
                         else if (rollResults <= (dicesides * 0.2))
                             setTimeout(function () { basicBot.roomUtilities.mehThisSong(); }, 1000);
                         API.sendChat(subChat(basicBot.chat.rollresults, {name: chat.un, roll: rollResults}));
@@ -4900,15 +4996,15 @@ Grab - Playlist Insert:
                         var msg;
                         if (cmd == '.beerrun') {
                             basicBot.userUtilities.setBeerRunStatus(user, true);
-                            msg = subChat(basicBot.chat.beerrunleave, {name: basicBot.userUtilities.getUser(user).username, pos: currPos});
+                            msg = subChat(basicBot.chat.beerrunleave, {name: basicBot.userUtilities.getPlugUser(user).username, pos: currPos});
                         }
                         if (cmd == '.lunch') {
                             basicBot.userUtilities.setLunchStatus(user, true);
-                            msg = subChat(basicBot.chat.lunchleave, {name: basicBot.userUtilities.getUser(user).username, pos: currPos});
+                            msg = subChat(basicBot.chat.lunchleave, {name: basicBot.userUtilities.getPlugUser(user).username, pos: currPos});
                         }
                         if (cmd == '.meeting') {
                             basicBot.userUtilities.setMeetingStatus(user, true);
-                            msg = subChat(basicBot.chat.meetingleave, {name: basicBot.userUtilities.getUser(user).username, pos: currPos});
+                            msg = subChat(basicBot.chat.meetingleave, {name: basicBot.userUtilities.getPlugUser(user).username, pos: currPos});
 
                         }
                         setTimeout(function () { API.moderateRemoveDJ(user.id); }, 1000);
@@ -5049,7 +5145,7 @@ Grab - Playlist Insert:
 //                        basicBot.roomUtilities.logDebug("whois: " + whoisuser);
 //                        var user;
 //                        if (isNaN(whoisuser)) user = basicBot.userUtilities.lookupUserName(whoisuser);
-//                        else                  user = API.getUser(whoisuser);
+//                        else                  user = basicBot.userUtilities.getPlugUser(whoisuser);
 //                        if (typeof user !== 'undefined')  {
 //                            basicBot.roomUtilities.logDebug("USER ID: " + user.id);
 //                            API.sendChat("USER: " + user.username + " " + user.id);
@@ -5073,78 +5169,9 @@ Grab - Playlist Insert:
                         var msg = chat.message;
                         var name;
                         if (msg.length === cmd.length) name = chat.un;
-                        else {
-                            name = msg.substr(cmd.length + 2);
-                        }
-                        users = API.getUsers();
-                        var len = users.length;
-                        for (var i = 0; i < len; ++i){
-                            if (users[i].username == name){
-                                var id = users[i].id;
-                                var avatar = API.getUser(id).avatarID;
-                                var level = API.getUser(id).level;
-                                var rawjoined = API.getUser(id).joined;
-                                var joined = rawjoined.substr(0, 10);
-                                var rawlang = API.getUser(id).language;
-                                if (rawlang == "en"){
-                                    var language = "English";
-                                } else if (rawlang == "bg"){
-                                    var language = "Bulgarian";
-                                } else if (rawlang == "cs"){
-                                    var language = "Czech";
-                                } else if (rawlang == "fi"){
-                                    var language = "Finnish"
-                                } else if (rawlang == "fr"){
-                                    var language = "French"
-                                } else if (rawlang == "pt"){
-                                    var language = "Portuguese"
-                                } else if (rawlang == "zh"){
-                                    var language = "Chinese"
-                                } else if (rawlang == "sk"){
-                                    var language = "Slovak"
-                                } else if (rawlang == "nl"){
-                                    var language = "Dutch"
-                                } else if (rawlang == "ms"){
-                                    var language = "Malay"
-                                }
-                                var rawstatus = API.getUser(id).status;
-                                if (rawstatus == "0"){
-                                    var status = "Available";
-                                } else if (rawstatus == "1"){
-                                    var status = "Away";
-                                } else if (rawstatus == "2"){
-                                    var status = "Working";
-                                } else if (rawstatus == "3"){
-                                    var status = "Gaming"
-                                }
-                                var rawrank = API.getUser(id).role;
-                                if (rawrank == "0"){
-                                    var rank = "User";
-                                } else if (rawrank == "1"){
-                                    var rank = "Resident DJ";
-                                } else if (rawrank == "2"){
-                                    var rank = "Bouncer";
-                                } else if (rawrank == "3"){
-                                    var rank = "Manager"
-                                } else if (rawrank == "4"){
-                                    var rank = "Co-Host"
-                                } else if (rawrank == "5"){
-                                    var rank = "Host"
-                                } else if (rawrank == "7"){
-                                    var rank = "Brand Ambassador"
-                                } else if (rawrank == "10"){
-                                    var rank = "Admin"
-                                }
-                                var slug = API.getUser(id).slug;
-                                if (typeof slug !== 'undefined') {
-                                    var profile = ", Profile: http://plug.dj/@/" + slug;
-                                } else {
-                                    var profile = "";
-                                }
-
-                                API.sendChat(subChat(basicBot.chat.whois, {name1: chat.un, name2: name, id: id, avatar: avatar, profile: profile, language: language, level: level, status: status, joined: joined, rank: rank}));
-                            }
-                        }
+                        else name = msg.substr(cmd.length + 2);
+						var whoismsg = basicBot.roomUtilities.whoisinfo(name);
+						if (whoismsg.length > 0) API.sendChat(whoismsg);
                     }
                 }
             },
