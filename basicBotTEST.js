@@ -1,8 +1,13 @@
-/** version: 2.1.4.00030.08
+/** version: 2.1.4.00030.09
 
-currdj.votes.tasty += 1;
+.whois
+.gif
+.ghostbuster
 .lastplayed
 .mystats
+currdj.votes.tasty += 1;
+Random tasty commands
+
                 
 3 strikes and you're out (for 10 mins)
 
@@ -250,7 +255,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.08",
+        version: "2.1.4.00030.09",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -3287,6 +3292,98 @@ Grab - Playlist Insert:
                 }
             },
 
+            ghostbusterCommand: {
+                command: 'ghostbuster',
+                rank: 'user',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        var msg = chat.message;
+                        var name;
+                        if (msg.length === cmd.length) name = chat.un;
+                        else {
+                            name = msg.substr(cmd.length + 2);
+                        }
+                        var user = basicBot.userUtilities.lookupUserName(name);
+                        if (user === false || !user.inRoom) {
+                            return API.sendChat(subChat(basicBot.chat.ghosting, {name1: chat.un, name2: name}));
+                        }
+                        else API.sendChat(subChat(basicBot.chat.notghosting, {name1: chat.un, name2: name}));     
+                    }
+                }
+            },
+
+            gifCommand: {
+                command: ['gif', 'giphy'],
+                rank: 'user',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        var msg = chat.message;
+                        if (msg.length !== cmd.length) {
+                            function get_id(api_key, fixedtag, func)
+                            {
+                                $.getJSON(
+                                    "https://api.giphy.com/v1/gifs/random?", 
+                                    { 
+                                        "format": "json",
+                                        "api_key": api_key,
+                                        "rating": rating,
+                                        "tag": fixedtag
+                                    },
+                                    function(response)
+                                    {
+                                        func(response.data.id);
+                                    }
+                                    )
+                            }
+                            var api_key = "dc6zaTOxFJmzC"; // public beta key
+                            var rating = "pg-13"; // PG 13 gifs
+                            var tag = msg.substr(cmd.length + 1);
+                            var fixedtag = tag.replace(/ /g,"+");
+                            var commatag = tag.replace(/ /g,", ");
+                            get_id(api_key, tag, function(id) {
+                                if (typeof id !== 'undefined') {
+                                    API.sendChat(subChat(basicBot.chat.validgiftags, {name: chat.un, id: id, tags: commatag}));
+                                } else {
+                                    API.sendChat(subChat(basicBot.chat.invalidgiftags, {name: chat.un, tags: commatag}));
+                                }
+                            });
+                        }
+                        else {
+                            function get_random_id(api_key, func)
+                            {
+                                $.getJSON(
+                                    "https://api.giphy.com/v1/gifs/random?", 
+                                    { 
+                                        "format": "json",
+                                        "api_key": api_key,
+                                        "rating": rating
+                                    },
+                                    function(response)
+                                    {
+                                        func(response.data.id);
+                                    }
+                                    )
+                            }
+                            var api_key = "dc6zaTOxFJmzC"; // public beta key
+                            var rating = "pg-13"; // PG 13 gifs
+                            get_random_id(api_key, function(id) {
+                                if (typeof id !== 'undefined') {
+                                    API.sendChat(subChat(basicBot.chat.validgifrandom, {name: chat.un, id: id}));
+                                } else {
+                                    API.sendChat(subChat(basicBot.chat.invalidgifrandom, {name: chat.un}));
+                                }
+                            });
+                        }
+                    }
+                }
+            },
+
             helpCommand: {
                 command: 'help',
                 rank: 'user',
@@ -3663,6 +3760,24 @@ Grab - Playlist Insert:
                             return API.sendChat(subChat(basicBot.chat.repeatSongLimit, {name: chat.un, time: basicBot.settings.repeatSongTime}));
                         }
                         else return API.sendChat(subChat(basicBot.chat.invalidtime, {name: chat.un}));
+                    }
+                }
+            },
+            logoutCommand: {
+                command: 'logout',
+                rank: 'mod',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        $(".icon-site-logo").click();
+                        setTimeout(function (chat) {
+                            API.sendChat(subChat(basicBot.chat.logout, {name: chat.un, botname: basicBot.settings.botName}));
+                            setTimeout(function () {
+                                $(".icon-logout-grey").click();
+                            }, 1000);
+                        }, 1000, chat);
                     }
                 }
             },
@@ -4690,32 +4805,6 @@ Grab - Playlist Insert:
                 }
             },
 
-            whoisCommand: {
-                command: 'whois',
-                rank: 'bouncer',
-                type: 'startsWith',
-                functionality: function (chat, cmd) {
-                    try {
-                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                        var msg = chat.message;
-                        if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
-                        var whoisuser = msg.substr(cmd.length + 2);
-                        basicBot.roomUtilities.logDebug("whois: " + whoisuser);
-                        var user;
-                        if (isNaN(whoisuser)) user = basicBot.userUtilities.lookupUserName(whoisuser);
-                        else                  user = API.getUser(whoisuser);
-                        if (typeof user !== 'undefined')  {
-                            basicBot.roomUtilities.logDebug("USER ID: " + user.id);
-                            API.sendChat("USER: " + user.username + " " + user.id);
-                        }
-                        basicBot.roomUtilities.logDebug("TYPE: " + typeof user);
-                    }
-                    catch(err) {
-                        basicBot.roomUtilities.logException("whoisCommand: " + err.message);
-                    }
-                }
-            },
             zigunbanCommand: {
                 command: 'zigunban',
                 rank: 'bouncer',
@@ -4946,6 +5035,120 @@ Grab - Playlist Insert:
                     }
                 }
             },
+//            whoisCommand: {
+//                command: 'whois',
+//                rank: 'bouncer',
+//                type: 'startsWith',
+//                functionality: function (chat, cmd) {
+//                    try {
+//                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+//                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+//                        var msg = chat.message;
+//                        if (msg.length === cmd.length) return API.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
+//                        var whoisuser = msg.substr(cmd.length + 2);
+//                        basicBot.roomUtilities.logDebug("whois: " + whoisuser);
+//                        var user;
+//                        if (isNaN(whoisuser)) user = basicBot.userUtilities.lookupUserName(whoisuser);
+//                        else                  user = API.getUser(whoisuser);
+//                        if (typeof user !== 'undefined')  {
+//                            basicBot.roomUtilities.logDebug("USER ID: " + user.id);
+//                            API.sendChat("USER: " + user.username + " " + user.id);
+//                        }
+//                        basicBot.roomUtilities.logDebug("TYPE: " + typeof user);
+//                    }
+//                    catch(err) {
+//                        basicBot.roomUtilities.logException("whoisCommand: " + err.message);
+//                    }
+//                }
+//            },
+
+            whoisCommand: {
+                command: 'whois',
+                rank: 'bouncer',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        var msg = chat.message;
+                        var name;
+                        if (msg.length === cmd.length) name = chat.un;
+                        else {
+                            name = msg.substr(cmd.length + 2);
+                        }
+                        users = API.getUsers();
+                        var len = users.length;
+                        for (var i = 0; i < len; ++i){
+                            if (users[i].username == name){
+                                var id = users[i].id;
+                                var avatar = API.getUser(id).avatarID;
+                                var level = API.getUser(id).level;
+                                var rawjoined = API.getUser(id).joined;
+                                var joined = rawjoined.substr(0, 10);
+                                var rawlang = API.getUser(id).language;
+                                if (rawlang == "en"){
+                                    var language = "English";
+                                } else if (rawlang == "bg"){
+                                    var language = "Bulgarian";
+                                } else if (rawlang == "cs"){
+                                    var language = "Czech";
+                                } else if (rawlang == "fi"){
+                                    var language = "Finnish"
+                                } else if (rawlang == "fr"){
+                                    var language = "French"
+                                } else if (rawlang == "pt"){
+                                    var language = "Portuguese"
+                                } else if (rawlang == "zh"){
+                                    var language = "Chinese"
+                                } else if (rawlang == "sk"){
+                                    var language = "Slovak"
+                                } else if (rawlang == "nl"){
+                                    var language = "Dutch"
+                                } else if (rawlang == "ms"){
+                                    var language = "Malay"
+                                }
+                                var rawstatus = API.getUser(id).status;
+                                if (rawstatus == "0"){
+                                    var status = "Available";
+                                } else if (rawstatus == "1"){
+                                    var status = "Away";
+                                } else if (rawstatus == "2"){
+                                    var status = "Working";
+                                } else if (rawstatus == "3"){
+                                    var status = "Gaming"
+                                }
+                                var rawrank = API.getUser(id).role;
+                                if (rawrank == "0"){
+                                    var rank = "User";
+                                } else if (rawrank == "1"){
+                                    var rank = "Resident DJ";
+                                } else if (rawrank == "2"){
+                                    var rank = "Bouncer";
+                                } else if (rawrank == "3"){
+                                    var rank = "Manager"
+                                } else if (rawrank == "4"){
+                                    var rank = "Co-Host"
+                                } else if (rawrank == "5"){
+                                    var rank = "Host"
+                                } else if (rawrank == "7"){
+                                    var rank = "Brand Ambassador"
+                                } else if (rawrank == "10"){
+                                    var rank = "Admin"
+                                }
+                                var slug = API.getUser(id).slug;
+                                if (typeof slug !== 'undefined') {
+                                    var profile = ", Profile: http://plug.dj/@/" + slug;
+                                } else {
+                                    var profile = "";
+                                }
+
+                                API.sendChat(subChat(basicBot.chat.whois, {name1: chat.un, name2: name, id: id, avatar: avatar, profile: profile, language: language, level: level, status: status, joined: joined, rank: rank}));
+                            }
+                        }
+                    }
+                }
+            },
+
             youtubeCommand: {
                 command: 'youtube',
                 rank: 'user',
