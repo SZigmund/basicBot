@@ -1,4 +1,4 @@
-/** version: 2.1.4.00030.12
+/** version: 2.1.4.00030.14
 
 .whois bouncer
 .gif user
@@ -256,7 +256,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.12",
+        version: "2.1.4.00030.14",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1026,10 +1026,24 @@ Grab - Playlist Insert:
                 return API.getUser();
             },
             getPlugUser: function (user) {
-			    return basicBot.userUtilities.getUser(user);
+			    try {
+			        return basicBot.userUtilities.getUser(user);
+				}
+                catch(err) { basicBot.roomUtilities.logException("userUtilities.getPlugUser: " + err.message); }
+            },
+            getPlugUserID: function (userid) {
+			    try {
+                    return API.getUser(userid);
+				}
+                catch(err) { basicBot.roomUtilities.logException("userUtilities.getPlugUserID: " + err.message); }
             },
             getUser: function (user) {
-                return API.getUser(user.id);
+			    try {
+                    return API.getUser(user.id);
+				}
+                catch(err) {
+                  basicBot.roomUtilities.logException("userUtilities.getUser: " + err.message);
+                }
             },
             tastyVote: function (userId) {
                 try {
@@ -1196,7 +1210,7 @@ Grab - Playlist Insert:
                 try {
                 var u;
                 if (typeof obj === "object") u = obj;
-                else u = basicBot.userUtilities.getPlugUser(obj);
+                else u = basicBot.userUtilities.getPlugUserID(obj);
                 if (botCreatorIDs.indexOf(u.id) > -1) return 10;
                 //basicBot.roomUtilities.logDebug("Role: " + u.role);
                 //basicBot.roomUtilities.logDebug("Name: " + u.username);
@@ -1607,7 +1621,7 @@ Grab - Playlist Insert:
             },
 			whoisinfo: function (reqby, name) {
 			    try {
-				    //todoer use: pluguser = basicBot.userUtilities.getPlugUser(user.id)
+				    //todoer use: pluguser = basicBot.userUtilities.getPlugUserID(user.id)
 					users = API.getUsers();
 					var len = users.length;
 					for (var i = 0; i < len; ++i){
