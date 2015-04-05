@@ -1,13 +1,14 @@
-/** version: 2.1.4.00030.14
+/** version: 2.1.4.00030.15
 
+Random tasty commands
 .whois bouncer
 .gif user
 .ghostbuster user
+
 .lastplayed user
 .mystats user
 .logout cohost
 currdj.votes.tasty += 1;
-Random tasty commands
 
                 
 3 strikes and you're out (for 10 mins)
@@ -256,7 +257,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.14",
+        version: "2.1.4.00030.15",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1009,7 +1010,7 @@ Grab - Playlist Insert:
 						case 'cs': engMsg += 'Mluvte prosím anglicky.'; break;
 						case 'sr': engMsg += 'Молим Вас, говорите енглески.'; break;                                  
 					}
-					engMsg += ' English please.';
+					engMsg += '   (English please)';
 					return engMsg;
                 }
 				catch(err) {
@@ -2011,12 +2012,12 @@ Grab - Playlist Insert:
 			if (whoismsg.length > 0) API.chatLog(whoismsg);
 
 			// If user doesn't speak English let em know we do:
-			if (user.language.toUpperCase() !== "EN") {
+			if ((user.language.toUpperCase() !== "EN") && (!welcomeback)) {
 			    var engMsg = basicBot.userUtilities.englishMessage(user.language, user.username);
 				if (engMsg.length > 0) {
 			        setTimeout(function (user) {
                         API.sendChat(engMsg);
-                    }, 1 * 1000, user)
+                    }, 1 * 1500, user)
 				}
 			}
 
