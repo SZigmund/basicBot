@@ -1,4 +1,4 @@
-/** version: 2.1.4.00030.18
+/** version: 2.1.4.00030.19
 
 .lastplayed user
 .mystats user
@@ -252,7 +252,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.18",
+        version: "2.1.4.00030.19",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1510,13 +1510,19 @@ Grab - Playlist Insert:
 							basicBot.songinfo.songIndex = idx;
                             basicBot.songinfo.firstPlayed = basicBot.room.historyList[idx][1];
                             basicBot.songinfo.playCount = basicBot.room.historyList[idx].length - 1;
-                            basicBot.songinfo.lastPlayed = basicBot.room.historyList[idx][basicBot.playCount];
+                            basicBot.songinfo.lastPlayed = basicBot.room.historyList[idx][basicBot.playCount-1];
+							
 
-                            API.chatLog(subChat(basicBot.chat.lastplayed1, {songname:    basicBot.songinfo.songName , 
-                                                   firstPlayed: basicBot.songinfo.firstPlayed,
+                            API.chatLog(subChat(basicBot.chat.lastplayed2, {songname:    basicBot.songinfo.songName , 
+                                                   firstPlayed: basicBot.roomUtilities.msToStr(basicBot.songinfo.firstPlayed),
                                                    playCount:   basicBot.songinfo.playCount,
-                                                   lastPlayed:  basicBot.songinfo.lastPlayed }));
-                            /*  todoer Add these counts to songs:
+                                                   lastPlayed:  basicBot.roomUtilities.msToStr(basicBot.songinfo.lastPlayed) }));
+
+							API.chatLog("LOGGING: ");
+                            for (var idx2 = 0; idx2 < basicBot.room.historyList[idx].length; idx2++) {
+							  API.chatLog("LOGGING: [" + idx2 + "]: " + basicBot.room.historyList[idx][idx2];
+							}
+							/*  todoer Add these counts to songs:
                             wootCount: 0,
                             grabCount: 0,
                             mehCount: 0,
@@ -2232,6 +2238,8 @@ Grab - Playlist Insert:
             //basicBot.roomUtilities.logDebug("eventDjadvance:7");
             if (!alreadyPlayed) {
                 basicBot.room.historyList.push([obj.media.cid, +new Date()]);
+				// Force loading our song info after adding this new song
+				basicBot.roomUtilities.getSongInfo(obj.media);
                 //todoer add a 1st time played message? Maybe??
             }
             //basicBot.roomUtilities.logDebug("eventDjadvance:8");
