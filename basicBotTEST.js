@@ -1,4 +1,4 @@
-/** version: 2.1.4.00030.24
+/** version: 2.1.4.00030.25
 
 .lastplayed user
 .mystats user
@@ -252,7 +252,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.24",
+        version: "2.1.4.00030.25",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1636,48 +1636,67 @@ Grab - Playlist Insert:
                 if (hourofday >= basicBot.settings.afkRemoveStart && hourofday < basicBot.settings.afkRemoveEnd) return true;
                 return false;
             },
+			logObject: function (objectToLog) {
+			    try {
+					for (var prop in objectToLog) {
+						basicBot.roomUtilities.logDebug("Prop: " + prop.toUpperCase() + " value: " + objectToLog[prop]);
+					}
+				}
+				catch(err) { basicBot.roomUtilities.logException("logObject: " + err.message); }
+			},
 			whoisinfo: function (reqby, name) {
 			    try {
 				    //todoer use: pluguser = basicBot.userUtilities.getPlugUserID(user.id)
-					users = API.getUsers();
-					var len = users.length;
-					for (var i = 0; i < len; ++i){
-						if (users[i].username == name){
-							var id = users[i].id;
-							var avatar = users[i].avatarID;
-							var level = users[i].level;
-							var rawjoined = users[i].joined;
-							var joined = rawjoined.substr(0, 10);
-							var rawlang = users[i].language;
-							if (rawlang == "en"){ var language = "English";
-							} else if (rawlang == "bg"){ var language = "Bulgarian";
-							} else if (rawlang == "cs"){ var language = "Czech";
-							} else if (rawlang == "fi"){ var language = "Finnish"
-							} else if (rawlang == "fr"){ var language = "French"
-							} else if (rawlang == "pt"){ var language = "Portuguese"
-							} else if (rawlang == "zh"){ var language = "Chinese"
-							} else if (rawlang == "sk"){ var language = "Slovak"
-							} else if (rawlang == "nl"){ var language = "Dutch"
-							} else if (rawlang == "ms"){ var language = "Malay"
-							}
-							var rawrank = users[i].role;
-							if (rawrank == "0"){ var rank = "User";
-							} else if (rawrank == "1"){ var rank = "Resident DJ";
-							} else if (rawrank == "2"){ var rank = "Bouncer";
-							} else if (rawrank == "3"){ var rank = "Manager"
-							} else if (rawrank == "4"){ var rank = "Co-Host"
-							} else if (rawrank == "5"){ var rank = "Host"
-							} else if (rawrank == "7"){ var rank = "Brand Ambassador"
-							} else if (rawrank == "10"){ var rank = "Admin"
-							}
-							var slug = users[i].slug;
-							if (typeof slug !== 'undefined') { var profile = ", Profile: http://plug.dj/@/" + slug;
-							} else { var profile = "";
-							}
-							var whoismsg = subChat(basicBot.chat.whois, {name1: reqby, name2: name, id: id, avatar: avatar, profile: profile, language: language, level: level, joined: joined, rank: rank});
-							return whoismsg;
+				    var uid = -1;
+                    var roomuser = basicBot.userUtilities.lookupUserName(name);
+					basicBot.roomUtilities.logDebug("UserCnt: " + basicBot.room.users.length);
+				    if roomuser !== false) uid = roomuser.id;
+					basicBot.roomUtilities.logDebug("UID: " + uid);
+				
+					if (uid < 0) {
+					    users = API.getUsers();
+					    var len = users.length;
+					    for (var i = 0; i < len; ++i){
+						    if (users[i].username == name) uid = users[i].id;
 						}
 					}
+					basicBot.roomUtilities.logDebug("UID: " + uid);
+					var whoismsg = "Undefined User";
+					if (uid < 0) return "whoismsg";
+					var pluguser = basicBot.userUtilities.getPlugUserID(uid);
+					basicBot.roomUtilities.logObject(pluguser);
+					var avatar = pluguser.avatarID;
+					var level = pluguser.level;
+					var rawjoined = pluguser.joined;
+					var joined = rawjoined.substr(0, 10);
+					var rawlang = pluguser.language;
+					if (rawlang == "en"){ var language = "English";
+					} else if (rawlang == "bg"){ var language = "Bulgarian";
+					} else if (rawlang == "cs"){ var language = "Czech";
+					} else if (rawlang == "fi"){ var language = "Finnish"
+					} else if (rawlang == "fr"){ var language = "French"
+					} else if (rawlang == "pt"){ var language = "Portuguese"
+					} else if (rawlang == "zh"){ var language = "Chinese"
+					} else if (rawlang == "sk"){ var language = "Slovak"
+					} else if (rawlang == "nl"){ var language = "Dutch"
+					} else if (rawlang == "ms"){ var language = "Malay"
+					}
+					var rawrank = pluguser.role;
+					if (rawrank == "0"){ var rank = "User";
+					} else if (rawrank == "1"){ var rank = "Resident DJ";
+					} else if (rawrank == "2"){ var rank = "Bouncer";
+					} else if (rawrank == "3"){ var rank = "Manager"
+					} else if (rawrank == "4"){ var rank = "Co-Host"
+					} else if (rawrank == "5"){ var rank = "Host"
+					} else if (rawrank == "7"){ var rank = "Brand Ambassador"
+					} else if (rawrank == "10"){ var rank = "Admin"
+					}
+					var slug = pluguser.slug;
+					if (typeof slug !== 'undefined') { var profile = ", Profile: http://plug.dj/@/" + slug;
+					} else { var profile = "";
+					}
+					whoismsg = subChat(basicBot.chat.whois, {name1: reqby, name2: name, id: uid, avatar: avatar, profile: profile, language: language, level: level, joined: joined, rank: rank});
+					return whoismsg;
 				}
                 catch(err) { basicBot.roomUtilities.logException("whoisinfo: " + err.message); }
 			},
@@ -2445,7 +2464,7 @@ Grab - Playlist Insert:
                     var userPerm = basicBot.userUtilities.getPermission(chat.uid);
                     //basicBot.roomUtilities.logDebug("commandCheck chat.userPerm: " + userPerm);
                     if (chat.message !== ".join" && chat.message !== ".leave" && cmd !== ".woot" && cmd !== ".tasty"  && cmd !== ".props"  && cmd !== ".rock"
-                                                 && cmd !== ".groot" && cmd !== ".groovy" && cmd !== ".jam" && cmd !== ".nice") {
+                                                 && cmd !== ".groot" && cmd !== ".groovy" && cmd !== ".jam" && cmd !== ".nice" && cmd !== ".bop") {
                         //basicBot.roomUtilities.logDebug("commandCheck1: " + cmd);
                         if (userPerm === 0 && !basicBot.room.usercommand) return void (0);
                         //basicBot.roomUtilities.logDebug("commandCheck2: " + cmd);
@@ -5054,7 +5073,7 @@ Grab - Playlist Insert:
                 }
             },
             tastyCommand: {
-                command: ['tasty', 'rock', 'props', 'woot', 'groot', 'groovy', 'jam','nice'],
+                command: ['tasty', 'rock', 'props', 'woot', 'groot', 'groovy', 'jam','nice','bop'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
