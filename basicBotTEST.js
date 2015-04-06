@@ -1,4 +1,4 @@
-/** version: 2.1.4.00030.25
+/** version: 2.1.4.00030.26
 
 .lastplayed user
 .mystats user
@@ -252,7 +252,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.25",
+        version: "2.1.4.00030.26",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1650,7 +1650,7 @@ Grab - Playlist Insert:
 				    var uid = -1;
                     var roomuser = basicBot.userUtilities.lookupUserName(name);
 					basicBot.roomUtilities.logDebug("UserCnt: " + basicBot.room.users.length);
-				    if roomuser !== false) uid = roomuser.id;
+				    if (roomuser !== false) uid = roomuser.id;
 					basicBot.roomUtilities.logDebug("UID: " + uid);
 				
 					if (uid < 0) {
