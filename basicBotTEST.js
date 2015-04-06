@@ -1,9 +1,4 @@
-/** version: 2.1.4.00030.15
-
-Random tasty commands
-.whois bouncer
-.gif user
-.ghostbuster user
+/** version: 2.1.4.00030.16
 
 .lastplayed user
 .mystats user
@@ -257,7 +252,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.15",
+        version: "2.1.4.00030.16",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -293,6 +288,7 @@ Grab - Playlist Insert:
             maximumDc: 90,
             bouncerPlus: true,
             blacklistEnabled: true,
+            gifEnabled: true,
             lockdownEnabled: false,
             lockGuard: false,
             maximumLocktime: 10,
@@ -2012,7 +2008,9 @@ Grab - Playlist Insert:
 			if (whoismsg.length > 0) API.chatLog(whoismsg);
 
 			// If user doesn't speak English let em know we do:
-			if ((user.language.toUpperCase() !== "EN") && (!welcomeback)) {
+			var staffMember = false;
+			if (basicBot.userUtilities.getPermission(user.id) > 1) staffMember = true;
+			if ((user.language.toUpperCase() !== "EN") && (!welcomeback) & (!staffMember)) {
 			    var engMsg = basicBot.userUtilities.englishMessage(user.language, user.username);
 				if (engMsg.length > 0) {
 			        setTimeout(function (user) {
@@ -3423,10 +3421,11 @@ Grab - Playlist Insert:
 
             gifCommand: {
                 command: ['gif', 'giphy'],
-                rank: 'user',
+                rank: 'cohost',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+					if (!basicBot.settings.gifEnabled) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         var msg = chat.message;
@@ -4800,8 +4799,8 @@ Grab - Playlist Insert:
                 }
                 }
             },
-            larryCommand: {   //Added 02/25/2015 Zig
-                command: 'larry',
+            speakCommand: {   //Added 02/25/2015 Zig
+                command: 'speak',
                 rank: 'mod',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
@@ -4811,7 +4810,7 @@ Grab - Playlist Insert:
                     return API.sendChat(basicBot.roomUtilities.randomCommentSelect());
                     }
                 catch(err) {
-                    basicBot.roomUtilities.logException("larryCommand: " + err.message);
+                    basicBot.roomUtilities.logException("speakCommand: " + err.message);
                 }
                 }
             },
@@ -5066,7 +5065,7 @@ Grab - Playlist Insert:
                 }
             },
             eightballCommand: {   //Added 04/01/2015 Zig
-                command: ['8ball', 'eightball'],
+                command: ['8ball', 'eightball', 'larry'],
                 rank: 'user',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
@@ -5111,10 +5110,12 @@ Grab - Playlist Insert:
             },
             zigCommand: {   //Added 01/27/2015 Zig
                 command: 'zig',
-                rank: 'mod',
+                rank: 'cohost',
                 type: 'exact',
                 functionality: function (chat, cmd)                 {
                     try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                          $("#dj-button").click();
                          setTimeout(function () { $("#dialog-confirm > div:nth-child(3) > div.button.submit > span").click(); }, 1 * 1000);
             /*
@@ -5136,14 +5137,28 @@ Grab - Playlist Insert:
                 command: 'debug',
                 rank: 'cohost',
                 type: 'exact',
-                functionality: function (chat, cmd)                 {
+                functionality: function (chat, cmd) {
                     try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                         basicBot.room.debug = (!basicBot.room.debug);
                         basicBot.roomUtilities.logInfo("Debug = " + basicBot.room.debug);
                     }
-                    catch(err) {
-                        basicBot.roomUtilities.logException("debugCommand: " + err.message);
+                    catch(err) { basicBot.roomUtilities.logException("debugCommand: " + err.message); }
+                }
+            },
+            gifenabledCommand: {
+                command: 'gifenabled',
+                rank: 'cohost',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        basicBot.settings.gifEnabled = (!basicBot.settings.gifEnabled);
+                        basicBot.roomUtilities.logInfo("GifEnabled = " + basicBot.room.debug);
                     }
+                    catch(err) { basicBot.roomUtilities.logException("gifenabledCommand: " + err.message); }
                 }
             },
 //            whoisCommand: {
