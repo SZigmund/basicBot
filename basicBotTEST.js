@@ -1,4 +1,4 @@
-/** version: 2.1.4.00030.21
+/** version: 2.1.4.00030.22
 
 .lastplayed user
 .mystats user
@@ -252,7 +252,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.21",
+        version: "2.1.4.00030.22",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1512,6 +1512,8 @@ Grab - Playlist Insert:
                             basicBot.songinfo.firstPlayed = basicBot.room.historyList[idx][1];
                             basicBot.songinfo.playCount = basicBot.room.historyList[idx].length - 1;
                             basicBot.songinfo.lastPlayed = basicBot.room.historyList[idx][basicBot.playCount];
+							var timenow = +new Date();
+							API.chatLog("NOW: " + timenow + " Last: " + basicBot.songinfo.lastPlayed);
 							if (basicBot.songinfo.playCount === 1)
 							   msg = basicBot.chat.lastplayed1;
 							else
