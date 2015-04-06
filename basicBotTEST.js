@@ -1,4 +1,4 @@
-/** version: 2.1.4.00030.16
+/** version: 2.1.4.00030.17
 
 .lastplayed user
 .mystats user
@@ -252,7 +252,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.16",
+        version: "2.1.4.00030.17",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1501,12 +1501,19 @@ Grab - Playlist Insert:
             },
             getSongInfo: function(media) {
                 try  {
+                    basicBot.roomUtilities.logDebug("======================getSongInfo======================");
+                    basicBot.roomUtilities.logDebug("basicBot.room.historyList.length: " + basicBot.room.historyList.length);
                     for (var i = 0; i < basicBot.room.historyList.length; i++) {
                         if (basicBot.room.historyList[i][0] === media.cid) {
                             basicBot.songinfo.songName = media.title;
                             basicBot.songinfo.firstPlayed = basicBot.room.historyList[i][1];
                             basicBot.songinfo.playCount = basicBot.room.historyList[i].length - 1;
                             basicBot.songinfo.lastPlayed = basicBot.room.historyList[i][basicBot.playCount];
+
+                            API.chatLog(subChat(msg, {songname:    basicBot.songinfo.songName , 
+                                                   firstPlayed: basicBot.songinfo.firstPlayed,
+                                                   playCount:   basicBot.songinfo.playCount,
+                                                   lastPlayed:  basicBot.songinfo.lastPlayed }));
                             /*  todoer Add these counts to songs:
                             wootCount: 0,
                             grabCount: 0,
