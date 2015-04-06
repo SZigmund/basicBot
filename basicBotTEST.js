@@ -1,4 +1,4 @@
-/** version: 2.1.4.00030.23
+/** version: 2.1.4.00030.24
 
 .lastplayed user
 .mystats user
@@ -252,7 +252,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.23",
+        version: "2.1.4.00030.24",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1473,7 +1473,7 @@ Grab - Playlist Insert:
                   var randomRange = (basicBot.settings.randomCommentMax - basicBot.settings.randomCommentMin)
                   var randomMins = Math.floor(Math.random() * randomRange);
                   randomMins += basicBot.settings.randomCommentMin;
-                  basicBot.roomUtilities.logDebug("Random mins: " + randomMins);
+                  //basicBot.roomUtilities.logDebug("Random mins: " + randomMins);
                   //JIC: Ensure we are in the correct time range:
                   if ((randomMins > basicBot.settings.randomCommentMax) || (randomMins < basicBot.settings.randomCommentMin))
                   {
@@ -1484,8 +1484,8 @@ Grab - Playlist Insert:
                   myTimeSpan = randomMins*60*1000; // 5 minutes in milliseconds
                   nextTime.setTime(nextTime.getTime() + myTimeSpan);
                   basicBot.settings.nextRandomComment = nextTime;
-                  basicBot.roomUtilities.logDebug("RANDOM TIME: " + basicBot.settings.nextRandomComment);
-                  basicBot.roomUtilities.logDebug("NOW TIME: " + Date.now());
+                  //basicBot.roomUtilities.logDebug("RANDOM TIME: " + basicBot.settings.nextRandomComment);
+                  //basicBot.roomUtilities.logDebug("NOW TIME: " + Date.now());
                 }  
                 catch(err) {
                   basicBot.roomUtilities.logException("randomCommentSetTimer: " + err.message);
@@ -1503,8 +1503,8 @@ Grab - Playlist Insert:
             },
             getSongInfo: function(media) {
                 try  {
-                    basicBot.roomUtilities.logDebug("======================getSongInfo======================");
-                    basicBot.roomUtilities.logDebug("basicBot.room.historyList.length: " + basicBot.room.historyList.length);
+                    //basicBot.roomUtilities.logDebug("======================getSongInfo======================");
+                    //basicBot.roomUtilities.logDebug("basicBot.room.historyList.length: " + basicBot.room.historyList.length);
 					basicBot.songinfo.songName = media.title;
                     for (var idx = 0; idx < basicBot.room.historyList.length; idx++) {
                         if (basicBot.room.historyList[idx][0] === media.cid) {
@@ -1512,8 +1512,6 @@ Grab - Playlist Insert:
                             basicBot.songinfo.firstPlayed = basicBot.room.historyList[idx][1];
                             basicBot.songinfo.playCount = basicBot.room.historyList[idx].length - 1;
                             basicBot.songinfo.lastPlayed = basicBot.room.historyList[idx][basicBot.songinfo.playCount];
-							var timenow = +new Date();
-							API.chatLog("NOW: " + timenow + " Last: " + basicBot.songinfo.lastPlayed);
 							if (basicBot.songinfo.playCount === 1)
 							   msg = basicBot.chat.lastplayed1;
 							else
@@ -1522,12 +1520,10 @@ Grab - Playlist Insert:
                                                    firstPlayed: basicBot.roomUtilities.msToStr(Date.now() - basicBot.songinfo.firstPlayed) ,
                                                    playCount:   basicBot.songinfo.playCount,
                                                    lastPlayed:  basicBot.roomUtilities.msToStr(Date.now() - basicBot.songinfo.lastPlayed) });
-                            API.chatLog(basicBot.songinfo.songStatsMsg);
-
-							API.chatLog("LOGGING: ");
-                            for (var idx2 = 0; idx2 <= basicBot.room.historyList[idx].length; idx2++) {
-							  API.chatLog("LOGGING: [" + idx2 + "]: " + basicBot.room.historyList[idx][idx2]);
-							}
+                            //API.chatLog(basicBot.songinfo.songStatsMsg);
+                            //for (var idx2 = 0; idx2 <= basicBot.room.historyList[idx].length; idx2++) {
+							//  API.chatLog("LOGGING: [" + idx2 + "]: " + basicBot.room.historyList[idx][idx2]);
+							//}
 							/*  todoer Add these stats to songs:
                             wootCount: 0,
                             grabCount: 0,
@@ -3874,22 +3870,6 @@ Grab - Playlist Insert:
                 }
             },
 
-            logoutCommand: {
-                command: 'logout',
-                rank: 'cohost',
-                type: 'exact',
-                functionality: function (chat, cmd) {
-                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                    else {
-                        API.sendChat(subChat(basicBot.chat.logout, {name: chat.un, botname: basicBot.settings.botName}));
-                        setTimeout(function () {
-                            $(".logout").mousedown()
-                        }, 1000);
-                    }
-                }
-            },
-
             historytimeCommand: {  //Added 02/14/2015 Zig 
                 command: 'historytime',
                 rank: 'manager',
@@ -3910,6 +3890,22 @@ Grab - Playlist Insert:
             },
             logoutCommand: {
                 command: 'logout',
+                rank: 'cohost',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        API.sendChat(subChat(basicBot.chat.logout, {name: chat.un, botname: basicBot.settings.botName}));
+                        setTimeout(function () {
+                            $(".logout").mousedown()
+                        }, 1000);
+                    }
+                }
+            },
+			/* This was an old one that did not work:
+            logoutCommand: {
+                command: 'logout',
                 rank: 'mod',
                 type: 'exact',
                 functionality: function (chat, cmd) {
@@ -3926,6 +3922,7 @@ Grab - Playlist Insert:
                     }
                 }
             },
+			*/
             maxlengthCommand: {
                 command: 'maxlength',
                 rank: 'manager',
@@ -4903,6 +4900,9 @@ Grab - Playlist Insert:
 							var roomUser = basicBot.userUtilities.lookupUserName(name);
 							if(typeof roomUser === 'boolean') return API.sendChat('/me Invalid user specified.');
 							var lang = basicBot.userUtilities.getPlugUser(roomUser).language;
+							basicBot.roomUtilities.logDebug("lang: " + lang);
+							basicBot.roomUtilities.logDebug("roomUser: " + roomUser.username);
+							basicBot.roomUtilities.logDebug("roomUser: " + roomUser.id);
 							var englishMessage = basicBot.userUtilities.englishMessage(lang, name);
 							API.sendChat(englishMessage);
 						}
