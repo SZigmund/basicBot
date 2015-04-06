@@ -1,4 +1,4 @@
-/** version: 2.1.4.00030.20
+/** version: 2.1.4.00030.21
 
 .lastplayed user
 .mystats user
@@ -252,7 +252,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.20",
+        version: "2.1.4.00030.21",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -269,7 +269,8 @@ Grab - Playlist Insert:
             songIndex: -1,
             firstPlayed: null,
             playCount: 0,
-            lastPlayed: null
+            lastPlayed: null,
+            songStatsMsg: ""
         },
         settings: {
             autoWootBot: true,
@@ -1504,24 +1505,28 @@ Grab - Playlist Insert:
                 try  {
                     basicBot.roomUtilities.logDebug("======================getSongInfo======================");
                     basicBot.roomUtilities.logDebug("basicBot.room.historyList.length: " + basicBot.room.historyList.length);
+					basicBot.songinfo.songName = media.title;
                     for (var idx = 0; idx < basicBot.room.historyList.length; idx++) {
                         if (basicBot.room.historyList[idx][0] === media.cid) {
-                            basicBot.songinfo.songName = media.title;
 							basicBot.songinfo.songIndex = idx;
                             basicBot.songinfo.firstPlayed = basicBot.room.historyList[idx][1];
                             basicBot.songinfo.playCount = basicBot.room.historyList[idx].length - 1;
-                            basicBot.songinfo.lastPlayed = basicBot.room.historyList[idx][basicBot.playCount-1];
-
-                            API.chatLog(subChat(basicBot.chat.lastplayed2, {songname:    basicBot.songinfo.songName , 
-                                                   firstPlayed: basicBot.roomUtilities.msToStr(basicBot.songinfo.firstPlayed),
+                            basicBot.songinfo.lastPlayed = basicBot.room.historyList[idx][basicBot.playCount];
+							if (basicBot.songinfo.playCount === 1)
+							   msg = basicBot.chat.lastplayed1;
+							else
+							   msg = basicBot.chat.lastplayed2;
+                            basicBot.songinfo.songStatsMsg = subChat(msg, {songname:    basicBot.songinfo.songName , 
+                                                   firstPlayed: basicBot.roomUtilities.msToStr(Date.now() - basicBot.songinfo.firstPlayed) ,
                                                    playCount:   basicBot.songinfo.playCount,
-                                                   lastPlayed:  basicBot.roomUtilities.msToStr(basicBot.songinfo.lastPlayed) }));
+                                                   lastPlayed:  basicBot.roomUtilities.msToStr(Date.now() - basicBot.songinfo.lastPlayed) });
+                            API.chatLog(basicBot.songinfo.songStatsMsg);
 
 							API.chatLog("LOGGING: ");
                             for (var idx2 = 0; idx2 <= basicBot.room.historyList[idx].length; idx2++) {
 							  API.chatLog("LOGGING: [" + idx2 + "]: " + basicBot.room.historyList[idx][idx2]);
 							}
-							/*  todoer Add these counts to songs:
+							/*  todoer Add these stats to songs:
                             wootCount: 0,
                             grabCount: 0,
                             mehCount: 0,
@@ -1530,6 +1535,8 @@ Grab - Playlist Insert:
                             return true;
                         }
                     }
+				    // set values for new songs:
+				    basicBot.songinfo.songStatsMsg = basicBot.chat.lastplayed0;
 					basicBot.songinfo.songIndex = idx;
                     return false;
                 }
@@ -2237,8 +2244,6 @@ Grab - Playlist Insert:
             //basicBot.roomUtilities.logDebug("eventDjadvance:7");
             if (!alreadyPlayed) {
                 basicBot.room.historyList.push([obj.media.cid, +new Date()]);
-				// Force loading our song info after adding this new song
-				basicBot.roomUtilities.getSongInfo(obj.media);
                 //todoer add a 1st time played message? Maybe??
             }
             //basicBot.roomUtilities.logDebug("eventDjadvance:8");
@@ -5067,14 +5072,7 @@ Grab - Playlist Insert:
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                        if (basicBot.songinfo.playCount === 1)
-                           msg = basicBot.chat.lastplayed1;
-                        else
-                           msg = basicBot.chat.lastplayed2;
-                        API.sendChat(subChat(msg, {songname:    basicBot.songinfo.songName , 
-                                                   firstPlayed: basicBot.songinfo.firstPlayed,
-                                                   playCount:   basicBot.songinfo.playCount,
-                                                   lastPlayed:  basicBot.songinfo.lastPlayed }));
+						API.sendChat(basicBot.songinfo.songStatsMsg);
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("lastplayed: " + err.message);
