@@ -170,6 +170,7 @@
     "eightballquestion": "%%NAME%% Question: [%%QUESTION%%]",
     "eightballresponse1": "The all knowing Larry says: %%RESPONSE%%",
     "eightballresponse2": "%%NAME%% The all knowing Larry says: %%RESPONSE%%",
-    "lastplayed1": "This song has only been played once: %%LASTPLAYED%%",
-    "lastplayed2": "This song has been played %%PLAYCOUNT%% times: [%%FIRSTPLAYED%% - %%LASTPLAYED%%]"
+    "lastplayed0": ":notes: This is the 1st time this song has been played! :notes:",
+    "lastplayed1": ":notes: This song has only been played one other time: %%LASTPLAYED%% :notes:",
+    "lastplayed2": ":notes: This song has been played %%PLAYCOUNT%% other times: [%%FIRSTPLAYED%% - %%LASTPLAYED%%] :notes:"
 }
