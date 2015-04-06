@@ -11,6 +11,7 @@
     "invalidgiftags": "/me [@%%NAME%%] Invalid tags, try something different. [Tags: %%TAGS%%]",
     "validgifrandom": "/me [@%%NAME%%] http://media.giphy.com/media/%%ID%%/giphy.gif [Random GIF]",
     "invalidgifrandom": "/me [@%%NAME%%] Invalid request, try again.",
+    "logout": "/me [@%%NAME%%] Logging out %%BOTNAME%%",
 
     "welcome": "/me Welcome %%NAME%%.  Check out our room rules here: http://tinyurl.com/MuricaRules",
     "welcomeback": "/me Welcome back, %%NAME%%",
