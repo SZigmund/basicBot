@@ -1,4 +1,4 @@
-/** version: 2.1.4.00030.17
+/** version: 2.1.4.00030.18
 
 .lastplayed user
 .mystats user
@@ -252,7 +252,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.17",
+        version: "2.1.4.00030.18",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -266,6 +266,7 @@ Grab - Playlist Insert:
         retrieveFromStorage: retrieveFromStorage,
         songinfo: {
             songName: "",
+            songIndex: -1,
             firstPlayed: null,
             playCount: 0,
             lastPlayed: null
@@ -1503,14 +1504,15 @@ Grab - Playlist Insert:
                 try  {
                     basicBot.roomUtilities.logDebug("======================getSongInfo======================");
                     basicBot.roomUtilities.logDebug("basicBot.room.historyList.length: " + basicBot.room.historyList.length);
-                    for (var i = 0; i < basicBot.room.historyList.length; i++) {
-                        if (basicBot.room.historyList[i][0] === media.cid) {
+                    for (var idx = 0; idx < basicBot.room.historyList.length; idx++) {
+                        if (basicBot.room.historyList[idx][0] === media.cid) {
                             basicBot.songinfo.songName = media.title;
-                            basicBot.songinfo.firstPlayed = basicBot.room.historyList[i][1];
-                            basicBot.songinfo.playCount = basicBot.room.historyList[i].length - 1;
-                            basicBot.songinfo.lastPlayed = basicBot.room.historyList[i][basicBot.playCount];
+							basicBot.songinfo.songIndex = idx;
+                            basicBot.songinfo.firstPlayed = basicBot.room.historyList[idx][1];
+                            basicBot.songinfo.playCount = basicBot.room.historyList[idx].length - 1;
+                            basicBot.songinfo.lastPlayed = basicBot.room.historyList[idx][basicBot.playCount];
 
-                            API.chatLog(subChat(msg, {songname:    basicBot.songinfo.songName , 
+                            API.chatLog(subChat(basicBot.chat.lastplayed1, {songname:    basicBot.songinfo.songName , 
                                                    firstPlayed: basicBot.songinfo.firstPlayed,
                                                    playCount:   basicBot.songinfo.playCount,
                                                    lastPlayed:  basicBot.songinfo.lastPlayed }));
@@ -1523,6 +1525,7 @@ Grab - Playlist Insert:
                             return true;
                         }
                     }
+					basicBot.songinfo.songIndex = idx;
                     return false;
                 }
                 catch(err) { basicBot.roomUtilities.logException("getSongInfo: " + err.message); }
@@ -2198,7 +2201,7 @@ Grab - Playlist Insert:
                 }
                 else
                 {
-                    basicBot.room.historyList[basicBot.room.historyList.length].push(+new Date());
+                    basicBot.room.historyList[basicBot.songinfo.songIndex].push(+new Date());
                 }
                 alreadyPlayed = true;
             }
