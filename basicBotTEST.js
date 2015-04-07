@@ -1,4 +1,4 @@
-/** version: 2.1.4.00030.36
+/** version: 2.1.4.00030.37
 
 .lastplayed user
 .mystats user
@@ -259,7 +259,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.36",
+        version: "2.1.4.00030.37",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1556,7 +1556,7 @@ Grab - Playlist Insert:
                     var arrayCount = basicBot.settings.tastyCommentArray.length;
                     var arrayID = Math.floor(Math.random() * arrayCount);
 					if (cmd === "tasty") return basicBot.settings.tastyCommentArray[arrayID];
-                    return "[" + cmd + "] " + basicBot.settings.tastyCommentArray[arrayID];
+                    return "[" + cmd.replace(basicBot.settings.commandLiteral, '') + "] " + basicBot.settings.tastyCommentArray[arrayID];
                 }
                 catch(err) {
                   basicBot.roomUtilities.logException("tastyComment: " + err.message);
