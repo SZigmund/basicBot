@@ -118,6 +118,8 @@
     "notinwaitlist": "/me %%NAME%% you are not on the waitlist.",
     "doubleroll": "/me %%NAME%% you already rolled. Sorry no double dipping.",
     "rollresults": "/me %%NAME%% you rolled a %%ROLL%%",
+    "rollresultsgood": "/me Nice %%NAME%% you rolled a %%ROLL%%",
+    "rollresultsbad": "/me Bummer %%NAME%% you rolled a %%ROLL%%",
     "notcurrentdj": "/me %%NAME%% you are not the current dj.",
     "eta": "/me @%%NAME%% you will reach the booth in approximately %%TIME%%.",
     "facebook": "/me Like us on facebook: %%LINK%%",
