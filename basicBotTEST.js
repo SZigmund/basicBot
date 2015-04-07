@@ -1,4 +1,4 @@
-/** version: 2.1.4.00030.28
+/** version: 2.1.4.00030.29
 
 .lastplayed user
 .mystats user
@@ -255,7 +255,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.28",
+        version: "2.1.4.00030.29",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -5057,18 +5057,21 @@ Grab - Playlist Insert:
                         }
                         var rollResults = Math.floor(Math.random() * dicesides) + 1;
                         basicBot.userUtilities.setRolled(chat.un, true);
-                        if (rollResults > (dicesides * 0.5))
+                        if (rollResults > (dicesides * 0.5)) {
                             setTimeout(function () { basicBot.userUtilities.tastyVote(basicBot.userUtilities.getCurrentPlugUser().id); }, 1000);
                             setTimeout(function () { basicBot.roomUtilities.wootThisSong(); }, 1500);
-                        else
+                            API.sendChat(subChat(basicBot.chat.rollresultsgood, {name: chat.un, roll: rollResults}));
+						}
+                        else {
                             setTimeout(function () { basicBot.roomUtilities.mehThisSong(); }, 1000);
+                            API.sendChat(subChat(basicBot.chat.rollresultsbad, {name: chat.un, roll: rollResults}));
+						}
 						/*
                         if (rollResults >= (dicesides * 0.8))
                             setTimeout(function () { basicBot.userUtilities.tastyVote(basicBot.userUtilities.getCurrentPlugUser().id); }, 1000);
                         else if (rollResults <= (dicesides * 0.2))
                             setTimeout(function () { basicBot.roomUtilities.mehThisSong(); }, 1000);
 							*/
-                        API.sendChat(subChat(basicBot.chat.rollresults, {name: chat.un, roll: rollResults}));
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("rollCommand: " + err.message);
