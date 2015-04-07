@@ -1,4 +1,4 @@
-/** version: 2.1.4.00030.29
+/** version: 2.1.4.00030.31
 
 .lastplayed user
 .mystats user
@@ -255,7 +255,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.29",
+        version: "2.1.4.00030.31",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1065,7 +1065,7 @@ Grab - Playlist Insert:
                 var tastyComment = basicBot.roomUtilities.tastyComment();
                 user.tastyVote = true;
                 //API.sendChat(subChat(basicBot.chat.tastyvote, {name: user.username}));
-                API.sendChat(subChat(tastyComment, {pointfrom: user.username}));
+                setTimeout(function () { API.sendChat(subChat(tastyComment, {pointfrom: user.username})); }, 1000);
 				
                 basicBot.room.roomstats.tastyCount += 1;
                 var currdj = basicBot.userUtilities.lookupUser(dj.id);
