@@ -1,4 +1,4 @@
-/** version: 2.1.4.00031
+/** version: 2.1.4.00032
 
 .lastplayed user
 .mystats user
@@ -259,7 +259,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00031",
+        version: "2.1.4.00032",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1735,7 +1735,7 @@ Grab - Playlist Insert:
                               'creamy','easy','effortless','fluid','gentle','glossy','peaceful','polished','serene','sleek','soft','tranquil','velvety','soothing','fluent','frictionless','lustrous','rhythmic','crackerjack','laudable','peachy','praiseworthy','rare','super-duper','unreal','chill','savvy','smart','ingenious','genious',
                               'sweet','delicious','lucious','bonbon','fetch','fetching','appealing','delightful','absorbing','alluring','cute','electrifying',
 							  'awesome','bitchin','fly','pleasant','relaxing','mellow','nostalgia','punk','like','fries','cake','drum','guitar','bass','tune','pop',
-							  'apple','fantastic'];
+							  'apple','fantastic','spiffy','yes','fabulous','happy'];
                     if (commandList.indexOf(chat.uid) < 0) return true;
                     return false;
                 }
@@ -5163,7 +5163,7 @@ Grab - Playlist Insert:
                           'creamy','easy','effortless','fluid','gentle','glossy','peaceful','polished','serene','sleek','soft','tranquil','velvety','soothing','fluent','frictionless','lustrous','rhythmic','crackerjack','laudable','peachy','praiseworthy','rare','super-duper','unreal','chill','savvy','smart','ingenious','genious',
                           'sweet','delicious','lucious','bonbon','fetch','fetching','appealing','delightful','absorbing','alluring','cute','electrifying',
 						  'awesome','bitchin','fly','pleasant','relaxing','mellow','nostalgia','punk','like','fries','cake','drum','guitar','bass','tune','pop',
-						  'apple','fantastic'],
+						  'apple','fantastic','spiffy','yes','fabulous','happy'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
