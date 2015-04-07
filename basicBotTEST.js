@@ -1,4 +1,4 @@
-/** version: 2.1.4.00031.32
+/** version: 2.1.4.00030.35
 
 .lastplayed user
 .mystats user
@@ -24,7 +24,11 @@ https://plug.dj/_/booth
 Remove current dj:
 https://plug.dj/_/booth/remove/3598437
  
+function narcisDeleteChat(a){
+  $.ajax({url:"https://plug.dj/_/chat/"+a,type:"DELETE"});
+}
 
+ 
 Grab:
 {"playlistID":6096830,"historyID":"291d773b-c5e7-4dce-b555-5842efd94b6f"}
 Grab - Playlist Insert: 
@@ -255,7 +259,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00031.32",
+        version: "2.1.4.00030.35",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1715,24 +1719,25 @@ Grab - Playlist Insert:
                 }
                 catch(err) { basicBot.roomUtilities.logException("logInfo: " + err.message); }
             },
-			isBopCommand: function (cmd) {
+            isBopCommand: function (cmd) {
                 try {
-			        var commandList = ['tasty', 'rock', 'props', 'woot', 'groot', 'groovy', 'jam','nice','bop','cowbell','sax','ukulele','tango','samba','disco','waltz','metal',
-				              'bob','boogie','cavort','conga','flit','foxtrot','frolic','gambol','hop','hustle','jig','jitter','jitterbug','jive','jump','leap','prance',
-							  'promenade','rhumba','shimmy','strut','sway','swing','great','hail','good','acceptable','bad','excellent','exceptional','favorable','marvelous',
-							  'positive','satisfactory','satisfying','superb','valuable','wonderful','ace','boss','bully','capital','choice','crack','pleasing','prime','rad',
-							  'sound','spanking','sterling','super','superior','welcome','worthy','admirable','agreeable','commendable','congenial','deluxe','first-class',
-							  'first-rate','gnarly','gratifying','honorable','neat','precious','recherché','reputable','select','shipshape','splendid','stupendous','keen',
-							  'nifty','swell','sensational','fine','cool','perfect','wicked','fab','heavy','incredible','outstanding','phenomenal','remarkable','special',
-							  'terrific','unique','aces','choice','capital','dandy','enjoyable','exquisite','fashionable','lovely','love','solid','striking','top-notch',
-							  'slick','pillar','exemplary','alarming','astonishing','awe-inspiring','beautiful','breathtaking','fearsome','formidable','frightening',
-							  'impressive','intimidating','facinating','prodigious','magnificent','overwhelming','shocking','stunning','stupefying','majestic','grand'];
+                    var commandList = ['tasty', 'rock', 'props', 'woot', 'groot', 'groovy', 'jam','nice','bop','cowbell','sax','ukulele','tango','samba','disco','waltz','metal',
+                              'bob','boogie','cavort','conga','flit','foxtrot','frolic','gambol','hop','hustle','jig','jitter','jitterbug','jive','jump','leap','prance',
+                              'promenade','rhumba','shimmy','strut','sway','swing','great','hail','good','acceptable','bad','excellent','exceptional','favorable','marvelous',
+                              'positive','satisfactory','satisfying','superb','valuable','wonderful','ace','boss','bully','capital','choice','crack','pleasing','prime','rad',
+                              'sound','spanking','sterling','super','superior','welcome','worthy','admirable','agreeable','commendable','congenial','deluxe','first-class',
+                              'first-rate','gnarly','gratifying','honorable','neat','precious','recherché','reputable','select','shipshape','splendid','stupendous','keen',
+                              'nifty','swell','sensational','fine','cool','perfect','wicked','fab','heavy','incredible','outstanding','phenomenal','remarkable','special',
+                              'terrific','unique','aces','choice','capital','dandy','enjoyable','exquisite','fashionable','lovely','love','solid','striking','top-notch',
+                              'slick','pillar','exemplary','alarming','astonishing','awe-inspiring','beautiful','breathtaking','fearsome','formidable','frightening','winner',
+                              'impressive','intimidating','facinating','prodigious','magnificent','overwhelming','shocking','stunning','stupefying','majestic','grand',
+							  'creamy','easy','effortless','fluid','gentle','glossy','peaceful','polished','serene','sleek','soft','tranquil','velvety','soothing','fluent','frictionless','lustrous','rhythmic','crackerjack','laudable','peachy','praiseworthy','rare','super-duper','unreal','chill','savvy','smart','ingenious','genious'];
                     if (commandList.indexOf(chat.uid) < 0) return true;
-					return false;
-				}
+                    return false;
+                }
                 catch(err) { basicBot.roomUtilities.logException("commandCheck: " + err.message); }
-			},
-			
+            },
+            
             logDebug: function(msg) {
                 try {
                    if (basicBot.room.debug === false) return;
@@ -2493,11 +2498,7 @@ Grab - Playlist Insert:
                     //basicBot.roomUtilities.logDebug("commandCheck chat.uid: " + chat.uid);
                     var userPerm = basicBot.userUtilities.getPermission(chat.uid);
                     //basicBot.roomUtilities.logDebug("commandCheck chat.userPerm: " + userPerm);
-					if (basicBot.roomUtilities.isBopCommand()) basicBot.roomUtilities.logDebug("BOP");
-                    if (chat.message !== ".join" && chat.message !== ".leave" && cmd !== ".woot" && cmd !== ".tasty"  && cmd !== ".props"  && cmd !== ".rock"
-                                                 && cmd !== ".groot" && cmd !== ".groovy" && cmd !== ".jam" && cmd !== ".nice"  && cmd !== ".cowbell" 
-												 && cmd !== ".bop"  && cmd !== ".sax" && cmd !== ".ukulele" && cmd !== ".tango" && cmd !== ".samba" 
-												 && cmd !== ".waltz" && cmd !== ".disco" ) {
+                    if (chat.message !== ".join" && chat.message !== ".leave" && (!basicBot.roomUtilities.isBopCommand())) {
                         //basicBot.roomUtilities.logDebug("commandCheck1: " + cmd);
                         if (userPerm === 0 && !basicBot.room.usercommand) return void (0);
                         //basicBot.roomUtilities.logDebug("commandCheck2: " + cmd);
@@ -5079,7 +5080,7 @@ Grab - Playlist Insert:
                         var rollResults = Math.floor(Math.random() * dicesides) + 1;
                         basicBot.userUtilities.setRolled(chat.un, true);
                         if (rollResults > (dicesides * 0.5)) {
-                            setTimeout(function () { basicBot.userUtilities.tastyVote(basicBot.userUtilities.getCurrentPlugUser().id); }, 1000);
+                            setTimeout(function () { basicBot.userUtilities.tastyVote(basicBot.userUtilities.getCurrentPlugUser().id,'winner'); }, 1000);
                             setTimeout(function () { basicBot.roomUtilities.wootThisSong(); }, 1500);
                             API.sendChat(subChat(basicBot.chat.rollresultsgood, {name: chat.un, roll: rollResults}));
                         }
@@ -5147,19 +5148,22 @@ Grab - Playlist Insert:
             },
             tastyCommand: {
                 command: ['tasty', 'rock', 'props', 'woot', 'groot', 'groovy', 'jam','nice','bop','cowbell','sax','ukulele','tango','samba','disco','waltz','metal',
-				          'bob','boogie','cavort','conga','flit','foxtrot','frolic','gambol','hop','hustle','jig','jitter','jitterbug','jive','jump','leap','prance','promenade','rhumba','shimmy','strut','sway','swing','great','hail','good','acceptable','bad','excellent','exceptional','favorable','marvelous','positive','satisfactory','satisfying',
-						  'superb','valuable','wonderful','ace','boss','bully','capital','choice','crack','pleasing','prime','rad','sound','spanking','sterling','super','superior',
-						  'welcome','worthy','admirable','agreeable','commendable','congenial','deluxe','first-class','first-rate','gnarly','gratifying','honorable','neat','precious',
-						  'recherché','reputable','select','shipshape','splendid','stupendous','keen','nifty','swell','sensational','fine','cool','perfect','wicked','fab','heavy',
-						  'incredible','outstanding','phenomenal','remarkable','special','terrific','unique','aces','choice','capital','dandy','enjoyable','exquisite',
-						  'fashionable','lovely','love','solid','striking','top-notch','slick','pillar','exemplary','alarming','astonishing','awe-inspiring',
-						  'beautiful','breathtaking','fearsome','formidable','frightening','impressive','intimidating','facinating','prodigious',
-						  'magnificent','overwhelming','shocking','stunning','stupefying','majestic','grand'],
+                          'bob','boogie','cavort','conga','flit','foxtrot','frolic','gambol','hop','hustle','jig','jitter','jitterbug','jive','jump','leap','prance','promenade','rhumba','shimmy','strut','sway','swing','great','hail','good','acceptable','bad','excellent','exceptional','favorable','marvelous','positive','satisfactory','satisfying',
+                          'superb','valuable','wonderful','ace','boss','bully','capital','choice','crack','pleasing','prime','rad','sound','spanking','sterling','super','superior',
+                          'welcome','worthy','admirable','agreeable','commendable','congenial','deluxe','first-class','first-rate','gnarly','gratifying','honorable','neat','precious',
+                          'recherché','reputable','select','shipshape','splendid','stupendous','keen','nifty','swell','sensational','fine','cool','perfect','wicked','fab','heavy',
+                          'incredible','outstanding','phenomenal','remarkable','special','terrific','unique','aces','choice','capital','dandy','enjoyable','exquisite',
+                          'fashionable','lovely','love','solid','striking','top-notch','slick','pillar','exemplary','alarming','astonishing','awe-inspiring',
+                          'beautiful','breathtaking','fearsome','formidable','frightening','impressive','intimidating','facinating','prodigious',
+                          'magnificent','overwhelming','shocking','stunning','stupefying','majestic','grand',
+						  'creamy','easy','effortless','fluid','gentle','glossy','peaceful','polished','serene','sleek','soft','tranquil','velvety','soothing','fluent','frictionless','lustrous','rhythmic','crackerjack','laudable','peachy','praiseworthy','rare','super-duper','unreal','chill','savvy','smart','ingenious','genious'],
+						  
+						  
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
                     try {
-                        basicBot.userUtilities.tastyVote(chat.uid);
+                        basicBot.userUtilities.tastyVote(chat.uid, cmd);
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("tastyCommand: " + err.message);
