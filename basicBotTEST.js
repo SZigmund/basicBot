@@ -1,4 +1,4 @@
-/** version: 2.1.4.00030.35
+/** version: 2.1.4.00030.36
 
 .lastplayed user
 .mystats user
@@ -259,7 +259,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.35",
+        version: "2.1.4.00030.36",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1055,7 +1055,7 @@ Grab - Playlist Insert:
                   basicBot.roomUtilities.logException("userUtilities.getUser: " + err.message);
                 }
             },
-            tastyVote: function (userId) {
+            tastyVote: function (userId, cmd) {
                 try {
                 var user = basicBot.userUtilities.lookupUser(userId);
                 if (user.tastyVote) return;
@@ -1066,7 +1066,7 @@ Grab - Playlist Insert:
                    API.sendChat("I'm glad you find your own play tasty @" + user.username);
                    return;
                 }
-                var tastyComment = basicBot.roomUtilities.tastyComment();
+                var tastyComment = basicBot.roomUtilities.tastyComment(cmd);
                 user.tastyVote = true;
                 //API.sendChat(subChat(basicBot.chat.tastyvote, {name: user.username}));
                 setTimeout(function () { API.sendChat(subChat(tastyComment, {pointfrom: user.username})); }, 1000);
@@ -1551,11 +1551,12 @@ Grab - Playlist Insert:
                 }
                 catch(err) { basicBot.roomUtilities.logException("getSongInfo: " + err.message); }
             },
-            tastyComment: function()  {  //Added 04/03/2015 Zig
+            tastyComment: function(cmd)  {  //Added 04/03/2015 Zig
                 try  {
                     var arrayCount = basicBot.settings.tastyCommentArray.length;
                     var arrayID = Math.floor(Math.random() * arrayCount);
-                    return basicBot.settings.tastyCommentArray[arrayID];
+					if (cmd === "tasty") return basicBot.settings.tastyCommentArray[arrayID];
+                    return "[" + cmd + "] " + basicBot.settings.tastyCommentArray[arrayID];
                 }
                 catch(err) {
                   basicBot.roomUtilities.logException("tastyComment: " + err.message);
@@ -1728,10 +1729,11 @@ Grab - Playlist Insert:
                               'sound','spanking','sterling','super','superior','welcome','worthy','admirable','agreeable','commendable','congenial','deluxe','first-class',
                               'first-rate','gnarly','gratifying','honorable','neat','precious','recherché','reputable','select','shipshape','splendid','stupendous','keen',
                               'nifty','swell','sensational','fine','cool','perfect','wicked','fab','heavy','incredible','outstanding','phenomenal','remarkable','special',
-                              'terrific','unique','aces','choice','capital','dandy','enjoyable','exquisite','fashionable','lovely','love','solid','striking','top-notch',
+                              'terrific','unique','aces','capital','dandy','enjoyable','exquisite','fashionable','lovely','love','solid','striking','top-notch',
                               'slick','pillar','exemplary','alarming','astonishing','awe-inspiring','beautiful','breathtaking','fearsome','formidable','frightening','winner',
                               'impressive','intimidating','facinating','prodigious','magnificent','overwhelming','shocking','stunning','stupefying','majestic','grand',
-							  'creamy','easy','effortless','fluid','gentle','glossy','peaceful','polished','serene','sleek','soft','tranquil','velvety','soothing','fluent','frictionless','lustrous','rhythmic','crackerjack','laudable','peachy','praiseworthy','rare','super-duper','unreal','chill','savvy','smart','ingenious','genious'];
+                              'creamy','easy','effortless','fluid','gentle','glossy','peaceful','polished','serene','sleek','soft','tranquil','velvety','soothing','fluent','frictionless','lustrous','rhythmic','crackerjack','laudable','peachy','praiseworthy','rare','super-duper','unreal','chill','savvy','smart','ingenious','genious',
+                              'sweet','delicious','lucious','bonbon','fetch','fetching','appealing','delightful','absorbing','alluring','cute','electrifying'];
                     if (commandList.indexOf(chat.uid) < 0) return true;
                     return false;
                 }
@@ -5080,7 +5082,7 @@ Grab - Playlist Insert:
                         var rollResults = Math.floor(Math.random() * dicesides) + 1;
                         basicBot.userUtilities.setRolled(chat.un, true);
                         if (rollResults > (dicesides * 0.5)) {
-                            setTimeout(function () { basicBot.userUtilities.tastyVote(basicBot.userUtilities.getCurrentPlugUser().id,'winner'); }, 1000);
+                            setTimeout(function () { basicBot.userUtilities.tastyVote(basicBot.userUtilities.getCurrentPlugUser().id,"winner"); }, 1000);
                             setTimeout(function () { basicBot.roomUtilities.wootThisSong(); }, 1500);
                             API.sendChat(subChat(basicBot.chat.rollresultsgood, {name: chat.un, roll: rollResults}));
                         }
@@ -5090,7 +5092,7 @@ Grab - Playlist Insert:
                         }
                         /*
                         if (rollResults >= (dicesides * 0.8))
-                            setTimeout(function () { basicBot.userUtilities.tastyVote(basicBot.userUtilities.getCurrentPlugUser().id); }, 1000);
+                            setTimeout(function () { basicBot.userUtilities.tastyVote(basicBot.userUtilities.getCurrentPlugUser().id, "winner"); }, 1000);
                         else if (rollResults <= (dicesides * 0.2))
                             setTimeout(function () { basicBot.roomUtilities.mehThisSong(); }, 1000);
                             */
@@ -5152,13 +5154,12 @@ Grab - Playlist Insert:
                           'superb','valuable','wonderful','ace','boss','bully','capital','choice','crack','pleasing','prime','rad','sound','spanking','sterling','super','superior',
                           'welcome','worthy','admirable','agreeable','commendable','congenial','deluxe','first-class','first-rate','gnarly','gratifying','honorable','neat','precious',
                           'recherché','reputable','select','shipshape','splendid','stupendous','keen','nifty','swell','sensational','fine','cool','perfect','wicked','fab','heavy',
-                          'incredible','outstanding','phenomenal','remarkable','special','terrific','unique','aces','choice','capital','dandy','enjoyable','exquisite',
+                          'incredible','outstanding','phenomenal','remarkable','special','terrific','unique','aces','capital','dandy','enjoyable','exquisite',
                           'fashionable','lovely','love','solid','striking','top-notch','slick','pillar','exemplary','alarming','astonishing','awe-inspiring',
                           'beautiful','breathtaking','fearsome','formidable','frightening','impressive','intimidating','facinating','prodigious',
                           'magnificent','overwhelming','shocking','stunning','stupefying','majestic','grand',
-						  'creamy','easy','effortless','fluid','gentle','glossy','peaceful','polished','serene','sleek','soft','tranquil','velvety','soothing','fluent','frictionless','lustrous','rhythmic','crackerjack','laudable','peachy','praiseworthy','rare','super-duper','unreal','chill','savvy','smart','ingenious','genious'],
-						  
-						  
+                          'creamy','easy','effortless','fluid','gentle','glossy','peaceful','polished','serene','sleek','soft','tranquil','velvety','soothing','fluent','frictionless','lustrous','rhythmic','crackerjack','laudable','peachy','praiseworthy','rare','super-duper','unreal','chill','savvy','smart','ingenious','genious',
+                          'sweet','delicious','lucious','bonbon','fetch','fetching','appealing','delightful','absorbing','alluring','cute','electrifying'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
