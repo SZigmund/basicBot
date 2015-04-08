@@ -1,4 +1,4 @@
-/** version: 2.1.4.00030.37
+/** version: 2.1.4.00032.01
 
 .lastplayed user
 .mystats user
@@ -259,7 +259,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00030.37",
+        version: "2.1.4.00032.01",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -364,8 +364,15 @@ Grab - Playlist Insert:
             ":cake: *** :cake: Thanks to Al Gore %%POINTFROM%% can give you this: *** :cake:",
             ":cake: *** Goose, take me to bed or lose me forever. (%%POINTFROM%%) *** :cake:",
             ":cake: *** If we weren’t on the internet %%POINTFROM%% would get you tin roof rusted. *** :cake:",
-            ":cake: *** :dancer: %%POINTFROM%% gave you a tasty point.  @Larry the Law will now dance the robot in your honor. :dancer: *** :cake:"
-            ],
+            ":cake: *** :dancer: %%POINTFROM%% gave you a tasty point.  @Larry the Law will now dance the robot in your honor. :dancer: *** :cake:",
+			":cake: *** Beanbags are great and so are you!! (%%POINTFROM%%) *** :cake:",
+			":cake: *** You're smart than Google and Mary Poppins combined. (%%POINTFROM%%) *** :cake:",
+			":cake: *** Hanging out with you is better than a party with unlimited juice. Which, as we all know, if off the hook. (%%POINTFROM%%) *** :cake:",
+			":cake: *** Shit just got real. (%%POINTFROM%%) *** :cake:",
+			":cake: *** This play is so awesome. It's like you are the superhero of Tasty Tunes. (%%POINTFROM%%) *** :cake:",
+			":cake: *** This tune is cooler than Mr. Rogers. Which may not seem like a big deal, but that dude would put on a different pair of shoes just to chill in his own home. And that's crazy cool!! (%%POINTFROM%%) *** :cake:",
+			":cake: *** You are so rad!! (%%POINTFROM%%) *** :cake:"
+			],
             EightBallArray: [
             "As I See It Yes", 
             "Ask Again Later", 
@@ -1676,7 +1683,7 @@ Grab - Playlist Insert:
                     var whoismsg = "";
                     if (uid < 0) return "Undefined User";
                     var pluguser = basicBot.userUtilities.getPlugUserID(uid);
-                    basicBot.roomUtilities.logObject(pluguser);
+                    //basicBot.roomUtilities.logObject(pluguser);
                     var avatar = pluguser.avatarID;
                     var level = pluguser.level;
                     var rawjoined = pluguser.joined;
@@ -1733,7 +1740,9 @@ Grab - Playlist Insert:
                               'slick','pillar','exemplary','alarming','astonishing','awe-inspiring','beautiful','breathtaking','fearsome','formidable','frightening','winner',
                               'impressive','intimidating','facinating','prodigious','magnificent','overwhelming','shocking','stunning','stupefying','majestic','grand',
                               'creamy','easy','effortless','fluid','gentle','glossy','peaceful','polished','serene','sleek','soft','tranquil','velvety','soothing','fluent','frictionless','lustrous','rhythmic','crackerjack','laudable','peachy','praiseworthy','rare','super-duper','unreal','chill','savvy','smart','ingenious','genious',
-                              'sweet','delicious','lucious','bonbon','fetch','fetching','appealing','delightful','absorbing','alluring','cute','electrifying'];
+                              'sweet','delicious','lucious','bonbon','fetch','fetching','appealing','delightful','absorbing','alluring','cute','electrifying',
+							  'awesome','bitchin','fly','pleasant','relaxing','mellow','nostalgia','punk','like','fries','cake','drum','guitar','bass','tune','pop',
+							  'apple','fantastic','spiffy','yes','fabulous','happy','smooth'];
                     if (commandList.indexOf(chat.uid) < 0) return true;
                     return false;
                 }
@@ -2334,6 +2343,11 @@ Grab - Playlist Insert:
           "eventUserleave happens..... tododer"*/
         eventChatcommand: function (command) {
         // This is triggered when a chat starting with a '/' character is entered
+            try {
+			    basicBot.roomUtilities.logDebug("COMMAND: " + command);
+                basicBot.roomUtilities.logObject(command);
+            }
+            catch(err) { basicBot.roomUtilities.logException("eventChatcommand: " + err.message); }
         },
         eventModskip: function (users) {
         // This is triggered when a mod skips a song
@@ -4818,6 +4832,35 @@ Grab - Playlist Insert:
                     }
                 }
             },
+            mystatsxCommand: {
+                command: 'mystatsx',
+                rank: 'manager',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        var msg = chat.message;
+                        var name = "";
+                        if (msg.length === cmd.length) name = chat.un
+                        else name = msg.substring(cmd.length + 2);
+                        var user = basicBot.userUtilities.lookupUserName(name);
+                        if (user === false) return API.chatLog(subChat(basicBot.chat.invaliduserspecified, {name: chat.un}));
+                        var msg = subChat(basicBot.chat.mystats, {name: user.username, 
+                                                                     songs: user.votes.songs,
+                                                                     woot: user.votes.woot, 
+                                                                     mehs: user.votes.meh, 
+                                                                     grabs: user.votes.curate, 
+                                                                     tasty: user.votes.tasty});
+                        var byusername = " [ executed by " + chat.un + " ]";
+                        if (chat.un !== name) msg += byusername;
+                        API.chatLog(msg);
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("mystatsCommand: " + err.message);
+                    }
+                }
+            },
             voteratioCommand: {
                 command: 'voteratio',
                 rank: 'bouncer',
@@ -5159,7 +5202,9 @@ Grab - Playlist Insert:
                           'beautiful','breathtaking','fearsome','formidable','frightening','impressive','intimidating','facinating','prodigious',
                           'magnificent','overwhelming','shocking','stunning','stupefying','majestic','grand',
                           'creamy','easy','effortless','fluid','gentle','glossy','peaceful','polished','serene','sleek','soft','tranquil','velvety','soothing','fluent','frictionless','lustrous','rhythmic','crackerjack','laudable','peachy','praiseworthy','rare','super-duper','unreal','chill','savvy','smart','ingenious','genious',
-                          'sweet','delicious','lucious','bonbon','fetch','fetching','appealing','delightful','absorbing','alluring','cute','electrifying'],
+                          'sweet','delicious','lucious','bonbon','fetch','fetching','appealing','delightful','absorbing','alluring','cute','electrifying',
+						  'awesome','bitchin','fly','pleasant','relaxing','mellow','nostalgia','punk','like','fries','cake','drum','guitar','bass','tune','pop',
+						  'apple','fantastic','spiffy','yes','fabulous','happy','smooth'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
