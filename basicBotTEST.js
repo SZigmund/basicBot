@@ -1,4 +1,4 @@
-/** version: 2.1.4.00032.04
+/** version: 2.1.4.00032.05
 
 .lastplayed user
 .mystats user
@@ -262,7 +262,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00032.04",
+        version: "2.1.4.00032.05",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2534,8 +2534,8 @@ Grab - Playlist Insert:
 			//chat.uid chat.message chat.cid
                 try {
                     var cmd;
-                    //basicBot.roomUtilities.logDebug("commandCheck chat: " + chatMessage);
-                    if (chatMessage.charAt(0) === '.') {
+                    basicBot.roomUtilities.logDebug("commandCheck chat: " + chatMessage);
+                    if (chatMessage.substring(0,1) === ".") {
                         var space = chatMessage.indexOf(' ');
                         if (space === -1) {
                             cmd = chatMessage;
