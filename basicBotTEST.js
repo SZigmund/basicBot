@@ -1,4 +1,4 @@
-/** version: 2.1.4.00032.06
+/** version: 2.1.4.00032.07
 
 .lastplayed user
 .mystats user
@@ -262,7 +262,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00032.06",
+        version: "2.1.4.00032.07",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2072,7 +2072,7 @@ Grab - Playlist Insert:
 				basicBot.userUtilities.setLastActivityID(chat.uid, true);
 				basicBot.userUtilities.setUserName(chat.uid, chat.un);
 				if (basicBot.chatUtilities.chatFilter(chat)) return void (0);
-				if (!basicBot.chatUtilities.commandCheck(chat.message, chat.uid, chat.cid))
+				if (!basicBot.chatUtilities.commandCheck(chat))
 					basicBot.chatUtilities.action(chat);
             }
             catch(err) {
@@ -2373,9 +2373,8 @@ Grab - Playlist Insert:
 					basicBot.roomUtilities.chatLog("Running Bot: " + runningBot);
 				    return;
 				}
-                cmd = command.substring(1, command.length);
-			    basicBot.roomUtilities.logDebug("COMMAND: " + command);
-				basicBot.chatUtilities.commandCheck(basicBot.settings.commandLiteral + command, basicBot.loggedInID, 0);
+				//commandChat.message = basicBot.settings.commandLiteral + command.substring(1, command.length);
+				//basicBot.chatUtilities.commandCheck(basicBot.settings.commandLiteral + cmd, basicBot.loggedInID, 0);
             }
             catch(err) { basicBot.roomUtilities.logException("eventChatcommand: " + err.message); }
         },
@@ -2530,34 +2529,35 @@ Grab - Playlist Insert:
                 }
                 return false;
             },
-            commandCheck: function (chatMessage, chatUid, chatId) {
+            commandCheck: function (chat) {
 			//chat.uid chat.message chat.cid
                 try {
                     var cmd;
-                    basicBot.roomUtilities.logDebug("commandCheck chat: " + chatMessage);
-                    if (chatMessage.substring(0,1) === basicBot.settings.commandLiteral) {
-                        var space = chatMessage.indexOf(' ');
+					basicBot.roomUtilities.logObject(chat);
+                    basicBot.roomUtilities.logDebug("commandCheck chat: " + chat.message);
+                    if (chat.message.substring(0,1) === basicBot.settings.commandLiteral) {
+                        var space = chat.message.indexOf(' ');
                         if (space === -1) {
-                            cmd = chatMessage;
+                            cmd = chat.message;
                         }
-                        else cmd = chatMessage.substring(0, space);
+                        else cmd = chat.message.substring(0, space);
                     }
                     else return false;
                     //basicBot.roomUtilities.logDebug("commandCheck cmd: " + cmd);
-                    //basicBot.roomUtilities.logDebug("commandCheck chatUid: " + chatUid);
-                    var userPerm = basicBot.userUtilities.getPermission(chatUid);
-                    if (chatMessage !== ".join" && chatMessage !== ".leave" && (!basicBot.roomUtilities.isBopCommand())) {
+                    //basicBot.roomUtilities.logDebug("commandCheck chat.uid: " + chat.uid);
+                    var userPerm = basicBot.userUtilities.getPermission(chat.uid);
+                    if (chat.message !== ".join" && chat.message !== ".leave" && (!basicBot.roomUtilities.isBopCommand())) {
                         //basicBot.roomUtilities.logDebug("commandCheck1: " + cmd);
                         if (userPerm === 0 && !basicBot.room.usercommand) return void (0);
                         //basicBot.roomUtilities.logDebug("commandCheck2: " + cmd);
                         if (!basicBot.room.allcommand) return void (0);
                         //basicBot.roomUtilities.logDebug("commandCheck3: " + cmd);
                     }
-                    if (chatMessage === '.eta' && basicBot.settings.etaRestriction) {
+                    if (chat.message === '.eta' && basicBot.settings.etaRestriction) {
                         if (userPerm < 2) {
-                            var u = basicBot.userUtilities.lookupUser(chatUid);
+                            var u = basicBot.userUtilities.lookupUser(chat.uid);
                             if (u.lastEta !== null && (Date.now() - u.lastEta) < 1 * 60 * 60 * 1000) {
-                                if (chatId > 0) API.moderateDeleteChat(chatId);
+                                if (chat.cid > 0) API.moderateDeleteChat(chat.cid);
                                 //basicBot.roomUtilities.logDebug("commandCheck4: " + cmd);
                                 return void (0);
                             }
@@ -2590,7 +2590,7 @@ Grab - Playlist Insert:
                     }
                     //basicBot.roomUtilities.logDebug("commandCheck7: executed: " + executed);
                     if (executed) {
-                        if (chatId > 0) API.moderateDeleteChat(chatId);
+                        if (chat.cid > 0) API.moderateDeleteChat(chat.cid);
                         basicBot.room.allcommand = false;
                         setTimeout(function () {
                             basicBot.room.allcommand = true;
