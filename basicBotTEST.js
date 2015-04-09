@@ -1,4 +1,4 @@
-/** version: 2.1.4.00032.03
+/** version: 2.1.4.00032.04
 
 .lastplayed user
 .mystats user
@@ -262,7 +262,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00032.03",
+        version: "2.1.4.00032.04",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2072,7 +2072,7 @@ Grab - Playlist Insert:
 				basicBot.userUtilities.setLastActivityID(chat.uid, true);
 				basicBot.userUtilities.setUserName(chat.uid, chat.un);
 				if (basicBot.chatUtilities.chatFilter(chat)) return void (0);
-				if (!basicBot.chatUtilities.commandCheck(chat.uid chat.message chat.cid))
+				if (!basicBot.chatUtilities.commandCheck(chat.uid, chat.message, chat.cid))
 					basicBot.chatUtilities.action(chat);
             }
             catch(err) {
