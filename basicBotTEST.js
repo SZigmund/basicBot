@@ -1,4 +1,4 @@
-/** version: 2.1.4.00032.09
+/** version: 2.1.4.00032.10
 
 .lastplayed user
 .mystats user
@@ -261,7 +261,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00032.09",
+        version: "2.1.4.00032.10",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2390,7 +2390,7 @@ Grab - Playlist Insert:
 				basicbot.commandChat.uid = basicBot.loggedInID;
 				basicbot.commandChat.type = "message";
 				basicbot.commandChat.timestamp = Date.now();
-				basicbot.commandChat.sound: "mention"
+				basicbot.commandChat.sound = "mention";
 				basicBot.chatUtilities.commandCheck(basicbot.commandChat);
             }
             catch(err) { basicBot.roomUtilities.logException("eventChatcommand: " + err.message); }
