@@ -1,4 +1,4 @@
-/** version: 2.1.4.00032.05
+/** version: 2.1.4.00032.06
 
 .lastplayed user
 .mystats user
@@ -257,12 +257,12 @@ Grab - Playlist Insert:
 	var runningBot = false;
     var botCreator = "Matthew aka. Yemasthui";
     var botCreatorIDs = [3837756];
-    var botIDs = ["3864950", "5226916"];
+    var botIDs = [3864950, 5226916];
     var botMaintainer = "Benzi (Quoona)"
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00032.05",
+        version: "2.1.4.00032.06",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2072,7 +2072,7 @@ Grab - Playlist Insert:
 				basicBot.userUtilities.setLastActivityID(chat.uid, true);
 				basicBot.userUtilities.setUserName(chat.uid, chat.un);
 				if (basicBot.chatUtilities.chatFilter(chat)) return void (0);
-				if (!basicBot.chatUtilities.commandCheck(chat.uid, chat.message, chat.cid))
+				if (!basicBot.chatUtilities.commandCheck(chat.message, chat.uid, chat.cid))
 					basicBot.chatUtilities.action(chat);
             }
             catch(err) {
@@ -2375,7 +2375,7 @@ Grab - Playlist Insert:
 				}
                 cmd = command.substring(1, command.length);
 			    basicBot.roomUtilities.logDebug("COMMAND: " + command);
-				basicBot.chatUtilities.commandCheck(basicBot.loggedInID, "." + command, 0);
+				basicBot.chatUtilities.commandCheck(basicBot.settings.commandLiteral + command, basicBot.loggedInID, 0);
             }
             catch(err) { basicBot.roomUtilities.logException("eventChatcommand: " + err.message); }
         },
@@ -2535,7 +2535,7 @@ Grab - Playlist Insert:
                 try {
                     var cmd;
                     basicBot.roomUtilities.logDebug("commandCheck chat: " + chatMessage);
-                    if (chatMessage.substring(0,1) === ".") {
+                    if (chatMessage.substring(0,1) === basicBot.settings.commandLiteral) {
                         var space = chatMessage.indexOf(' ');
                         if (space === -1) {
                             cmd = chatMessage;
