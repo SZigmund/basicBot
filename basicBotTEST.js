@@ -1,4 +1,4 @@
-/** version: 2.1.4.00032.08
+/** version: 2.1.4.00032.09
 
 .lastplayed user
 .mystats user
@@ -261,7 +261,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00032.08",
+        version: "2.1.4.00032.09",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -274,7 +274,7 @@ Grab - Playlist Insert:
         loadChat: loadChat,
         retrieveSettings: retrieveSettings,
         retrieveFromStorage: retrieveFromStorage,
-        commandChat = {
+        commandChat: {
             cid: "",
             message: "",
             sub: -1,
