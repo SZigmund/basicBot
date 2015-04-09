@@ -1,4 +1,4 @@
-/** version: 2.1.4.00032.02
+/** version: 2.1.4.00032.03
 
 .lastplayed user
 .mystats user
@@ -262,7 +262,7 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00032.02",
+        version: "2.1.4.00032.03",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1757,7 +1757,7 @@ Grab - Playlist Insert:
                 }
                 catch(err) { basicBot.roomUtilities.logException("chatLog: " + err.message); }
 			},
-			basicBot.roomUtilities.sendChat: function(msg) {
+			sendChat: function(msg) {
 			    try {
 				    basicBot.roomUtilities.logDebug("runningBot: " + runningBot);  ////todoer DELETE
 				    if (runningBot) API.sendChat(msg);
