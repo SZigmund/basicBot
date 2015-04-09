@@ -1,4 +1,4 @@
-/** version: 2.1.4.00032.07
+/** version: 2.1.4.00032.08
 
 .lastplayed user
 .mystats user
@@ -258,14 +258,14 @@ Grab - Playlist Insert:
     var botCreator = "Matthew aka. Yemasthui";
     var botCreatorIDs = [3837756];
     var botIDs = [3864950, 5226916];
-    var botMaintainer = "Benzi (Quoona)"
-
+    var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00032.07",
+        version: "2.1.4.00032.08",
         status: false,
         name: "basicBot",
         loggedInID: null,
+        loggedInName: "",
         scriptLink: "https://rawgit.com/SZigmund/basicBot/master/basicBot.js",
         scriptTestLink: "https://rawgit.com/SZigmund/basicBot/master/basicBotTEST.js",
         cmdLink: "http://git.io/245Ppg",
@@ -274,6 +274,16 @@ Grab - Playlist Insert:
         loadChat: loadChat,
         retrieveSettings: retrieveSettings,
         retrieveFromStorage: retrieveFromStorage,
+        commandChat = {
+            cid: "",
+            message: "",
+            sub: -1,
+            un: "",
+            uid: -1,
+			type: "message",
+			timestamp: null,
+            sound: "mention"
+		},
         songinfo: {
             songName: "",
             songIndex: -1,
@@ -2373,8 +2383,15 @@ Grab - Playlist Insert:
 					basicBot.roomUtilities.chatLog("Running Bot: " + runningBot);
 				    return;
 				}
-				//commandChat.message = basicBot.settings.commandLiteral + command.substring(1, command.length);
-				//basicBot.chatUtilities.commandCheck(basicBot.settings.commandLiteral + cmd, basicBot.loggedInID, 0);
+				basicbot.commandChat.cid = "";
+				basicbot.commandChat.message = basicBot.settings.commandLiteral + command.substring(1, command.length);
+				basicbot.commandChat.sub = -1;
+				basicbot.commandChat.un = basicBot.loggedInName;
+				basicbot.commandChat.uid = basicBot.loggedInID;
+				basicbot.commandChat.type = "message";
+				basicbot.commandChat.timestamp = Date.now();
+				basicbot.commandChat.sound: "mention"
+				basicBot.chatUtilities.commandCheck(basicbot.commandChat);
             }
             catch(err) { basicBot.roomUtilities.logException("eventChatcommand: " + err.message); }
         },
@@ -2557,7 +2574,7 @@ Grab - Playlist Insert:
                         if (userPerm < 2) {
                             var u = basicBot.userUtilities.lookupUser(chat.uid);
                             if (u.lastEta !== null && (Date.now() - u.lastEta) < 1 * 60 * 60 * 1000) {
-                                if (chat.cid > 0) API.moderateDeleteChat(chat.cid);
+                                if (chat.cid.length > 0) API.moderateDeleteChat(chat.cid);
                                 //basicBot.roomUtilities.logDebug("commandCheck4: " + cmd);
                                 return void (0);
                             }
@@ -2590,7 +2607,7 @@ Grab - Playlist Insert:
                     }
                     //basicBot.roomUtilities.logDebug("commandCheck7: executed: " + executed);
                     if (executed) {
-                        if (chat.cid > 0) API.moderateDeleteChat(chat.cid);
+                        if (chat.cid.length > 0) API.moderateDeleteChat(chat.cid);
                         basicBot.room.allcommand = false;
                         setTimeout(function () {
                             basicBot.room.allcommand = true;
@@ -2764,6 +2781,7 @@ Grab - Playlist Insert:
             //basicBot.roomUtilities.logDebug("TODO - STARTUP 7");
             //BotID: Current User:
             basicBot.loggedInID = basicBot.userUtilities.getCurrentPlugUser().id;
+            basicBot.loggedInName = basicBot.userUtilities.getCurrentPlugUser().username;
             basicBot.status = true;
             basicBot.roomUtilities.sendChat('/cap 1');
             API.setVolume(0);
