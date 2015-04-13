@@ -1,4 +1,4 @@
-/** version: 2.1.4.00032
+/** version: 2.1.4.00033
 
 .lastplayed user
 .mystats user
@@ -259,13 +259,13 @@ Grab - Playlist Insert:
 
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00032",
+        version: "2.1.4.00033",
         status: false,
         name: "basicBot",
         loggedInID: null,
         scriptLink: "https://rawgit.com/SZigmund/basicBot/master/basicBot.js",
         scriptTestLink: "https://rawgit.com/SZigmund/basicBot/master/basicBotTEST.js",
-        cmdLink: "http://git.io/245Ppg",
+        cmdLink: "http://bit.ly/1DbtUV7",
         chatLink: "https://rawgit.com/SZigmund/basicBot/master/lang/en.json",
         chat: null,
         loadChat: loadChat,
