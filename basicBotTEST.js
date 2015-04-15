@@ -1,4 +1,4 @@
-/** version: 2.1.4.00034.01
+/** version: 2.1.4.00034.02
 
 .lastplayed user
 .mystats user
@@ -274,7 +274,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00034.01",
+        version: "2.1.4.00034.02",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1019,7 +1019,6 @@ Grab - Playlist Insert:
                     try  {
                         var randomRange = (basicBot.room.roulette.randomRouletteMax - basicBot.room.roulette.randomRouletteMin)
                         var randomMins = Math.floor(Math.random() * randomRange);
-                        basicBot.roomUtilities.chatLog(
                         randomMins += basicBot.room.roulette.randomRouletteMin;
                         //JIC: Ensure we are in the correct time range:
                         if ((randomMins > basicBot.room.roulette.randomRouletteMax) || (randomMins < basicBot.room.roulette.randomRouletteMin))
@@ -1030,6 +1029,7 @@ Grab - Playlist Insert:
                         var myTimeSpan;
                         myTimeSpan = randomMins*60*1000; // X minutes in milliseconds
                         nextTime.setTime(nextTime.getTime() + myTimeSpan);
+                        basicBot.roomUtilities.chatLog("Next Roulette: " basicBot.roomUtilities.msToStr(myTimeSpan));
                         basicBot.room.roulette.nextRandomRoulette = nextTime;
                     }  
                     catch(err) { basicBot.roomUtilities.logException("randomRouletteSetTimer: " + err.message); }
@@ -4458,17 +4458,16 @@ Grab - Playlist Insert:
                 }
             },
 
-            rouletteondemandCommand: {
-                command: 'rouletteondemand',
+            rouletteCommand: {
+                command: 'roulette',
                 rank: 'mod',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                    else {
-                        if (!basicBot.room.roulette.rouletteStatus) {
-                            basicBot.room.roulette.startRoulette();
-                        }
+                    if (basicBot.room.roulette.rouletteStatus) return void (0);
+					if (basicBot.roomUtilities.rouletteTimeRange()) return void (0);
+                    basicBot.room.roulette.startRoulette();
                     }
                 }
             },
