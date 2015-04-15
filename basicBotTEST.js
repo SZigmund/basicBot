@@ -1,11 +1,24 @@
-/** version: 2.1.4.00032.11
+/** version: 2.1.4.00034.01
 
 .lastplayed user
 .mystats user
 .logout cohost
 currdj.votes.tasty += 1;
 
-                
+ 
+<div class="from"><span class="un" style="color: rgb(238, 200, 27);">Booth Alert</span><span class="timestamp" style="display: inline;">9:09am</span></div>
+<div class="text" style="color: rgb(255, 255, 255);">Are you ready to play? you are in 1 of the waitlist!</div>
+
+<div class="text" style="color: rgb(239, 37, 37);">
+    Username: <span>BuckeyeChick</span><br>
+    ID: <span>4104098</span><br>
+    Level: <span>13</span><br>
+    WaitList Position: <span>Not in WaitList</span><br>
+    Joined: <span>4/25/2012, 11:26:07 PM UTC</span><br>
+    Rank: <span>Resident DJ</span><br>
+    Profile: <a href="https://plug.dj/@/buckeyechick" target="_blank">Click here</a>
+</div>
+1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456
 3 strikes and you're out (for 10 mins)
 
 .unban Dexter Nix
@@ -254,21 +267,21 @@ Grab - Playlist Insert:
     };
 
     var newUserWhoisInfo = "";
-	var runningBot = false;
+    var runningBot = false;
     var botCreator = "Matthew aka. Yemasthui";
     var botCreatorIDs = [3837756];
     var botIDs = [3864950, 5226916];
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00032.11",
+        version: "2.1.4.00034.01",
         status: false,
         name: "basicBot",
         loggedInID: null,
         loggedInName: "",
         scriptLink: "https://rawgit.com/SZigmund/basicBot/master/basicBot.js",
         scriptTestLink: "https://rawgit.com/SZigmund/basicBot/master/basicBotTEST.js",
-        cmdLink: "http://git.io/245Ppg",
+        cmdLink: "http://bit.ly/1DbtUV7",
         chatLink: "https://rawgit.com/SZigmund/basicBot/master/lang/en.json",
         chat: null,
         loadChat: loadChat,
@@ -280,10 +293,10 @@ Grab - Playlist Insert:
             sub: -1,
             un: "",
             uid: -1,
-			type: "message",
-			timestamp: null,
+            type: "message",
+            timestamp: null,
             sound: "mention"
-		},
+        },
         songinfo: {
             songName: "",
             songIndex: -1,
@@ -328,6 +341,11 @@ Grab - Playlist Insert:
             skipSoundEnd: 15,
             skipSoundRange: "Monday-Friday between 7AM and 3PM EST",
             randomComments: true,
+            roulette5Days: true,
+            roulette7Days: false,
+            rouletteStart: 8,
+            rouletteEnd: 18,
+            randomRoulette: true,
             randomCommentMin: 60,
             randomCommentMax: 180,
             nextRandomComment: Date.now(),
@@ -372,20 +390,24 @@ Grab - Playlist Insert:
             ":cake: *** Illinois Tasty Points? %%POINTFROM%% hates Illinois Tasty Points! *** :cake:",
             ":cake: *** %%POINTFROM%% says 'Hey Girl, have a Tasty Point' *** :cake:",
             ":cake: *** %%POINTFROM%% thinks you’re a tasty, tasty rockstar *** :cake:",
+            ":cake: *** He likes it. Mikey likes it! (%%POINTFROM%%) *** :cake:",
+            ":doughnut: *** Mmmm, doughnuts...(%%POINTFROM%%) *** :doughnut:",
+            ":cake: *** Dyn-Oh-Mite! (%%POINTFROM%%) *** :cake:",
             ":cake: *** %%POINTFROM%% thinks this song is the bee’s knees *** :cake:",
             ":cake: *** Now you’re on the trolley! (%%POINTFROM%%) *** :cake:",
-            ":cake: *** :cake: Thanks to Al Gore %%POINTFROM%% can give you this: *** :cake:",
+            ":cake: *** Thanks to Al Gore %%POINTFROM%% can give you this: :cake: *** :cake:",
             ":cake: *** Goose, take me to bed or lose me forever. (%%POINTFROM%%) *** :cake:",
             ":cake: *** If we weren’t on the internet %%POINTFROM%% would get you tin roof rusted. *** :cake:",
             ":cake: *** :dancer: %%POINTFROM%% gave you a tasty point.  @Larry the Law will now dance the robot in your honor. :dancer: *** :cake:",
-			":cake: *** Beanbags are great and so are you!! (%%POINTFROM%%) *** :cake:",
-			":cake: *** You're smarter than Google and Mary Poppins combined. (%%POINTFROM%%) *** :cake:",
-			":cake: *** Hanging out with you is better than a party with unlimited juice. Which, as we all know, is off the hook. (%%POINTFROM%%) *** :cake:",
-			":cake: *** Shit just got real. (%%POINTFROM%%) *** :cake:",
-			":cake: *** This play is so awesome. It's like you are the superhero of Tasty Tunes. (%%POINTFROM%%) *** :cake:",
-			":cake: *** This tune is cooler than Mr. Rogers. Which may not seem like a big deal, but that dude would put on a different pair of shoes just to chill in his own home. And that's crazy cool!! (%%POINTFROM%%) *** :cake:",
-			":cake: *** You are so rad!! (%%POINTFROM%%) *** :cake:"
-			],
+            ":cake: *** Beanbags are great and so are you!! (%%POINTFROM%%) *** :cake:",
+            ":cake: *** You're smarter than Google and Mary Poppins combined. (%%POINTFROM%%) *** :cake:",
+            ":cake: *** Hanging out with you is better than a party with unlimited juice. Which, as we all know, is off the hook. (%%POINTFROM%%) *** :cake:",
+            ":cake: *** Shit just got real. (%%POINTFROM%%) *** :cake:",
+            ":cake: *** This play is so awesome. It's like you are the superhero of Tasty Tunes. (%%POINTFROM%%) *** :cake:",
+            ":cake: *** Yeah... That's the ticket. (%%POINTFROM%%) *** :cake:",
+            ":cake: *** This tune is cooler than Mr. Rogers. Which may not seem like a big deal, but that dude would put on a different pair of shoes just to chill in his own home. And that's crazy cool!! (%%POINTFROM%%) *** :cake:",
+            ":cake: *** You are so rad!! (%%POINTFROM%%) *** :cake:"
+            ],
             EightBallArray: [
             "As I See It Yes", 
             "Ask Again Later", 
@@ -632,6 +654,7 @@ Grab - Playlist Insert:
             "To error is human, to love is divine, to piss me off is a mistake!!",
             "You're right, it's my fault because I forgot you were an idiot.",
             "I'm not anti-social. I just have a strong aversion to B.S., drama and pretending.",
+            "I'm Larry. This is my brother, Darryl, and this is my other brother, Darryl",
             "My sex life is like a Ferrari...I don't have a Ferrari.",
             "I just saved a bunch of money on my car insurance by switching...my car into reverse and driving away from the accident. ",
             "No I'm not ignoring you. I suffer from selective hearing, usually triggered by idiots.",
@@ -655,6 +678,15 @@ Grab - Playlist Insert:
             "Never go to bed angry. Always stay up and plot your revenge first.",
             "I don't hate you. I'm just not necessarily excited about your existence.",
             "Life is not like a box of chocolates. It's more like a jar of jalapenos. What you do today might burn your ass tomorrow.",
+            "I know the voices in my head aren't real..... but sometimes their ideas are just absolutely awesome!",
+            "Doing nothing is hard, you never know when you're done.",
+            "If you didn't see it with your own eyes, or hear it with your own ears, don't invent it with your small mind and share it with your big mouth!",
+            "No matter how smart you are you can never convince a stupid person that they are stupid.",
+            "I'm not lazy, I'm just very relaxed.",
+            "It's not important to win, it's important to make the other guy lose.",
+            "I am too lazy to be lazy.",
+            "To make a mistake is human, but to blame it on someone else, that's even more human.",
+            "Always remember you're unique, just like everyone else.",
             "Taking your ex back is like going to a garage sale and buying your own crap.",
             "To error is human, to love is divine, to piss me off is a mistake.",
             "A day without dealing with stupid people is like ..., oh never mind, I'll let you know if that ever happens.",
@@ -958,14 +990,49 @@ Grab - Playlist Insert:
             newBlacklistedSongFunction: null,
             roulette: {
                 rouletteStatus: false,
+                randomRouletteMin: 90,
+                randomRouletteMax: 150,
+                nextRandomRoulette: null,
                 participants: [],
                 countdown: null,
                 startRoulette: function () {
-                    basicBot.room.roulette.rouletteStatus = true;
-                    basicBot.room.roulette.countdown = setTimeout(function () {
-                        basicBot.room.roulette.endRoulette();
-                    }, 60 * 1000);
-                    basicBot.roomUtilities.sendChat(basicBot.chat.isopen);
+                    try  {
+                        if (basicBot.room.roulette.rouletteStatus) return;
+                        basicBot.room.roulette.rouletteStatus = true;
+                        basicBot.room.roulette.countdown = setTimeout(function () { basicBot.room.roulette.endRoulette(); }, 60 * 1000);
+                        basicBot.roomUtilities.sendChat(basicBot.chat.isopen);
+                    }
+                    catch(err) { basicBot.roomUtilities.logException("startRoulette: " + err.message); }
+                },
+                randomRouletteCheck: function() {
+                    try  {
+                        if (basicBot.room.roulette.nextRandomRoulette <= Date.now())
+                        {
+                            basicBot.room.roulette.randomRouletteSetTimer();
+                            if (basicBot.settings.randomRoulette === true && basicBot.roomUtilities.rouletteTimeRange()) 
+                                basicBot.room.roulette.startRoulette();
+                        }
+                    }
+                    catch(err) { basicBot.roomUtilities.logException("randomRouletteCheck: " + err.message); }
+                },
+                randomRouletteSetTimer: function () {
+                    try  {
+                        var randomRange = (basicBot.room.roulette.randomRouletteMax - basicBot.room.roulette.randomRouletteMin)
+                        var randomMins = Math.floor(Math.random() * randomRange);
+                        basicBot.roomUtilities.chatLog(
+                        randomMins += basicBot.room.roulette.randomRouletteMin;
+                        //JIC: Ensure we are in the correct time range:
+                        if ((randomMins > basicBot.room.roulette.randomRouletteMax) || (randomMins < basicBot.room.roulette.randomRouletteMin))
+                        {
+                          randomMins = basicBot.room.roulette.randomRouletteMin + ((basicBot.room.roulette.randomRouletteMax - basicBot.room.roulette.randomRouletteMin) / 2.0)
+                        }
+                        var nextTime = new Date();
+                        var myTimeSpan;
+                        myTimeSpan = randomMins*60*1000; // X minutes in milliseconds
+                        nextTime.setTime(nextTime.getTime() + myTimeSpan);
+                        basicBot.room.roulette.nextRandomRoulette = nextTime;
+                    }  
+                    catch(err) { basicBot.roomUtilities.logException("randomRouletteSetTimer: " + err.message); }
                 },
                 endRoulette: function () {
                     try {
@@ -1512,7 +1579,7 @@ Grab - Playlist Insert:
                   }
                   var nextTime = new Date();
                   var myTimeSpan;
-                  myTimeSpan = randomMins*60*1000; // 5 minutes in milliseconds
+                  myTimeSpan = randomMins*60*1000; // X minutes in milliseconds
                   nextTime.setTime(nextTime.getTime() + myTimeSpan);
                   basicBot.settings.nextRandomComment = nextTime;
                   //basicBot.roomUtilities.logDebug("RANDOM TIME: " + basicBot.settings.nextRandomComment);
@@ -1575,7 +1642,7 @@ Grab - Playlist Insert:
                 try  {
                     var arrayCount = basicBot.settings.tastyCommentArray.length;
                     var arrayID = Math.floor(Math.random() * arrayCount);
-					if (cmd === "tasty") return basicBot.settings.tastyCommentArray[arrayID];
+                    if (cmd === "tasty") return basicBot.settings.tastyCommentArray[arrayID];
                     return "[" + cmd.replace(basicBot.settings.commandLiteral, '') + "] " + basicBot.settings.tastyCommentArray[arrayID];
                 }
                 catch(err) {
@@ -1657,16 +1724,34 @@ Grab - Playlist Insert:
                 }
             },
             afkRemovalNow: function () {
-                if (!basicBot.settings.afk5Days && !basicBot.settings.afk7Days) return false;
-                var currDate = new Date();
-                //No afk on Saturday/Sunday if not monitoring 7 days a week
-                if (!basicBot.settings.afk7Days) {
-                    var dayofweek = currDate.getDay();  // [Day of week Sun=0, Mon=1...Sat=6]
-                    if (dayofweek === 6 || dayofweek === 0) return false;
+                try {
+                    if (!basicBot.settings.afk5Days && !basicBot.settings.afk7Days) return false;
+                    var currDate = new Date();
+                    //Not on Saturday/Sunday if not monitoring 7 days a week
+                    if (!basicBot.settings.afk7Days) {
+                        var dayofweek = currDate.getDay();  // [Day of week Sun=0, Mon=1...Sat=6]
+                        if (dayofweek === 6 || dayofweek === 0) return false;
+                    }
+                    var hourofday = currDate.getHours();
+                    if (hourofday >= basicBot.settings.afkRemoveStart && hourofday < basicBot.settings.afkRemoveEnd) return true;
+                    return false;
                 }
-                var hourofday = currDate.getHours();
-                if (hourofday >= basicBot.settings.afkRemoveStart && hourofday < basicBot.settings.afkRemoveEnd) return true;
-                return false;
+                catch(err) { basicBot.roomUtilities.logException("afkRemovalNow: " + err.message); }
+            },
+            rouletteTimeRange: function () {
+                try {
+                    if (!basicBot.settings.roulette5Days && !basicBot.settings.roulette7Days) return false;
+                    var currDate = new Date();
+                    //Not on Saturday/Sunday if not monitoring 7 days a week
+                    if (!basicBot.settings.roulette7Days) {
+                        var dayofweek = currDate.getDay();  // [Day of week Sun=0, Mon=1...Sat=6]
+                        if (dayofweek === 6 || dayofweek === 0) return false;
+                    }
+                    var hourofday = currDate.getHours();
+                    if (hourofday >= basicBot.settings.rouletteStart && hourofday < basicBot.settings.rouletteEnd) return true;
+                    return false;
+                }
+                catch(err) { basicBot.roomUtilities.logException("rouletteTimeRange: " + err.message); }
             },
             logObject: function (objectToLog) {
                 try {
@@ -1752,29 +1837,31 @@ Grab - Playlist Insert:
                               'terrific','unique','aces','capital','dandy','enjoyable','exquisite','fashionable','lovely','love','solid','striking','top-notch',
                               'slick','pillar','exemplary','alarming','astonishing','awe-inspiring','beautiful','breathtaking','fearsome','formidable','frightening','winner',
                               'impressive','intimidating','facinating','prodigious','magnificent','overwhelming','shocking','stunning','stupefying','majestic','grand',
-                              'creamy','easy','effortless','fluid','gentle','glossy','peaceful','polished','serene','sleek','soft','tranquil','velvety','soothing','fluent','frictionless','lustrous','rhythmic','crackerjack','laudable','peachy','praiseworthy','rare','super-duper','unreal','chill','savvy','smart','ingenious','genious',
+                              'creamy','easy','effortless','fluid','gentle','glossy','peaceful','polished','serene','sleek','soft','tranquil','velvety','soothing','fluent','frictionless',
+                              'lustrous','rhythmic','crackerjack','laudable','peachy','praiseworthy','rare','super-duper','unreal','chill','savvy','smart','ingenious','genious',
                               'sweet','delicious','lucious','bonbon','fetch','fetching','appealing','delightful','absorbing','alluring','cute','electrifying',
-							  'awesome','bitchin','fly','pleasant','relaxing','mellow','nostalgia','punk','like','fries','cake','drum','guitar','bass','tune','pop',
-							  'apple','fantastic','spiffy','yes','fabulous','happy','smooth','classic','mygirlfriend'];
+                              'awesome','bitchin','fly','pleasant','relaxing','mellow','nostalgia','punk','like','fries','cake','drum','guitar','bass','tune','pop',
+                              'apple','fantastic','spiffy','yes','fabulous','happy','smooth','classic','mygirlfriend','skank','jiggy','funk','funky','jazz','jazzy','dance','elvis',
+                              'hawt','extreme','dude','babes','fun','reggae','party','drums','trumpet','mosh','bang','epic','blues','heart','feels'];
                     if (commandList.indexOf(chat.uid) < 0) return true;
                     return false;
                 }
                 catch(err) { basicBot.roomUtilities.logException("isBopCommand: " + err.message); }
             },
-			chatLog: function(msg) {
-			    try {
-					API.chatLog(msg);
+            chatLog: function(msg) {
+                try {
+                    API.chatLog(msg);
                 }
                 catch(err) { basicBot.roomUtilities.logException("chatLog: " + err.message); }
-			},
-			sendChat: function(msg) {
-			    try {
-				    basicBot.roomUtilities.logDebug("runningBot: " + runningBot);  ////todoer DELETE
-				    if (runningBot) API.sendChat(msg);
-					else basicBot.roomUtilities.chatLog(msg);
+            },
+            sendChat: function(msg) {
+                try {
+                    basicBot.roomUtilities.logDebug("runningBot: " + runningBot);  ////todoer DELETE
+                    if (runningBot) API.sendChat(msg);
+                    else basicBot.roomUtilities.chatLog(msg);
                 }
                 catch(err) { basicBot.roomUtilities.logException("sendChat: " + err.message); }
-			},
+            },
             logDebug: function(msg) {
                 try {
                    if (basicBot.room.debug === false) return;
@@ -2076,14 +2163,14 @@ Grab - Playlist Insert:
         },
         eventChat: function (chat) {
             try {
-		        if (!runningBot) return;
-				chat.message = linkFixer(chat.message);
-				chat.message = chat.message.trim();
-				basicBot.userUtilities.setLastActivityID(chat.uid, true);
-				basicBot.userUtilities.setUserName(chat.uid, chat.un);
-				if (basicBot.chatUtilities.chatFilter(chat)) return void (0);
-				if (!basicBot.chatUtilities.commandCheck(chat))
-					basicBot.chatUtilities.action(chat);
+                if (!runningBot) return;
+                chat.message = linkFixer(chat.message);
+                chat.message = chat.message.trim();
+                basicBot.userUtilities.setLastActivityID(chat.uid, true);
+                basicBot.userUtilities.setUserName(chat.uid, chat.un);
+                if (basicBot.chatUtilities.chatFilter(chat)) return void (0);
+                if (!basicBot.chatUtilities.commandCheck(chat))
+                    basicBot.chatUtilities.action(chat);
             }
             catch(err) {
                basicBot.roomUtilities.logException("eventChat: " + err.message);
@@ -2169,42 +2256,42 @@ Grab - Playlist Insert:
             }
         },
         eventVoteupdate: function (obj) {
-			try {
-				if (!runningBot) return;
-				for (var i = 0; i < basicBot.room.users.length; i++) {
-					if (basicBot.room.users[i].id === obj.user.id) {
-						if (obj.vote === 1) {
-							basicBot.room.users[i].votes.woot++;
-						}
-						else {
-							basicBot.room.users[i].votes.meh++;
-						}
-					}
-				}
+            try {
+                if (!runningBot) return;
+                for (var i = 0; i < basicBot.room.users.length; i++) {
+                    if (basicBot.room.users[i].id === obj.user.id) {
+                        if (obj.vote === 1) {
+                            basicBot.room.users[i].votes.woot++;
+                        }
+                        else {
+                            basicBot.room.users[i].votes.meh++;
+                        }
+                    }
+                }
 
-				var mehs = API.getScore().negative;
-				var woots = API.getScore().positive;
-				var dj = API.getDJ();
+                var mehs = API.getScore().negative;
+                var woots = API.getScore().positive;
+                var dj = API.getDJ();
 
-				if (basicBot.settings.voteSkipEnabled) {
-					if (mehs >= (basicBot.settings.voteSkipLimit)) {
-						basicBot.roomUtilities.sendChat(subChat(basicBot.chat.voteskipexceededlimit, {name: dj.username, limit: basicBot.settings.voteSkipLimit}));
-						basicBot.userUtilities.skipBadSong(obj.dj.id);
-					}
-				}
+                if (basicBot.settings.voteSkipEnabled) {
+                    if (mehs >= (basicBot.settings.voteSkipLimit)) {
+                        basicBot.roomUtilities.sendChat(subChat(basicBot.chat.voteskipexceededlimit, {name: dj.username, limit: basicBot.settings.voteSkipLimit}));
+                        basicBot.userUtilities.skipBadSong(obj.dj.id);
+                    }
+                }
           }
           catch(err) { basicBot.roomUtilities.logException("eventVoteupdate: " + err.message);  }
         },
         eventCurateupdate: function (obj) {
-			try {
-				if (!runningBot) return;
-				for (var i = 0; i < basicBot.room.users.length; i++) {
-				    if (basicBot.room.users[i].id === obj.user.id) {
-				        basicBot.room.users[i].votes.curate++;
-				    }
-				}
-				basicBot.userUtilities.setLastActivityID(obj.user.id, true);
-				basicBot.roomUtilities.sendChat(":musical_note: " + obj.user.username + " snagged this song. :heart: :musical_note:");
+            try {
+                if (!runningBot) return;
+                for (var i = 0; i < basicBot.room.users.length; i++) {
+                    if (basicBot.room.users[i].id === obj.user.id) {
+                        basicBot.room.users[i].votes.curate++;
+                    }
+                }
+                basicBot.userUtilities.setLastActivityID(obj.user.id, true);
+                basicBot.roomUtilities.sendChat(":musical_note: " + obj.user.username + " snagged this song. :heart: :musical_note:");
             }
             catch(err) {
                 basicBot.roomUtilities.logException("eventCurateupdate: " + err.message);
@@ -2212,7 +2299,7 @@ Grab - Playlist Insert:
         },
         eventDjadvance: function (obj) {
         try {
-		    if (!runningBot) return;
+            if (!runningBot) return;
             //basicBot.roomUtilities.logDebug("eventDjadvance-happens 2nd");
             var SongSkipped = false;
             var tastyCount = basicBot.room.roomstats.tastyCount;
@@ -2378,30 +2465,30 @@ Grab - Playlist Insert:
         eventChatcommand: function (command) {
         // This is triggered when a chat starting with a '/' character is entered
             try {
-			    if (command === "/bot") {
-				    runningBot = (!runningBot);
-					basicBot.roomUtilities.chatLog("Running Bot: " + runningBot);
-				    return;
-				}
-				basicBot.commandChat.cid = "";
-				basicBot.commandChat.message = basicBot.settings.commandLiteral + command.substring(1, command.length);
-				basicBot.commandChat.sub = -1;
-				basicBot.commandChat.un = basicBot.loggedInName;
-				basicBot.commandChat.uid = basicBot.loggedInID;
-				basicBot.commandChat.type = "message";
-				basicBot.commandChat.timestamp = Date.now();
-				basicBot.commandChat.sound = "mention";
-				basicBot.chatUtilities.commandCheck(basicBot.commandChat);
+                if (command === "/bot") {
+                    runningBot = (!runningBot);
+                    basicBot.roomUtilities.chatLog("Running Bot: " + runningBot);
+                    return;
+                }
+                basicBot.commandChat.cid = "";
+                basicBot.commandChat.message = basicBot.settings.commandLiteral + command.substring(1, command.length);
+                basicBot.commandChat.sub = -1;
+                basicBot.commandChat.un = basicBot.loggedInName;
+                basicBot.commandChat.uid = basicBot.loggedInID;
+                basicBot.commandChat.type = "message";
+                basicBot.commandChat.timestamp = Date.now();
+                basicBot.commandChat.sound = "mention";
+                basicBot.chatUtilities.commandCheck(basicBot.commandChat);
             }
             catch(err) { basicBot.roomUtilities.logException("eventChatcommand: " + err.message); }
         },
         eventModskip: function (users) {
             // This is triggered when a mod skips a song
- 		    if (!runningBot) return;
+             if (!runningBot) return;
        },
         eventWaitlistupdate: function (users) {
             try {
-		        if (!runningBot) return;
+                if (!runningBot) return;
                 basicBot.roomUtilities.logDebug("eventWaitlistupdate happens..... tododer");
                 basicBot.roomUtilities.booth.checkForDisconnect();
                 basicBot.roomUtilities.booth.checkForReconnect();
@@ -2547,10 +2634,10 @@ Grab - Playlist Insert:
                 return false;
             },
             commandCheck: function (chat) {
-			//chat.uid chat.message chat.cid
+            //chat.uid chat.message chat.cid
                 try {
                     var cmd;
-					basicBot.roomUtilities.logObject(chat);
+                    basicBot.roomUtilities.logObject(chat);
                     basicBot.roomUtilities.logDebug("commandCheck chat: " + chat.message);
                     if (chat.message.substring(0,1) === basicBot.settings.commandLiteral) {
                         var space = chat.message.indexOf(' ');
@@ -2691,11 +2778,11 @@ Grab - Playlist Insert:
             Function.prototype.toString = function () {
                 return 'Function.'
             };
-			runningBot = false;
+            runningBot = false;
             //basicBot.roomUtilities.logDebug("TODO - STARTUP Starting");
             var plugUser = basicBot.userUtilities.getCurrentPlugUser();
             if (botIDs.indexOf(plugUser.id) > -1) runningBot = true;
-			basicBot.roomUtilities.logDebug("Bot Running = " + runningBot); //todoer DELETE
+            basicBot.roomUtilities.logDebug("Bot Running = " + runningBot); //todoer DELETE
             if (basicBot.userUtilities.getPermission(plugUser) < 2) return basicBot.roomUtilities.chatLog(basicBot.chat.greyuser);
             if (basicBot.userUtilities.getPermission(plugUser) === 2) basicBot.roomUtilities.chatLog(basicBot.chat.bouncer);
             basicBot.connectAPI();
@@ -2797,10 +2884,10 @@ Grab - Playlist Insert:
             loadChat(basicBot.roomUtilities.sendChat(subChat(basicBot.chat.online, {botname: basicBot.settings.botName, version: basicBot.version})));
             //basicBot.roomUtilities.logDebug(basicBot.settings.botName + basicBot.version);
             //basicBot.roomUtilities.logDebug("TODO - STARTUP 10");
+            basicBot.room.roulette.randomRouletteSetTimer();
+            basicBot.room.randomInterval = setInterval(function () { basicBot.room.roulette.randomRouletteCheck() }, 30 * 1000);
             basicBot.roomUtilities.randomCommentSetTimer();
-            basicBot.room.randomInterval = setInterval(function () { 
-                basicBot.roomUtilities.randomCommentCheck() 
-                }, 30 * 1000);
+            basicBot.room.randomInterval = setInterval(function () { basicBot.roomUtilities.randomCommentCheck() }, 30 * 1000);
 
         },
         commands: {
@@ -4371,8 +4458,8 @@ Grab - Playlist Insert:
                 }
             },
 
-            rouletteCommand: {
-                command: 'roulette',
+            rouletteondemandCommand: {
+                command: 'rouletteondemand',
                 rank: 'mod',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
@@ -4552,6 +4639,11 @@ Grab - Playlist Insert:
 
                         msg +=  'Random Comments' + ': ';
                         if (basicBot.settings.randomComments) msg += 'ON';
+                        else msg += 'OFF';
+                        msg += '. ';
+
+                        msg +=  'Random Roulette' + ': ';
+                        if (basicBot.settings.randomRoulette) msg += 'ON';
                         else msg += 'OFF';
                         msg += '. ';
 
@@ -5246,18 +5338,20 @@ Grab - Playlist Insert:
             },
             tastyCommand: {
                 command: ['tasty', 'rock', 'props', 'woot', 'groot', 'groovy', 'jam','nice','bop','cowbell','sax','ukulele','tango','samba','disco','waltz','metal',
-                          'bob','boogie','cavort','conga','flit','foxtrot','frolic','gambol','hop','hustle','jig','jitter','jitterbug','jive','jump','leap','prance','promenade','rhumba','shimmy','strut','sway','swing','great','hail','good','acceptable','bad','excellent','exceptional','favorable','marvelous','positive','satisfactory','satisfying',
+                          'bob','boogie','cavort','conga','flit','foxtrot','frolic','gambol','hop','hustle','jig','jitter','jitterbug','jive','jump','leap','prance','promenade','rhumba',
+                          'shimmy','strut','sway','swing','great','hail','good','acceptable','bad','excellent','exceptional','favorable','marvelous','positive','satisfactory','satisfying',
                           'superb','valuable','wonderful','ace','boss','bully','capital','choice','crack','pleasing','prime','rad','sound','spanking','sterling','super','superior',
                           'welcome','worthy','admirable','agreeable','commendable','congenial','deluxe','first-class','first-rate','gnarly','gratifying','honorable','neat','precious',
                           'recherché','reputable','select','shipshape','splendid','stupendous','keen','nifty','swell','sensational','fine','cool','perfect','wicked','fab','heavy',
                           'incredible','outstanding','phenomenal','remarkable','special','terrific','unique','aces','capital','dandy','enjoyable','exquisite',
                           'fashionable','lovely','love','solid','striking','top-notch','slick','pillar','exemplary','alarming','astonishing','awe-inspiring',
-                          'beautiful','breathtaking','fearsome','formidable','frightening','impressive','intimidating','facinating','prodigious',
+                          'beautiful','breathtaking','fearsome','formidable','frightening','winner','impressive','intimidating','facinating','prodigious',
                           'magnificent','overwhelming','shocking','stunning','stupefying','majestic','grand',
                           'creamy','easy','effortless','fluid','gentle','glossy','peaceful','polished','serene','sleek','soft','tranquil','velvety','soothing','fluent','frictionless','lustrous','rhythmic','crackerjack','laudable','peachy','praiseworthy','rare','super-duper','unreal','chill','savvy','smart','ingenious','genious',
                           'sweet','delicious','lucious','bonbon','fetch','fetching','appealing','delightful','absorbing','alluring','cute','electrifying',
-						  'awesome','bitchin','fly','pleasant','relaxing','mellow','nostalgia','punk','like','fries','cake','drum','guitar','bass','tune','pop',
-						  'apple','fantastic','spiffy','yes','fabulous','happy','smooth','classic','mygirlfriend'],
+                          'awesome','bitchin','fly','pleasant','relaxing','mellow','nostalgia','punk','like','fries','cake','drum','guitar','bass','tune','pop',
+                          'apple','fantastic','spiffy','yes','fabulous','happy','smooth','classic','mygirlfriend','skank','jiggy','funk','funky','jazz','jazzy','dance','elvis',
+                          'hawt','extreme','dude','babes','fun','reggae','party','drums','trumpet','mosh','bang','epic','blues','heart','feels'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
