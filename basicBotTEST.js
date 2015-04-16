@@ -1,4 +1,4 @@
-/** version: 2.1.4.00034.07
+/** version: 2.1.4.00034.08
 
 .lastplayed user
 .mystats user
@@ -274,7 +274,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00034.07",
+        version: "2.1.4.00034.08",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -961,8 +961,8 @@ Grab - Playlist Insert:
             queueing: 0,
             queueable: true,
             currentDJID: null,
-            currentMediaDuration: 999,
-            currentMediaRemainFull: 999,
+            currentMediaCid: 999,
+            currentMediaStart: 999,
             historyList: [],
             cycleTimer: setTimeout(function () {
             }, 1),
@@ -1705,9 +1705,14 @@ Grab - Playlist Insert:
                     basicBot.roomUtilities.logInfo("DUR1[" + newMedia.duration + "] REMAIN[" + timeRemaining + "] DIFF[" + (newMedia.duration - timeRemaining) + "]");
                     basicBot.roomUtilities.logObject(newMedia);
                     if ((newMedia.duration - timeRemaining) > 2) return true;
+					//-------------------------------------------------------------------------------------------------------------------
                     //This is to handle the plug bug where the time remaining is actually longer than the song duration:
-                    basicBot.roomUtilities.logInfo("DUR2[" + basicBot.room.currentMediaDuration + "] REMAIN[" + basicBot.room.currentMediaRemainFull + "] DIFF[" + (basicBot.room.currentMediaRemainFull - timeRemaining) + "]");
-                    if ((newMedia.duration === basicBot.room.currentMediaDuration) && ((basicBot.room.currentMediaRemainFull - timeRemaining) > 2)) return true;
+					//-------------------------------------------------------------------------------------------------------------------
+                    var songPlayTime = new Date();
+                    var currTime = songPlayTime.getTime();
+                    basicBot.roomUtilities.logInfo("CID[" + basicBot.room.currentMediaCid + "] START[" + basicBot.room.currentMediaStart + "] NOW[" + (currTime) + "]");
+                    if ((newMedia.cid === basicBot.room.currentMediaCid) && ((currTime - basicBot.room.currentMediaStart) > 2)) return true;
+					//-------------------------------------------------------------------------------------------------------------------
                     basicBot.roomUtilities.logInfo("CANNOT SKIP");
                     return false;
                 }
@@ -2376,8 +2381,9 @@ Grab - Playlist Insert:
             }
             //basicBot.roomUtilities.logDebug("eventDjadvance:5-2");
             // Auto-skip SC song during restricted hours (7AM-3PM EST)
-            basicBot.room.currentMediaDuration = obj.media.duration;
-            basicBot.room.currentMediaRemainFull = API.getTimeRemaining();
+            basicBot.room.currentMediaCid = obj.media.cid;
+            var songPlayTime = new Date();
+            basicBot.room.currentMediaStart = songPlayTime.getTime();
             if ((basicBot.settings.skipSound5Days || basicBot.settings.skipSound7Days) && !SongSkipped){
                 var currMedia = API.getMedia();
                 //basicBot.roomUtilities.logDebug("Checking for SC Skip");
