@@ -1,4 +1,4 @@
-/** version: 2.1.4.00034.03
+/** version: 2.1.4.00034.04
 
 .lastplayed user
 .mystats user
@@ -274,7 +274,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00034.03",
+        version: "2.1.4.00034.04",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -4468,7 +4468,6 @@ Grab - Playlist Insert:
                     if (basicBot.room.roulette.rouletteStatus) return void (0);
 					if (basicBot.roomUtilities.rouletteTimeRange()) return void (0);
                     basicBot.room.roulette.startRoulette();
-                    }
                 }
             },
 
