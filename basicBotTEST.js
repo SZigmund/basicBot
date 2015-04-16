@@ -1,4 +1,4 @@
-/** version: 2.1.4.00034.02
+/** version: 2.1.4.00034.03
 
 .lastplayed user
 .mystats user
@@ -274,7 +274,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00034.02",
+        version: "2.1.4.00034.03",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1029,9 +1029,9 @@ Grab - Playlist Insert:
                         var myTimeSpan;
                         myTimeSpan = randomMins*60*1000; // X minutes in milliseconds
                         nextTime.setTime(nextTime.getTime() + myTimeSpan);
-                        basicBot.roomUtilities.chatLog("Next Roulette: " basicBot.roomUtilities.msToStr(myTimeSpan));
+                        basicBot.roomUtilities.chatLog("Next Roulette: " + basicBot.roomUtilities.msToStr(myTimeSpan));
                         basicBot.room.roulette.nextRandomRoulette = nextTime;
-                    }  
+                    }
                     catch(err) { basicBot.roomUtilities.logException("randomRouletteSetTimer: " + err.message); }
                 },
                 endRoulette: function () {
