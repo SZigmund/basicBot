@@ -1,4 +1,8 @@
-/** version: 2.1.4.00034.08
+/** version: 2.1.4.00034.09
+
+START[1429226840663] NOW[1429226843027]
+[1429226840663]
+[1429226843027]
 
 .lastplayed user
 .mystats user
@@ -274,7 +278,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00034.08",
+        version: "2.1.4.00034.09",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1711,7 +1715,7 @@ Grab - Playlist Insert:
                     var songPlayTime = new Date();
                     var currTime = songPlayTime.getTime();
                     basicBot.roomUtilities.logInfo("CID[" + basicBot.room.currentMediaCid + "] START[" + basicBot.room.currentMediaStart + "] NOW[" + (currTime) + "]");
-                    if ((newMedia.cid === basicBot.room.currentMediaCid) && ((currTime - basicBot.room.currentMediaStart) > 2)) return true;
+                    if ((newMedia.cid === basicBot.room.currentMediaCid) && ((currTime - basicBot.room.currentMediaStart) > 3000)) return true;
 					//-------------------------------------------------------------------------------------------------------------------
                     basicBot.roomUtilities.logInfo("CANNOT SKIP");
                     return false;
@@ -1857,7 +1861,7 @@ Grab - Playlist Insert:
                               'apple','fantastic','spiffy','yes','fabulous','happy','smooth','classic','mygirlfriend','skank','jiggy','funk','funky','jazz','jazzy','dance','elvis',
                               'hawt','extreme','dude','babes','fun','reggae','party','drums','trumpet','mosh','bang','epic','blues','heart','feels','dope','makeitrain','wumbo',
                               'firstclass','firstrate','topnotch','aweinspiring','superduper','dabomb','dashit','badass','bomb','popcorn','awesomesauce','awesomeness','sick',
-                              'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe'];
+                              'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin'];
                     if (commandList.indexOf(chat.uid) < 0) return true;
                     return false;
                 }
@@ -5328,7 +5332,7 @@ Grab - Playlist Insert:
                           'apple','fantastic','spiffy','yes','fabulous','happy','smooth','classic','mygirlfriend','skank','jiggy','funk','funky','jazz','jazzy','dance','elvis',
                           'hawt','extreme','dude','babes','fun','reggae','party','drums','trumpet','mosh','bang','epic','blues','heart','feels','dope','makeitrain','wumbo',
                           'firstclass','firstrate','topnotch','aweinspiring','superduper','dabomb','dashit','badass','bomb','popcorn','awesomesauce','awesomeness','sick',
-                          'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe'],
+                          'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
