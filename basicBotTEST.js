@@ -1,4 +1,4 @@
-/** version: 2.1.4.00034.11
+/** version: 2.1.4.00034.12
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -278,7 +278,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00034.11",
+        version: "2.1.4.00034.12",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -996,8 +996,8 @@ Grab - Playlist Insert:
             newBlacklistedSongFunction: null,
             roulette: {
                 rouletteStatus: false,
-                randomRouletteMin: 30,
-                randomRouletteMax: 45,
+                randomRouletteMin: 60,
+                randomRouletteMax: 120,
                 nextRandomRoulette: null,
                 participants: [],
                 countdown: null,
@@ -1015,6 +1015,7 @@ Grab - Playlist Insert:
                         if (basicBot.room.roulette.nextRandomRoulette <= Date.now())
                         {
                             basicBot.room.roulette.randomRouletteSetTimer();
+							if (basicBot.settings.randomRoulette === false) return;
                             if (basicBot.roomUtilities.rouletteTimeRange()) basicBot.room.roulette.startRoulette();
                         }
                     }
@@ -1042,6 +1043,10 @@ Grab - Playlist Insert:
                 endRoulette: function () {
                     try {
                         basicBot.room.roulette.rouletteStatus = false;
+						if (basicBot.room.roulette.participants.length === 0) {
+						   basicBot.roomUtilities.sendChat("Roulette has ended with no participants");
+						   return;
+						}
                         var ind = Math.floor(Math.random() * basicBot.room.roulette.participants.length);
                         var winner = basicBot.room.roulette.participants[ind];
                         basicBot.room.roulette.participants = [];
