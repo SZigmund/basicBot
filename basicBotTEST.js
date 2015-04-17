@@ -1,4 +1,4 @@
-/** version: 2.1.4.00034.09
+/** version: 2.1.4.00034.10
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -278,7 +278,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00034.09",
+        version: "2.1.4.00034.10",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1015,8 +1015,7 @@ Grab - Playlist Insert:
                         if (basicBot.room.roulette.nextRandomRoulette <= Date.now())
                         {
                             basicBot.room.roulette.randomRouletteSetTimer();
-                            if (basicBot.settings.randomRoulette === true && basicBot.roomUtilities.rouletteTimeRange()) 
-                                basicBot.room.roulette.startRoulette();
+                            if (basicBot.roomUtilities.rouletteTimeRange()) basicBot.room.roulette.startRoulette();
                         }
                     }
                     catch(err) { basicBot.roomUtilities.logException("randomRouletteCheck: " + err.message); }
@@ -1279,7 +1278,6 @@ Grab - Playlist Insert:
             setBadSongCount: function (userId, value) {
                 var user = basicBot.userUtilities.lookupUser(userId);
                 user.badSongCount = value;
-                basicBot.roomUtilities.logDebug("Bad Count: " + value);
             },
             setJoinTime: function (userId, value) {
                 var user = basicBot.userUtilities.lookupUser(userId);
@@ -1706,18 +1704,18 @@ Grab - Playlist Insert:
                     var newMedia = API.getMedia();
                     //basicBot.roomUtilities.logDebug("timeRemaining: " + timeRemaining);
                     //basicBot.roomUtilities.logDebug("newMedia.duration: " + newMedia.duration);
-                    basicBot.roomUtilities.logInfo("DUR1[" + newMedia.duration + "] REMAIN[" + timeRemaining + "] DIFF[" + (newMedia.duration - timeRemaining) + "]");
-                    basicBot.roomUtilities.logObject(newMedia);
+                    //basicBot.roomUtilities.logInfo("DUR1[" + newMedia.duration + "] REMAIN[" + timeRemaining + "] DIFF[" + (newMedia.duration - timeRemaining) + "]");
+                    //basicBot.roomUtilities.logObject(newMedia);
                     if ((newMedia.duration - timeRemaining) > 2) return true;
 					//-------------------------------------------------------------------------------------------------------------------
                     //This is to handle the plug bug where the time remaining is actually longer than the song duration:
 					//-------------------------------------------------------------------------------------------------------------------
                     var songPlayTime = new Date();
                     var currTime = songPlayTime.getTime();
-                    basicBot.roomUtilities.logInfo("CID[" + basicBot.room.currentMediaCid + "] START[" + basicBot.room.currentMediaStart + "] NOW[" + (currTime) + "]");
+                    //basicBot.roomUtilities.logInfo("CID[" + basicBot.room.currentMediaCid + "] START[" + basicBot.room.currentMediaStart + "] NOW[" + (currTime) + "]");
                     if ((newMedia.cid === basicBot.room.currentMediaCid) && ((currTime - basicBot.room.currentMediaStart) > 3000)) return true;
 					//-------------------------------------------------------------------------------------------------------------------
-                    basicBot.roomUtilities.logInfo("CANNOT SKIP");
+                    //basicBot.roomUtilities.logInfo("CANNOT SKIP");
                     return false;
                 }
                 catch(err) {
@@ -1758,6 +1756,7 @@ Grab - Playlist Insert:
             rouletteTimeRange: function () {
                 try {
                     if (!basicBot.settings.roulette5Days && !basicBot.settings.roulette7Days) return false;
+					if (basicBot.settings.randomRoulette === false) return false;
                     var currDate = new Date();
                     //Not on Saturday/Sunday if not monitoring 7 days a week
                     if (!basicBot.settings.roulette7Days) {
@@ -1861,7 +1860,8 @@ Grab - Playlist Insert:
                               'apple','fantastic','spiffy','yes','fabulous','happy','smooth','classic','mygirlfriend','skank','jiggy','funk','funky','jazz','jazzy','dance','elvis',
                               'hawt','extreme','dude','babes','fun','reggae','party','drums','trumpet','mosh','bang','epic','blues','heart','feels','dope','makeitrain','wumbo',
                               'firstclass','firstrate','topnotch','aweinspiring','superduper','dabomb','dashit','badass','bomb','popcorn','awesomesauce','awesomeness','sick',
-                              'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin'];
+                              'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
+							  'hunkydory','peach','divine','radiant','sublime','refined','foxy'];
                     if (commandList.indexOf(chat.uid) < 0) return true;
                     return false;
                 }
@@ -1875,7 +1875,7 @@ Grab - Playlist Insert:
             },
             sendChat: function(msg) {
                 try {
-                    basicBot.roomUtilities.logDebug("runningBot: " + runningBot);  ////todoer DELETE
+                    //basicBot.roomUtilities.logDebug("runningBot: " + runningBot);  ////todoer DELETE
                     if (runningBot) API.sendChat(msg);
                     else basicBot.roomUtilities.chatLog(msg);
                 }
@@ -2618,7 +2618,7 @@ Grab - Playlist Insert:
                 try {
                     var cmd;
                     //basicBot.roomUtilities.logObject(chat);
-                    basicBot.roomUtilities.logDebug("commandCheck chat: " + chat.message);
+                    //basicBot.roomUtilities.logDebug("commandCheck chat: " + chat.message);
                     if (chat.message.substring(0,1) === basicBot.settings.commandLiteral) {
                         var space = chat.message.indexOf(' ');
                         if (space === -1) {
@@ -4437,7 +4437,6 @@ Grab - Playlist Insert:
                     }
                 }
             },
-
             rouletteCommand: {
                 command: 'roulette',
                 rank: 'mod',
@@ -4446,7 +4445,10 @@ Grab - Playlist Insert:
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     if (basicBot.room.roulette.rouletteStatus) return void (0);
-                    if (basicBot.roomUtilities.rouletteTimeRange()) return void (0);
+                    if (basicBot.roomUtilities.rouletteTimeRange()) {
+					    basicBot.roomUtilities.sendChat("The LAW runs the Roulette weekdays 9AM-5PM EST");
+					    return void (0);
+					}
                     basicBot.room.roulette.startRoulette();
                 }
             },
@@ -5332,7 +5334,8 @@ Grab - Playlist Insert:
                           'apple','fantastic','spiffy','yes','fabulous','happy','smooth','classic','mygirlfriend','skank','jiggy','funk','funky','jazz','jazzy','dance','elvis',
                           'hawt','extreme','dude','babes','fun','reggae','party','drums','trumpet','mosh','bang','epic','blues','heart','feels','dope','makeitrain','wumbo',
                           'firstclass','firstrate','topnotch','aweinspiring','superduper','dabomb','dashit','badass','bomb','popcorn','awesomesauce','awesomeness','sick',
-                          'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin'],
+                          'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
+						  'hunkydory','peach','divine','radiant','sublime','refined','foxy'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
