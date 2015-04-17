@@ -1,4 +1,4 @@
-/** version: 2.1.4.00034.13
+/** version: 2.1.4.00034.14
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -278,7 +278,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00034.13",
+        version: "2.1.4.00034.14",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -4691,8 +4691,8 @@ Grab - Playlist Insert:
                         var since = basicBot.roomUtilities.msToStr(durationOnline);
                         msg2 += subChat(basicBot.chat.activefor, {time: since});
 
-                        return basicBot.roomUtilities.sendChat(msg);
 						setTimeout(function () { basicBot.roomUtilities.sendChat(msg2); }, 500);
+                        return basicBot.roomUtilities.sendChat(msg);
                         return ; 
                     }
                 }
