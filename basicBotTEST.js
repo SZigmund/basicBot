@@ -1,4 +1,4 @@
-/** version: 2.1.4.00034.14
+/** version: 2.1.4.00034.15
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -278,7 +278,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00034.14",
+        version: "2.1.4.00034.15",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -996,8 +996,8 @@ Grab - Playlist Insert:
             newBlacklistedSongFunction: null,
             roulette: {
                 rouletteStatus: false,
-                randomRouletteMin: 5,
-                randomRouletteMax: 10,
+                randomRouletteMin: 45,
+                randomRouletteMax: 120,
                 nextRandomRoulette: null,
                 participants: [],
                 countdown: null,
@@ -1880,7 +1880,7 @@ Grab - Playlist Insert:
             },
             sendChat: function(msg) {
                 try {
-                    //basicBot.roomUtilities.logDebug("runningBot: " + runningBot);  ////todoer DELETE
+                    //basicBot.roomUtilities.logDebug("runningBot: " + runningBot);
                     if (runningBot) API.sendChat(msg);
                     else basicBot.roomUtilities.chatLog(msg);
                 }
