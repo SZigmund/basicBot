@@ -1,4 +1,4 @@
-/** version: 2.1.4.00034.10
+/** version: 2.1.4.00034.11
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -278,7 +278,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00034.10",
+        version: "2.1.4.00034.11",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -349,7 +349,7 @@ Grab - Playlist Insert:
             roulette7Days: false,
             rouletteStart: 9,
             rouletteEnd: 17,
-            randomRoulette: true,
+            randomRoulette: false,
             randomCommentMin: 60,
             randomCommentMax: 180,
             nextRandomComment: Date.now(),
@@ -3001,6 +3001,25 @@ Grab - Playlist Insert:
                 }
             },
 
+            randomRouletteCommand: {   //Added 02/14/2015 Zig
+                command: 'randomroulette',
+                rank: 'mod',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        if (basicBot.settings.randomRoulette) {
+                            basicBot.settings.randomRoulette = !basicBot.settings.randomRoulette;
+                            basicBot.roomUtilities.sendChat(subChat(basicBot.chat.toggleoff, {name: chat.un, 'function': 'Random Roulette'}));
+                        }
+                        else {
+                            basicBot.settings.randomRoulette = !basicBot.settings.randomRoulette;
+                            basicBot.roomUtilities.sendChat(subChat(basicBot.chat.toggleon, {name: chat.un, 'function': 'Random Roulette'}));
+                        }
+                    }
+                }
+            },
             randomCommentsCommand: {   //Added 02/14/2015 Zig
                 command: 'randomcomments',
                 rank: 'mod',
