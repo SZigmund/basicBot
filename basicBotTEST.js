@@ -1,4 +1,4 @@
-/** version: 2.1.4.00035.01
+/** version: 2.1.4.00035.02
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00035.01",
+        version: "2.1.4.00035.02",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -5463,9 +5463,9 @@ Grab - Playlist Insert:
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                        basicBot.roomUtilities.chatLog("<div class=""text"" style=""color: rgb(239, 37, 37);"">Profile: <a href=""https://plug.dj/@/buckeyechick"" target=""_blank"">Click here</a></div>");
+                        basicBot.roomUtilities.chatLog("<div class=\"text\" style=\"color: rgb(239, 37, 37);\">Profile: <a href=\"https://plug.dj/@/buckeyechick\" target=\"_blank\">Click here</a></div>");
                         setTimeout(function () { 
-                            basicBot.roomUtilities.chatLog("<a href=""https://plug.dj/@/buckeyechick"" target=""_blank"">Click here</a>");
+                            basicBot.roomUtilities.chatLog("<a href=\"https://plug.dj/@/buckeyechick\" target=\"_blank\">Click here</a>");
 						 }, 1 * 1000);
 
                     }
