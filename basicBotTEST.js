@@ -1,4 +1,4 @@
-/** version: 2.1.4.00035.04
+/** version: 2.1.4.00035.05
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00035.04",
+        version: "2.1.4.00035.05",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -997,9 +997,40 @@ Grab - Playlist Insert:
             },
             newBlacklisted: [],
             //newBlacklistedSongFunction: null,
+
 			newBlacklistedSongFunction: function (track, list) {
 				try {
 				basicBot.roomUtilities.logDebug("ADDING Track: " + track.mid + " List: " + list);
+					$.post("https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json",{
+						basicBot.room.blacklists[list]
+					})
+				/*
+				for (var bl in basicBot.room.blacklists) {
+				    basicBot.roomUtilities.logDebug("BL: " + bl[0]);
+				    basicBot.roomUtilities.logDebug("BL: " + bl[0]);
+					basicBot.roomUtilities.logDebug("BL: " + bl + " Len: " + basicBot.room.blacklists[bl].length);
+					if (basicBot.settings.blacklistEnabled) {
+						if (basicBot.room.blacklists[bl].indexOf(mid) > -1) {
+							basicBot.roomUtilities.sendChat(subChat(basicBot.chat.isblacklisted, {blacklist: bl}));
+							basicBot.userUtilities.skipBadSong(obj.dj.id);
+							SongSkipped = true;
+							return;
+						}
+					}
+				}
+				
+				
+				
+var wlArr=API.getWaitList();
+window.globalWaitlist=new Array();
+for(var i=wlArr.length-1; i>=0; i--){
+  var waitlist_userid=wlArr[i].id;
+  var rname=wlArr[i].username;
+  var rpos=eval(API.getWaitListPosition(waitlist_userid))+eval(1);
+  window.globalWaitlist.push(wlArr[i].id+","+rpos+","+rurl+","+rname+","+API.getDJ().id)
+  }
+*/
+
 				}
 				catch(err) { basicBot.roomUtilities.logException("newBlacklistedSongFunction: " + err.message); }
 				/*
