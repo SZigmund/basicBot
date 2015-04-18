@@ -1,4 +1,4 @@
-/** version: 2.1.4.00035.03
+/** version: 2.1.4.00035.04
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00035.03",
+        version: "2.1.4.00035.04",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -3290,9 +3290,9 @@ Grab - Playlist Insert:
                             var dj = API.getDJ();
                             basicBot.room.newBlacklisted.push(track);
 							//Add the song to the black list:
-							basicBot.roomUtilities.logDebug("List LenA: " + basicBot.room.blacklists.[list].length);
+							basicBot.roomUtilities.logDebug("List LenA: " + basicBot.room.blacklists[list].length);
                             basicBot.room.blacklists[list].push(media.format + ':' + media.cid);
-							basicBot.roomUtilities.logDebug("List LenB: " + basicBot.room.blacklists.[list].length);
+							basicBot.roomUtilities.logDebug("List LenB: " + basicBot.room.blacklists[list].length);
                             basicBot.roomUtilities.sendChat(subChat(basicBot.chat.newblacklisted, {name: dj.username, blacklist: list, author: media.author, title: media.title, mid: media.format + ':' + media.cid}));
                             basicBot.userUtilities.skipBadSong(dj.id);
                             if (typeof basicBot.room.newBlacklistedSongFunction === 'function') {
