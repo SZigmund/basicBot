@@ -1,4 +1,4 @@
-/** version: 2.1.4.00035.08
+/** version: 2.1.4.00035.09
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00035.08",
+        version: "2.1.4.00035.09",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1001,9 +1001,12 @@ Grab - Playlist Insert:
 			newBlacklistedSongFunction: function (track, list) {
 				try {
 				basicBot.roomUtilities.logDebug("ADDING Track: " + track.mid + " List: " + list);
+				var data2send = "";
+				data2send = JSON.stringify(bl);
+				basicBot.roomUtilities.logDebug("data2send: " + data2send);
 				for (var bl in basicBot.room.blacklists) {
 					$.post("https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json",{
-					 JSON.stringify(bl) 
+					 data: data2send 
 					 }
 				}
 /*				
