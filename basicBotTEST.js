@@ -1,4 +1,4 @@
-/** version: 2.1.4.00034.15
+/** version: 2.1.4.00035.01
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -13,6 +13,9 @@ currdj.votes.tasty += 1;
 <div class="from"><span class="un" style="color: rgb(238, 200, 27);">Booth Alert</span><span class="timestamp" style="display: inline;">9:09am</span></div>
 <div class="text" style="color: rgb(255, 255, 255);">Are you ready to play? you are in 1 of the waitlist!</div>
 
+<div class="text" style="color: rgb(239, 37, 37);">
+    Profile: <a href="https://plug.dj/@/buckeyechick" target="_blank">Click here</a>
+</div>
 <div class="text" style="color: rgb(239, 37, 37);">
     Username: <span>BuckeyeChick</span><br>
     ID: <span>4104098</span><br>
@@ -278,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00034.15",
+        version: "2.1.4.00035.01",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1015,7 +1018,7 @@ Grab - Playlist Insert:
                         if (basicBot.room.roulette.nextRandomRoulette <= Date.now())
                         {
                             basicBot.room.roulette.randomRouletteSetTimer();
-							if (basicBot.settings.randomRoulette === false) return;
+                            if (basicBot.settings.randomRoulette === false) return;
                             if (basicBot.roomUtilities.rouletteTimeRange()) basicBot.room.roulette.startRoulette();
                         }
                     }
@@ -1043,10 +1046,10 @@ Grab - Playlist Insert:
                 endRoulette: function () {
                     try {
                         basicBot.room.roulette.rouletteStatus = false;
-						if (basicBot.room.roulette.participants.length === 0) {
-						   basicBot.roomUtilities.sendChat("Roulette has ended with no participants");
-						   return;
-						}
+                        if (basicBot.room.roulette.participants.length === 0) {
+                           basicBot.roomUtilities.sendChat("Roulette has ended with no participants");
+                           return;
+                        }
                         var ind = Math.floor(Math.random() * basicBot.room.roulette.participants.length);
                         var winner = basicBot.room.roulette.participants[ind];
                         basicBot.room.roulette.participants = [];
@@ -1712,14 +1715,14 @@ Grab - Playlist Insert:
                     //basicBot.roomUtilities.logInfo("DUR1[" + newMedia.duration + "] REMAIN[" + timeRemaining + "] DIFF[" + (newMedia.duration - timeRemaining) + "]");
                     //basicBot.roomUtilities.logObject(newMedia);
                     if ((newMedia.duration - timeRemaining) > 2) return true;
-					//-------------------------------------------------------------------------------------------------------------------
+                    //-------------------------------------------------------------------------------------------------------------------
                     //This is to handle the plug bug where the time remaining is actually longer than the song duration:
-					//-------------------------------------------------------------------------------------------------------------------
+                    //-------------------------------------------------------------------------------------------------------------------
                     var songPlayTime = new Date();
                     var currTime = songPlayTime.getTime();
                     //basicBot.roomUtilities.logInfo("CID[" + basicBot.room.currentMediaCid + "] START[" + basicBot.room.currentMediaStart + "] NOW[" + (currTime) + "]");
                     if ((newMedia.cid === basicBot.room.currentMediaCid) && ((currTime - basicBot.room.currentMediaStart) > 3000)) return true;
-					//-------------------------------------------------------------------------------------------------------------------
+                    //-------------------------------------------------------------------------------------------------------------------
                     //basicBot.roomUtilities.logInfo("CANNOT SKIP");
                     return false;
                 }
@@ -1761,7 +1764,7 @@ Grab - Playlist Insert:
             rouletteTimeRange: function () {
                 try {
                     if (!basicBot.settings.roulette5Days && !basicBot.settings.roulette7Days) return false;
-					if (basicBot.settings.randomRoulette === false) return false;
+                    if (basicBot.settings.randomRoulette === false) return false;
                     var currDate = new Date();
                     //Not on Saturday/Sunday if not monitoring 7 days a week
                     if (!basicBot.settings.roulette7Days) {
@@ -1866,7 +1869,7 @@ Grab - Playlist Insert:
                               'hawt','extreme','dude','babes','fun','reggae','party','drums','trumpet','mosh','bang','epic','blues','heart','feels','dope','makeitrain','wumbo',
                               'firstclass','firstrate','topnotch','aweinspiring','superduper','dabomb','dashit','badass','bomb','popcorn','awesomesauce','awesomeness','sick',
                               'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
-							  'hunkydory','peach','divine','radiant','sublime','refined','foxy'];
+                              'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate'];
                     if (commandList.indexOf(chat.uid) < 0) return true;
                     return false;
                 }
@@ -3258,10 +3261,11 @@ Grab - Playlist Insert:
                                 title: media.title,
                                 mid: media.format + ':' + media.cid
                             };
+                            var dj = API.getDJ();
                             basicBot.room.newBlacklisted.push(track);
                             basicBot.room.blacklists[list].push(media.format + ':' + media.cid);
-                            basicBot.roomUtilities.sendChat(subChat(basicBot.chat.newblacklisted, {name: chat.un, blacklist: list, author: media.author, title: media.title, mid: media.format + ':' + media.cid}));
-                            basicBot.userUtilities.skipBadSong(obj.dj.id);
+                            basicBot.roomUtilities.sendChat(subChat(basicBot.chat.newblacklisted, {name: dj.username, blacklist: list, author: media.author, title: media.title, mid: media.format + ':' + media.cid}));
+                            basicBot.userUtilities.skipBadSong(dj.id);
                             if (typeof basicBot.room.newBlacklistedSongFunction === 'function') {
                                 basicBot.room.newBlacklistedSongFunction(track);
                             }
@@ -4470,9 +4474,9 @@ Grab - Playlist Insert:
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     if (basicBot.room.roulette.rouletteStatus) return void (0);
                     if (basicBot.roomUtilities.rouletteTimeRange()) {
-					    basicBot.roomUtilities.sendChat("The LAW runs the Roulette weekdays 9AM-5PM EST");
-					    return void (0);
-					}
+                        basicBot.roomUtilities.sendChat("The LAW runs the Roulette weekdays 9AM-5PM EST");
+                        return void (0);
+                    }
                     basicBot.room.roulette.startRoulette();
                 }
             },
@@ -4691,7 +4695,7 @@ Grab - Playlist Insert:
                         var since = basicBot.roomUtilities.msToStr(durationOnline);
                         msg2 += subChat(basicBot.chat.activefor, {time: since});
 
-						setTimeout(function () { basicBot.roomUtilities.sendChat(msg2); }, 500);
+                        setTimeout(function () { basicBot.roomUtilities.sendChat(msg2); }, 500);
                         return basicBot.roomUtilities.sendChat(msg);
                         return ; 
                     }
@@ -5361,7 +5365,7 @@ Grab - Playlist Insert:
                           'hawt','extreme','dude','babes','fun','reggae','party','drums','trumpet','mosh','bang','epic','blues','heart','feels','dope','makeitrain','wumbo',
                           'firstclass','firstrate','topnotch','aweinspiring','superduper','dabomb','dashit','badass','bomb','popcorn','awesomesauce','awesomeness','sick',
                           'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
-						  'hunkydory','peach','divine','radiant','sublime','refined','foxy'],
+                          'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
@@ -5432,25 +5436,38 @@ Grab - Playlist Insert:
                     }, 1000);
                 }
             },
-            zigCommand: {   //Added 01/27/2015 Zig
-                command: 'zig',
+            ziggCommand: {
+                command: 'zigg',
                 rank: 'cohost',
                 type: 'exact',
-                functionality: function (chat, cmd)                 {
+                functionality: function (chat, cmd)  {
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                         $("#dj-button").click();
-                         setTimeout(function () { $("#dialog-confirm > div:nth-child(3) > div.button.submit > span").click(); }, 1 * 1000);
-            /*
-            #dialog-confirm > div:nth-child(3) > div.button.cancel > span
-            #dialog-confirm > div:nth-child(3) > div.button.submit > span
-            #dj-button > span
-            //*[@id="dj-button"]/span
-            //*[@id="dialog-confirm"]/div[3]/div[2]/span
-            // document.getElementById(":1vq.post").click(); 
-            */
-                        
+                        basicBot.roomUtilities.chatLog("<div class=\"text\" style=\"color: rgb(239, 37, 37);\">Profile: <a href=\"https://plug.dj/@/buckeyechick\" target=\"_blank\">Click here</a></div>");
+                        setTimeout(function () { 
+                            basicBot.roomUtilities.chatLog("<a href=\"https://plug.dj/@/buckeyechick\" target=\"_blank\">Click here</a>");
+						 }, 1 * 1000);
+
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("ziggCommand: " + err.message);
+                    }
+                }
+            },
+            zigCommand: {
+                command: 'zig',
+                rank: 'cohost',
+                type: 'exact',
+                functionality: function (chat, cmd)  {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        basicBot.roomUtilities.chatLog("<div class=""text"" style=""color: rgb(239, 37, 37);"">Profile: <a href=""https://plug.dj/@/buckeyechick"" target=""_blank"">Click here</a></div>");
+                        setTimeout(function () { 
+                            basicBot.roomUtilities.chatLog("<a href=""https://plug.dj/@/buckeyechick"" target=""_blank"">Click here</a>");
+						 }, 1 * 1000);
+
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("zigCommand: " + err.message);
