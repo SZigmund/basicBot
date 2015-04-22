@@ -13,7 +13,7 @@
     "invalidgifrandom": "/me [@%%NAME%%] Invalid request, try again.",
     "logout": "/me [@%%NAME%%] Logging out %%BOTNAME%%",
 
-    "welcome": "/me Welcome %%NAME%%.  Check out our room rules here: http://tinyurl.com/MuricaRules",
+    "welcome": "/me Welcome %%NAME%%.  Check out our room rules here: http://tinyurl.com/TastyTunesRules",
     "welcomeback": "/me Welcome back, %%NAME%%",
     "songknown": "/me :repeat: This song has been played %%PLAYS%% time(s) in the last %%TIMETOTAL%%, last play was %%LASTTIME%% ago. :repeat:",
     "songknown2": "/me :repeat: @%%NAME%% - This song was just played %%LASTTIME%% ago. :repeat:",
