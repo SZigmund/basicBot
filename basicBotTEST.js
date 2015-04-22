@@ -1,4 +1,4 @@
-/** version: 2.1.4.00035.11
+/** version: 2.1.4.00035.12
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00035.11",
+        version: "2.1.4.00035.12",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -998,18 +998,18 @@ Grab - Playlist Insert:
             newBlacklisted: [],
             //newBlacklistedSongFunction: null,
 
-			newBlacklistedSongFunction: function (track, list) {
-				try {
-				basicBot.roomUtilities.logDebug("ADDING Track: " + track.mid + " List: " + list);
-				var data2send = "";
-				data2send = JSON.stringify(bl);
-				basicBot.roomUtilities.logDebug("data2send: " + data2send);
-				for (var bl in basicBot.room.blacklists) {
-					$.post("https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json",{
-					 data: data2send
-					 });
-				}
-/*				
+            newBlacklistedSongFunction: function (track, list) {
+                try {
+                basicBot.roomUtilities.logDebug("ADDING Track: " + track.mid + " List: " + list);
+                var data2send = "";
+                data2send = JSON.stringify(bl);
+                basicBot.roomUtilities.logDebug("data2send: " + data2send);
+                for (var bl in basicBot.room.blacklists) {
+                    $.post("https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json",{
+                     data: data2send
+                     });
+                }
+/*                
 $.ajax({
     type : 'POST',
     url : 'https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json',
@@ -1022,28 +1022,28 @@ $.ajax({
     }
 });
 */
-				/*
-					$.post("https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json",{
-					 JSON.stringify( basicBot.room.blacklists[list] )	
-					})
-				*/
-				/*
-				for (var bl in basicBot.room.blacklists) {
-				    basicBot.roomUtilities.logDebug("BL: " + bl[0]);
-				    basicBot.roomUtilities.logDebug("BL: " + bl[0]);
-					basicBot.roomUtilities.logDebug("BL: " + bl + " Len: " + basicBot.room.blacklists[bl].length);
-					if (basicBot.settings.blacklistEnabled) {
-						if (basicBot.room.blacklists[bl].indexOf(mid) > -1) {
-							basicBot.roomUtilities.sendChat(subChat(basicBot.chat.isblacklisted, {blacklist: bl}));
-							basicBot.userUtilities.skipBadSong(obj.dj.id);
-							SongSkipped = true;
-							return;
-						}
-					}
-				}
-				
-				
-				
+                /*
+                    $.post("https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json",{
+                     JSON.stringify( basicBot.room.blacklists[list] )    
+                    })
+                */
+                /*
+                for (var bl in basicBot.room.blacklists) {
+                    basicBot.roomUtilities.logDebug("BL: " + bl[0]);
+                    basicBot.roomUtilities.logDebug("BL: " + bl[0]);
+                    basicBot.roomUtilities.logDebug("BL: " + bl + " Len: " + basicBot.room.blacklists[bl].length);
+                    if (basicBot.settings.blacklistEnabled) {
+                        if (basicBot.room.blacklists[bl].indexOf(mid) > -1) {
+                            basicBot.roomUtilities.sendChat(subChat(basicBot.chat.isblacklisted, {blacklist: bl}));
+                            basicBot.userUtilities.skipBadSong(obj.dj.id);
+                            SongSkipped = true;
+                            return;
+                        }
+                    }
+                }
+                
+                
+                
 var wlArr=API.getWaitList();
 window.globalWaitlist=new Array();
 for(var i=wlArr.length-1; i>=0; i--){
@@ -1054,9 +1054,9 @@ for(var i=wlArr.length-1; i>=0; i--){
   }
 */
 
-				}
-				catch(err) { basicBot.roomUtilities.logException("newBlacklistedSongFunction: " + err.message); }
-				/*
+                }
+                catch(err) { basicBot.roomUtilities.logException("newBlacklistedSongFunction: " + err.message); }
+                /*
             var mid = obj.media.format + ':' + obj.media.cid;
             for (var bl in basicBot.room.blacklists) {
                 if (basicBot.settings.blacklistEnabled) {
@@ -1074,8 +1074,8 @@ for(var i=wlArr.length-1; i>=0; i--){
                                 title: media.title,
                                 mid: media.format + ':' + media.cid
                             };
-			*/
-			},
+            */
+            },
             roulette: {
                 rouletteStatus: false,
                 randomRouletteMin: 45,
@@ -1948,7 +1948,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                               'hawt','extreme','dude','babes','fun','reggae','party','drums','trumpet','mosh','bang','epic','blues','heart','feels','dope','makeitrain','wumbo',
                               'firstclass','firstrate','topnotch','aweinspiring','superduper','dabomb','dashit','badass','bomb','popcorn','awesomesauce','awesomeness','sick',
                               'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
-                              'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches'];
+                              'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar'];
                     if (commandList.indexOf(chat.uid) < 0) return true;
                     return false;
                 }
@@ -2461,7 +2461,7 @@ for(var i=wlArr.length-1; i>=0; i--){
             //basicBot.roomUtilities.logDebug("eventDjadvance:5");
             var mid = obj.media.format + ':' + obj.media.cid;
             for (var bl in basicBot.room.blacklists) {
-			    basicBot.roomUtilities.logDebug("BL: " + bl + " Len: " + basicBot.room.blacklists[bl].length);
+                basicBot.roomUtilities.logDebug("BL: " + bl + " Len: " + basicBot.room.blacklists[bl].length);
                 if (basicBot.settings.blacklistEnabled) {
                     if (basicBot.room.blacklists[bl].indexOf(mid) > -1) {
                         basicBot.roomUtilities.sendChat(subChat(basicBot.chat.isblacklisted, {blacklist: bl}));
@@ -3343,10 +3343,10 @@ for(var i=wlArr.length-1; i>=0; i--){
                             };
                             var dj = API.getDJ();
                             basicBot.room.newBlacklisted.push(track);
-							//Add the song to the black list:
-							basicBot.roomUtilities.logDebug("List LenA: " + basicBot.room.blacklists[list].length);
+                            //Add the song to the black list:
+                            basicBot.roomUtilities.logDebug("List LenA: " + basicBot.room.blacklists[list].length);
                             basicBot.room.blacklists[list].push(media.format + ':' + media.cid);
-							basicBot.roomUtilities.logDebug("List LenB: " + basicBot.room.blacklists[list].length);
+                            basicBot.roomUtilities.logDebug("List LenB: " + basicBot.room.blacklists[list].length);
                             basicBot.roomUtilities.sendChat(subChat(basicBot.chat.newblacklisted, {name: dj.username, blacklist: list, author: media.author, title: media.title, mid: media.format + ':' + media.cid}));
                             basicBot.userUtilities.skipBadSong(dj.id);
                             if (typeof basicBot.room.newBlacklistedSongFunction === 'function') {
@@ -5448,7 +5448,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                           'hawt','extreme','dude','babes','fun','reggae','party','drums','trumpet','mosh','bang','epic','blues','heart','feels','dope','makeitrain','wumbo',
                           'firstclass','firstrate','topnotch','aweinspiring','superduper','dabomb','dashit','badass','bomb','popcorn','awesomesauce','awesomeness','sick',
                           'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
-                          'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches'],
+                          'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
@@ -5475,7 +5475,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                     }
                 }
             },
-            nsfwCommand: {   //Added 04/01/2015 Zig
+            nsfwCommand: {   //Added 04/22/2015 Zig
                 command: 'nsfw',
                 rank: 'user',
                 type: 'exact',
@@ -5483,7 +5483,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-						basicBot.roomUtilities.sendChat("NSFW Warning: @djs @rdjs @bouncers @managers @hosts @staff");
+                        basicBot.roomUtilities.sendChat("NSFW Warning [" + chat.un + "]: @djs @rdjs @bouncers @managers @hosts @staff");
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("nsfwCommand: " + err.message);
@@ -5545,7 +5545,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                         basicBot.roomUtilities.chatLog("<div class=\"text\" style=\"color: rgb(239, 37, 37);\">Profile: <a href=\"https://plug.dj/@/buckeyechick\" target=\"_blank\">Click here</a></div>");
                         setTimeout(function () { 
                             basicBot.roomUtilities.chatLog("<a href=\"https://plug.dj/@/buckeyechick\" target=\"_blank\">Click here</a>");
-						 }, 1 * 1000);
+                         }, 1 * 1000);
 
                     }
                     catch(err) {
@@ -5564,7 +5564,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                         basicBot.roomUtilities.chatLog("<div class=\"text\" style=\"color: rgb(239, 37, 37);\">Profile: <a href=\"https://plug.dj/@/buckeyechick\" target=\"_blank\">Click here</a></div>");
                         setTimeout(function () { 
                             basicBot.roomUtilities.chatLog("<a href=\"https://plug.dj/@/buckeyechick\" target=\"_blank\">Click here</a>");
-						 }, 1 * 1000);
+                         }, 1 * 1000);
 
                     }
                     catch(err) {
