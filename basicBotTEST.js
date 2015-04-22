@@ -1,4 +1,4 @@
-/** version: 2.1.4.00035.10
+/** version: 2.1.4.00035.11
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00035.10",
+        version: "2.1.4.00035.11",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -586,7 +586,7 @@ Grab - Playlist Insert:
             "Chase you?  Bitch please, I don't even chase my liquor!",
             "I don't get nearly enough credit for managing not to be a violent psychopath.",
             "Yes I walked away mid-conversation.  You were boring me to death and my survival instincts kicked in",
-            "Fishing relaxes me. It'd like yoga, except I still get to kill something.",
+            "Fishing relaxes me. It's like yoga, except I still get to kill something.",
             "All is well, the PBR is in the fridge",
             "Quick somebody pull my finger!!",
             "Women, can't live with them....pass the beer nuts!",
@@ -1948,7 +1948,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                               'hawt','extreme','dude','babes','fun','reggae','party','drums','trumpet','mosh','bang','epic','blues','heart','feels','dope','makeitrain','wumbo',
                               'firstclass','firstrate','topnotch','aweinspiring','superduper','dabomb','dashit','badass','bomb','popcorn','awesomesauce','awesomeness','sick',
                               'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
-                              'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate'];
+                              'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches'];
                     if (commandList.indexOf(chat.uid) < 0) return true;
                     return false;
                 }
@@ -5448,7 +5448,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                           'hawt','extreme','dude','babes','fun','reggae','party','drums','trumpet','mosh','bang','epic','blues','heart','feels','dope','makeitrain','wumbo',
                           'firstclass','firstrate','topnotch','aweinspiring','superduper','dabomb','dashit','badass','bomb','popcorn','awesomesauce','awesomeness','sick',
                           'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
-                          'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate'],
+                          'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
@@ -5472,6 +5472,21 @@ for(var i=wlArr.length-1; i>=0; i--){
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("lastplayed: " + err.message);
+                    }
+                }
+            },
+            nsfwCommand: {   //Added 04/01/2015 Zig
+                command: 'nsfw',
+                rank: 'user',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+						basicBot.roomUtilities.sendChat("NSFW Warning: @djs @rdjs @bouncers @managers @hosts @staff");
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("nsfwCommand: " + err.message);
                     }
                 }
             },
