@@ -1,6 +1,4 @@
-/** version: 2.1.4.00035
-
-
+/** version: 2.1.4.00036
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -280,7 +278,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00035",
+        version: "2.1.4.00036",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -5387,6 +5385,21 @@ Grab - Playlist Insert:
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("lastplayed: " + err.message);
+                    }
+                }
+            },
+            nsfwCommand: {   //Added 04/22/2015 Zig
+                command: 'nsfw',
+                rank: 'user',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        basicBot.roomUtilities.sendChat("NSFW Warning: @djs @rdjs @bouncers @managers @hosts @staff");
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("nsfwCommand: " + err.message);
                     }
                 }
             },
