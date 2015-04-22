@@ -5396,7 +5396,7 @@ Grab - Playlist Insert:
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                        basicBot.roomUtilities.sendChat("NSFW Warning: @djs @rdjs @bouncers @managers @hosts @staff");
+                        basicBot.roomUtilities.sendChat("NSFW Warning [" + chat.un + "]: @djs @rdjs @bouncers @managers @hosts @staff");
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("nsfwCommand: " + err.message);
