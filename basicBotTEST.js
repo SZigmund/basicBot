@@ -1,4 +1,4 @@
-/** version: 2.1.4.00036.01
+/** version: 2.1.4.00036.02
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00036.01",
+        version: "2.1.4.00036.02",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2067,29 +2067,30 @@ for(var i=wlArr.length-1; i>=0; i--){
                             var leftroom = roomUser.lastDC.leftroom;
                             var dcPos = roomUser.lastDC.position;
                             var miaTime = 0;
+							var resetUser = false;
                             basicBot.roomUtilities.logDebug("User: " + roomUser.username + " - " + roomUser.id);
                             // If left room > 10 mins ago:
                             if (leftroom !== null) {
                                 miaTime = Date.now() - leftroom;
                                 basicBot.roomUtilities.logDebug("DC leftroomtime: " + miaTime);
-                                if (miaTime > ((basicBot.settings.maximumDcOutOfRoom) * 60 * 1000)) basicBot.userUtilities.resetDC(roomUser);
+                                if (miaTime > ((basicBot.settings.maximumDcOutOfRoom) * 60 * 1000)) resetUser = true;
                             }
-                            if ((
                             // DC Time without pos is invalid:
-                            if ((dcTime !== null) && (dcPos < 1)) 
-                                basicBot.userUtilities.resetDC(roomUser);
+                            if ((dcTime !== null) && (dcPos < 1) && (resetUser === false)) 
+                                resetUser = true;
                             // If have not been in line for > max DC mins + 30 reset:
-                            if ((roomUser.lastSeenInLine !== null) && (dcPos > 0)) {
+                            if ((roomUser.lastSeenInLine !== null) && (dcPos > 0) && (resetUser === false)) {
                                 miaTime = Date.now() - roomUser.lastSeenInLine;
                                 basicBot.roomUtilities.logDebug("Line miaTime: " + miaTime);
-                                if (miaTime > ((basicBot.settings.maximumDc + 30) * 60 * 1000)) basicBot.userUtilities.resetDC(roomUser);
+                                if (miaTime > ((basicBot.settings.maximumDc + 30) * 60 * 1000)) resetUser = true;
                             }
                             // If last disconnect > max DC mins + 30 reset:
-                            if ((dcTime !== null) && (dcPos > 0)) {
+                            if ((dcTime !== null) && (dcPos > 0) && (resetUser === false)) {
                                 miaTime = Date.now() - dcTime;
                                 basicBot.roomUtilities.logDebug("DC miaTime: " + miaTime);
-                                if (miaTime > ((basicBot.settings.maximumDc + 30) * 60 * 1000)) basicBot.userUtilities.resetDC(roomUser);
+                                if (miaTime > ((basicBot.settings.maximumDc + 30) * 60 * 1000)) resetUser = true;
                             }
+							if (resetUser === true) basicBot.userUtilities.resetDC(roomUser);
                         }
                         basicBot.roomUtilities.logDebug("======================resetOldDisconnects======================");
                     }
@@ -2323,8 +2324,9 @@ for(var i=wlArr.length-1; i>=0; i--){
             if (whoismsg.length > 0) basicBot.roomUtilities.chatLog(whoismsg);
 
             // If user doesn't speak English let em know we do:
+			var userRole = basicBot.userUtilities.getPermission(user.id);
             var staffMember = false;
-            if (basicBot.userUtilities.getPermission(user.id) > 1) staffMember = true;
+            if (userRole > 0) staffMember = true;
             if ((user.language.toUpperCase() !== "EN") && (!welcomeback) & (!staffMember)) {
                 var engMsg = basicBot.userUtilities.englishMessage(user.language, user.username);
                 if (engMsg.length > 0) {
