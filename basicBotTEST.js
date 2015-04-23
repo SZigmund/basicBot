@@ -1,4 +1,4 @@
-/** version: 2.1.4.00036.03
+/** version: 2.1.4.00036.04
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00036.03",
+        version: "2.1.4.00036.04",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1172,7 +1172,7 @@ for(var i=wlArr.length-1; i>=0; i--){
             this.lastDC = {
                 time: null,
                 leftroom: null,
-				resetReason: "",
+                resetReason: "",
                 position: -1,
                 songCount: 0
             };
@@ -1466,9 +1466,9 @@ for(var i=wlArr.length-1; i>=0; i--){
                 var name = user.username;
                 if (user.lastDC.time === null) {
                     basicBot.userUtilities.resetDC(user);
-					var noDisconnectReason = subChat(basicBot.chat.notdisconnected, {name: name});
-					if (user.lastDC.resetReason.length > 0) noDisconnectReason = user.lastDC.resetReason;
-					user.lastDC.resetReason = "";
+                    var noDisconnectReason = subChat(basicBot.chat.notdisconnected, {name: name});
+                    if (user.lastDC.resetReason.length > 0) noDisconnectReason = user.lastDC.resetReason;
+                    user.lastDC.resetReason = "";
                     return noDisconnectReason;
                 }
                 var dc = user.lastDC.time;
@@ -1515,6 +1515,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                 }
                 basicBot.userUtilities.moveUser(user.id, newPosition, true);
                 basicBot.userUtilities.resetDC(user);
+                basicBot.userUtilities.setLastActivity(user, false);
                 user.lastKnownPosition = newPosition;
                 user.lastSeenInLine = Date.now();
                 return msg;
@@ -2071,14 +2072,14 @@ for(var i=wlArr.length-1; i>=0; i--){
                             var leftroom = roomUser.lastDC.leftroom;
                             var dcPos = roomUser.lastDC.position;
                             var miaTime = 0;
-							var resetUser = false;
+                            var resetUser = false;
                             basicBot.roomUtilities.logDebug("User: " + roomUser.username + " - " + roomUser.id);
                             // If left room > 10 mins ago:
                             if (leftroom !== null) {
                                 miaTime = Date.now() - leftroom;
                                 basicBot.roomUtilities.logDebug("DC leftroomtime: " + miaTime);
                                 if (miaTime > ((basicBot.settings.maximumDcOutOfRoom) * 60 * 1000)) resetUser = true;
-								roomUser.lastDC.resetReason = "Disconnect status resets if you leave the room for more than " + basicBot.settings.maximumDcOutOfRoom + " minutes.";
+                                roomUser.lastDC.resetReason = "Disconnect status resets if you leave the room for more than " + basicBot.settings.maximumDcOutOfRoom + " minutes.";
                             }
                             // DC Time without pos is invalid:
                             if ((dcTime !== null) && (dcPos < 1) && (resetUser === false)) 
@@ -2095,7 +2096,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                                 basicBot.roomUtilities.logDebug("DC miaTime: " + miaTime);
                                 if (miaTime > ((basicBot.settings.maximumDc + 30) * 60 * 1000)) resetUser = true;
                             }
-							if (resetUser === true) basicBot.userUtilities.resetDC(roomUser);
+                            if (resetUser === true) basicBot.userUtilities.resetDC(roomUser);
                         }
                         basicBot.roomUtilities.logDebug("======================resetOldDisconnects======================");
                     }
@@ -2329,7 +2330,7 @@ for(var i=wlArr.length-1; i>=0; i--){
             if (whoismsg.length > 0) basicBot.roomUtilities.chatLog(whoismsg);
 
             // If user doesn't speak English let em know we do:
-			var userRole = basicBot.userUtilities.getPermission(user.id);
+            var userRole = basicBot.userUtilities.getPermission(user.id);
             var staffMember = false;
             if (userRole > 0) staffMember = true;
             if ((user.language.toUpperCase() !== "EN") && (!welcomeback) & (!staffMember)) {
