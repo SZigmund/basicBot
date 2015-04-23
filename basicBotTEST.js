@@ -1,4 +1,4 @@
-/** version: 2.1.4.00036.02
+/** version: 2.1.4.00036.03
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00036.02",
+        version: "2.1.4.00036.03",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1172,6 +1172,7 @@ for(var i=wlArr.length-1; i>=0; i--){
             this.lastDC = {
                 time: null,
                 leftroom: null,
+				resetReason: "",
                 position: -1,
                 songCount: 0
             };
@@ -1465,7 +1466,10 @@ for(var i=wlArr.length-1; i>=0; i--){
                 var name = user.username;
                 if (user.lastDC.time === null) {
                     basicBot.userUtilities.resetDC(user);
-                    return subChat(basicBot.chat.notdisconnected, {name: name});
+					var noDisconnectReason = subChat(basicBot.chat.notdisconnected, {name: name});
+					if (user.lastDC.resetReason.length > 0) noDisconnectReason = user.lastDC.resetReason;
+					user.lastDC.resetReason = "";
+                    return noDisconnectReason;
                 }
                 var dc = user.lastDC.time;
                 var pos = user.lastDC.position;
@@ -2074,6 +2078,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                                 miaTime = Date.now() - leftroom;
                                 basicBot.roomUtilities.logDebug("DC leftroomtime: " + miaTime);
                                 if (miaTime > ((basicBot.settings.maximumDcOutOfRoom) * 60 * 1000)) resetUser = true;
+								roomUser.lastDC.resetReason = "Disconnect status resets if you leave the room for more than " + basicBot.settings.maximumDcOutOfRoom + " minutes.";
                             }
                             // DC Time without pos is invalid:
                             if ((dcTime !== null) && (dcPos < 1) && (resetUser === false)) 
