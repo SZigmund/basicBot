@@ -1,4 +1,4 @@
-/** version: 2.1.4.00035.12
+/** version: 2.1.4.00036.01
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00035.12",
+        version: "2.1.4.00036.01",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -328,6 +328,7 @@ Grab - Playlist Insert:
             afkRemoveStart: 7,
             afkRemoveEnd: 17,
             maximumDc: 90,
+            maximumDcOutOfRoom: 10,
             bouncerPlus: true,
             blacklistEnabled: true,
             gifEnabled: true,
@@ -1170,6 +1171,7 @@ for(var i=wlArr.length-1; i>=0; i--){
             this.isMuted = false;
             this.lastDC = {
                 time: null,
+                leftroom: null,
                 position: -1,
                 songCount: 0
             };
@@ -1261,6 +1263,7 @@ for(var i=wlArr.length-1; i>=0; i--){
             resetDC: function (user) {
                 user.lastDC.time = null;
                 user.lastDC.position = -1;
+                user.lastDC.leftroom = null;
                 user.lastKnownPosition = -1;
                 user.lastSeenInLine = null;
                 user.lastDC.songCount = 0;
@@ -2061,9 +2064,17 @@ for(var i=wlArr.length-1; i>=0; i--){
                         for (var i = 0; i < basicBot.room.users.length; i++) {
                             var roomUser = basicBot.room.users[i];
                             var dcTime = roomUser.lastDC.time;
+                            var leftroom = roomUser.lastDC.leftroom;
                             var dcPos = roomUser.lastDC.position;
                             var miaTime = 0;
                             basicBot.roomUtilities.logDebug("User: " + roomUser.username + " - " + roomUser.id);
+                            // If left room > 10 mins ago:
+                            if (leftroom !== null) {
+                                miaTime = Date.now() - leftroom;
+                                basicBot.roomUtilities.logDebug("DC leftroomtime: " + miaTime);
+                                if (miaTime > ((basicBot.settings.maximumDcOutOfRoom) * 60 * 1000)) basicBot.userUtilities.resetDC(roomUser);
+                            }
+                            if ((
                             // DC Time without pos is invalid:
                             if ((dcTime !== null) && (dcPos < 1)) 
                                 basicBot.userUtilities.resetDC(roomUser);
@@ -2301,6 +2312,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                 var t = Date.now() - jt;
                 if (t < 10 * 1000) greet = false;
                 else welcomeback = true;
+                basicBot.roomUtilities.booth.resetOldDisconnects();
                 basicBot.roomUtilities.checkDisconnect(u);
             }
             else {
@@ -2344,6 +2356,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                 // If user has not been in line for over 10 mins and they leave reset the DC
                 if ((roomUser.lastKnownPosition > 0) && (roomUser.lastSeenInLine !== null)) {
                     basicBot.userUtilities.updateDC(roomUser);
+                    roomUser.lastDC.leftroom = Date.now();
                     var miaTime = Date.now() - roomUser.lastSeenInLine;
                     basicBot.roomUtilities.logDebug("Line miaTime: " + miaTime);
                     if (miaTime > (10 * 60 * 1000)) {
@@ -2351,8 +2364,10 @@ for(var i=wlArr.length-1; i>=0; i--){
                         basicBot.userUtilities.resetDC(roomUser);
                     }
                 }
-                if (roomUser.lastKnownPosition > 0) 
+                if (roomUser.lastKnownPosition > 0) {
                     basicBot.userUtilities.updateDC(roomUser);
+                    roomUser.lastDC.leftroom = Date.now();
+                }
                 else 
                     basicBot.userUtilities.resetDC(roomUser);
                 roomUser.inRoom = false;
