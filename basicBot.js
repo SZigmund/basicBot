@@ -335,6 +335,7 @@ Grab - Playlist Insert:
             maximumCycletime: 10,
             voteSkipEnabled: true,
             voteSkipLimit: 4,
+            welcomeForeignerMsg: false,
             timeGuard: true,
             maximumSongLength: 8,
             repeatSongs: true,
@@ -2231,7 +2232,8 @@ Grab - Playlist Insert:
             // If user doesn't speak English let em know we do:
             var staffMember = false;
             if (basicBot.userUtilities.getPermission(user.id) > 1) staffMember = true;
-            if ((user.language.toUpperCase() !== "EN") && (!welcomeback) & (!staffMember)) {
+            if ((user.language.toUpperCase() !== "EN") && (!welcomeback) && 
+                (!staffMember) && (basicBot.settings.welcomeForeignerMsg === true)) {
                 var engMsg = basicBot.userUtilities.englishMessage(user.language, user.username);
                 if (engMsg.length > 0) {
                     setTimeout(function (user) {
