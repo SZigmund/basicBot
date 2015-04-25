@@ -1,4 +1,4 @@
-/** version: 2.1.4.00036.05
+/** version: 2.1.4.00036.06
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00036.05",
+        version: "2.1.4.00036.06",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -339,6 +339,7 @@ Grab - Playlist Insert:
             maximumCycletime: 10,
             voteSkipEnabled: true,
             voteSkipLimit: 4,
+            welcomeForeignerMsg: false,
             timeGuard: true,
             maximumSongLength: 8,
             repeatSongs: true,
@@ -2347,7 +2348,8 @@ for(var i=wlArr.length-1; i>=0; i--){
             var userRole = basicBot.userUtilities.getPermission(user.id);
             var staffMember = false;
             if (userRole > 0) staffMember = true;
-            if ((user.language.toUpperCase() !== "EN") && (!welcomeback) & (!staffMember)) {
+            if ((user.language.toUpperCase() !== "EN") && (!welcomeback) 
+			      && (!staffMember) && (basicBot.settings.welcomeForeignerMsg === true) ) {
                 var engMsg = basicBot.userUtilities.englishMessage(user.language, user.username);
                 if (engMsg.length > 0) {
                     setTimeout(function (user) {
