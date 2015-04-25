@@ -1,4 +1,4 @@
-/** version: 2.1.4.00036.04
+/** version: 2.1.4.00036.05
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00036.04",
+        version: "2.1.4.00036.05",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2069,33 +2069,47 @@ for(var i=wlArr.length-1; i>=0; i--){
                         for (var i = 0; i < basicBot.room.users.length; i++) {
                             var roomUser = basicBot.room.users[i];
                             var dcTime = roomUser.lastDC.time;
+							var logging = false;
+							if (roomUser.username = "Doc_Z") logging = true;
+							if (roomUser.username = "cadilla") logging = true;
+							if (logging) 
                             var leftroom = roomUser.lastDC.leftroom;
                             var dcPos = roomUser.lastDC.position;
                             var miaTime = 0;
                             var resetUser = false;
-                            basicBot.roomUtilities.logDebug("User: " + roomUser.username + " - " + roomUser.id);
+							if (logging) basicBot.roomUtilities.logObject(roomUser);
+							if (logging) basicBot.roomUtilities.logObject(roomUser.lastDC);
+                            if (logging) basicBot.roomUtilities.logDebug("User: " + roomUser.username + " - " + roomUser.id);
                             // If left room > 10 mins ago:
                             if (leftroom !== null) {
                                 miaTime = Date.now() - leftroom;
-                                basicBot.roomUtilities.logDebug("DC leftroomtime: " + miaTime);
-                                if (miaTime > ((basicBot.settings.maximumDcOutOfRoom) * 60 * 1000)) resetUser = true;
-                                roomUser.lastDC.resetReason = "Disconnect status resets if you leave the room for more than " + basicBot.settings.maximumDcOutOfRoom + " minutes.";
+                                if (logging) basicBot.roomUtilities.logDebug("DC leftroomtime: " + miaTime);
+                                if (miaTime > ((basicBot.settings.maximumDcOutOfRoom) * 60 * 1000)) {
+								    resetUser = true;
+                                    roomUser.lastDC.resetReason = "Disconnect status resets if you leave the room for more than " + basicBot.settings.maximumDcOutOfRoom + " minutes.";
+								}
+							    if (logging) basicBot.roomUtilities.logDebug("A-RESET: " + resetUser);
                             }
                             // DC Time without pos is invalid:
-                            if ((dcTime !== null) && (dcPos < 1) && (resetUser === false)) 
+                            if ((dcTime !== null) && (dcPos < 1) && (resetUser === false)) {
                                 resetUser = true;
+							    if (logging) basicBot.roomUtilities.logDebug("B-RESET: " + resetUser);
+							}
                             // If have not been in line for > max DC mins + 30 reset:
                             if ((roomUser.lastSeenInLine !== null) && (dcPos > 0) && (resetUser === false)) {
                                 miaTime = Date.now() - roomUser.lastSeenInLine;
-                                basicBot.roomUtilities.logDebug("Line miaTime: " + miaTime);
+                                if (logging) basicBot.roomUtilities.logDebug("Line miaTime: " + miaTime);
                                 if (miaTime > ((basicBot.settings.maximumDc + 30) * 60 * 1000)) resetUser = true;
+							    if (logging) basicBot.roomUtilities.logDebug("C-RESET: " + resetUser);
                             }
                             // If last disconnect > max DC mins + 30 reset:
                             if ((dcTime !== null) && (dcPos > 0) && (resetUser === false)) {
                                 miaTime = Date.now() - dcTime;
-                                basicBot.roomUtilities.logDebug("DC miaTime: " + miaTime);
+                                if (logging) basicBot.roomUtilities.logDebug("DC miaTime: " + miaTime + " > " + ((basicBot.settings.maximumDc + 30) * 60 * 1000) );
                                 if (miaTime > ((basicBot.settings.maximumDc + 30) * 60 * 1000)) resetUser = true;
+							    if (logging) basicBot.roomUtilities.logDebug("D-RESET: " + resetUser);
                             }
+							if (logging) basicBot.roomUtilities.logDebug("RESET: " + resetUser);
                             if (resetUser === true) basicBot.userUtilities.resetDC(roomUser);
                         }
                         basicBot.roomUtilities.logDebug("======================resetOldDisconnects======================");
@@ -4469,6 +4483,18 @@ for(var i=wlArr.length-1; i>=0; i--){
                 }
             },
 
+            yoCommand: {
+                command: 'ping',
+                rank: 'user',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        basicBot.roomUtilities.sendChat("Yo")
+                    }
+                }
+            },
             refreshCommand: {
                 command: 'refresh',
                 rank: 'manager',
