@@ -1,4 +1,4 @@
-/** version: 2.1.4.00036.06
+/** version: 2.1.4.00036.07
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00036.06",
+        version: "2.1.4.00036.07",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -409,6 +409,7 @@ Grab - Playlist Insert:
             ":cake: *** If we weren’t on the internet %%POINTFROM%% would get you tin roof rusted. *** :cake:",
             ":cake: *** :dancer: %%POINTFROM%% gave you a tasty point.  @Larry the Law will now dance the robot in your honor. :dancer: *** :cake:",
             ":cake: *** Beanbags are great and so are you!! (%%POINTFROM%%) *** :cake:",
+			":cake: *** That green jacket is within reach! (%%POINTFROM%%) *** :cake:",
             ":cake: *** You're smarter than Google and Mary Poppins combined. (%%POINTFROM%%) *** :cake:",
             ":cake: *** Hanging out with you is better than a party with unlimited juice. Which, as we all know, is off the hook. (%%POINTFROM%%) *** :cake:",
             ":cake: *** Shit just got real. (%%POINTFROM%%) *** :cake:",
@@ -1957,8 +1958,8 @@ for(var i=wlArr.length-1; i>=0; i--){
                               'hawt','extreme','dude','babes','fun','reggae','party','drums','trumpet','mosh','bang','epic','blues','heart','feels','dope','makeitrain','wumbo',
                               'firstclass','firstrate','topnotch','aweinspiring','superduper','dabomb','dashit','badass','bomb','popcorn','awesomesauce','awesomeness','sick',
                               'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
-                              'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar'];
-                    if (commandList.indexOf(chat.uid) < 0) return true;
+                              'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster'];
+                    if (commandList.indexOf(cmd) < 0) return true;
                     return false;
                 }
                 catch(err) { basicBot.roomUtilities.logException("isBopCommand: " + err.message); }
@@ -2071,8 +2072,8 @@ for(var i=wlArr.length-1; i>=0; i--){
                             var roomUser = basicBot.room.users[i];
                             var dcTime = roomUser.lastDC.time;
 							var logging = false;
-							if (roomUser.username = "Doc_Z") logging = true;
-							if (roomUser.username = "cadilla") logging = true;
+							if (roomUser.username === "Doc_Z") logging = true;
+							if (roomUser.username === "cadilla") logging = true;
 							if (logging) 
                             var leftroom = roomUser.lastDC.leftroom;
                             var dcPos = roomUser.lastDC.position;
@@ -2749,22 +2750,22 @@ for(var i=wlArr.length-1; i>=0; i--){
                     if (chat.message.substring(0,1) === basicBot.settings.commandLiteral) {
                         var space = chat.message.indexOf(' ');
                         if (space === -1) {
-                            cmd = chat.message;
+                            cmd = chat.message.toLowerCase();
                         }
-                        else cmd = chat.message.substring(0, space);
+                        else cmd = chat.message.substring(0, space).toLowerCase();
                     }
                     else return false;
                     //basicBot.roomUtilities.logDebug("commandCheck cmd: " + cmd);
                     //basicBot.roomUtilities.logDebug("commandCheck chat.uid: " + chat.uid);
                     var userPerm = basicBot.userUtilities.getPermission(chat.uid);
-                    if (chat.message !== ".join" && chat.message !== ".leave" && (!basicBot.roomUtilities.isBopCommand())) {
+                    if (chat.message.toLowerCase() !== ".join" && chat.message.toLowerCase() !== ".leave" && (!basicBot.roomUtilities.isBopCommand(cmd))) {
                         //basicBot.roomUtilities.logDebug("commandCheck1: " + cmd);
                         if (userPerm === 0 && !basicBot.room.usercommand) return void (0);
                         //basicBot.roomUtilities.logDebug("commandCheck2: " + cmd);
                         if (!basicBot.room.allcommand) return void (0);
                         //basicBot.roomUtilities.logDebug("commandCheck3: " + cmd);
                     }
-                    if (chat.message === '.eta' && basicBot.settings.etaRestriction) {
+                    if (chat.message.toLowerCase() === '.eta' && basicBot.settings.etaRestriction) {
                         if (userPerm < 2) {
                             var u = basicBot.userUtilities.lookupUser(chat.uid);
                             if (u.lastEta !== null && (Date.now() - u.lastEta) < 1 * 60 * 60 * 1000) {
@@ -4485,15 +4486,15 @@ for(var i=wlArr.length-1; i>=0; i--){
                 }
             },
 
-            yoCommand: {
-                command: 'ping',
-                rank: 'user',
+            hypsterCommand: {  //hipsterCommand
+                command: 'hypster',
+                rank: 'manager',
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        basicBot.roomUtilities.sendChat("Yo")
+                        basicBot.roomUtilities.sendChat("I know @DJWhiteWidow is singing along with this song");
                     }
                 }
             },
@@ -5499,7 +5500,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                           'hawt','extreme','dude','babes','fun','reggae','party','drums','trumpet','mosh','bang','epic','blues','heart','feels','dope','makeitrain','wumbo',
                           'firstclass','firstrate','topnotch','aweinspiring','superduper','dabomb','dashit','badass','bomb','popcorn','awesomesauce','awesomeness','sick',
                           'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
-                          'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar'],
+                          'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
