@@ -1,4 +1,4 @@
-/** version: 2.1.4.00036
+/** version: 2.1.4.00037
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -13,6 +13,9 @@ currdj.votes.tasty += 1;
 <div class="from"><span class="un" style="color: rgb(238, 200, 27);">Booth Alert</span><span class="timestamp" style="display: inline;">9:09am</span></div>
 <div class="text" style="color: rgb(255, 255, 255);">Are you ready to play? you are in 1 of the waitlist!</div>
 
+<div class="text" style="color: rgb(239, 37, 37);">
+    Profile: <a href="https://plug.dj/@/buckeyechick" target="_blank">Click here</a>
+</div>
 <div class="text" style="color: rgb(239, 37, 37);">
     Username: <span>BuckeyeChick</span><br>
     ID: <span>4104098</span><br>
@@ -278,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00036",
+        version: "2.1.4.00037",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -325,6 +328,7 @@ Grab - Playlist Insert:
             afkRemoveStart: 7,
             afkRemoveEnd: 17,
             maximumDc: 90,
+            maximumDcOutOfRoom: 10,
             bouncerPlus: true,
             blacklistEnabled: true,
             gifEnabled: true,
@@ -405,6 +409,7 @@ Grab - Playlist Insert:
             ":cake: *** If we weren’t on the internet %%POINTFROM%% would get you tin roof rusted. *** :cake:",
             ":cake: *** :dancer: %%POINTFROM%% gave you a tasty point.  @Larry the Law will now dance the robot in your honor. :dancer: *** :cake:",
             ":cake: *** Beanbags are great and so are you!! (%%POINTFROM%%) *** :cake:",
+            ":cake: *** That green jacket is within reach! (%%POINTFROM%%) *** :cake:",
             ":cake: *** You're smarter than Google and Mary Poppins combined. (%%POINTFROM%%) *** :cake:",
             ":cake: *** Hanging out with you is better than a party with unlimited juice. Which, as we all know, is off the hook. (%%POINTFROM%%) *** :cake:",
             ":cake: *** Shit just got real. (%%POINTFROM%%) *** :cake:",
@@ -584,7 +589,7 @@ Grab - Playlist Insert:
             "Chase you?  Bitch please, I don't even chase my liquor!",
             "I don't get nearly enough credit for managing not to be a violent psychopath.",
             "Yes I walked away mid-conversation.  You were boring me to death and my survival instincts kicked in",
-            "Fishing relaxes me. It'd like yoga, except I still get to kill something.",
+            "Fishing relaxes me. It's like yoga, except I still get to kill something.",
             "All is well, the PBR is in the fridge",
             "Quick somebody pull my finger!!",
             "Women, can't live with them....pass the beer nuts!",
@@ -994,7 +999,86 @@ Grab - Playlist Insert:
 
             },
             newBlacklisted: [],
-            newBlacklistedSongFunction: null,
+            //newBlacklistedSongFunction: null,
+
+            newBlacklistedSongFunction: function (track, list) {
+                try {
+                basicBot.roomUtilities.logDebug("ADDING Track: " + track.mid + " List: " + list);
+                var data2send = "";
+                data2send = JSON.stringify(bl);
+                basicBot.roomUtilities.logDebug("data2send: " + data2send);
+                for (var bl in basicBot.room.blacklists) {
+                    $.post("https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json",{
+                     data: data2send
+                     });
+                }
+/*                
+$.ajax({
+    type : 'POST',
+    url : 'https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json',
+    data: {my_array:basicBot.room.blacklists[list]},
+    success : function(basicBot.room.blacklists[list]){
+       //alert(data);
+    },
+    error : function(XMLHttpRequest, textStatus, errorThrown) {
+       //alert("error");
+    }
+});
+*/
+                /*
+                    $.post("https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json",{
+                     JSON.stringify( basicBot.room.blacklists[list] )    
+                    })
+                */
+                /*
+                for (var bl in basicBot.room.blacklists) {
+                    basicBot.roomUtilities.logDebug("BL: " + bl[0]);
+                    basicBot.roomUtilities.logDebug("BL: " + bl[0]);
+                    basicBot.roomUtilities.logDebug("BL: " + bl + " Len: " + basicBot.room.blacklists[bl].length);
+                    if (basicBot.settings.blacklistEnabled) {
+                        if (basicBot.room.blacklists[bl].indexOf(mid) > -1) {
+                            basicBot.roomUtilities.sendChat(subChat(basicBot.chat.isblacklisted, {blacklist: bl}));
+                            basicBot.userUtilities.skipBadSong(obj.dj.id);
+                            SongSkipped = true;
+                            return;
+                        }
+                    }
+                }
+                
+                
+                
+var wlArr=API.getWaitList();
+window.globalWaitlist=new Array();
+for(var i=wlArr.length-1; i>=0; i--){
+  var waitlist_userid=wlArr[i].id;
+  var rname=wlArr[i].username;
+  var rpos=eval(API.getWaitListPosition(waitlist_userid))+eval(1);
+  window.globalWaitlist.push(wlArr[i].id+","+rpos+","+rurl+","+rname+","+API.getDJ().id)
+  }
+*/
+
+                }
+                catch(err) { basicBot.roomUtilities.logException("newBlacklistedSongFunction: " + err.message); }
+                /*
+            var mid = obj.media.format + ':' + obj.media.cid;
+            for (var bl in basicBot.room.blacklists) {
+                if (basicBot.settings.blacklistEnabled) {
+                    if (basicBot.room.blacklists[bl].indexOf(mid) > -1) {
+                        basicBot.roomUtilities.sendChat(subChat(basicBot.chat.isblacklisted, {blacklist: bl}));
+                        basicBot.userUtilities.skipBadSong(obj.dj.id);
+                        SongSkipped = true;
+                        return;
+                    }
+                }
+            }
+                            var track = {
+                                list: list,
+                                author: media.author,
+                                title: media.title,
+                                mid: media.format + ':' + media.cid
+                            };
+            */
+            },
             roulette: {
                 rouletteStatus: false,
                 randomRouletteMin: 45,
@@ -1089,6 +1173,8 @@ Grab - Playlist Insert:
             this.isMuted = false;
             this.lastDC = {
                 time: null,
+                leftroom: null,
+                resetReason: "",
                 position: -1,
                 songCount: 0
             };
@@ -1180,6 +1266,7 @@ Grab - Playlist Insert:
             resetDC: function (user) {
                 user.lastDC.time = null;
                 user.lastDC.position = -1;
+                user.lastDC.leftroom = null;
                 user.lastKnownPosition = -1;
                 user.lastSeenInLine = null;
                 user.lastDC.songCount = 0;
@@ -1381,7 +1468,10 @@ Grab - Playlist Insert:
                 var name = user.username;
                 if (user.lastDC.time === null) {
                     basicBot.userUtilities.resetDC(user);
-                    return subChat(basicBot.chat.notdisconnected, {name: name});
+                    var noDisconnectReason = subChat(basicBot.chat.notdisconnected, {name: name});
+                    if (user.lastDC.resetReason.length > 0) noDisconnectReason = user.lastDC.resetReason;
+                    user.lastDC.resetReason = "";
+                    return noDisconnectReason;
                 }
                 var dc = user.lastDC.time;
                 var pos = user.lastDC.position;
@@ -1427,6 +1517,7 @@ Grab - Playlist Insert:
                 }
                 basicBot.userUtilities.moveUser(user.id, newPosition, true);
                 basicBot.userUtilities.resetDC(user);
+                basicBot.userUtilities.setLastActivity(user, false);
                 user.lastKnownPosition = newPosition;
                 user.lastSeenInLine = Date.now();
                 return msg;
@@ -1867,8 +1958,8 @@ Grab - Playlist Insert:
                               'hawt','extreme','dude','babes','fun','reggae','party','drums','trumpet','mosh','bang','epic','blues','heart','feels','dope','makeitrain','wumbo',
                               'firstclass','firstrate','topnotch','aweinspiring','superduper','dabomb','dashit','badass','bomb','popcorn','awesomesauce','awesomeness','sick',
                               'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
-                              'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate'];
-                    if (commandList.indexOf(chat.uid) < 0) return true;
+                              'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster'];
+                    if (commandList.indexOf(cmd) < 0) return true;
                     return false;
                 }
                 catch(err) { basicBot.roomUtilities.logException("isBopCommand: " + err.message); }
@@ -1980,24 +2071,48 @@ Grab - Playlist Insert:
                         for (var i = 0; i < basicBot.room.users.length; i++) {
                             var roomUser = basicBot.room.users[i];
                             var dcTime = roomUser.lastDC.time;
+                            var logging = false;
+                            if (roomUser.username === "Doc_Z") logging = true;
+                            if (roomUser.username === "cadilla") logging = true;
+                            if (logging) 
+                            var leftroom = roomUser.lastDC.leftroom;
                             var dcPos = roomUser.lastDC.position;
                             var miaTime = 0;
-                            basicBot.roomUtilities.logDebug("User: " + roomUser.username + " - " + roomUser.id);
+                            var resetUser = false;
+                            if (logging) basicBot.roomUtilities.logObject(roomUser);
+                            if (logging) basicBot.roomUtilities.logObject(roomUser.lastDC);
+                            if (logging) basicBot.roomUtilities.logDebug("User: " + roomUser.username + " - " + roomUser.id);
+                            // If left room > 10 mins ago:
+                            if (leftroom !== null) {
+                                miaTime = Date.now() - leftroom;
+                                if (logging) basicBot.roomUtilities.logDebug("DC leftroomtime: " + miaTime);
+                                if (miaTime > ((basicBot.settings.maximumDcOutOfRoom) * 60 * 1000)) {
+                                    resetUser = true;
+                                    roomUser.lastDC.resetReason = "Disconnect status resets if you leave the room for more than " + basicBot.settings.maximumDcOutOfRoom + " minutes.";
+                                }
+                                if (logging) basicBot.roomUtilities.logDebug("A-RESET: " + resetUser);
+                            }
                             // DC Time without pos is invalid:
-                            if ((dcTime !== null) && (dcPos < 1)) 
-                                basicBot.userUtilities.resetDC(roomUser);
+                            if ((dcTime !== null) && (dcPos < 1) && (resetUser === false)) {
+                                resetUser = true;
+                                if (logging) basicBot.roomUtilities.logDebug("B-RESET: " + resetUser);
+                            }
                             // If have not been in line for > max DC mins + 30 reset:
-                            if ((roomUser.lastSeenInLine !== null) && (dcPos > 0)) {
+                            if ((roomUser.lastSeenInLine !== null) && (dcPos > 0) && (resetUser === false)) {
                                 miaTime = Date.now() - roomUser.lastSeenInLine;
-                                basicBot.roomUtilities.logDebug("Line miaTime: " + miaTime);
-                                if (miaTime > ((basicBot.settings.maximumDc + 30) * 60 * 1000)) basicBot.userUtilities.resetDC(roomUser);
+                                if (logging) basicBot.roomUtilities.logDebug("Line miaTime: " + miaTime);
+                                if (miaTime > ((basicBot.settings.maximumDc + 30) * 60 * 1000)) resetUser = true;
+                                if (logging) basicBot.roomUtilities.logDebug("C-RESET: " + resetUser);
                             }
                             // If last disconnect > max DC mins + 30 reset:
-                            if ((dcTime !== null) && (dcPos > 0)) {
+                            if ((dcTime !== null) && (dcPos > 0) && (resetUser === false)) {
                                 miaTime = Date.now() - dcTime;
-                                basicBot.roomUtilities.logDebug("DC miaTime: " + miaTime);
-                                if (miaTime > ((basicBot.settings.maximumDc + 30) * 60 * 1000)) basicBot.userUtilities.resetDC(roomUser);
+                                if (logging) basicBot.roomUtilities.logDebug("DC miaTime: " + miaTime + " > " + ((basicBot.settings.maximumDc + 30) * 60 * 1000) );
+                                if (miaTime > ((basicBot.settings.maximumDc + 30) * 60 * 1000)) resetUser = true;
+                                if (logging) basicBot.roomUtilities.logDebug("D-RESET: " + resetUser);
                             }
+                            if (logging) basicBot.roomUtilities.logDebug("RESET: " + resetUser);
+                            if (resetUser === true) basicBot.userUtilities.resetDC(roomUser);
                         }
                         basicBot.roomUtilities.logDebug("======================resetOldDisconnects======================");
                     }
@@ -2220,6 +2335,7 @@ Grab - Playlist Insert:
                 var t = Date.now() - jt;
                 if (t < 10 * 1000) greet = false;
                 else welcomeback = true;
+                basicBot.roomUtilities.booth.resetOldDisconnects();
                 basicBot.roomUtilities.checkDisconnect(u);
             }
             else {
@@ -2230,10 +2346,11 @@ Grab - Playlist Insert:
             if (whoismsg.length > 0) basicBot.roomUtilities.chatLog(whoismsg);
 
             // If user doesn't speak English let em know we do:
+            var userRole = basicBot.userUtilities.getPermission(user.id);
             var staffMember = false;
-            if (basicBot.userUtilities.getPermission(user.id) > 1) staffMember = true;
-            if ((user.language.toUpperCase() !== "EN") && (!welcomeback) && 
-                (!staffMember) && (basicBot.settings.welcomeForeignerMsg === true)) {
+            if (userRole > 0) staffMember = true;
+            if ((user.language.toUpperCase() !== "EN") && (!welcomeback) 
+                  && (!staffMember) && (basicBot.settings.welcomeForeignerMsg === true) ) {
                 var engMsg = basicBot.userUtilities.englishMessage(user.language, user.username);
                 if (engMsg.length > 0) {
                     setTimeout(function (user) {
@@ -2264,6 +2381,7 @@ Grab - Playlist Insert:
                 // If user has not been in line for over 10 mins and they leave reset the DC
                 if ((roomUser.lastKnownPosition > 0) && (roomUser.lastSeenInLine !== null)) {
                     basicBot.userUtilities.updateDC(roomUser);
+                    roomUser.lastDC.leftroom = Date.now();
                     var miaTime = Date.now() - roomUser.lastSeenInLine;
                     basicBot.roomUtilities.logDebug("Line miaTime: " + miaTime);
                     if (miaTime > (10 * 60 * 1000)) {
@@ -2271,8 +2389,10 @@ Grab - Playlist Insert:
                         basicBot.userUtilities.resetDC(roomUser);
                     }
                 }
-                if (roomUser.lastKnownPosition > 0) 
+                if (roomUser.lastKnownPosition > 0) {
                     basicBot.userUtilities.updateDC(roomUser);
+                    roomUser.lastDC.leftroom = Date.now();
+                }
                 else 
                     basicBot.userUtilities.resetDC(roomUser);
                 roomUser.inRoom = false;
@@ -2381,6 +2501,7 @@ Grab - Playlist Insert:
             //basicBot.roomUtilities.logDebug("eventDjadvance:5");
             var mid = obj.media.format + ':' + obj.media.cid;
             for (var bl in basicBot.room.blacklists) {
+                basicBot.roomUtilities.logDebug("BL: " + bl + " Len: " + basicBot.room.blacklists[bl].length);
                 if (basicBot.settings.blacklistEnabled) {
                     if (basicBot.room.blacklists[bl].indexOf(mid) > -1) {
                         basicBot.roomUtilities.sendChat(subChat(basicBot.chat.isblacklisted, {blacklist: bl}));
@@ -2629,22 +2750,22 @@ Grab - Playlist Insert:
                     if (chat.message.substring(0,1) === basicBot.settings.commandLiteral) {
                         var space = chat.message.indexOf(' ');
                         if (space === -1) {
-                            cmd = chat.message;
+                            cmd = chat.message.toLowerCase();
                         }
-                        else cmd = chat.message.substring(0, space);
+                        else cmd = chat.message.substring(0, space).toLowerCase();
                     }
                     else return false;
                     //basicBot.roomUtilities.logDebug("commandCheck cmd: " + cmd);
                     //basicBot.roomUtilities.logDebug("commandCheck chat.uid: " + chat.uid);
                     var userPerm = basicBot.userUtilities.getPermission(chat.uid);
-                    if (chat.message !== ".join" && chat.message !== ".leave" && (!basicBot.roomUtilities.isBopCommand())) {
+                    if (chat.message.toLowerCase() !== ".join" && chat.message.toLowerCase() !== ".leave" && (!basicBot.roomUtilities.isBopCommand(cmd))) {
                         //basicBot.roomUtilities.logDebug("commandCheck1: " + cmd);
                         if (userPerm === 0 && !basicBot.room.usercommand) return void (0);
                         //basicBot.roomUtilities.logDebug("commandCheck2: " + cmd);
                         if (!basicBot.room.allcommand) return void (0);
                         //basicBot.roomUtilities.logDebug("commandCheck3: " + cmd);
                     }
-                    if (chat.message === '.eta' && basicBot.settings.etaRestriction) {
+                    if (chat.message.toLowerCase() === '.eta' && basicBot.settings.etaRestriction) {
                         if (userPerm < 2) {
                             var u = basicBot.userUtilities.lookupUser(chat.uid);
                             if (u.lastEta !== null && (Date.now() - u.lastEta) < 1 * 60 * 60 * 1000) {
@@ -3224,7 +3345,7 @@ Grab - Playlist Insert:
 //                            basicBot.roomUtilities.sendChat(subChat(basicBot.chat.newblacklisted, {name: chat.un, blacklist: list, author: media.author, title: media.title, mid: media.format + ':' + media.cid}));
 //                            API.moderateForceSkip();
 //                            if (typeof basicBot.room.newBlacklistedSongFunction === 'function') {
-//                                basicBot.room.newBlacklistedSongFunction(track);
+//                                basicBot.room.newBlacklistedSongFunction(track, list);
 //                            }
 //                        }
 //                    }
@@ -3260,12 +3381,16 @@ Grab - Playlist Insert:
                                 title: media.title,
                                 mid: media.format + ':' + media.cid
                             };
+                            var dj = API.getDJ();
                             basicBot.room.newBlacklisted.push(track);
+                            //Add the song to the black list:
+                            basicBot.roomUtilities.logDebug("List LenA: " + basicBot.room.blacklists[list].length);
                             basicBot.room.blacklists[list].push(media.format + ':' + media.cid);
-                            basicBot.roomUtilities.sendChat(subChat(basicBot.chat.newblacklisted, {name: chat.un, blacklist: list, author: media.author, title: media.title, mid: media.format + ':' + media.cid}));
-                            basicBot.userUtilities.skipBadSong(obj.dj.id);
+                            basicBot.roomUtilities.logDebug("List LenB: " + basicBot.room.blacklists[list].length);
+                            basicBot.roomUtilities.sendChat(subChat(basicBot.chat.newblacklisted, {name: dj.username, blacklist: list, author: media.author, title: media.title, mid: media.format + ':' + media.cid}));
+                            basicBot.userUtilities.skipBadSong(dj.id);
                             if (typeof basicBot.room.newBlacklistedSongFunction === 'function') {
-                                basicBot.room.newBlacklistedSongFunction(track);
+                                basicBot.room.newBlacklistedSongFunction(track, list);
                             }
                         }
                     }
@@ -4361,6 +4486,18 @@ Grab - Playlist Insert:
                 }
             },
 
+            hypsterCommand: {  //hipsterCommand
+                command: 'hypster',
+                rank: 'manager',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                    else {
+                        basicBot.roomUtilities.sendChat("I know @DJWhiteWidow is singing along with this track");
+                    }
+                }
+            },
             refreshCommand: {
                 command: 'refresh',
                 rank: 'manager',
@@ -5363,7 +5500,7 @@ Grab - Playlist Insert:
                           'hawt','extreme','dude','babes','fun','reggae','party','drums','trumpet','mosh','bang','epic','blues','heart','feels','dope','makeitrain','wumbo',
                           'firstclass','firstrate','topnotch','aweinspiring','superduper','dabomb','dashit','badass','bomb','popcorn','awesomesauce','awesomeness','sick',
                           'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
-                          'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate'],
+                          'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
@@ -5449,25 +5586,38 @@ Grab - Playlist Insert:
                     }, 1000);
                 }
             },
-            zigCommand: {   //Added 01/27/2015 Zig
-                command: 'zig',
+            ziggCommand: {
+                command: 'zigg',
                 rank: 'cohost',
                 type: 'exact',
-                functionality: function (chat, cmd)                 {
+                functionality: function (chat, cmd)  {
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                         $("#dj-button").click();
-                         setTimeout(function () { $("#dialog-confirm > div:nth-child(3) > div.button.submit > span").click(); }, 1 * 1000);
-            /*
-            #dialog-confirm > div:nth-child(3) > div.button.cancel > span
-            #dialog-confirm > div:nth-child(3) > div.button.submit > span
-            #dj-button > span
-            //*[@id="dj-button"]/span
-            //*[@id="dialog-confirm"]/div[3]/div[2]/span
-            // document.getElementById(":1vq.post").click(); 
-            */
-                        
+                        basicBot.roomUtilities.chatLog("<div class=\"text\" style=\"color: rgb(239, 37, 37);\">Profile: <a href=\"https://plug.dj/@/buckeyechick\" target=\"_blank\">Click here</a></div>");
+                        setTimeout(function () { 
+                            basicBot.roomUtilities.chatLog("<a href=\"https://plug.dj/@/buckeyechick\" target=\"_blank\">Click here</a>");
+                         }, 1 * 1000);
+
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("ziggCommand: " + err.message);
+                    }
+                }
+            },
+            zigCommand: {
+                command: 'zig',
+                rank: 'cohost',
+                type: 'exact',
+                functionality: function (chat, cmd)  {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        basicBot.roomUtilities.chatLog("<div class=\"text\" style=\"color: rgb(239, 37, 37);\">Profile: <a href=\"https://plug.dj/@/buckeyechick\" target=\"_blank\">Click here</a></div>");
+                        setTimeout(function () { 
+                            basicBot.roomUtilities.chatLog("<a href=\"https://plug.dj/@/buckeyechick\" target=\"_blank\">Click here</a>");
+                         }, 1 * 1000);
+
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("zigCommand: " + err.message);
