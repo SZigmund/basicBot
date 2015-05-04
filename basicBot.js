@@ -4494,7 +4494,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        basicBot.roomUtilities.sendChat("I know @DJWhiteWidow is singing along with this track");
+                        basicBot.roomUtilities.sendChat("I know @DJWhiteWidow is singing along with this hypster track");
                     }
                 }
             },
