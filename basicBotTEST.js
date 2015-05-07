@@ -1,4 +1,4 @@
-/** version: 2.1.4.00037.10
+/** version: 2.1.4.00037.11
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00037.10",
+        version: "2.1.4.00037.11",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1801,7 +1801,6 @@ for(var i=wlArr.length-1; i>=0; i--){
                 var fuComment = "";
 				
                 var chatmsg = chat.message.toUpperCase();
-                chatmsg = chatmsg.replace('''', '');
                 chatmsg = chatmsg.replace("'", '');
                 chatmsg = chatmsg.replace('@', '');
                 if (chatmsg.indexOf("LARRY FU") > -1) smartass = true;
@@ -1847,6 +1846,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                 if (chatmsg.indexOf("LARRY DONT TAKE ANY SHIT") > -1) fuComment = "Damn skippy I don't %%FU%%.";
                 if (chatmsg.indexOf("LARRY DOESNT TAKE ANY SHIT") > -1) fuComment = "Damn skippy I don't %%FU%%.";
                 if (chatmsg.indexOf("LARRY DOES NOT TAKE ANY SHIT") > -1) fuComment = "Damn skippy I don't %%FU%%.";
+                if (chatmsg.indexOf("SHITHEAD LARRY") > -1) fuComment = "I know you are but what am I %%FU%%?";
                 if (smartass === true) fuComment = basicBot.roomUtilities.fuComment();
                 if (fuComment.length > 0) setTimeout(function () { basicBot.roomUtilities.sendChat(subChat(fuComment, {fu: chat.un})); }, 1000);
                 }
