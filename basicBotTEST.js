@@ -1,4 +1,4 @@
-/** version: 2.1.4.00037.14
+/** version: 2.1.4.00037.15
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00037.14",
+        version: "2.1.4.00037.15",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1802,13 +1802,21 @@ for(var i=wlArr.length-1; i>=0; i--){
                 var fuComment = "";
 
                 var chatmsg = chat.message.toUpperCase();
-                chatmsg = chatmsg.replace("'", '');
+                basicBot.roomUtilities.logDebug("CHATMSG0: " + chatmsg);
+                chatmsg = chatmsg.replace(/'/g, '');
+                basicBot.roomUtilities.logDebug("CHATMSG1: " + chatmsg);
                 chatmsg = chatmsg.replace("\'", '');
+                basicBot.roomUtilities.logDebug("CHATMSG2: " + chatmsg);
                 chatmsg = chatmsg.replace('\'', '');
+                basicBot.roomUtilities.logDebug("CHATMSG3: " + chatmsg);
+                chatmsg = chatmsg.replace(/&#39;/g, '');
+                basicBot.roomUtilities.logDebug("CHATMSG4: " + chatmsg);
                 chatmsg = chatmsg.replace("&#39;", '');
-                chatmsg = chatmsg.replace('@', '');
-                chatmsg = chatmsg.replace(' ', '');
+                basicBot.roomUtilities.logDebug("CHATMSG5: " + chatmsg);
+                chatmsg = chatmsg.replace(/@/g, '');
                 basicBot.roomUtilities.logDebug("CHATMSG6: " + chatmsg);
+                chatmsg = chatmsg.replace(/ /g, '');
+                basicBot.roomUtilities.logDebug("CHATMSG7: " + chatmsg);
                 if (chatmsg.indexOf("LARRYFU") > -1) smartass = true;
                 if (chatmsg.indexOf("LARRYFUCKU") > -1) smartass = true;
                 if (chatmsg.indexOf("LARRYFUCKYOU") > -1) smartass = true;
