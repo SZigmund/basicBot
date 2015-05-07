@@ -1,4 +1,4 @@
-/** version: 2.1.4.00037.01
+/** version: 2.1.4.00037.02
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00037.01",
+        version: "2.1.4.00037.02",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2877,16 +2877,21 @@ for(var i=wlArr.length-1; i>=0; i--){
                 else if (chat.type !== 'log')  {
                   basicBot.roomUtilities.logDebug("CHAT.TYPE: " + chat.type);
                 }
-                var smartass = "";
+                var smartass = false;
+                var fuComment = "";
                 var chatmsg = chat.message.toUpperCase();
-                if (chatmsg.indexOf("FU LARRY") > -1) smartass = "FU too " + chat.un + "!";
-                if (chatmsg.indexOf("F U LARRY") > -1) smartass = "F U too " + chat.un + "!";
-                if (chatmsg.indexOf("FUCK YOU LARRY") > -1) smartass = "Fuck you too " + chat.un + "!";
-                if (chatmsg.indexOf("FUCK OFF LARRY") > -1) smartass = "Go Fuck yourself " + chat.un + "!";
-                if (chatmsg.indexOf("KICKS LARRY") > -1) smartass = "Kicks " + chat.un + "!";
-                if (smartass.length > 0) {
-                    var fuComment = basicBot.roomUtilities.fuComment();
-                    setTimeout(function () { basicBot.roomUtilities.sendChat(subChat(fuComment, {fu: chat.un})); }, 1000);
+                if (chatmsg.indexOf("LARRY FU") > -1) smartass = true;
+                if (chatmsg.indexOf("LARRY F U") > -1) smartass = true;
+                if (chatmsg.indexOf("LARRY FUCK U") > -1) smartass = true;
+                if (chatmsg.indexOf("LARRY FUCK YOU") > -1) smartass = true;
+                if (chatmsg.indexOf("FU LARRY") > -1) smartass = true;
+                if (chatmsg.indexOf("F U LARRY") > -1) smartass = true;
+                if (chatmsg.indexOf("FUCK U LARRY") > -1) smartass = true;
+                if (chatmsg.indexOf("FUCK YOU LARRY") > -1) smartass = true;
+                if (chatmsg.indexOf("FUCK OFF LARRY") > -1) fuComment = "Fuck off yourself %%FU%%!";
+                if (chatmsg.indexOf("KICKS LARRY") > -1) fuComment = "Kicks " + chat.un + "!";
+                if (smartass === true) fuComment = basicBot.roomUtilities.fuComment();
+                if (fuComment.length > 0) setTimeout(function () { basicBot.roomUtilities.sendChat(subChat(fuComment, {fu: chat.un})); }, 1000);
                 }
                 basicBot.room.roomstats.chatmessages++;
             },
