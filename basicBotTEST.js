@@ -1,4 +1,4 @@
-/** version: 2.1.4.00037.09
+/** version: 2.1.4.00037.10
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00037.09",
+        version: "2.1.4.00037.10",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1801,7 +1801,9 @@ for(var i=wlArr.length-1; i>=0; i--){
                 var fuComment = "";
 				
                 var chatmsg = chat.message.toUpperCase();
-                chatmsg = chatmsg.replace(/[ ,;.:\/=~+%^*\-\\"'&@#]/g, '');
+                chatmsg = chatmsg.replace('''', '');
+                chatmsg = chatmsg.replace("'", '');
+                chatmsg = chatmsg.replace('@', '');
                 if (chatmsg.indexOf("LARRY FU") > -1) smartass = true;
                 if (chatmsg.indexOf("LARRY F U") > -1) smartass = true;
                 if (chatmsg.indexOf("LARRY FUCK U") > -1) smartass = true;
