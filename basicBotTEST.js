@@ -1,4 +1,4 @@
-/** version: 2.1.4.00037.03
+    /** version: 2.1.4.00037.04
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00037.03",
+        version: "2.1.4.00037.04",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1795,6 +1795,58 @@ for(var i=wlArr.length-1; i>=0; i--){
                   basicBot.roomUtilities.logException("tastyComment: " + err.message);
                 }
             },
+            larryAI: function(chatmsg)  {  //Added 04/03/2015 Zig
+            {
+                try  {
+                var smartass = false;
+                var fuComment = "";
+                var chatmsg = chat.message.toUpperCase();
+                if (chatmsg.indexOf("LARRY FU") > -1) smartass = true;
+                if (chatmsg.indexOf("LARRY F U") > -1) smartass = true;
+                if (chatmsg.indexOf("LARRY FUCK U") > -1) smartass = true;
+                if (chatmsg.indexOf("LARRY FUCK YOU") > -1) smartass = true;
+                if (chatmsg.indexOf("FU LARRY") > -1) smartass = true;
+                if (chatmsg.indexOf("FU @LARRY") > -1) smartass = true;
+                if (chatmsg.indexOf("F U LARRY") > -1) smartass = true;
+                if (chatmsg.indexOf("F U @LARRY") > -1) smartass = true;
+                if (chatmsg.indexOf("FUCK U LARRY") > -1) smartass = true;
+                if (chatmsg.indexOf("FUCK U @LARRY") > -1) smartass = true;
+                if (chatmsg.indexOf("FUCK YOU LARRY") > -1) smartass = true;
+                if (chatmsg.indexOf("FUCK YOU @LARRY") > -1) smartass = true;
+                if (chatmsg.indexOf("FUCK OFF LARRY") > -1) fuComment = "Fuck off yourself %%FU%%!";
+                if (chatmsg.indexOf("FUCK OFF @LARRY") > -1) fuComment = "Fuck off yourself %%FU%%!";
+                if (chatmsg.indexOf("KICKS LARRY") > -1) fuComment = "Kicks %%FU%% right back!";
+                if (chatmsg.indexOf("KICKS @LARRY") > -1) fuComment = "Kicks %%FU%% right back!";
+                if (chatmsg.indexOf("HITS LARRY") > -1) fuComment = "Hits %%FU%% upside the head!";
+                if (chatmsg.indexOf("HITS @LARRY") > -1) fuComment = "Hits %%FU%% upside the head!";
+                if (chatmsg.indexOf("SMACKS LARRY") > -1) fuComment = "Smacks %%FU%% upside the head!";
+                if (chatmsg.indexOf("SMACKS @LARRY") > -1) fuComment = "Smacks %%FU%% upside the head!";
+                if (chatmsg.indexOf("THANKS LARRY") > -1) fuComment = "You're welcome %%FU%%.";
+                if (chatmsg.indexOf("THANKS @LARRY") > -1) fuComment = "You're welcome %%FU%%.";
+                if (chatmsg.indexOf("THANK YOU LARRY") > -1) fuComment = "You're welcome %%FU%%.";
+                if (chatmsg.indexOf("THANK YOU @LARRY") > -1) fuComment = "You're welcome %%FU%%.";
+                if (chatmsg.indexOf("HI LARRY") > -1) fuComment = "Hi %%FU%%.";
+                if (chatmsg.indexOf("HI @LARRY") > -1) fuComment = "Hi %%FU%%.";
+                if (chatmsg.indexOf("HELLO LARRY") > -1) fuComment = "Hello %%FU%%.";
+                if (chatmsg.indexOf("HELLO @LARRY") > -1) fuComment = "Hello %%FU%%.";
+                if (chatmsg.indexOf("LARRY IS A BADASS") > -1) fuComment = "You know it %%FU%%.";
+                if (chatmsg.indexOf("LARRY'S A BADASS") > -1) fuComment = "You know it %%FU%%.";
+                if (chatmsg.indexOf("LARRY IS A BAD ASS") > -1) fuComment = "You know it %%FU%%.";
+                if (chatmsg.indexOf("LARRY'S A BAD ASS") > -1) fuComment = "You know it %%FU%%.";
+                if (chatmsg.indexOf("LARRY IS THE SHIT") > -1) fuComment = "You know it %%FU%%.";
+                if (chatmsg.indexOf("YOU ROCK LARRY") > -1) fuComment = "Thanks %%FU%%.";
+                if (chatmsg.indexOf("YOU ROCK @LARRY") > -1) fuComment = "Thanks %%FU%%.";
+                if (chatmsg.indexOf("LARRY DON'T TAKE ANY SHIT") > -1) fuComment = "Damn skippy I don't %%FU%%.";
+                if (chatmsg.indexOf("LARRY DOESN'T TAKE ANY SHIT") > -1) fuComment = "Damn skippy I don't %%FU%%.";
+                if (chatmsg.indexOf("LARRY DOES NOT TAKE ANY SHIT") > -1) fuComment = "Damn skippy I don't %%FU%%.";
+                if (smartass === true) fuComment = basicBot.roomUtilities.fuComment();
+                if (fuComment.length > 0) setTimeout(function () { basicBot.roomUtilities.sendChat(subChat(fuComment, {fu: chat.un})); }, 1000);
+                }
+                catch(err) {
+                  basicBot.roomUtilities.logException("larryAI: " + err.message);
+                }
+            },
+
             fuComment: function()  {  //Added 04/03/2015 Zig
                 try  {
                     var arrayCount = basicBot.settings.fucomments.length;
@@ -2877,21 +2929,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                 else if (chat.type !== 'log')  {
                   basicBot.roomUtilities.logDebug("CHAT.TYPE: " + chat.type);
                 }
-                var smartass = false;
-                var fuComment = "";
-                var chatmsg = chat.message.toUpperCase();
-                if (chatmsg.indexOf("LARRY FU") > -1) smartass = true;
-                if (chatmsg.indexOf("LARRY F U") > -1) smartass = true;
-                if (chatmsg.indexOf("LARRY FUCK U") > -1) smartass = true;
-                if (chatmsg.indexOf("LARRY FUCK YOU") > -1) smartass = true;
-                if (chatmsg.indexOf("FU LARRY") > -1) smartass = true;
-                if (chatmsg.indexOf("F U LARRY") > -1) smartass = true;
-                if (chatmsg.indexOf("FUCK U LARRY") > -1) smartass = true;
-                if (chatmsg.indexOf("FUCK YOU LARRY") > -1) smartass = true;
-                if (chatmsg.indexOf("FUCK OFF LARRY") > -1) fuComment = "Fuck off yourself %%FU%%!";
-                if (chatmsg.indexOf("KICKS LARRY") > -1) fuComment = "Kicks " + chat.un + "!";
-                if (smartass === true) fuComment = basicBot.roomUtilities.fuComment();
-                if (fuComment.length > 0) setTimeout(function () { basicBot.roomUtilities.sendChat(subChat(fuComment, {fu: chat.un})); }, 1000);
+                basicBot.roomUtilities.larryAI(chat.message.toUpperCase());
                 basicBot.room.roomstats.chatmessages++;
             },
             spam: [
