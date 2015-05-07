@@ -1,4 +1,4 @@
-/** version: 2.1.4.00037.18
+/** version: 2.1.4.00037.19
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00037.18",
+        version: "2.1.4.00037.19",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -408,6 +408,7 @@ Grab - Playlist Insert:
                 "Didn't I tell you? I'm celibate. Sorry %%FU%%.",
                 "Please leave your fantasies out of this %%FU%%!",
                 "You're really gonna have to work on your 'pick up lines' %%FU%%",
+                "Hey I have an idea: Why don't you go outside and play hide-and-go fuck yourself %%FU%%?!",
                 "No, thanks %%FU%%. I'll pass.",
                 "Oh %%FU%%, you're SUCH the romantic.",
                 "I've always dreamed of this day %%FU%%!",
@@ -1801,6 +1802,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                 var smartass = false;
                 var fuComment = "";
 
+                if (basicBot.loggedInID === chat.uid) return;
                 var chatmsg = chat.message.toUpperCase();
                 chatmsg = chatmsg.replace(/'/g, '');
                 chatmsg = chatmsg.replace("\'", '');
