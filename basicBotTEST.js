@@ -1,4 +1,4 @@
-/** version: 2.1.4.00037.02
+/** version: 2.1.4.00037.03
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00037.02",
+        version: "2.1.4.00037.03",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2892,7 +2892,6 @@ for(var i=wlArr.length-1; i>=0; i--){
                 if (chatmsg.indexOf("KICKS LARRY") > -1) fuComment = "Kicks " + chat.un + "!";
                 if (smartass === true) fuComment = basicBot.roomUtilities.fuComment();
                 if (fuComment.length > 0) setTimeout(function () { basicBot.roomUtilities.sendChat(subChat(fuComment, {fu: chat.un})); }, 1000);
-                }
                 basicBot.room.roomstats.chatmessages++;
             },
             spam: [
