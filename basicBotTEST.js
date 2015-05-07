@@ -1,4 +1,4 @@
-/** version: 2.1.4.00037.12
+/** version: 2.1.4.00037.13
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00037.12",
+        version: "2.1.4.00037.13",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -400,7 +400,7 @@ Grab - Playlist Insert:
                 "Why in hell should I %%FU%%?",
                 "What makes you think I'm crazy enough to want to deal with a shitsack like you %%FU%%?",
                 "No can do buddy... I can't cheat on your sister %%FU%%! ;)",
-                "Sorry, I'm little busy right now %%FU%%. But nevertheless, better luck next time!",
+                "Sorry, I'm a little busy right now %%FU%%. But nevertheless, better luck next time!",
                 "Can't you see I'm busy here %%FU%%? I have a job to do ya know?",
                 "Awww!! Fuck you too %%FU%%!",
                 "What %%FU%%? No dinner?!? No drinks?!? I'm not THAT cheap of a date.",
@@ -413,6 +413,7 @@ Grab - Playlist Insert:
                 "I've always dreamed of this day %%FU%%!",
                 "Like I'm in your league %%FU%%.",
                 "That reminds of some good times I had with your sister %%FU%%.",
+                "Hey that'd be fun %%FU%%. Ever have sex with a robot?",
                 "Naw %%FU%%, I would just lay there and laugh at you.",
                 "You wish %%FU%%!",
                 "I heard that you are a big disappointment down there %%FU%%, so thanks, but I'll pass!!"
@@ -1799,17 +1800,19 @@ for(var i=wlArr.length-1; i>=0; i--){
                 try  {
                 var smartass = false;
                 var fuComment = "";
-				
+
                 var chatmsg = chat.message.toUpperCase();
-				basicBot.roomUtilities.logDebug("CHATMSG0: " + chatmsg);
+                basicBot.roomUtilities.logDebug("CHATMSG0: " + chatmsg);
                 chatmsg = chatmsg.replace("'", '');
-				basicBot.roomUtilities.logDebug("CHATMSG1: " + chatmsg);
+                basicBot.roomUtilities.logDebug("CHATMSG1: " + chatmsg);
                 chatmsg = chatmsg.replace("\'", '');
-				basicBot.roomUtilities.logDebug("CHATMSG2: " + chatmsg);
+                basicBot.roomUtilities.logDebug("CHATMSG2: " + chatmsg);
                 chatmsg = chatmsg.replace('\'', '');
-				basicBot.roomUtilities.logDebug("CHATMSG3: " + chatmsg);
+                basicBot.roomUtilities.logDebug("CHATMSG3: " + chatmsg);
+				chatmsg = chatmsg.replace("&#39;", '');
+                basicBot.roomUtilities.logDebug("CHATMSG4: " + chatmsg);
                 chatmsg = chatmsg.replace('@', '');
-				basicBot.roomUtilities.logDebug("CHATMSG4: " + chatmsg);
+                basicBot.roomUtilities.logDebug("CHATMSG5: " + chatmsg);
                 if (chatmsg.indexOf("LARRY FU") > -1) smartass = true;
                 if (chatmsg.indexOf("LARRY F U") > -1) smartass = true;
                 if (chatmsg.indexOf("LARRY FUCK U") > -1) smartass = true;
@@ -1854,6 +1857,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                 if (chatmsg.indexOf("LARRY DOESNT TAKE ANY SHIT") > -1) fuComment = "Damn skippy I don't %%FU%%.";
                 if (chatmsg.indexOf("LARRY DOES NOT TAKE ANY SHIT") > -1) fuComment = "Damn skippy I don't %%FU%%.";
                 if (chatmsg.indexOf("SHITHEAD LARRY") > -1) fuComment = "I know you are but what am I %%FU%%?";
+                if (chatmsg.indexOf("LARRYS A SHITHEAD") > -1) fuComment = "Takes one to know one %%FU%%?";
                 if (smartass === true) fuComment = basicBot.roomUtilities.fuComment();
                 if (fuComment.length > 0) setTimeout(function () { basicBot.roomUtilities.sendChat(subChat(fuComment, {fu: chat.un})); }, 1000);
                 }
