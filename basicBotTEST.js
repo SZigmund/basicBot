@@ -1,4 +1,4 @@
-/** version: 2.1.4.00037.05
+/** version: 2.1.4.00037.06
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00037.05",
+        version: "2.1.4.00037.06",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1796,7 +1796,6 @@ for(var i=wlArr.length-1; i>=0; i--){
                 }
             },
             larryAI: function(chatmsg)  {  //Added 04/03/2015 Zig
-            {
                 try  {
                 var smartass = false;
                 var fuComment = "";
@@ -4609,7 +4608,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        basicBot.roomUtilities.sendChat("I know @DJWhiteWidow is singing along with this song");
+                        basicBot.roomUtilities.sendChat("I know @DJWhiteWidow is singing along with this hypster track");
                     }
                 }
             },
