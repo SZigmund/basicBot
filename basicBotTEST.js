@@ -1,4 +1,4 @@
-    /** version: 2.1.4.00037.04
+/** version: 2.1.4.00037.05
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00037.04",
+        version: "2.1.4.00037.05",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1834,8 +1834,13 @@ for(var i=wlArr.length-1; i>=0; i--){
                 if (chatmsg.indexOf("LARRY IS A BAD ASS") > -1) fuComment = "You know it %%FU%%.";
                 if (chatmsg.indexOf("LARRY'S A BAD ASS") > -1) fuComment = "You know it %%FU%%.";
                 if (chatmsg.indexOf("LARRY IS THE SHIT") > -1) fuComment = "You know it %%FU%%.";
-                if (chatmsg.indexOf("YOU ROCK LARRY") > -1) fuComment = "Thanks %%FU%%.";
-                if (chatmsg.indexOf("YOU ROCK @LARRY") > -1) fuComment = "Thanks %%FU%%.";
+                if (chatmsg.indexOf("LARRY'S THE SHIT") > -1) fuComment = "You know it %%FU%%.";
+                if (chatmsg.indexOf("LARRY IS THE BOMB") > -1) fuComment = "You know it %%FU%%.";
+                if (chatmsg.indexOf("LARRY'S THE BOMB") > -1) fuComment = "You know it %%FU%%.";
+                if (chatmsg.indexOf("LARRY IS DA BOMB") > -1) fuComment = "You know it %%FU%%.";
+                if (chatmsg.indexOf("LARRY'S DA BOMB") > -1) fuComment = "You know it %%FU%%.";
+                if (chatmsg.indexOf("YOU ROCK LARRY") > -1) fuComment = "Thanks %%FU%% you're not so bad yourself.";
+                if (chatmsg.indexOf("YOU ROCK @LARRY") > -1) fuComment = "Thanks %%FU%% you're not so bad yourself.";
                 if (chatmsg.indexOf("LARRY DON'T TAKE ANY SHIT") > -1) fuComment = "Damn skippy I don't %%FU%%.";
                 if (chatmsg.indexOf("LARRY DOESN'T TAKE ANY SHIT") > -1) fuComment = "Damn skippy I don't %%FU%%.";
                 if (chatmsg.indexOf("LARRY DOES NOT TAKE ANY SHIT") > -1) fuComment = "Damn skippy I don't %%FU%%.";
