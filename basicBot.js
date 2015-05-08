@@ -1,4 +1,4 @@
-/** version: 2.1.4.00037
+/** version: 2.1.4.00038
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00037",
+        version: "2.1.4.00038",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -371,6 +371,53 @@ Grab - Playlist Insert:
                 ["sound", "The song you played had bad sound quality or no sound. "],
                 ["nsfw", "The song you contained was NSFW (image or sound). "],
                 ["unavailable", "The song you played was not available for some users. "]
+            ],
+            fucomments: [
+                "OK, but I'll be on the top %%FU%%.",
+                "%%FU%%, You daydreaming again, sweetheart?",
+                "Get in the queue %%FU%%.",
+                "Baby please! Manners! You gotta ask me out for dinner first %%FU%%.",
+                "%%FU%% that'll cost you 9.2 zillion dollars plus tax. In cash. Tender exact change please.",
+                "%%FU%% feeling lonely again?",
+                "With what? THAT!?? Are you kidding me %%FU%%?",
+                "No thanks %%FU%%. You can keep your STDs. They suit you better.",
+                "Only if I can 'SMACK YOU' %%FU%%.",
+                "Ooh! %%FU%% stopped loving your hands/fingers?",
+                "%%FU%%, pull down your trousers first!",
+                "I'm not that desperate and you sure as hell ain't that lucky %%FU%%.",
+                "I would %%FU%%. But you are too ugly. Would it hurt your self esteem if I put a pillow over your face?",
+                "What? Like, right now? Here %%FU%%?",
+                "And why the fuck not %%FU%%?",
+                "I seriously doubt your ability %%FU%%.",
+                "With pleasure! Your place or mine %%FU%%?",
+                "Is it just me or do you say this to everyone %%FU%%?",
+                "Cool. What's your favorite position %%FU%%?",
+                "Sure. Who says no to a fuck %%FU%%?!",
+                "I hope you always keep your promises %%FU%%.",
+                "With you without protection? No way %%FU%%!",
+                "While I think of a witty comeback, why don't you start undressing %%FU%%.",
+                "Oh %%FU%% I'm sorry. It's not you, it's me.  I'm just not attracted to you.",
+                "Why in hell should I %%FU%%?",
+                "What makes you think I'm crazy enough to want to deal with a shitsack like you %%FU%%?",
+                "No can do buddy... I can't cheat on your sister %%FU%%! ;)",
+                "Sorry, I'm a little busy right now %%FU%%. But nevertheless, better luck next time!",
+                "Can't you see I'm busy here %%FU%%? I have a job to do ya know?",
+                "Awww!! Fuck you too %%FU%%!",
+                "What %%FU%%? No dinner?!? No drinks?!? I'm not THAT cheap of a date.",
+                "Not til I have a ring on my finger %%FU%%.",
+                "Didn't I tell you? I'm celibate. Sorry %%FU%%.",
+                "Please leave your fantasies out of this %%FU%%!",
+                "You're really gonna have to work on your 'pick up lines' %%FU%%",
+                "Hey I have an idea: Why don't you go outside and play hide-and-go fuck yourself %%FU%%?!",
+                "No, thanks %%FU%%. I'll pass.",
+                "Oh %%FU%%, you're SUCH the romantic.",
+                "I've always dreamed of this day %%FU%%!",
+                "Like I'm in your league %%FU%%.",
+                "That reminds of some good times I had with your sister %%FU%%.",
+                "Hey that'd be fun %%FU%%. Ever have sex with a robot?",
+                "Naw %%FU%%, I would just lay there and laugh at you.",
+                "You wish %%FU%%!",
+                "I heard that you are a big disappointment down there %%FU%%, so thanks, but I'll pass!!"
             ],
             tastyCommentArray: [
             ":cake: *** Tasty point for you, you go Glen Coco!  (%%POINTFROM%%) *** :cake:",
@@ -1750,6 +1797,74 @@ for(var i=wlArr.length-1; i>=0; i--){
                   basicBot.roomUtilities.logException("tastyComment: " + err.message);
                 }
             },
+            larryAI: function(chat)  {  //Added 04/03/2015 Zig
+                try  {
+                var smartass = false;
+                var fuComment = "";
+
+                if (basicBot.loggedInID === chat.uid) return;
+                var chatmsg = chat.message.toUpperCase();
+                chatmsg = chatmsg.replace(/'/g, '');
+                chatmsg = chatmsg.replace("\'", '');
+                chatmsg = chatmsg.replace('\'', '');
+                chatmsg = chatmsg.replace(/&#39;/g, '');
+                chatmsg = chatmsg.replace(/@/g, '');
+                chatmsg = chatmsg.replace(/,/g, '');
+                chatmsg = chatmsg.replace(/-/g, '');
+                chatmsg = chatmsg.replace(/ /g, '');
+                chatmsg = chatmsg.replace(/THELAW/g, '');
+                basicBot.roomUtilities.logDebug("Larry AI chatmsg: " + chatmsg);
+                if (chatmsg.indexOf("LARRYFU") > -1) smartass = true;
+                if (chatmsg.indexOf("LARRYFUCKU") > -1) smartass = true;
+                if (chatmsg.indexOf("LARRYFUCKYOU") > -1) smartass = true;
+                if (chatmsg.indexOf("FULARRY") > -1) smartass = true;
+                if (chatmsg.indexOf("FUCKULARRY") > -1) smartass = true;
+                if (chatmsg.indexOf("FUCKYOULARRY") > -1) smartass = true;
+                if (chatmsg.indexOf("LARRYISAFUCK") > -1) fuComment = "Hey I have an idea: Why don't you go outside and play hide-and-go fuck yourself %%FU%%?!";
+                if (chatmsg.indexOf("LARRYSAFUCK") > -1) fuComment = "Hey I have an idea: Why don't you go outside and play hide-and-go fuck yourself %%FU%%?!";
+                if (chatmsg.indexOf("LARRYFUCKOFF") > -1) fuComment = "Hey I have an idea: Why don't you go outside and play hide-and-go fuck yourself %%FU%%?!";
+                if (chatmsg.indexOf("FUCKOFFLARRY") > -1) fuComment = "Hey I have an idea: Why don't you go outside and play hide-and-go fuck yourself %%FU%%?!";
+                if (chatmsg.indexOf("KICKSLARRY") > -1) fuComment = "Kicks %%FU%% right back!";
+                if (chatmsg.indexOf("HITSLARRY") > -1) fuComment = "Hits %%FU%% upside the head!";
+                if (chatmsg.indexOf("SMACKSLARRY") > -1) fuComment = "Smacks %%FU%% upside the head!";
+                if (chatmsg.indexOf("THANKSLARRY") > -1) fuComment = "You're welcome %%FU%%.";
+                if (chatmsg.indexOf("THANKYOULARRY") > -1) fuComment = "You're welcome %%FU%%.";
+                if (chatmsg.indexOf("HILARRY") > -1) fuComment = "Hi %%FU%%.";
+                if (chatmsg.indexOf("HELLOLARRY") > -1) fuComment = "Hello %%FU%%.";
+                if (chatmsg.indexOf("LARRYISABADASS") > -1) fuComment = "You know it %%FU%%.";
+                if (chatmsg.indexOf("LARRYSABADASS") > -1) fuComment = "You know it %%FU%%.";
+                if (chatmsg.indexOf("LARRYISABADASS") > -1) fuComment = "You know it %%FU%%.";
+                if (chatmsg.indexOf("LARRYISTHESHIT") > -1) fuComment = "You know it %%FU%%.";
+                if (chatmsg.indexOf("LARRYSTHESHIT") > -1) fuComment = "You know it %%FU%%.";
+                if (chatmsg.indexOf("LARRYISTHEBOMB") > -1) fuComment = "You know it %%FU%%.";
+                if (chatmsg.indexOf("LARRYSTHEBOMB") > -1) fuComment = "You know it %%FU%%.";
+                if (chatmsg.indexOf("LARRYISDABOMB") > -1) fuComment = "You know it %%FU%%.";
+                if (chatmsg.indexOf("LARRYROCKS") > -1) fuComment = "You know it %%FU%%.";
+                if (chatmsg.indexOf("LARRYSDABOMB") > -1) fuComment = "You know it %%FU%%.";
+                if (chatmsg.indexOf("YOUROCKLARRY") > -1) fuComment = "Thanks %%FU%% you're not so bad yourself.";
+                if (chatmsg.indexOf("LARRYDONTTAKEANYSHIT") > -1) fuComment = "Damn skippy I don't %%FU%%.";
+                if (chatmsg.indexOf("LARRYDOESNTTAKEANYSHIT") > -1) fuComment = "Damn skippy I don't %%FU%%.";
+                if (chatmsg.indexOf("LARRYDOESNOTTAKEANYSHIT") > -1) fuComment = "Damn skippy I don't %%FU%%.";
+                if (chatmsg.indexOf("SHITHEADLARRY") > -1) fuComment = "I know you are but what am I %%FU%%?";
+                if (chatmsg.indexOf("LARRYSASHITHEAD") > -1) fuComment = "Takes one to know one %%FU%%?";
+                if (smartass === true) fuComment = basicBot.roomUtilities.fuComment();
+                if (fuComment.length > 0) setTimeout(function () { basicBot.roomUtilities.sendChat(subChat(fuComment, {fu: chat.un})); }, 1000);
+                }
+                catch(err) {
+                  basicBot.roomUtilities.logException("larryAI: " + err.message);
+                }
+            },
+
+            fuComment: function()  {  //Added 04/03/2015 Zig
+                try  {
+                    var arrayCount = basicBot.settings.fucomments.length;
+                    var arrayID = Math.floor(Math.random() * arrayCount);
+                    return basicBot.settings.fucomments[arrayID];
+                }
+                catch(err) {
+                  basicBot.roomUtilities.logException("fuComment: " + err.message);
+                }
+            },
             eightBallSelect: function()  {  //Added 04/01/2015 Zig
                 try  {
                     var arrayCount = basicBot.settings.EightBallArray.length;
@@ -1958,7 +2073,8 @@ for(var i=wlArr.length-1; i>=0; i--){
                               'hawt','extreme','dude','babes','fun','reggae','party','drums','trumpet','mosh','bang','epic','blues','heart','feels','dope','makeitrain','wumbo',
                               'firstclass','firstrate','topnotch','aweinspiring','superduper','dabomb','dashit','badass','bomb','popcorn','awesomesauce','awesomeness','sick',
                               'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
-                              'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster'];
+                              'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
+                              'hip'];
                     if (commandList.indexOf(cmd) < 0) return true;
                     return false;
                 }
@@ -2088,7 +2204,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                                 if (logging) basicBot.roomUtilities.logDebug("DC leftroomtime: " + miaTime);
                                 if (miaTime > ((basicBot.settings.maximumDcOutOfRoom) * 60 * 1000)) {
                                     resetUser = true;
-                                    roomUser.lastDC.resetReason = "Disconnect status resets if you leave the room for more than " + basicBot.settings.maximumDcOutOfRoom + " minutes.";
+                                    roomUser.lastDC.resetReason = "Disconnect status was reset. Reason: You left the room for more than " + basicBot.settings.maximumDcOutOfRoom + " minutes.";
                                 }
                                 if (logging) basicBot.roomUtilities.logDebug("A-RESET: " + resetUser);
                             }
@@ -2192,6 +2308,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                                             basicBot.room.afkList.push([id, Date.now(), pos]);
                                             basicBot.userUtilities.resetDC(user);
                                             API.moderateRemoveDJ(id);
+                                            roomUser.lastDC.resetReason = "Disconnect status was reset. Reason: You were removed from line due to afk.";
                                             basicBot.roomUtilities.sendChat(subChat(basicBot.chat.afkremove, {name: name, time: time, position: pos, maximumafk: basicBot.settings.maximumAfk}));
                                         }
                                         user.afkWarningCount = 0;
@@ -2820,6 +2937,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                 else if (chat.type !== 'log')  {
                   basicBot.roomUtilities.logDebug("CHAT.TYPE: " + chat.type);
                 }
+                basicBot.roomUtilities.larryAI(chat);
                 basicBot.room.roomstats.chatmessages++;
             },
             spam: [
@@ -5500,7 +5618,8 @@ for(var i=wlArr.length-1; i>=0; i--){
                           'hawt','extreme','dude','babes','fun','reggae','party','drums','trumpet','mosh','bang','epic','blues','heart','feels','dope','makeitrain','wumbo',
                           'firstclass','firstrate','topnotch','aweinspiring','superduper','dabomb','dashit','badass','bomb','popcorn','awesomesauce','awesomeness','sick',
                           'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
-                          'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster'],
+                          'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
+                          'hip'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
