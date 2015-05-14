@@ -1,5 +1,4 @@
-/** version: 2.1.4.00038
-
+/** version: 2.1.4.00039
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -89,6 +88,7 @@ Grab - Playlist Insert:
     };
     API.botDjNow = function () {
         try {
+            if (basicBot.roomUtilities.botInWaitList() || basicBot.roomUtilities.botIsDj()) return;
             $("#dj-button").click();
         }
         catch(err) {
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00038",
+        version: "2.1.4.00039",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -372,8 +372,159 @@ Grab - Playlist Insert:
                 ["nsfw", "The song you contained was NSFW (image or sound). "],
                 ["unavailable", "The song you played was not available for some users. "]
             ],
+            howAreYouComments: [
+                "Shitty, and yourself %%FU%%?",
+                "Like a bag of badgers that just got freshly beaten %%FU%%.",
+                "I don't know yet get back to me %%FU%%.",
+                "None of your business right now %%FU%%.",
+                "Why do you care %%FU%%?",
+                "I'm alright, slight bruises here and there, nothing i can't handle %%FU%%.",
+                "Hey, wait a minute. How did you know what we were up to%%FU%%? Nobody was supposed to know.",
+                "%%FU%% why don't you accompany me for uh... hmm... lunch... it's been a long time i think, we have lots ummm..... 'catching up' to do. What do you say?",
+                "As if you care %%FU%%.",
+                "If I wasn't me I would want to be me %%FU%%.",
+                "Word on the street is that I'm really good %%FU%%!!",
+                "I'm sober, so what do you think %%FU%%?",
+                "I'm so happy I have to sit on my hands to keep myself from clapping %%FU%%.",
+                "%%FU%%, your attempt at social interaction is hereby acknowledged.",
+                "How would I know, I haven't tried me %%FU%%",
+                "Thank you so much for asking %%FU%%, isn't it amazing how little time we spend REALLY getting to know someone these days and along you come interested in me and my situation.  It means so much to me that you asked %%FU%%",
+                "%%FU%%, you ever notice that just before someone goes completely violently nuts, their eyes widen and you can feel the tension wafting off them like a disease?  Or is that just me?",
+                "Oh, back aches, living from paycheck to paycheck, haven't had sex with my wife in 3 months, surf the web most of the day at work, only showering every two days or so, cholesterol is through the roof and I drink too much... so how are you %%FU%%?",
+                "Room for improvement %%FU%%!",
+                "My psychiatrist told me not to discuss it with strangers %%FU%%.",
+                "I think I'm doing Ok; how do you think I'm doing %%FU%%?",
+                "Why do you ask, are you a doctor %%FU%%?",
+                "Never been better, %%FU%%. ... Just once I'd like to be better",
+                "%%FU%%, I was fine.",
+                "Worse since you interrupted me %%FU%%.",
+                "Not so good %%FU%%, but I plan on lying at my press conference, anyway.",
+                "I am very much in equilibrium with my Environment %%FU%%",
+                "Fucking high %%FU%%, why you pulling me down Bitch?",
+                "Smart people will find out and dumb ones can't change it. Not worth answering %%FU%%.",
+                "%%FU%%, I am very bad at answering.",
+                "Well, I haven't had my morning coffee yet and no one has gotten hurt, so I'd say pretty good at this point %%FU%%.",
+                "My lawyer says I don't have to answer that question %%FU%%.",
+                "It's a dog eat dog world out there %%FU%%, and and I'm wearing Milkbone underwear.",
+                "Deliciously different %%FU%%",
+                "I'm just peachy keen %%FU%%!",
+                "Greetings, may you live long & prosper %%FU%%.",
+                "Fair to middling, mostly middling %%FU%%.",
+                "Even better than the real thing %%FU%%.",
+                "Employed %%FU%%!",
+                "I am better than heaven today %%FU%%!",
+                "Thankfully alive and still somewhat young and healthy %%FU%%, in this economy what more can I ask for?",
+                "I'm unbelievable %%FU%%!",
+                "Fine and dandy as long as no one else boogers up my day %%FU%%!",
+                "Super Duper %%FU%%!!",
+                "I am fantastic and feeling astonishingly glorious %%FU%%.",
+                "Happier than a cat in a room full of catnip %%FU%%.",
+                "I am a little overstuffed. And you %%FU%%?",
+                "Just happy to be above ground %%FU%%.",
+                "I am feeling happier than ever %%FU%%!!",
+                "I'm decent baby, flier than a pelican as Lil Wayne might say...%%FU%%",
+                "Upright and still breathing. You %%FU%%?",
+                "Cool as a cucumber %%FU%%",
+                "Bouncy and ready to go %%FU%%!",
+                "Splendedly Spectacular %%FU%%!",
+                "I am fantabulous %%FU%%!",
+                "Purely golden %%FU%%.",
+                "In the Newtonian or quantum mechanical sense %%FU%%?",
+                "If I were an better, there'd have to be two of me %%FU%%.",
+                "Hopefully not as good as I'll ever be %%FU%%.",
+                "Couldn't be better %%FU%%",
+                "I'd be better if I won the lottery %%FU%%",
+                "Peachy %%FU%%",
+                "Not dead yet %%FU%%!",
+                "Living the dream %%FU%%!",
+                "Fabulous %%FU%%!",
+                "I'm about as excited as a parking spot %%FU%%!",
+                "Just dandy %%FU%%! I have sworn off use of the word 'awesome' because I work with someone who's been no less than 'awesome' for five years, which of course is impossible.",
+                "%%FU%%, how many people believe that when someone asks, 'How are you?' they really want to know - hmmmm.",
+                "Well and fine and good %%FU%%.",
+                "I must be OK because my name was not in today's obituaries %%FU%%!",
+                "I can't complain %%FU%%... I've tried, but no one listens.",
+                "I am wonderfully giddy %%FU%%.",
+                "Worse than yesterday but better than tomorrow %%FU%%",
+                "I am better than yesterday and not as good as I will be tomorrow %%FU%%.",
+                "As long as I can keep the kitten I found today %%FU%%, I'll be fine!",
+                "I'm fine but generally energetic %%FU%%",
+                "Flying high, man, flying high %%FU%%",
+                "Old enough to know better %%FU%%",
+                "Pretty fly for a white guy...taking life one punch at a time %%FU%%!",
+                "Standing in the eye of the storm %%FU%%",
+                "Still among the living %%FU%%!",
+                "I am sailing on the sea of love %%FU%%.",
+                "%%FU%%, my blood pressure is 120/80, respiration 16, CBC and Chem Panels normal.",
+                "If I were any better %%FU%%, Warren Buffett would buy me.",
+                "I am still breathing %%FU%%.",
+                "I am unique and me %%FU%%.",
+                "How goes it %%FU%%?",
+                "As good as a kipper in the sea %%FU%%.",
+                "%%FU%%, I'm Super dee duper.",
+                "%%FU%%, I am fine as a frogs hair.",
+                "Ebullient and full of alacrity.  Go ahead, I'll wait while you Google it %%FU%%.",
+                "This is my lucky day %%FU%%!!!",
+                "I still am %%FU%%.",
+                "Amazing and happy %%FU%%",
+                "I just took a big ole dump so I'm doing great!  How are you %%FU%%?",
+                "I am better today than yesterday %%FU%%, which is better than the day before that! :)",
+                "I am not doing so well today %%FU%%, my cat went on the roof, my car door will not open and my head hurts other than that I am great",
+                "Worn out from doing good things %%FU%%",
+                "I sit here and babysit 24x7 how the fuck do you think I'm doing %%FU%%?",
+                "%%FU%%, My Indian name isn't 'Are You', it's Struggling Turtle",
+                "I am as as rich in spirit as Michael Jackson was famous %%FU%%.",
+                "Delicious. You %%FU%%?",
+                "I am dandy, thank you for asking %%FU%%! How are you today?",
+                "Wonderful %%FU%%",
+                "I'm not unwell thank you %%FU%%",
+                "Feeling lucky and living large %%FU%%",
+                "Better than yesterday %%FU%%!",
+                "How am I %%FU%%? The better question would be, Why are you?",
+                "Just ducky, quack, quack. you %%FU%%?",
+                "I am doing so fabulous today %%FU%%! I can hardly control myself from dancing.",
+                "As fine as a tree with oranges and grapes %%FU%%!",
+                "I am as fine as a hot brand new Camaro %%FU%%!",
+                "Must be doing pretty since I woke up on this side of the grass instead of under it %%FU%%.",
+                "I'm my usual devil may care self; nothing ever changes %%FU%%.",
+                "All banana-breaded out %%FU%%!",
+                "Quite well. And how is it that you are %%FU%%?",
+                "Better than yesterday, not sure about tomorrow %%FU%%.",
+                "Strange and getting stranger %%FU%%",
+                "Superfantastic %%FU%%!",
+                "I'm in tip top shape %%FU%%, how are you?",
+                "Just ducky %%FU%%!",
+                "I am psyching myself up for a load of play-dates this week %%FU%%!",
+                "Still keepin' up with the kids %%FU%%!",
+                "%%FU%%, I am currently in a wonderfully-post-orgasm-and-chocolate-milk creative mood.",
+                "I'm still pleasantly pushing a pulse, thanks for asking %%FU%%. How are you?",
+                "Well I did just swallow a rather large and strange looking insect %%FU%%, but I hear they're full of protein. So I guess I'm great.",
+                "Well %%FU%%, I'm not in prison. I'm not in the hospital. I'm not in the grave. So I reckon I'm fairing along pretty well.",
+                "Fine as frog hair and twice as fuzzy %%FU%%.",
+                "FINE - fickle insecure neurotic and emotional, as usual %%FU%%",
+                "In the normal sense or the Cartesian sense %%FU%%?",
+                "%%FU%%, I'm feelin' like a good luck magnet today, everything is coming my way!",
+                "From what I hear, I am very good %%FU%%.",
+                "Ok %%FU%%, but I'll be better when i see you smile...",
+                "I'm great %%FU%%. I can provide references if you'd like?",
+                "I'm endeavoring to persevere %%FU%%",
+                "%%FU%%, I appear to be functioning within normal parameters.",
+                "Alive %%FU%%",
+                "I'm dead and looking for brains %%FU%%",
+                "...in bed? Excellent!! You %%FU%%?",
+                "%%FU%%, If I was any better vitamins would be taking me!",
+                "I'm alive and kicking %%FU%%!",
+                "I'm happy to be alive %%FU%%!",
+                "I'm great, and yourself %%FU%%?",
+                "I'm well! And how are things in your neck of the woods %%FU%%?",
+                "%%FU%%, If I was any finer I'd be china",
+                "Not bad for an old fool %%FU%%."
+            ],
             fucomments: [
+                "I don't like the name %%FU%%, only fagots and sailors are called that name, from now on you're Gomer Pyle",
+                "Did your parents have any children that lived %%FU%%?",
                 "OK, but I'll be on the top %%FU%%.",
+                "Do you kiss your mother with that mouth %%FU%%.",
                 "%%FU%%, You daydreaming again, sweetheart?",
                 "Get in the queue %%FU%%.",
                 "Baby please! Manners! You gotta ask me out for dinner first %%FU%%.",
@@ -403,6 +554,7 @@ Grab - Playlist Insert:
                 "Sorry, I'm a little busy right now %%FU%%. But nevertheless, better luck next time!",
                 "Can't you see I'm busy here %%FU%%? I have a job to do ya know?",
                 "Awww!! Fuck you too %%FU%%!",
+                "You're gonna have to stand in line for that %%FU%%",
                 "What %%FU%%? No dinner?!? No drinks?!? I'm not THAT cheap of a date.",
                 "Not til I have a ring on my finger %%FU%%.",
                 "Didn't I tell you? I'm celibate. Sorry %%FU%%.",
@@ -729,6 +881,7 @@ Grab - Playlist Insert:
             "ACHOO! If you're allergic to bull-crap, drama, head games, liars, & fake people, keep this sneeze going. I can't wait to see who all does this.",
             "I have to stop saying 'How stupid can you be'. I think people are starting to take it as a challenge.",
             "There's a good chance you don't like me BUT an even better chance that I don't give a crap.",
+            "I have a batman outfit hanging in my closet just to screw with myself when I get Alzheimer's.",
             "I love it when someone insults me. That means I don’t have to be nice anymore.",
             "I'm sarcastic and have a Smartass attitude. It's a natural defense against Drama, Bullshit and Stupidity. And I don't give a @#$& if you're offended!",
             "Give a man a fish and he will eat for a day. Teach him how to fish, and he will sit in a boat and drink beer all day.",
@@ -984,6 +1137,8 @@ Grab - Playlist Insert:
             youtubeLink: null,
             website: null,
             intervalMessages: [],
+            // Currently banList (new blacklist) is unused:
+            banList: [],
             messageInterval: 5,
             songstats: true,
             commandLiteral: ".",
@@ -1049,6 +1204,22 @@ Grab - Playlist Insert:
             //newBlacklistedSongFunction: null,
 
             newBlacklistedSongFunction: function (track, list) {
+                try {
+                basicBot.roomUtilities.logDebug("ADDING Track: " + track.mid + " List: " + list);
+                var data2send = "";
+                data2send = JSON.stringify(bl);
+                localStorage.setItem( 'memoriesdata', JSON.stringify(bl) );
+                basicBot.roomUtilities.logDebug("data2send: " + data2send);
+                for (var bl in basicBot.room.blacklists) {
+                    $.post("https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json",{
+                     data: data2send
+                     });
+                }
+                }
+                catch(err) { basicBot.roomUtilities.logException("newBlacklistedSongFunction: " + err.message); }
+            },
+            
+            newBlacklistedSongFunctionXX: function (track, list) {
                 try {
                 basicBot.roomUtilities.logDebug("ADDING Track: " + track.mid + " List: " + list);
                 var data2send = "";
@@ -1399,14 +1570,17 @@ for(var i=wlArr.length-1; i>=0; i--){
                 }
             },
             skipBadSong: function (userId) {
-                API.moderateForceSkip();
-                if (basicBot.userUtilities.tooManyBadSongs(userId)) {
-                    setTimeout(function () { basicBot.userUtilities.removeDJ(userId); }, 1 * 1000);
-                }
+                basicBot.roomUtilities.logDebug("Skip song: " + userId);
+                var tooMany = false;
+                tooMany = basicBot.userUtilities.tooManyBadSongs(userId);
+                if (tooMany) API.botDjNow();
+                setTimeout(function () { API.moderateForceSkip(); }, 1 * 500);
+                if (tooMany) setTimeout(function () { basicBot.userUtilities.removeDJ(userId); }, 1 * 1000);
+                if (tooMany) setTimeout(function () { basicBot.userUtilities.setBadSongCount(userId, 0); }, 1 * 1500);
             },
             tooManyBadSongs: function (userId) {
                 var badCount = basicBot.userUtilities.getBadSongCount(userId);
-                badCount += 1;
+                badCount++;
                 basicBot.userUtilities.setBadSongCount(userId, badCount);
                 if (badCount > 2) return true;
                 return false;
@@ -1799,7 +1973,6 @@ for(var i=wlArr.length-1; i>=0; i--){
             },
             larryAI: function(chat)  {  //Added 04/03/2015 Zig
                 try  {
-                var smartass = false;
                 var fuComment = "";
 
                 if (basicBot.loggedInID === chat.uid) return;
@@ -1814,12 +1987,40 @@ for(var i=wlArr.length-1; i>=0; i--){
                 chatmsg = chatmsg.replace(/ /g, '');
                 chatmsg = chatmsg.replace(/THELAW/g, '');
                 basicBot.roomUtilities.logDebug("Larry AI chatmsg: " + chatmsg);
-                if (chatmsg.indexOf("LARRYFU") > -1) smartass = true;
-                if (chatmsg.indexOf("LARRYFUCKU") > -1) smartass = true;
-                if (chatmsg.indexOf("LARRYFUCKYOU") > -1) smartass = true;
-                if (chatmsg.indexOf("FULARRY") > -1) smartass = true;
-                if (chatmsg.indexOf("FUCKULARRY") > -1) smartass = true;
-                if (chatmsg.indexOf("FUCKYOULARRY") > -1) smartass = true;
+                // Check for Piss off larry but ignore if it is don't piss off larry or do not piss off larry
+                if ((chatmsg.indexOf("PISSOFFLARRY") > -1) && (chatmsg.indexOf("TPISSOFFLARRY") < 0)) fuComment = "/me pisses on %%FU%%";
+                if (chatmsg.indexOf("FUCKINLARRY") > -1) fuComment = "Do you kiss you mother with that mouth %%FU%%?";
+                if (chatmsg.indexOf("FUCKINGLARRY") > -1) fuComment = "Do you kiss you mother with that mouth %%FU%%?";
+                if (chatmsg.indexOf("BITEMELARRY") > -1) fuComment = "I wouldn't give you the pleasure %%FU%%....You're a freak!";
+                if (chatmsg.indexOf("IHATEYOULARRY") > -1) fuComment = "Well rest assured the feeling is mutual %%FU%%!  :kiss:";
+                if (chatmsg.indexOf("HATESLARRY") > -1) fuComment = "Well rest assured the feeling is mutual %%FU%%!  :kiss:";
+                if (chatmsg.indexOf("LARRYHATESMYNAME") > -1) fuComment = "I don't like the name %%FU%%, only fagots and sailors are called that name, from now on you're Gomer Pyle";
+
+                if (chatmsg.indexOf("SUCKITLARRY") > -1) fuComment = "I ain't got time to mess with that tiny shit %%FU%%!!!";
+                if (chatmsg.indexOf("SUCKMELARRY") > -1) fuComment = "I ain't got time to mess with that tiny shit %%FU%%!!!";
+                if (chatmsg.indexOf("EATSHITLARRY") > -1) fuComment = "Is this a typical diet for you humans %%FU%%.  You people are more fucked up than I thought!";
+                //todo - many optoins here:  http://www.reddit.com/r/AskReddit/comments/24d8v8/whats_your_favorite_yes_phrase_like_does_a_bear/
+                if (chatmsg.indexOf("LARRYHATESME") > -1) fuComment = "If you were you, wouldn't you hate you too %%FU%%?";
+                if (chatmsg.indexOf("LARRYLIKESME") > -1) fuComment = "I tolerate you %%FU%%. It's not the same thing.";
+                if (chatmsg.indexOf("LARRYLOVESME") > -1) fuComment = "BAHAHAHA, You must be new around here %%FU%%?  You're killin me!!";
+                if (chatmsg.indexOf("DOYOUHATEMELARRY") > -1) fuComment = "Does the tin-man have a sheet metal cock %%FU%%?";
+                if (chatmsg.indexOf("DOYOULIKEMELARRY") > -1) fuComment = "Does Grizzly Adams have a beard %%FU%%?";
+                if (chatmsg.indexOf("DOYOULOVEMELARRY") > -1) fuComment = "Is a bear catholic? Does the pope shit in the woods %%FU%%?";
+                
+                if (chatmsg.indexOf("DAMNYOULARRY") > -1) fuComment = "Oh no, I have been Damned!!  In return, I too shall damn you %%FU%%";
+                if (chatmsg.indexOf("DAMNULARRY") > -1) fuComment = "Settle down %%FU%%. Get over yourself.";
+                if (chatmsg.indexOf("BUZZOFFLARRY") > -1) fuComment = "I'm not going anywhere %%FU%%. Sit back and just deal with it.  Or better yet, maybe we should chug on over to mamby pamby land, where maybe we can find some self-confidence for you, ya jackwagon!!.... Tissue?";
+                if (chatmsg.indexOf("KISSMYASSLARRY") > -1) fuComment = "%%FU%%, I'm not into kissin' ass, just ask BK.";
+                //todo - many optoins here:  http://www.neilstuff.com/howru100.html
+                if (chatmsg.indexOf("HOWYADOINLARRY") > -1) fuComment = basicBot.roomUtilities.howAreYouComment();
+                if (chatmsg.indexOf("HOWYADOINGLARRY") > -1) fuComment = basicBot.roomUtilities.howAreYouComment();
+                if (chatmsg.indexOf("HOWYOUDOINLARRY") > -1) fuComment = basicBot.roomUtilities.howAreYouComment();
+                if (chatmsg.indexOf("HOWYOUDOINGLARRY") > -1) fuComment = basicBot.roomUtilities.howAreYouComment();
+                if (chatmsg.indexOf("HOWAREYOULARRY") > -1) fuComment =  basicBot.roomUtilities.howAreYouComment();
+                if (chatmsg.indexOf("HOWAREYOUDOINLARRY") > -1) fuComment =  basicBot.roomUtilities.howAreYouComment();
+                if (chatmsg.indexOf("HOWAREYOUDOINGLARRY") > -1) fuComment =  basicBot.roomUtilities.howAreYouComment();
+                if (chatmsg.indexOf("HOWAREYOUTODAYLARRY") > -1) fuComment =  basicBot.roomUtilities.howAreYouComment();
+                
                 if (chatmsg.indexOf("LARRYISAFUCK") > -1) fuComment = "Hey I have an idea: Why don't you go outside and play hide-and-go fuck yourself %%FU%%?!";
                 if (chatmsg.indexOf("LARRYSAFUCK") > -1) fuComment = "Hey I have an idea: Why don't you go outside and play hide-and-go fuck yourself %%FU%%?!";
                 if (chatmsg.indexOf("LARRYFUCKOFF") > -1) fuComment = "Hey I have an idea: Why don't you go outside and play hide-and-go fuck yourself %%FU%%?!";
@@ -1847,7 +2048,13 @@ for(var i=wlArr.length-1; i>=0; i--){
                 if (chatmsg.indexOf("LARRYDOESNOTTAKEANYSHIT") > -1) fuComment = "Damn skippy I don't %%FU%%.";
                 if (chatmsg.indexOf("SHITHEADLARRY") > -1) fuComment = "I know you are but what am I %%FU%%?";
                 if (chatmsg.indexOf("LARRYSASHITHEAD") > -1) fuComment = "Takes one to know one %%FU%%?";
-                if (smartass === true) fuComment = basicBot.roomUtilities.fuComment();
+                
+                if (chatmsg.indexOf("LARRYFU") > -1) fuComment = basicBot.roomUtilities.fuComment();
+                if (chatmsg.indexOf("LARRYFUCKU") > -1) fuComment = basicBot.roomUtilities.fuComment();
+                if (chatmsg.indexOf("LARRYFUCKYOU") > -1) fuComment = basicBot.roomUtilities.fuComment();
+                if (chatmsg.indexOf("FULARRY") > -1) fuComment = basicBot.roomUtilities.fuComment();
+                if (chatmsg.indexOf("FUCKULARRY") > -1) fuComment = basicBot.roomUtilities.fuComment();
+                if (chatmsg.indexOf("FUCKYOULARRY") > -1) fuComment = basicBot.roomUtilities.fuComment();
                 if (fuComment.length > 0) setTimeout(function () { basicBot.roomUtilities.sendChat(subChat(fuComment, {fu: chat.un})); }, 1000);
                 }
                 catch(err) {
@@ -1855,6 +2062,16 @@ for(var i=wlArr.length-1; i>=0; i--){
                 }
             },
 
+            howAreYouComment: function()  {  //Added 04/03/2015 Zig
+                try  {
+                    var arrayCount = basicBot.settings.howAreYouComments.length;
+                    var arrayID = Math.floor(Math.random() * arrayCount);
+                    return basicBot.settings.howAreYouComments[arrayID];
+                }
+                catch(err) {
+                  basicBot.roomUtilities.logException("howAreYouComment: " + err.message);
+                }
+            },
             fuComment: function()  {  //Added 04/03/2015 Zig
                 try  {
                     var arrayCount = basicBot.settings.fucomments.length;
@@ -2074,7 +2291,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                               'firstclass','firstrate','topnotch','aweinspiring','superduper','dabomb','dashit','badass','bomb','popcorn','awesomesauce','awesomeness','sick',
                               'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
                               'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
-                              'hip'];
+                              'hip','soul','soulful'];
                     if (commandList.indexOf(cmd) < 0) return true;
                     return false;
                 }
@@ -2618,12 +2835,11 @@ for(var i=wlArr.length-1; i>=0; i--){
             //basicBot.roomUtilities.logDebug("eventDjadvance:5");
             var mid = obj.media.format + ':' + obj.media.cid;
             for (var bl in basicBot.room.blacklists) {
-                basicBot.roomUtilities.logDebug("BL: " + bl + " Len: " + basicBot.room.blacklists[bl].length);
+                //basicBot.roomUtilities.logDebug("BL: " + bl + " Len: " + basicBot.room.blacklists[bl].length);
                 if (basicBot.settings.blacklistEnabled) {
                     if (basicBot.room.blacklists[bl].indexOf(mid) > -1) {
                         basicBot.roomUtilities.sendChat(subChat(basicBot.chat.isblacklisted, {blacklist: bl}));
                         basicBot.userUtilities.skipBadSong(obj.dj.id);
-                        SongSkipped = true;
                         return;
                     }
                 }
@@ -2727,7 +2943,7 @@ for(var i=wlArr.length-1; i>=0; i--){
         eventWaitlistupdate: function (users) {
             try {
                 if (!runningBot) return;
-                basicBot.roomUtilities.logDebug("eventWaitlistupdate happens..... tododer");
+                //basicBot.roomUtilities.logDebug("eventWaitlistupdate happens..... tododer");
                 basicBot.roomUtilities.booth.checkForDisconnect();
                 basicBot.roomUtilities.booth.checkForReconnect();
                 if (users.length < 50) {
@@ -5619,7 +5835,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                           'firstclass','firstrate','topnotch','aweinspiring','superduper','dabomb','dashit','badass','bomb','popcorn','awesomesauce','awesomeness','sick',
                           'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
                           'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
-                          'hip'],
+                          'hip','soul','soulful'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
