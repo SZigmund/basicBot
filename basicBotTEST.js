@@ -1,4 +1,4 @@
-/** version: 2.1.4.00038.02
+/** version: 2.1.4.00038.03
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00038.02",
+        version: "2.1.4.00038.03",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -521,7 +521,7 @@ Grab - Playlist Insert:
                 "Not bad for an old fool %%FU%%."
             ],
             fucomments: [
-                "I don't like the name %%FU%%, only fagots and sailors are called %%FU%%, from now on you're Gomer Pyle",
+                "I don't like the name %%FU%%, only fagots and sailors are called that name, from now on you're Gomer Pyle",
                 "Did your parents have any children that lived %%FU%%?",
                 "OK, but I'll be on the top %%FU%%.",
                 "Do you kiss your mother with that mouth %%FU%%.",
@@ -1570,12 +1570,13 @@ for(var i=wlArr.length-1; i>=0; i--){
                 }
             },
             skipBadSong: function (userId) {
-                API.moderateForceSkip();
-                if (basicBot.userUtilities.tooManyBadSongs(userId)) {
-                    API.botDjNow();
-                    setTimeout(function () { basicBot.userUtilities.removeDJ(userId); }, 1 * 1000);
-					setTimeout(function () { basicBot.userUtilities.setBadSongCount(userId, 0); }, 1 * 1500);
-                }
+                basicBot.roomUtilities.logDebug("Skip song: " + userId);
+				var tooMany = false;
+				tooMany = basicBot.userUtilities.tooManyBadSongs(userId);
+                if (tooMany) API.botDjNow();
+                setTimeout(function () { API.moderateForceSkip(); }, 1 * 500);
+                if (tooMany) setTimeout(function () { basicBot.userUtilities.removeDJ(userId); }, 1 * 1000);
+				if (tooMany) setTimeout(function () { basicBot.userUtilities.setBadSongCount(userId, 0); }, 1 * 1500);
             },
             tooManyBadSongs: function (userId) {
                 var badCount = basicBot.userUtilities.getBadSongCount(userId);
@@ -1993,7 +1994,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                 if (chatmsg.indexOf("BITEMELARRY") > -1) fuComment = "I wouldn't give you the pleasure %%FU%%....You're a freak!";
                 if (chatmsg.indexOf("IHATEYOULARRY") > -1) fuComment = "Well rest assured the feeling is mutual %%FU%%!  :kiss:";
                 if (chatmsg.indexOf("HATESLARRY") > -1) fuComment = "Well rest assured the feeling is mutual %%FU%%!  :kiss:";
-                if (chatmsg.indexOf("LARRYHATESMYNAME") > -1) fuComment = "I don't like the name %%FU%%, only fagots and sailors are called %%FU%%, from now on you're Gomer Pyle";
+                if (chatmsg.indexOf("LARRYHATESMYNAME") > -1) fuComment = "I don't like the name %%FU%%, only fagots and sailors are called that name, from now on you're Gomer Pyle";
 
                 if (chatmsg.indexOf("SUCKITLARRY") > -1) fuComment = "I ain't got time to mess with that tiny shit %%FU%%!!!";
                 if (chatmsg.indexOf("SUCKMELARRY") > -1) fuComment = "I ain't got time to mess with that tiny shit %%FU%%!!!";
@@ -2834,7 +2835,7 @@ for(var i=wlArr.length-1; i>=0; i--){
             //basicBot.roomUtilities.logDebug("eventDjadvance:5");
             var mid = obj.media.format + ':' + obj.media.cid;
             for (var bl in basicBot.room.blacklists) {
-                basicBot.roomUtilities.logDebug("BL: " + bl + " Len: " + basicBot.room.blacklists[bl].length);
+                //basicBot.roomUtilities.logDebug("BL: " + bl + " Len: " + basicBot.room.blacklists[bl].length);
                 if (basicBot.settings.blacklistEnabled) {
                     if (basicBot.room.blacklists[bl].indexOf(mid) > -1) {
                         basicBot.roomUtilities.sendChat(subChat(basicBot.chat.isblacklisted, {blacklist: bl}));
@@ -2948,7 +2949,7 @@ for(var i=wlArr.length-1; i>=0; i--){
         eventWaitlistupdate: function (users) {
             try {
                 if (!runningBot) return;
-                basicBot.roomUtilities.logDebug("eventWaitlistupdate happens..... tododer");
+                //basicBot.roomUtilities.logDebug("eventWaitlistupdate happens..... tododer");
                 basicBot.roomUtilities.booth.checkForDisconnect();
                 basicBot.roomUtilities.booth.checkForReconnect();
                 if (users.length < 50) {
