@@ -1,4 +1,4 @@
-/** version: 2.1.4.00038.01
+/** version: 2.1.4.00038.02
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -88,6 +88,7 @@ Grab - Playlist Insert:
     };
     API.botDjNow = function () {
         try {
+            if (basicBot.roomUtilities.botInWaitList() || basicBot.roomUtilities.botIsDj()) return;
             $("#dj-button").click();
         }
         catch(err) {
@@ -280,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00038.01",
+        version: "2.1.4.00038.02",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -378,7 +379,7 @@ Grab - Playlist Insert:
                 "None of your business right now %%FU%%.",
                 "Why do you care %%FU%%?",
                 "I'm alright, slight bruises here and there, nothing i can't handle %%FU%%.",
-                "Hey, wait a minute. How did you know what we were up to? Nobody was supposed to know.",
+                "Hey, wait a minute. How did you know what we were up to%%FU%%? Nobody was supposed to know.",
                 "%%FU%% why don't you accompany me for uh... hmm... lunch... it's been a long time i think, we have lots ummm..... 'catching up' to do. What do you say?",
                 "As if you care %%FU%%.",
                 "If I wasn't me I would want to be me %%FU%%.",
@@ -387,7 +388,7 @@ Grab - Playlist Insert:
                 "I'm so happy I have to sit on my hands to keep myself from clapping %%FU%%.",
                 "%%FU%%, your attempt at social interaction is hereby acknowledged.",
                 "How would I know, I haven't tried me %%FU%%",
-                "Thank you so much for asking %%FU%%, isn't it amazing how little time we spend REALLY getting to know someone these days and along you come interested in me and my situation.  It means so much to me that you asked",
+                "Thank you so much for asking %%FU%%, isn't it amazing how little time we spend REALLY getting to know someone these days and along you come interested in me and my situation.  It means so much to me that you asked %%FU%%",
                 "%%FU%%, you ever notice that just before someone goes completely violently nuts, their eyes widen and you can feel the tension wafting off them like a disease?  Or is that just me?",
                 "Oh, back aches, living from paycheck to paycheck, haven't had sex with my wife in 3 months, surf the web most of the day at work, only showering every two days or so, cholesterol is through the roof and I drink too much... so how are you %%FU%%?",
                 "Room for improvement %%FU%%!",
@@ -1573,6 +1574,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                 if (basicBot.userUtilities.tooManyBadSongs(userId)) {
                     API.botDjNow();
                     setTimeout(function () { basicBot.userUtilities.removeDJ(userId); }, 1 * 1000);
+					setTimeout(function () { basicBot.userUtilities.setBadSongCount(userId, 0); }, 1 * 1500);
                 }
             },
             tooManyBadSongs: function (userId) {
@@ -1991,6 +1993,8 @@ for(var i=wlArr.length-1; i>=0; i--){
                 if (chatmsg.indexOf("BITEMELARRY") > -1) fuComment = "I wouldn't give you the pleasure %%FU%%....You're a freak!";
                 if (chatmsg.indexOf("IHATEYOULARRY") > -1) fuComment = "Well rest assured the feeling is mutual %%FU%%!  :kiss:";
                 if (chatmsg.indexOf("HATESLARRY") > -1) fuComment = "Well rest assured the feeling is mutual %%FU%%!  :kiss:";
+                if (chatmsg.indexOf("LARRYHATESMYNAME") > -1) fuComment = "I don't like the name %%FU%%, only fagots and sailors are called %%FU%%, from now on you're Gomer Pyle";
+
                 if (chatmsg.indexOf("SUCKITLARRY") > -1) fuComment = "I ain't got time to mess with that tiny shit %%FU%%!!!";
                 if (chatmsg.indexOf("SUCKMELARRY") > -1) fuComment = "I ain't got time to mess with that tiny shit %%FU%%!!!";
                 if (chatmsg.indexOf("EATSHITLARRY") > -1) fuComment = "Is this a typical diet for you humans %%FU%%.  You people are more fucked up than I thought!";
