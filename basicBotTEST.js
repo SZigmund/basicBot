@@ -1,4 +1,4 @@
-/** version: 2.1.4.00038.03
+/** version: 2.1.4.00038.04
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00038.03",
+        version: "2.1.4.00038.04",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1171,7 +1171,6 @@ Grab - Playlist Insert:
             },
             queueing: 0,
             queueable: true,
-            consecutiveSkipCount: 0,
             currentDJID: null,
             currentMediaCid: 999,
             currentMediaStart: 999,
@@ -1571,12 +1570,12 @@ for(var i=wlArr.length-1; i>=0; i--){
             },
             skipBadSong: function (userId) {
                 basicBot.roomUtilities.logDebug("Skip song: " + userId);
-				var tooMany = false;
-				tooMany = basicBot.userUtilities.tooManyBadSongs(userId);
+                var tooMany = false;
+                tooMany = basicBot.userUtilities.tooManyBadSongs(userId);
                 if (tooMany) API.botDjNow();
                 setTimeout(function () { API.moderateForceSkip(); }, 1 * 500);
                 if (tooMany) setTimeout(function () { basicBot.userUtilities.removeDJ(userId); }, 1 * 1000);
-				if (tooMany) setTimeout(function () { basicBot.userUtilities.setBadSongCount(userId, 0); }, 1 * 1500);
+                if (tooMany) setTimeout(function () { basicBot.userUtilities.setBadSongCount(userId, 0); }, 1 * 1500);
             },
             tooManyBadSongs: function (userId) {
                 var badCount = basicBot.userUtilities.getBadSongCount(userId);
@@ -2840,7 +2839,6 @@ for(var i=wlArr.length-1; i>=0; i--){
                     if (basicBot.room.blacklists[bl].indexOf(mid) > -1) {
                         basicBot.roomUtilities.sendChat(subChat(basicBot.chat.isblacklisted, {blacklist: bl}));
                         basicBot.userUtilities.skipBadSong(obj.dj.id);
-                        basicBot.room.consecutiveSkipCount++;
                         return;
                     }
                 }
@@ -2858,7 +2856,6 @@ for(var i=wlArr.length-1; i>=0; i--){
                     var msg = "Sorry @" + obj.dj.username + " Sound Cloud songs are not permitted in this room " + basicBot.settings.skipSoundRange + " too many regulars cannot hear them.";
                     basicBot.roomUtilities.sendChat(msg);
                     basicBot.userUtilities.skipBadSong(obj.dj.id);
-                    basicBot.room.consecutiveSkipCount++;
                     return;
                 }
             }
@@ -2872,7 +2869,6 @@ for(var i=wlArr.length-1; i>=0; i--){
                 {
                     basicBot.roomUtilities.sendChat(subChat(basicBot.chat.songknown2, {name: obj.dj.username, lasttime: basicBot.roomUtilities.msToStr(lastPlayedMs)}));
                     basicBot.userUtilities.skipBadSong(obj.dj.id);
-                    basicBot.room.consecutiveSkipCount++;
                     SongSkipped = true;
                 }
                 else
@@ -2906,10 +2902,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                     API.moderateForceSkip();
                 }, remaining + 3000);
             }
-            if (!SongSkipped) {
-              basicBot.userUtilities.setBadSongCount(obj.dj.id, 0);
-              basicBot.room.consecutiveSkipCount = 0;
-            }
+            if (!SongSkipped) basicBot.userUtilities.setBadSongCount(obj.dj.id, 0);
             //basicBot.roomUtilities.logDebug("eventDjadvance:12");
             storeToStorage();
             //basicBot.roomUtilities.logDebug("eventDjadvance:13");
