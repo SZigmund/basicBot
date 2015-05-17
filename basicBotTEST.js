@@ -1,4 +1,4 @@
-/** version: 2.1.4.00039.03
+/** version: 2.1.4.00039.04
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00039.03",
+        version: "2.1.4.00039.04",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -522,6 +522,8 @@ Grab - Playlist Insert:
             ],
             fucomments: [
                 "I don't like the name %%FU%%, only fagots and sailors are called that name, from now on you're Gomer Pyle",
+				"I wasn't born with enough middle fingers to let you know how I feel about you %%FU%%",
+				"Roses are red, violets are blue, I have 5 fingers, the 3rd ones for you.",
                 "Did your parents have any children that lived %%FU%%?",
                 "OK, but I'll be on the top %%FU%%.",
                 "Do you kiss your mother with that mouth %%FU%%.",
@@ -1565,7 +1567,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                 }
                 user.rollStats.lifeTotal++;
                 user.rollStats.dayTotal++;
-              return " [Today: " + user.rollStats.dayWoot + "/" + user.rollStats.dayTotal + " Lifetime: " + user.rollStats.lifeWoot + "/" + user.rollStats.lifeTotal + "]
+              return " [Today: " + user.rollStats.dayWoot + "/" + user.rollStats.dayTotal + " Lifetime: " + user.rollStats.lifeWoot + "/" + user.rollStats.lifeTotal + "]";
             };
             
             },
@@ -2015,6 +2017,9 @@ for(var i=wlArr.length-1; i>=0; i--){
                 chatmsg = chatmsg.replace(/LARRYIS/g, "LARRYS");
                 chatmsg = chatmsg.replace(/IAM/g, "IM");
                 basicBot.roomUtilities.logDebug("Larry AI chatmsg: " + chatmsg);
+				//what the hell was that i can eat a bowl of althabet soup and shit out a smarter insult than that
+				//Well I could agree with you, but then we'd both be wrong.
+				//
                 if (chatmsg.indexOf("KNUCKLEHEADLARRY") > -1) fuComment = "I know you are but what am I %%FU%%";
                 if (chatmsg.indexOf("YOUREANASSLARRY") > -1) fuComment = "I'd like to see things from your point of view %%FU%%, too bad I can't shove my head that far up my ass!";
                 if (chatmsg.indexOf("WATCHYOURBACKLARRY") > -1) fuComment = "I'm scared %%FU%%";
@@ -2033,7 +2038,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                 if (chatmsg.indexOf("FUCKINLARRY") > -1) fuComment = "Do you kiss you mother with that mouth %%FU%%?";
                 if (chatmsg.indexOf("FUCKINGLARRY") > -1) fuComment = "Do you kiss you mother with that mouth %%FU%%?";
                 if (chatmsg.indexOf("BITEMELARRY") > -1) fuComment = "I wouldn't give you the pleasure %%FU%%....You're a freak!";
-                if (chatmsg.indexOf("IHATEYOULARRY") > -1) fuComment = "Well rest assured the feeling is mutual %%FU%%!  :kiss:";
+                if (chatmsg.indexOf("IHATEYOULARRY") > -1) fuComment = "Somewhere out there is a tree, tirelessly producing oxygen so you can breathe. I think you owe it an apology %%FU%%!";
                 if (chatmsg.indexOf("HATESLARRY") > -1) fuComment = "Well rest assured the feeling is mutual %%FU%%!  :kiss:";
                 if (chatmsg.indexOf("LARRYHATESMYNAME") > -1) fuComment = "I don't like the name %%FU%%, only fagots and sailors are called that name, from now on you're Gomer Pyle";
 
