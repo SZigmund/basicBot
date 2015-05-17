@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.06
+/** version: 2.1.4.00040.07
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -229,11 +229,14 @@ Grab - Playlist Insert:
         else {
             var settings = JSON.parse(localStorage.getItem("basicBotsettings"));
             var room = JSON.parse(localStorage.getItem("basicBotRoom"));
-            basicBot.room.newBlacklist = JSON.parse(localStorage["BLACKLIST"]);
-            basicBot.room.newBlacklistIDs = JSON.parse(localStorage["BLACKLISTIDS"]);
-            basicBot.roomUtilities.logDebug("BL LOAD:   BL Count: " + basicBot.room.newBlacklist.length);
-            basicBot.roomUtilities.logDebug("BL LOAD: BLID Count: " + basicBot.room.newBlacklistIDs.length);
+			if (localStorage.getItem("BLACKLIST") !== null) {
+              basicBot.room.newBlacklist = JSON.parse(localStorage["BLACKLIST"]);
+              basicBot.room.newBlacklistIDs = JSON.parse(localStorage["BLACKLISTIDS"]);
+              basicBot.roomUtilities.logDebug("BL LOAD:   BL Count: " + basicBot.room.newBlacklist.length);
+              basicBot.roomUtilities.logDebug("BL LOAD: BLID Count: " + basicBot.room.newBlacklistIDs.length);
+			}
             basicBot.room.blacklistLoaded = true;
+			basicBot.roomUtilities.logDebug("BL LOADED: TRUE");
             var elapsed = Date.now() - JSON.parse(info).time;
             if ((elapsed < 1 * 60 * 60 * 1000)) {
                 basicBot.roomUtilities.chatLog(basicBot.chat.retrievingdata);
@@ -318,7 +321,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.06",
+        version: "2.1.4.00040.07",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -6017,6 +6020,9 @@ You're so fat, you could sell shade.
                     }
                 }
             },
+            zigXXXCommand: {
+			    
+			},
             zigCommand: {
                 command: 'zig',
                 rank: 'cohost',
