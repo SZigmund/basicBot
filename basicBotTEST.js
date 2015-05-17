@@ -1,4 +1,4 @@
-/** version: 2.1.4.00039.04
+/** version: 2.1.4.00039.05
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00039.04",
+        version: "2.1.4.00039.05",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1568,8 +1568,6 @@ for(var i=wlArr.length-1; i>=0; i--){
                 user.rollStats.lifeTotal++;
                 user.rollStats.dayTotal++;
               return " [Today: " + user.rollStats.dayWoot + "/" + user.rollStats.dayTotal + " Lifetime: " + user.rollStats.lifeWoot + "/" + user.rollStats.lifeTotal + "]";
-            };
-            
             },
             setRolled: function (username, value, wooting) {
                 var user = basicBot.userUtilities.lookupUserName(username);
@@ -2019,7 +2017,9 @@ for(var i=wlArr.length-1; i>=0; i--){
                 basicBot.roomUtilities.logDebug("Larry AI chatmsg: " + chatmsg);
 				//what the hell was that i can eat a bowl of althabet soup and shit out a smarter insult than that
 				//Well I could agree with you, but then we'd both be wrong.
-				//
+				//I don't exactly hate you, but if you were on fire and I had water, I'd drink it.
+				//Two wrongs don't make a right, take your parents as an example.
+				
                 if (chatmsg.indexOf("KNUCKLEHEADLARRY") > -1) fuComment = "I know you are but what am I %%FU%%";
                 if (chatmsg.indexOf("YOUREANASSLARRY") > -1) fuComment = "I'd like to see things from your point of view %%FU%%, too bad I can't shove my head that far up my ass!";
                 if (chatmsg.indexOf("WATCHYOURBACKLARRY") > -1) fuComment = "I'm scared %%FU%%";
