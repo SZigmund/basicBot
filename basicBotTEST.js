@@ -1,4 +1,4 @@
-/** version: 2.1.4.00039.05
+/** version: 2.1.4.00039.07
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00039.05",
+        version: "2.1.4.00039.07",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -522,8 +522,8 @@ Grab - Playlist Insert:
             ],
             fucomments: [
                 "I don't like the name %%FU%%, only fagots and sailors are called that name, from now on you're Gomer Pyle",
-				"I wasn't born with enough middle fingers to let you know how I feel about you %%FU%%",
-				"Roses are red, violets are blue, I have 5 fingers, the 3rd ones for you.",
+                "I wasn't born with enough middle fingers to let you know how I feel about you %%FU%%",
+                "Roses are red, violets are blue, I have 5 fingers, the 3rd ones for you.",
                 "Did your parents have any children that lived %%FU%%?",
                 "OK, but I'll be on the top %%FU%%.",
                 "Do you kiss your mother with that mouth %%FU%%.",
@@ -2011,15 +2011,32 @@ for(var i=wlArr.length-1; i>=0; i--){
                 chatmsg = chatmsg.replace(/-/g, '');
                 chatmsg = chatmsg.replace(/ /g, '');
                 chatmsg = chatmsg.replace(/THELAW/g, '');
-                chatmsg = chatmsg.replace(/YOUARE/g, "YOURE");
+                chatmsg = chatmsg.replace(/YOUARE/g, "YOURE");   // Convert 2 words to the contractions
                 chatmsg = chatmsg.replace(/LARRYIS/g, "LARRYS");
                 chatmsg = chatmsg.replace(/IAM/g, "IM");
                 basicBot.roomUtilities.logDebug("Larry AI chatmsg: " + chatmsg);
-				//what the hell was that i can eat a bowl of althabet soup and shit out a smarter insult than that
-				//Well I could agree with you, but then we'd both be wrong.
-				//I don't exactly hate you, but if you were on fire and I had water, I'd drink it.
-				//Two wrongs don't make a right, take your parents as an example.
-				
+                //what the hell was that i can eat a bowl of althabet soup and shit out a smarter insult than that
+                //Well I could agree with you, but then we'd both be wrong.
+                //
+                //Two wrongs don't make a right, take your parents as an example.
+                //The last time I saw a face like yours I fed it a banana.
+/*
+Your birth certificate is an apology letter from the condom factory.
+Is your ass jealous of the amount of shit that just came out of your mouth?
+You bring everyone a lot of joy, when you leave the room.
+You must have been born on a highway because that's where most accidents happen.
+I bet your brain feels as good as new, seeing that you never use it.
+If laughter is the best medicine, your face must be curing the world.
+I could eat a bowl of alphabet soup and shit out a smarter statement than that.
+I may love to shop but I'm not buying your bullshit.
+If you're gonna be a smartass, first you have to be smart. Otherwise you're just an ass.
+I'd slap you, but shit stains.
+Your family tree must be a cactus because everybody on it is a prick.
+You shouldn't play hide and seek, no one would look for you.
+If I were to slap you, it would be considered animal abuse!
+You didn't fall out of the stupid tree. You were dragged through dumbass forest.
+You're so fat, you could sell shade.
+*/
                 if (chatmsg.indexOf("KNUCKLEHEADLARRY") > -1) fuComment = "I know you are but what am I %%FU%%";
                 if (chatmsg.indexOf("YOUREANASSLARRY") > -1) fuComment = "I'd like to see things from your point of view %%FU%%, too bad I can't shove my head that far up my ass!";
                 if (chatmsg.indexOf("WATCHYOURBACKLARRY") > -1) fuComment = "I'm scared %%FU%%";
@@ -2035,10 +2052,11 @@ for(var i=wlArr.length-1; i>=0; i--){
 
                 // Check for Piss off larry but attempt to ignore if it is don't piss off larry or do not piss off larry
                 if ((chatmsg.indexOf("PISSOFFLARRY") > -1) && (chatmsg.indexOf("TPISSOFFLARRY") < 0)) fuComment = "/me pisses on %%FU%%";
+                if (chatmsg.indexOf("YOURESTUPIDLARRY") > -1) fuComment = "Somewhere out there is a tree, tirelessly producing oxygen so you can breathe. I think you owe it an apology %%FU%%";
                 if (chatmsg.indexOf("FUCKINLARRY") > -1) fuComment = "Do you kiss you mother with that mouth %%FU%%?";
                 if (chatmsg.indexOf("FUCKINGLARRY") > -1) fuComment = "Do you kiss you mother with that mouth %%FU%%?";
                 if (chatmsg.indexOf("BITEMELARRY") > -1) fuComment = "I wouldn't give you the pleasure %%FU%%....You're a freak!";
-                if (chatmsg.indexOf("IHATEYOULARRY") > -1) fuComment = "Somewhere out there is a tree, tirelessly producing oxygen so you can breathe. I think you owe it an apology %%FU%%!";
+                if (chatmsg.indexOf("IHATEYOULARRY") > -1) fuComment = "I don't exactly hate you %%FU%%, but if you were on fire and I had water, I'd drink it!";
                 if (chatmsg.indexOf("HATESLARRY") > -1) fuComment = "Well rest assured the feeling is mutual %%FU%%!  :kiss:";
                 if (chatmsg.indexOf("LARRYHATESMYNAME") > -1) fuComment = "I don't like the name %%FU%%, only fagots and sailors are called that name, from now on you're Gomer Pyle";
 
@@ -2073,7 +2091,6 @@ for(var i=wlArr.length-1; i>=0; i--){
                 if (chatmsg.indexOf("LARRYHOWRYOU") > -1) fuComment =  basicBot.roomUtilities.howAreYouComment();
                 if (chatmsg.indexOf("LARRYHOWRU") > -1) fuComment =  basicBot.roomUtilities.howAreYouComment();
                 
-                if (chatmsg.indexOf("LARRYISAFUCK") > -1) fuComment = "Hey I have an idea: Why don't you go outside and play hide-and-go fuck yourself %%FU%%?!";
                 if (chatmsg.indexOf("LARRYSAFUCK") > -1) fuComment = "Hey I have an idea: Why don't you go outside and play hide-and-go fuck yourself %%FU%%?!";
                 if (chatmsg.indexOf("LARRYFUCKOFF") > -1) fuComment = "Hey I have an idea: Why don't you go outside and play hide-and-go fuck yourself %%FU%%?!";
                 if (chatmsg.indexOf("FUCKOFFLARRY") > -1) fuComment = "Hey I have an idea: Why don't you go outside and play hide-and-go fuck yourself %%FU%%?!";
@@ -2084,13 +2101,9 @@ for(var i=wlArr.length-1; i>=0; i--){
                 if (chatmsg.indexOf("THANKYOULARRY") > -1) fuComment = "You're welcome %%FU%%.";
                 if (chatmsg.indexOf("HILARRY") > -1) fuComment = "Hi %%FU%%.";
                 if (chatmsg.indexOf("HELLOLARRY") > -1) fuComment = "Hello %%FU%%.";
-                if (chatmsg.indexOf("LARRYISABADASS") > -1) fuComment = "You know it %%FU%%.";
                 if (chatmsg.indexOf("LARRYSABADASS") > -1) fuComment = "You know it %%FU%%.";
-                if (chatmsg.indexOf("LARRYISTHESHIT") > -1) fuComment = "You know it %%FU%%.";
                 if (chatmsg.indexOf("LARRYSTHESHIT") > -1) fuComment = "You know it %%FU%%.";
-                if (chatmsg.indexOf("LARRYISTHEBOMB") > -1) fuComment = "You know it %%FU%%.";
                 if (chatmsg.indexOf("LARRYSTHEBOMB") > -1) fuComment = "You know it %%FU%%.";
-                if (chatmsg.indexOf("LARRYISDABOMB") > -1) fuComment = "You know it %%FU%%.";
                 if (chatmsg.indexOf("LARRYROCKS") > -1) fuComment = "You know it %%FU%%.";
                 if (chatmsg.indexOf("LARRYSDABOMB") > -1) fuComment = "You know it %%FU%%.";
                 if (chatmsg.indexOf("YOUROCKLARRY") > -1) fuComment = "Thanks %%FU%% you're not so bad yourself.";
@@ -5819,7 +5832,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                         }
                         else {
                             setTimeout(function () { basicBot.roomUtilities.mehThisSong(); }, 1000);
-                            basicBot.roomUtilities.sendChat(subChat(basicBot.chat.rollresultsbad, {name: chat.un, roll: rollResults}));
+                            resultsMsg = subChat(basicBot.chat.rollresultsbad, {name: chat.un, roll: rollResults});
                             wooting = false;
                         }
                         basicBot.roomUtilities.sendChat(resultsMsg + basicBot.userUtilities.updateRolledStats(chat.un, wooting));
