@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.05
+/** version: 2.1.4.00040.06
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -318,7 +318,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.05",
+        version: "2.1.4.00040.06",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -3802,7 +3802,6 @@ You're so fat, you could sell shade.
                         basicBot.roomUtilities.sendChat(subChat(basicBot.chat.newblacklisted, {name: dj.username, blacklist: list, author: media.author, title: media.title, mid: media.format + ':' + media.cid}));
                         basicBot.userUtilities.skipBadSong(dj.id);
                         }
-                    }
                     catch(err) { basicBot.roomUtilities.logException("blacklistCommand: " + err.message); }
                 }
             },
