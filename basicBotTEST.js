@@ -1,4 +1,4 @@
-/** version: 2.1.4.00039.02
+/** version: 2.1.4.00039.03
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00039.02",
+        version: "2.1.4.00039.03",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1390,11 +1390,11 @@ for(var i=wlArr.length-1; i>=0; i--){
             this.inRoom = true;
             this.isMuted = false;
             this.rollStats = {
-                lifeWoot = 0,
-                lifeTotal = 0,
-                dayWoot = 0,
-                dayTotal = 0,
-                DOY = -1
+                lifeWoot: 0,
+                lifeTotal: 0,
+                dayWoot: 0,
+                dayTotal: 0,
+                DOY: -1
             };
             this.lastDC = {
                 time: null,
