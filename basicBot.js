@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040
+/** version: 2.1.4.00040.01
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040",
+        version: "2.1.4.00040.01",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1554,6 +1554,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                 return user.bootable;
             },
             updateRolledStats (username, wooting) {
+            try {
                 var user = basicBot.userUtilities.lookupUserName(username);
                 var DOY = basicBot.roomUtilities.getDOY();
                 if (user.rollStats.DOY !== DOY) {
@@ -1567,7 +1568,12 @@ for(var i=wlArr.length-1; i>=0; i--){
                 }
                 user.rollStats.lifeTotal++;
                 user.rollStats.dayTotal++;
-              return " [Today: " + user.rollStats.dayWoot + "/" + user.rollStats.dayTotal + " Lifetime: " + user.rollStats.lifeWoot + "/" + user.rollStats.lifeTotal + "]";
+                return " [Today: " + user.rollStats.dayWoot + "/" + user.rollStats.dayTotal + " Lifetime: " + user.rollStats.lifeWoot + "/" + user.rollStats.lifeTotal + "]";
+                }
+                catch(err) {
+                  basicBot.roomUtilities.logException("updateRolledStats: " + err.message);
+                  return "";
+                }
             },
             setRolled: function (username, value, wooting) {
                 var user = basicBot.userUtilities.lookupUserName(username);
@@ -5835,7 +5841,8 @@ You're so fat, you could sell shade.
                             resultsMsg = subChat(basicBot.chat.rollresultsbad, {name: chat.un, roll: rollResults});
                             wooting = false;
                         }
-                        basicBot.roomUtilities.sendChat(resultsMsg + basicBot.userUtilities.updateRolledStats(chat.un, wooting));
+                        resultsMsg += basicBot.userUtilities.updateRolledStats(chat.un, wooting);
+                        basicBot.roomUtilities.sendChat(resultsMsg);
                         /*
                         if (rollResults >= (dicesides * 0.8))
                             setTimeout(function () { basicBot.userUtilities.tastyVote(basicBot.userUtilities.getCurrentPlugUser().id, "winner"); }, 1000);
