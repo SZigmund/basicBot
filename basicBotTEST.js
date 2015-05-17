@@ -1,4 +1,4 @@
-/** version: 2.1.4.00039.07
+/** version: 2.1.4.00040.02
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -8,7 +8,39 @@ START[1429226840663] NOW[1429226843027]
 .logout cohost
 currdj.votes.tasty += 1;
 
- 
+
+var bl = [];
+function myAddFunction() {
+  bl.push(myRandomFunction());
+}
+function myDisplayFunction() {
+  var i = 0;
+  for (i=0;i<bl.length;i++) console.log(bl[i]);
+}
+function mySaveFunction() {
+localStorage["ytbl"] = JSON.stringify(bl);
+}
+function myLoadFunction() {
+  bl = JSON.parse(localStorage["ytbl"]);
+}
+
+
+
+function myAddFunction() {
+  basicBot.room.newBlacklist.push(myRandomFunction());
+}
+function myDisplayFunction() {
+  var i = 0;
+  for (i=0;i<bl.length;i++) console.log(basicBot.room.newBlacklist[i]);
+}
+function mySaveFunction() {
+localStorage["BLACKLIST"] = JSON.stringify(basicBot.room.newBlacklist);
+}
+function myLoadFunction() {
+  basicBot.room.newBlacklist = JSON.parse(localStorage["BLACKLIST"]);
+}
+
+
 <div class="from"><span class="un" style="color: rgb(238, 200, 27);">Booth Alert</span><span class="timestamp" style="display: inline;">9:09am</span></div>
 <div class="text" style="color: rgb(255, 255, 255);">Are you ready to play? you are in 1 of the waitlist!</div>
 
@@ -197,6 +229,11 @@ Grab - Playlist Insert:
         else {
             var settings = JSON.parse(localStorage.getItem("basicBotsettings"));
             var room = JSON.parse(localStorage.getItem("basicBotRoom"));
+			basicBot.room.newBlacklist = JSON.parse(localStorage["BLACKLIST"]);
+			basicBot.room.newBlacklistIDs = JSON.parse(localStorage["BLACKLISTIDS"]);
+			basicBot.roomUtilities.logDebug("BL LOAD:   BL Count: " + basicBot.room.newBlacklist.length);
+			basicBot.roomUtilities.logDebug("BL LOAD: BLID Count: " + basicBot.room.newBlacklistIDs.length
+			basicBot.room.blacklistLoaded = true;
             var elapsed = Date.now() - JSON.parse(info).time;
             if ((elapsed < 1 * 60 * 60 * 1000)) {
                 basicBot.roomUtilities.chatLog(basicBot.chat.retrievingdata);
@@ -211,7 +248,7 @@ Grab - Playlist Insert:
                 basicBot.room.roomstats = room.roomstats;
                 basicBot.room.messages = room.messages;
                 basicBot.room.queue = room.queue;
-                basicBot.room.newBlacklisted = room.newBlacklisted;
+                //basicBot.room.newBlacklist = room.newBlacklist;
                 basicBot.roomUtilities.chatLog(basicBot.chat.datarestored);
             }
         }
@@ -281,7 +318,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00039.07",
+        version: "2.1.4.00040.02",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1139,13 +1176,10 @@ Grab - Playlist Insert:
             youtubeLink: null,
             website: null,
             intervalMessages: [],
-            // Currently banList (new blacklist) is unused:
-            banList: [],
             messageInterval: 5,
             songstats: true,
             commandLiteral: ".",
-            //songbanlist: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/SongBan.json",
-            blacklists: {
+            blacklistsOBS: {
                 BAN: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/Banned.json",
                 NSFW: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json",
                 OP: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleOPlist.json"
@@ -1199,35 +1233,32 @@ Grab - Playlist Insert:
                 id: [],
                 position: []
             },
-            blacklists: {
-
-            },
-            newBlacklisted: [],
-            //newBlacklistedSongFunction: null,
-
-            newBlacklistedSongFunction: function (track, list) {
+            newBlacklist: [],
+            newBlacklistIDs: [],
+			blacklistLoaded = false,
+            newBlacklistedSongFunction1: function (track, list) {
                 try {
                 basicBot.roomUtilities.logDebug("ADDING Track: " + track.mid + " List: " + list);
                 var data2send = "";
                 data2send = JSON.stringify(bl);
                 localStorage.setItem( 'memoriesdata', JSON.stringify(bl) );
                 basicBot.roomUtilities.logDebug("data2send: " + data2send);
-                for (var bl in basicBot.room.blacklists) {
+                for (var bl in basicBot.room.blacklistsOBS) {
                     $.post("https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json",{
                      data: data2send
                      });
                 }
                 }
-                catch(err) { basicBot.roomUtilities.logException("newBlacklistedSongFunction: " + err.message); }
+                catch(err) { basicBot.roomUtilities.logException("newBlacklistedSongFunction1: " + err.message); }
             },
             
-            newBlacklistedSongFunctionXX: function (track, list) {
+            newBlacklistedSongFunction2: function (track, list) {
                 try {
                 basicBot.roomUtilities.logDebug("ADDING Track: " + track.mid + " List: " + list);
                 var data2send = "";
                 data2send = JSON.stringify(bl);
                 basicBot.roomUtilities.logDebug("data2send: " + data2send);
-                for (var bl in basicBot.room.blacklists) {
+                for (var bl in basicBot.room.blacklistsOBS) {
                     $.post("https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json",{
                      data: data2send
                      });
@@ -1278,7 +1309,7 @@ for(var i=wlArr.length-1; i>=0; i--){
 */
 
                 }
-                catch(err) { basicBot.roomUtilities.logException("newBlacklistedSongFunction: " + err.message); }
+                catch(err) { basicBot.roomUtilities.logException("newBlacklistedSongFunction2: " + err.message); }
                 /*
             var mid = obj.media.format + ':' + obj.media.cid;
             for (var bl in basicBot.room.blacklists) {
@@ -1554,6 +1585,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                 return user.bootable;
             },
             updateRolledStats (username, wooting) {
+			    try {
                 var user = basicBot.userUtilities.lookupUserName(username);
                 var DOY = basicBot.roomUtilities.getDOY();
                 if (user.rollStats.DOY !== DOY) {
@@ -1567,7 +1599,12 @@ for(var i=wlArr.length-1; i>=0; i--){
                 }
                 user.rollStats.lifeTotal++;
                 user.rollStats.dayTotal++;
-              return " [Today: " + user.rollStats.dayWoot + "/" + user.rollStats.dayTotal + " Lifetime: " + user.rollStats.lifeWoot + "/" + user.rollStats.lifeTotal + "]";
+                return " [Today: " + user.rollStats.dayWoot + "/" + user.rollStats.dayTotal + " Lifetime: " + user.rollStats.lifeWoot + "/" + user.rollStats.lifeTotal + "]";
+			  }
+                catch(err) {
+                  basicBot.roomUtilities.logException("updateRolledStats: " + err.message);
+				  return "";
+                }
             },
             setRolled: function (username, value, wooting) {
                 var user = basicBot.userUtilities.lookupUserName(username);
@@ -2690,16 +2727,16 @@ You're so fat, you could sell shade.
             },
             logNewBlacklistedSongs: function () {
                 if (typeof console.table !== 'undefined') {
-                    console.table(basicBot.room.newBlacklisted);
+                    console.table(basicBot.room.newBlacklist);
                 }
                 else {
-                    basicBot.roomUtilities.logDebug(basicBot.room.newBlacklisted);
+                    basicBot.roomUtilities.logDebug(basicBot.room.newBlacklist);
                 }
             },
             exportNewBlacklistedSongs: function () {
                 var list = {};
-                for (var i = 0; i < basicBot.room.newBlacklisted.length; i++) {
-                    var track = basicBot.room.newBlacklisted[i];
+                for (var i = 0; i < basicBot.room.newBlacklist.length; i++) {
+                    var track = basicBot.room.newBlacklist[i];
                     list[track.list] = [];
                     list[track.list].push({
                         title: track.title,
@@ -2908,7 +2945,16 @@ You're so fat, you could sell shade.
             if (basicBot.settings.autoWootBot === true) setTimeout(basicBot.roomUtilities.wootThisSong, 3000);
 
             //basicBot.roomUtilities.logDebug("eventDjadvance:5");
+			/* todo FOREACH LOOP */
             var mid = obj.media.format + ':' + obj.media.cid;
+			if (basicBot.settings.blacklistEnabled) {
+				if (basicBot.room.newBlacklistIDs.indexOf(mid) > -1) {
+					basicBot.roomUtilities.sendChat(subChat(basicBot.chat.isblacklisted, {blacklist: bl}));
+					basicBot.userUtilities.skipBadSong(obj.dj.id);
+					return;
+				}
+			}
+/*
             for (var bl in basicBot.room.blacklists) {
                 //basicBot.roomUtilities.logDebug("BL: " + bl + " Len: " + basicBot.room.blacklists[bl].length);
                 if (basicBot.settings.blacklistEnabled) {
@@ -2919,6 +2965,7 @@ You're so fat, you could sell shade.
                     }
                 }
             }
+*/
             //basicBot.roomUtilities.logDebug("eventDjadvance:5-2");
             // Auto-skip SC song during restricted hours (7AM-3PM EST)
             basicBot.room.currentMediaCid = obj.media.cid;
@@ -3335,12 +3382,14 @@ You're so fat, you could sell shade.
             retrieveFromStorage();
             //basicBot.roomUtilities.logDebug("TODO - STARTUP 1");
             window.bot = basicBot;
+			/*
             blacklistInterval = setInterval(function () {
                 basicBot.roomUtilities.updateBlacklists()
             }, 10 * 60 * 1000);
             basicBot.roomUtilities.updateBlacklists();
             basicBot.getNewBlacklistedSongs = basicBot.roomUtilities.exportNewBlacklistedSongs;
             basicBot.logNewBlacklistedSongs = basicBot.roomUtilities.logNewBlacklistedSongs;
+			*/
             
             if (roomURL === "/-752559695349757775") basicBot.room.debug = true;
             //basicBot.roomUtilities.logDebug("TODO - STARTUP 2");
@@ -3728,81 +3777,31 @@ You're so fat, you could sell shade.
                 }
             },
 
-//            songbanCommand: {
-//                command: 'songban',
-//                rank: 'bouncer',
-//                type: 'exact',
-//                functionality: function (chat, cmd) {
-//                    try {
-//                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-//                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-//                    else {
-//                        var msg = chat.message;
-//                        if (msg.length === cmd.length) return basicBot.roomUtilities.sendChat(subChat(basicBot.chat.nolistspecified, {name: chat.un}));
-//                        var list = "BAN";
-//                        if (typeof basicBot.room.blacklists[list] === 'undefined') return basicBot.roomUtilities.sendChat(subChat(basicBot.chat.invalidlistspecified, {name: chat.un}));
-//                        else {
-//                            var media = API.getMedia();
-//                            var track = {
-//                                list: list,
-//                                author: media.author,
-//                                title: media.title,
-//                                mid: media.format + ':' + media.cid
-//                            };
-//                            basicBot.room.newBlacklisted.push(track);
-//                            basicBot.room.blacklists[list].push(media.format + ':' + media.cid);
-//                            basicBot.roomUtilities.sendChat(subChat(basicBot.chat.newblacklisted, {name: chat.un, blacklist: list, author: media.author, title: media.title, mid: media.format + ':' + media.cid}));
-//                            API.moderateForceSkip();
-//                            if (typeof basicBot.room.newBlacklistedSongFunction === 'function') {
-//                                basicBot.room.newBlacklistedSongFunction(track, list);
-//                            }
-//                        }
-//                    }
-//                    
-//                    var ajaxResponse = $.ajax({
-//                      type: "post", 
-//                      url: "./api.cfm",
-//                      contentType: "application/json",
-//                      data: JSON.stringify( postData )
-//                    })
-//                }
-//                    catch(err) { basicBot.roomUtilities.logException("blacklistCommand: " + err.message); }
-//                }
-//            },
             blacklistCommand: {
-                command: ['blacklist', 'bl'],
+                command: ['blacklist', 'bl','songban','bansong'],
                 rank: 'bouncer',
-                type: 'startsWith',
+                type: 'exact',
                 functionality: function (chat, cmd) {
                     try {
-                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                    else {
-                        var msg = chat.message;
-                        if (msg.length === cmd.length) return basicBot.roomUtilities.sendChat(subChat(basicBot.chat.nolistspecified, {name: chat.un}));
-                        var list = msg.substr(cmd.length + 1);
-                        if (typeof basicBot.room.blacklists[list] === 'undefined') return basicBot.roomUtilities.sendChat(subChat(basicBot.chat.invalidlistspecified, {name: chat.un}));
-                        else {
-                            var media = API.getMedia();
-                            var track = {
-                                list: list,
-                                author: media.author,
-                                title: media.title,
-                                mid: media.format + ':' + media.cid
-                            };
-                            var dj = API.getDJ();
-                            basicBot.room.newBlacklisted.push(track);
-                            //Add the song to the black list:
-                            basicBot.roomUtilities.logDebug("List LenA: " + basicBot.room.blacklists[list].length);
-                            basicBot.room.blacklists[list].push(media.format + ':' + media.cid);
-                            basicBot.roomUtilities.logDebug("List LenB: " + basicBot.room.blacklists[list].length);
-                            basicBot.roomUtilities.sendChat(subChat(basicBot.chat.newblacklisted, {name: dj.username, blacklist: list, author: media.author, title: media.title, mid: media.format + ':' + media.cid}));
-                            basicBot.userUtilities.skipBadSong(dj.id);
-                            if (typeof basicBot.room.newBlacklistedSongFunction === 'function') {
-                                basicBot.room.newBlacklistedSongFunction(track, list);
-                            }
-                        }
-                    }
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+						var media = API.getMedia();
+						var track = {
+							list: list,
+							author: media.author,
+							title: media.title,
+							mid: media.format + ':' + media.cid
+						};
+						var dj = API.getDJ();
+						basicBot.room.newBlacklist.push(track);
+						basicBot.room.newBlacklistIDs.push(track.mid);
+						if (basicBot.room.blacklistLoaded) localStorage["BLACKLIST"] = JSON.stringify(basicBot.room.newBlacklist);
+						basicBot.roomUtilities.logDebug("BL Saved: " + basicBot.room.newBlacklist.lenght + " songs");
+						if (basicBot.room.blacklistLoaded) localStorage["BLACKLISTIDS"] = JSON.stringify(basicBot.room.newBlacklistIDs);
+						basicBot.roomUtilities.logDebug("BL Saved: " + basicBot.room.newBlacklistIDs.lenght + " song ids");
+						basicBot.roomUtilities.sendChat(subChat(basicBot.chat.newblacklisted, {name: dj.username, blacklist: list, author: media.author, title: media.title, mid: media.format + ':' + media.cid}));
+						basicBot.userUtilities.skipBadSong(dj.id);
+						}
                     }
                     catch(err) { basicBot.roomUtilities.logException("blacklistCommand: " + err.message); }
                 }
