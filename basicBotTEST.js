@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.08
+/** version: 2.1.4.00040.09
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -321,7 +321,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.08",
+        version: "2.1.4.00040.09",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1190,7 +1190,7 @@ Grab - Playlist Insert:
         },
         room: {
             users: [],
-            debug: false,
+            debug: true,
             afkList: [],
             mutedUsers: [],
             bannedUsers: [],
@@ -3801,7 +3801,7 @@ You're so fat, you could sell shade.
                         basicBot.roomUtilities.logDebug("BL Saved: " + basicBot.room.newBlacklist.lenght + " songs");
                         if (basicBot.room.blacklistLoaded) localStorage["BLACKLISTIDS"] = JSON.stringify(basicBot.room.newBlacklistIDs);
                         basicBot.roomUtilities.logDebug("BL Saved: " + basicBot.room.newBlacklistIDs.lenght + " song ids");
-                        basicBot.roomUtilities.sendChat(subChat(basicBot.chat.newblacklisted, {name: dj.username, blacklist: list, author: media.author, title: media.title, mid: media.format + ':' + media.cid}));
+                        basicBot.roomUtilities.sendChat(subChat(basicBot.chat.newblacklisted, {name: dj.username, author: media.author, title: media.title, mid: media.format + ':' + media.cid}));
                         basicBot.userUtilities.skipBadSong(dj.id);
                         }
                     catch(err) { basicBot.roomUtilities.logException("blacklistCommand: " + err.message); }
