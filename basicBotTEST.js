@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.07
+/** version: 2.1.4.00040.08
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -321,7 +321,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.07",
+        version: "2.1.4.00040.08",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -3790,7 +3790,6 @@ You're so fat, you could sell shade.
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                         var media = API.getMedia();
                         var track = {
-                            list: list,
                             author: media.author,
                             title: media.title,
                             mid: media.format + ':' + media.cid
