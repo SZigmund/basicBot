@@ -76,7 +76,7 @@
     "repeatSongs": "Skip History",
     "repeatSongLimit": "Skip History limit",
     "autoskip": "autoskip",
-    "newblacklisted": "/me [@%%NAME%%] This track belongs on the %%BLACKLIST%% blacklist! [ %%AUTHOR%% - %%TITLE%% - %%MID%% ]",
+    "newblacklisted": "/me [@%%NAME%%] This track belongs on the blacklist! [ %%AUTHOR%% - %%TITLE%% - %%MID%% ]",
     "blinfo": "[@%%NAME%%] Blacklist Info - author: %%AUTHOR%%, title: %%TITLE%%, mid: %%SONGID%%",
     "blacklist": "blacklist",
     "cycleguard": "cycleguard",
