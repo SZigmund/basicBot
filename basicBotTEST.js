@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.09
+/** version: 2.1.4.00040.10
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -321,7 +321,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.09",
+        version: "2.1.4.00040.10",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -3801,7 +3801,9 @@ You're so fat, you could sell shade.
                         basicBot.roomUtilities.logDebug("BL Saved: " + basicBot.room.newBlacklist.lenght + " songs");
                         if (basicBot.room.blacklistLoaded) localStorage["BLACKLISTIDS"] = JSON.stringify(basicBot.room.newBlacklistIDs);
                         basicBot.roomUtilities.logDebug("BL Saved: " + basicBot.room.newBlacklistIDs.lenght + " song ids");
-                        basicBot.roomUtilities.sendChat(subChat(basicBot.chat.newblacklisted, {name: dj.username, author: media.author, title: media.title, mid: media.format + ':' + media.cid}));
+                        setTimeout(function () {
+                            basicBot.roomUtilities.sendChat(subChat(basicBot.chat.newblacklisted, {name: dj.username, author: media.author, title: media.title, mid: media.format + ':' + media.cid}));
+                            }, 1000);
                         basicBot.userUtilities.skipBadSong(dj.id);
                         }
                     catch(err) { basicBot.roomUtilities.logException("blacklistCommand: " + err.message); }
@@ -3822,7 +3824,6 @@ You're so fat, you could sell shade.
                         var format = API.getMedia().format;
                         var cid = API.getMedia().cid;
                         var songid = format + ":" + cid;
-
                         basicBot.roomUtilities.sendChat(subChat(basicBot.chat.blinfo, {name: name, author: author, title: title, songid: songid}));
                     }
                 }
