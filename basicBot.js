@@ -1560,7 +1560,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                 if (user.rollStats.DOY !== DOY) {
                     user.rollStats.DOY = DOY;
                     user.rollStats.dayWoot = 0;
-                    user.rollStats.dayMeh = 0;
+                    user.rollStats.dayTotal = 0;
                 }
                 if (wooting) {
                     user.rollStats.lifeWoot++;
