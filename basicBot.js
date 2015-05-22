@@ -2606,7 +2606,7 @@ You're so fat, you could sell shade.
                                             basicBot.room.afkList.push([id, Date.now(), pos]);
                                             basicBot.userUtilities.resetDC(user);
                                             API.moderateRemoveDJ(id);
-                                            roomUser.lastDC.resetReason = "Disconnect status was reset. Reason: You were removed from line due to afk.";
+                                            user.lastDC.resetReason = "Disconnect status was reset. Reason: You were removed from line due to afk.";
                                             basicBot.roomUtilities.sendChat(subChat(basicBot.chat.afkremove, {name: name, time: time, position: pos, maximumafk: basicBot.settings.maximumAfk}));
                                         }
                                         user.afkWarningCount = 0;
