@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.10
+/** version: 2.1.4.00040.11
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -321,7 +321,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.10",
+        version: "2.1.4.00040.11",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -617,6 +617,7 @@ Grab - Playlist Insert:
             ":cake: *** Tasty point for you, you go Glen Coco!  (%%POINTFROM%%) *** :cake:",
             ":cake: *** I don't feel I have to explain my fake points to you Warren. (%%POINTFROM%%) *** :cake:",
             ":cake: *** %%POINTFROM%% thinks this song is pretty fetch. Stop trying to make fetch happen. *** :cake:",
+			":cake: *** %%POINTFROM%% thinks you might just be funky cold medina. *** :cake:",
             ":cake: *** That tasty point from %%POINTFROM%% really brings the room together. *** :cake:",
             ":cake: *** The jury may be out on this song but %%POINTFROM%% thinks it’s pretty tasty *** :cake:",
             ":cake: *** %%POINTFROM%% salutes those who rock. *** :cake:",
@@ -1587,6 +1588,15 @@ for(var i=wlArr.length-1; i>=0; i--){
                 var user = basicBot.userUtilities.lookupUserName(username);
                 return user.bootable;
             },
+            getRolledStats (roomUser, wooting) {
+                try {
+                   return " [Today: " + roomUser.rollStats.dayWoot + "/" + roomUser.rollStats.dayTotal + " Lifetime: " + roomUser.rollStats.lifeWoot + "/" + roomUser.rollStats.lifeTotal + "]";
+              }
+                catch(err) {
+                  basicBot.roomUtilities.logException("getRolledStats: " + err.message);
+                  return "";
+                }
+            },
             updateRolledStats (username, wooting) {
                 try {
                 var user = basicBot.userUtilities.lookupUserName(username);
@@ -1594,7 +1604,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                 if (user.rollStats.DOY !== DOY) {
                     user.rollStats.DOY = DOY;
                     user.rollStats.dayWoot = 0;
-                    user.rollStats.dayMeh = 0;
+                    user.rollStats.dayTotal = 0;
                 }
                 if (wooting) {
                     user.rollStats.lifeWoot++;
@@ -1602,7 +1612,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                 }
                 user.rollStats.lifeTotal++;
                 user.rollStats.dayTotal++;
-                return " [Today: " + user.rollStats.dayWoot + "/" + user.rollStats.dayTotal + " Lifetime: " + user.rollStats.lifeWoot + "/" + user.rollStats.lifeTotal + "]";
+				return basicBot.userUtilities.getRolledStats(user);
               }
                 catch(err) {
                   basicBot.roomUtilities.logException("updateRolledStats: " + err.message);
@@ -1890,7 +1900,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                 catch(err) {
                   basicBot.roomUtilities.logException("bouncerDjing: " + err.message);
                 }
-        },
+            },
             checkHopDown: function () {
                 try {
                     if (!basicBot.settings.autoHopUp) return;
@@ -2042,6 +2052,8 @@ for(var i=wlArr.length-1; i>=0; i--){
 
                 if (basicBot.loggedInID === chat.uid) return;
                 var chatmsg = chat.message.toUpperCase();
+				chatmsg = chatmsg.replace(/\W/g, '')      // Remove all non-alphanumeric values
+				chatmsg = chatmsg.replace(/[0-9]/g, '');  // Remove all numeric values
                 chatmsg = chatmsg.replace(/'/g, '');
                 chatmsg = chatmsg.replace("\'", '');
                 chatmsg = chatmsg.replace('\'', '');
@@ -2051,16 +2063,21 @@ for(var i=wlArr.length-1; i>=0; i--){
                 chatmsg = chatmsg.replace(/-/g, '');
                 chatmsg = chatmsg.replace(/ /g, '');
                 chatmsg = chatmsg.replace(/THELAW/g, '');
-                chatmsg = chatmsg.replace(/YOUARE/g, "YOURE");   // Convert 2 words to the contractions
+                chatmsg = chatmsg.replace(/FUCKBOT/g, "LARRY");
+                chatmsg = chatmsg.replace(/BOTT/g, "LARRY");
+                chatmsg = chatmsg.replace(/BOT/g, "LARRY");
+                chatmsg = chatmsg.replace(/HOWIS/g, "HOWS");     // Convert 2 words to the contraction
+                chatmsg = chatmsg.replace(/YOUARE/g, "YOURE");   // Convert 2 words to the contraction
                 chatmsg = chatmsg.replace(/LARRYIS/g, "LARRYS");
                 chatmsg = chatmsg.replace(/IAM/g, "IM");
                 basicBot.roomUtilities.logDebug("Larry AI chatmsg: " + chatmsg);
-                //what the hell was that i can eat a bowl of althabet soup and shit out a smarter insult than that
-                //Well I could agree with you, but then we'd both be wrong.
-                //
-                //Two wrongs don't make a right, take your parents as an example.
-                //The last time I saw a face like yours I fed it a banana.
+
 /*
+what the hell was that i can eat a bowl of alphabet soup and shit out a smarter insult than that
+Well I could agree with you, but then we'd both be wrong.
+I love it when someone insults me. That means I don’t have to be nice anymore.
+Two wrongs don't make a right, take your parents as an example.
+The last time I saw a face like yours I fed it a banana.
 Your birth certificate is an apology letter from the condom factory.
 Is your ass jealous of the amount of shit that just came out of your mouth?
 You bring everyone a lot of joy, when you leave the room.
@@ -2077,6 +2094,20 @@ If I were to slap you, it would be considered animal abuse!
 You didn't fall out of the stupid tree. You were dragged through dumbass forest.
 You're so fat, you could sell shade.
 */
+                //todo: if (chatmsg.indexOf("USUCKLARRY") > -1) basicBot.roomUtilities.randomInsult();
+                //todo: if (chatmsg.indexOf("DUCKULARRY") > -1) basicBot.roomUtilities.randomInsult();
+                //todo: if (chatmsg.indexOf("DUMBASSLARRY") > -1) basicBot.roomUtilities.randomInsult();
+                //todo: if (chatmsg.indexOf("SHITHEADLARRY") > -1) basicBot.roomUtilities.randomInsult();
+                //todo: if (chatmsg.indexOf("STUPIDASSLARRY") > -1) basicBot.roomUtilities.randomInsult();
+                //todo: if (chatmsg.indexOf("STFULARRY") > -1) basicBot.roomUtilities.randomInsult();
+                //todo: if (chatmsg.indexOf("SHUTUPLARRY") > -1) basicBot.roomUtilities.randomInsult();
+                //todo: if (chatmsg.indexOf("LARRYSHUTUP") > -1) basicBot.roomUtilities.randomInsult();
+                //todo: if (chatmsg.indexOf("STUFFITLARRY") > -1) basicBot.roomUtilities.randomInsult();
+                //todo: if (chatmsg.indexOf("LARRYSTUFFIT") > -1) basicBot.roomUtilities.randomInsult();
+                //todo: if (chatmsg.indexOf("WTFLARRY") > -1) basicBot.roomUtilities.randomInsult();
+				//DAMNITLARRY
+				//you're an asshole larry
+				//LARRYSONTHE JOB - Where the fuck else would I be @user? 
                 if (chatmsg.indexOf("KNUCKLEHEADLARRY") > -1) fuComment = "I know you are but what am I %%FU%%";
                 if (chatmsg.indexOf("YOUREANASSLARRY") > -1) fuComment = "I'd like to see things from your point of view %%FU%%, too bad I can't shove my head that far up my ass!";
                 if (chatmsg.indexOf("WATCHYOURBACKLARRY") > -1) fuComment = "I'm scared %%FU%%";
@@ -2124,6 +2155,7 @@ You're so fat, you could sell shade.
                 if (chatmsg.indexOf("HOWAREYOULARRY") > -1) fuComment =  basicBot.roomUtilities.howAreYouComment();
                 if (chatmsg.indexOf("HOWAREULARRY") > -1) fuComment =  basicBot.roomUtilities.howAreYouComment();
                 if (chatmsg.indexOf("HOWRULARRY") > -1) fuComment =  basicBot.roomUtilities.howAreYouComment();
+                if (chatmsg.indexOf("HOWSLARRY") > -1) fuComment =  basicBot.roomUtilities.howAreYouComment();
                 if (chatmsg.indexOf("HOWAREYOUDOINLARRY") > -1) fuComment =  basicBot.roomUtilities.howAreYouComment();
                 if (chatmsg.indexOf("HOWAREYOUDOINGLARRY") > -1) fuComment =  basicBot.roomUtilities.howAreYouComment();
                 if (chatmsg.indexOf("HOWAREYOUTODAYLARRY") > -1) fuComment =  basicBot.roomUtilities.howAreYouComment();
@@ -2151,7 +2183,7 @@ You're so fat, you could sell shade.
                 if (chatmsg.indexOf("LARRYDOESNTTAKEANYSHIT") > -1) fuComment = "Damn skippy I don't %%FU%%.";
                 if (chatmsg.indexOf("LARRYDOESNOTTAKEANYSHIT") > -1) fuComment = "Damn skippy I don't %%FU%%.";
                 if (chatmsg.indexOf("SHITHEADLARRY") > -1) fuComment = "I know you are but what am I %%FU%%?";
-                if (chatmsg.indexOf("LARRYSASHITHEAD") > -1) fuComment = "Takes one to know one %%FU%%?";
+                if (chatmsg.indexOf("LARRYSASHITHEAD") > -1) fuComment = "Takes one to know one %%FU%%!";
                 
                 if (chatmsg.indexOf("LARRYFU") > -1) fuComment = basicBot.roomUtilities.fuComment();
                 if (chatmsg.indexOf("LARRYFUCKU") > -1) fuComment = basicBot.roomUtilities.fuComment();
@@ -2398,7 +2430,8 @@ You're so fat, you could sell shade.
                               'firstclass','firstrate','topnotch','aweinspiring','superduper','dabomb','dashit','badass','bomb','popcorn','awesomesauce','awesomeness','sick',
                               'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
                               'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
-                              'hip','soul','soulful','cover','yummy'];
+                              'hip','soul','soulful','cover','yummy','ohyeah','twist','shout','trippy','hot','country','stellar','smoove','pantydropper','baby','mmm','tits','hooters',
+                              'tmbg','rhythm','kool','kewl','killer','biatch'];
                     if (commandList.indexOf(cmd) < 0) return true;
                     return false;
                 }
@@ -2640,7 +2673,7 @@ You're so fat, you could sell shade.
                                             basicBot.room.afkList.push([id, Date.now(), pos]);
                                             basicBot.userUtilities.resetDC(user);
                                             API.moderateRemoveDJ(id);
-                                            roomUser.lastDC.resetReason = "Disconnect status was reset. Reason: You were removed from line due to afk.";
+                                            user.lastDC.resetReason = "Disconnect status was reset. Reason: You were removed from line due to afk.";
                                             basicBot.roomUtilities.sendChat(subChat(basicBot.chat.afkremove, {name: name, time: time, position: pos, maximumafk: basicBot.settings.maximumAfk}));
                                         }
                                         user.afkWarningCount = 0;
@@ -2735,6 +2768,39 @@ You're so fat, you could sell shade.
                 else {
                     basicBot.roomUtilities.logDebug(basicBot.room.newBlacklist);
                 }
+            },
+            validateUserCheck: function () {
+                try {
+				    if (ba.users[0].rollStats.streak !== "undefined") return;
+				    if (ba.users[0].rollStats.streak !== "undefined") return;
+					basicBot.roomUtilities.logDebug("Update Required!");
+					return;
+					/*
+					var newUsers[];
+                    for (var i = 0; i < basicBot.room.users.length; i++) {
+                        newUsers.push(basicBot.roomUtilities.validateUserUpdateUser(basicBot.room.users[i]));
+					}
+					basicBot.room.users = newUsers[];
+					*/
+				}
+                catch(err) { basicBot.roomUtilities.logException("validateUserCheck: " + err.message); }
+            },
+            validateUserUpdateUser: function (user) {
+                try {
+                    var newUser = new basicBot.User(user.id, user.username);
+					for (var prop in newUser) {
+					    if (user[prop] !== "undefined") {
+						    basicBot.roomUtilities.logDebug("Existing Property: " + prop);
+						    //newUser[prop] = user[prop];
+						}
+						else
+						{
+						    basicBot.roomUtilities.logDebug("New Property: ");
+						}
+                    }
+					return newUser;
+				}
+                catch(err) { basicBot.roomUtilities.logException("validateUserUpdateUser: " + err.message); }
             },
             exportNewBlacklistedSongs: function () {
                 var list = {};
@@ -3383,6 +3449,8 @@ You're so fat, you could sell shade.
             retrieveSettings();
             //basicBot.roomUtilities.logDebug("TODO - STARTUP retrieveFromStorage");
             retrieveFromStorage();
+			basicBot.roomUtilities.validateUserCheck();
+
             //basicBot.roomUtilities.logDebug("TODO - STARTUP 1");
             window.bot = basicBot;
             /*
@@ -5523,7 +5591,8 @@ You're so fat, you could sell shade.
                                                                      mehs: user.votes.meh, 
                                                                      grabs: user.votes.curate, 
                                                                      tasty: user.votes.tasty});
-                        var byusername = " [ executed by " + chat.un + " ]";
+                        msg += " " + basicBot.userUtilities.getRolledStats(user);
+						var byusername = " [ executed by " + chat.un + " ]";
                         if (chat.un !== name) msg += byusername;
                         basicBot.roomUtilities.sendChat(msg);
                     }
@@ -5915,7 +5984,8 @@ You're so fat, you could sell shade.
                           'firstclass','firstrate','topnotch','aweinspiring','superduper','dabomb','dashit','badass','bomb','popcorn','awesomesauce','awesomeness','sick',
                           'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
                           'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
-                          'hip','soul','soulful','cover','yummy'],
+                          'hip','soul','soulful','cover','yummy','ohyeah','twist','shout','trippy','hot','country','stellar','smoove','pantydropper','baby','mmm','tits','hooters',
+                          'tmbg','rhythm','kool','kewl','killer','biatch'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
