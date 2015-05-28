@@ -1,5 +1,5 @@
 (function () {
-  var INTERVAL = 10 * 1000
+  var INTERVAL = 5 * 1000
   var playlists = _.find(require.s.contexts._.defined, function (m) { return m && m.jumpToMedia })
   var visible = playlists.findWhere({ visible: true })
   next(0)
