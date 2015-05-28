@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.20
+/** version: 2.1.4.00040.21
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -80,7 +80,10 @@ function narcisDeleteChat(a){
   $.ajax({url:"https://plug.dj/_/chat/"+a,type:"DELETE"});
 }
 
- 
+
+https://plug.dj/_/grabs
+Request body: {"playlistID":7527918,"historyID":"3602db39-e515-4739-aa24-0dc084f384bc"}
+
 Grab:
 {"playlistID":6096830,"historyID":"291d773b-c5e7-4dce-b555-5842efd94b6f"}
 Grab - Playlist Insert: 
@@ -148,6 +151,8 @@ Grab - Playlist Insert:
     };
 
     var storeToStorage = function () {
+	    try {
+        basicBot.roomUtilities.logDebug("START: storeToStorage");
         localStorage.setItem("basicBotsettings", JSON.stringify(basicBot.settings));
         localStorage.setItem("basicBotRoom", JSON.stringify(basicBot.room));
         var basicBotStorageInfo = {
@@ -155,8 +160,12 @@ Grab - Playlist Insert:
             stored: true,
             version: basicBot.version
         };
+        basicBot.roomUtilities.logDebug("DONE: storeToStorage - UserCnt: " + basicBot.room.users.length + " TIME: " + basicBotStorageInfo.time);
         localStorage.setItem("basicBotStorageInfo", JSON.stringify(basicBotStorageInfo));
-
+        }
+        catch(err) {
+           basicBot.roomUtilities.logException("storeToStorage: " + err.message);
+        }
     };
 
     var subChat = function (chat, obj) {
@@ -229,6 +238,7 @@ Grab - Playlist Insert:
         else {
             var settings = JSON.parse(localStorage.getItem("basicBotsettings"));
             var room = JSON.parse(localStorage.getItem("basicBotRoom"));
+            basicBot.roomUtilities.logDebug("room.users.length: " + room.users.length);
             if (localStorage.getItem("BLACKLIST") !== null) {
               basicBot.room.newBlacklist = JSON.parse(localStorage["BLACKLIST"]);
               basicBot.room.newBlacklistIDs = JSON.parse(localStorage["BLACKLISTIDS"]);
@@ -238,12 +248,13 @@ Grab - Playlist Insert:
             basicBot.room.blacklistLoaded = true;
             basicBot.roomUtilities.logDebug("BL LOADED: TRUE");
             var elapsed = Date.now() - JSON.parse(info).time;
+            basicBot.room.users = room.users;
+            basicBot.roomUtilities.logDebug("basicBot.room.users.length: " + basicBot.room.users.length + " TIME: " + JSON.parse(info).time);
             if ((elapsed < 1 * 60 * 60 * 1000)) {
                 basicBot.roomUtilities.chatLog(basicBot.chat.retrievingdata);
                 for (var prop in settings) {
                     basicBot.settings[prop] = settings[prop];
                 }
-                basicBot.room.users = room.users;
                 basicBot.room.afkList = room.afkList;
                 basicBot.room.historyList = room.historyList;
                 basicBot.room.mutedUsers = room.mutedUsers;
@@ -321,7 +332,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.20",
+        version: "2.1.4.00040.21",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2786,6 +2797,21 @@ You're so fat, you could sell shade.
                         newUsers.push(basicBot.roomUtilities.cloneUser(basicBot.room.users[i]));
                     }
 				    basicBot.roomUtilities.logDebug("Done Adding Users.  Count: " + newUsers.length);
+					var user = newUsers[0];
+                    var msg = subChat(basicBot.chat.mystats, {name: user.username, 
+                                                                     songs: user.votes.songs,
+                                                                     woot: user.votes.woot, 
+                                                                     mehs: user.votes.meh, 
+                                                                     grabs: user.votes.curate, 
+                                                                     tasty: user.votes.tasty});
+					user = basicBot.room.users[0];
+                    msg += subChat(basicBot.chat.mystats, {name: user.username, 
+                                                                     songs: user.votes.songs,
+                                                                     woot: user.votes.woot, 
+                                                                     mehs: user.votes.meh, 
+                                                                     grabs: user.votes.curate, 
+                                                                     tasty: user.votes.tasty});
+                    basicBot.roomUtilities.sendChat(msg);
                     /*
                     basicBot.room.users = newUsers[];
                     */
@@ -2796,6 +2822,8 @@ You're so fat, you could sell shade.
 			cloneObject: function (fromObj, toObj) {   			//http://stackoverflow.com/questions/728360/most-elegant-way-to-clone-a-javascript-object
                 try {
 				    if (null == fromObj || "object" != typeof fromObj) return toObj;
+					if (typeof toObj.bootable === "undefined") basicBot.roomUtilities.logDebug("bootable does not exist.");
+					if (typeof toObj.bootable !== "undefined") basicBot.roomUtilities.logDebug("bootable exists.");
                     for (var prop in toObj) {
 				        if (fromObj.hasOwnProperty(prop)) {
 						    if (typeof toObj[prop] === "object") {
