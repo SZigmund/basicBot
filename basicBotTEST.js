@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.25
+/** version: 2.1.4.00040.26
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -359,8 +359,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.25
-		",
+        version: "2.1.4.00040.26",
         status: false,
         name: "basicBot",
         loggedInID: null,
