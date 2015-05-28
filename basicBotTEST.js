@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.15
+/** version: 2.1.4.00040.16
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -321,7 +321,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.15",
+        version: "2.1.4.00040.16",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2779,11 +2779,13 @@ You're so fat, you could sell shade.
                     if (typeof basicBot.room.users[0].rollStats.streak !== "undefined") return;
                     basicBot.roomUtilities.logDebug("Update Required! Streak does not exist.");
                     return;
-                    /*
                     var newUsers[];
                     for (var i = 0; i < basicBot.room.users.length; i++) {
+					    basicBot.roomUtilities.logDebug("Adding User: " + basicBot.room.users[i].username);
                         newUsers.push(basicBot.roomUtilities.validateUserUpdateUser(basicBot.room.users[i]));
                     }
+				    basicBot.roomUtilities.logDebug("Done Adding Users.  Count: " + newUsers.length);
+                    /*
                     basicBot.room.users = newUsers[];
                     */
                 }
@@ -2799,7 +2801,7 @@ You're so fat, you could sell shade.
                         }
                         else
                         {
-                            basicBot.roomUtilities.logDebug("New Property: ");
+                            basicBot.roomUtilities.logDebug("New Property: " + prop);
                         }
                     }
                     return newUser;
@@ -3118,6 +3120,7 @@ You're so fat, you could sell shade.
                     basicBot.roomUtilities.chatLog("Running Bot: " + runningBot);
                     return;
                 }
+				if (command === "/chat") return;  // Prevent infinite loop as /chat is handled by Origem.
                 //todoer TEST
                 basicBot.commandChat.cid = "";
                 basicBot.commandChat.message = basicBot.settings.commandLiteral + command.substring(1, command.length);
@@ -6082,8 +6085,8 @@ You're so fat, you could sell shade.
                     }, 1000);
                 }
             },
-            zig1Command: {
-                command: 'zig1',
+            zigaCommand: {
+                command: 'ziga',
                 rank: 'cohost',
                 type: 'exact',
                 functionality: function (chat, cmd)  {
@@ -6091,12 +6094,12 @@ You're so fat, you could sell shade.
 			            API.removeCurrentDJ;
                     }
                     catch(err) {
-                        basicBot.roomUtilities.logException("zig1Command: " + err.message);
+                        basicBot.roomUtilities.logException("zigaCommand: " + err.message);
                     }
                 }
             },
-            zig2Command: {
-                command: 'zig2',
+            zigbCommand: {
+                command: 'zigb',
                 rank: 'cohost',
                 type: 'exact',
                 functionality: function (chat, cmd)  {
@@ -6110,12 +6113,12 @@ You're so fat, you could sell shade.
 
                     }
                     catch(err) {
-                        basicBot.roomUtilities.logException("zig2Command: " + err.message);
+                        basicBot.roomUtilities.logException("zigbCommand: " + err.message);
                     }
                 }
             },
-            zig3Command: {
-                command: 'zig3',
+            zigcCommand: {
+                command: 'zigc',
                 rank: 'cohost',
                 type: 'exact',
                 functionality: function (chat, cmd)  {
@@ -6123,7 +6126,7 @@ You're so fat, you could sell shade.
 			            basicBot.roomUtilities.validateUserCheck();
                     }
                     catch(err) {
-                        basicBot.roomUtilities.logException("zig3Command: " + err.message);
+                        basicBot.roomUtilities.logException("zigcCommand: " + err.message);
                     }
                 }
             },
