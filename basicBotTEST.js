@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.23
+/** version: 2.1.4.00040.24
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -154,6 +154,7 @@ Grab - Playlist Insert:
         basicBot.roomUtilities.logDebug("START: storeToStorage");
         localStorage.setItem("basicBotsettings", JSON.stringify(basicBot.settings));
         localStorage.setItem("basicBotRoom", JSON.stringify(basicBot.room));
+		basicBot.roomUtilities.logDebug("STORED DATA: " + JSON.stringify(basicBot.room));
         var basicBotStorageInfo = {
             time: Date.now(),
             stored: true,
@@ -331,7 +332,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.23",
+        version: "2.1.4.00040.24",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2786,6 +2787,17 @@ You're so fat, you could sell shade.
 				basicBot.roomUtilities.logDebug("JSON.stringify(aKeys): " + JSON.stringify(aKeys));
 				basicBot.roomUtilities.logDebug("JSON.stringify(bKeys): " + JSON.stringify(bKeys));
                 return JSON.stringify(aKeys) === JSON.stringify(bKeys);
+				/*
+["afkCountdown","afkWarningCount","atLunch","badSongCount","beerRun",
+"id","inMeeting","inRoom","isMuted","jointime","lastActivity","lastDC","lastEta","lastKnownPosition",
+"lastSeenInLine","rollStats","rolled","tastyVote","username","votes"]"
+
+["afkCountdown","afkWarningCount","atLunch","badSongCount","beerRun",
+"bootable",
+"id","inMeeting","inRoom","isMuted","jointime","lastActivity","lastDC","lastEta","lastKnownPosition",
+"lastSeenInLine","rollStats","rolled","tastyVote","username","votes"]"
+
+				*/
 			},
             validateUserCheck: function () {
                 try {
