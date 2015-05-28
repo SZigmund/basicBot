@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.14
+/** version: 2.1.4.00040.15
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -321,7 +321,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.14",
+        version: "2.1.4.00040.15",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -5822,8 +5822,10 @@ You're so fat, you could sell shade.
                 rank: 'manager',
                 type: 'exact',
                 functionality: function (chat, cmd) {
+				try  {
                   basicBot.roomUtilities.sendChat("/grab");
-                  //try  {  $("#grab").click(); }  
+                  //  $("#grab").click(); 
+				  }  
                 catch(err) {
                   basicBot.roomUtilities.logException("grabCommand: " + err.message);
                 }
