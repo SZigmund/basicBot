@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.18
+/** version: 2.1.4.00040.19
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -321,7 +321,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.18",
+        version: "2.1.4.00040.19",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2805,6 +2805,7 @@ You're so fat, you could sell shade.
 							    toObj[prop] = fromObj[prop];
 							}
 						}
+					}
 					return toObj;
                 }
                 catch(err) { basicBot.roomUtilities.logException("cloneObject: " + err.message); }
