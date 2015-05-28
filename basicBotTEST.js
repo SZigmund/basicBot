@@ -1,8 +1,9 @@
-/** version: 2.1.4.00040.24
+/** version: 2.1.4.00040.25
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
 
+[7/9 80% - 47/93 51%]
 .lastplayed user
 .mystats user
 .logout cohost
@@ -155,6 +156,32 @@ Grab - Playlist Insert:
         localStorage.setItem("basicBotsettings", JSON.stringify(basicBot.settings));
         localStorage.setItem("basicBotRoom", JSON.stringify(basicBot.room));
 		basicBot.roomUtilities.logDebug("STORED DATA: " + JSON.stringify(basicBot.room));
+		/* todoer Figure this shit OUT!!!
+             this.votes = {
+                songs: 0,
+                tasty: 0,
+                woot: 0,
+                meh: 0,
+                curate: 0
+            };
+votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
+                        var msg = subChat(basicBot.chat.mystats, {name: user.username, 
+                                                                     songs: user.votes.songs,
+                                                                     woot: user.votes.woot, 
+                                                                     mehs: user.votes.meh, 
+                                                                     grabs: user.votes.curate, 
+                                                                     tasty: user.votes.tasty});
+		"DEBUG: STORED DATA: {"users":[
+
+{"id":5226916,"username":"LeviHomer","jointime":1432793489836,"lastActivity":1432793516617,"votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0},"tastyVote":false,"rolled":false,"lastEta":null,"beerRun":false,"inMeeting":false,"atLunch":false,"afkWarningCount":0,"badSongCount":0,"afkCountdown":null,"inRoom":true,"isMuted":false,"rollStats":{"lifeWoot":0,"lifeTotal":0,"dayWoot":0,"dayTotal":0,"DOY":-1},"lastDC":{"time":null,"leftroom":null,"resetReason":"","position":-1,"songCount":0},"lastKnownPosition":-1,"lastSeenInLine":null},
+
+{"id":5226880,"username":"DexterNix","jointime":1432793489845,"lastActivity":1432793489845,"votes":{"songs":0,"tasty":0,"woot":0,"meh":0,"curate":0},"tastyVote":false,"rolled":false,"lastEta":null,"beerRun":false,"inMeeting":false,"atLunch":false,"afkWarningCount":0,"badSongCount":0,"afkCountdown":null,"inRoom":true,"isMuted":false,"rollStats":{"lifeWoot":0,"lifeTotal":0,"dayWoot":0,"dayTotal":0,"DOY":-1},"lastDC":{"time":null,"leftroom":null,"resetReason":"","position":-1,"songCount":0},"lastKnownPosition":0,"lastSeenInLine":null},
+
+{"id":3837756,"username":"Doc_Z","jointime":1432793489850,"lastActivity":1432793489850,"votes":{"songs":0,"tasty":0,"woot":2,"meh":0,"curate":0},"tastyVote":false,"rolled":false,"lastEta":null,"bootable":false,"beerRun":false,"inMeeting":false,"atLunch":false,"afkWarningCount":0,"badSongCount":0,"afkCountdown":null,"inRoom":true,"isMuted":false,"rollStats":{"lifeWoot":0,"lifeTotal":0,"dayWoot":0,"dayTotal":0,"DOY":-1},"lastDC":{"time":null,"leftroom":null,"resetReason":"","position":-1,"songCount":0},"lastKnownPosition":0,"lastSeenInLine":null}
+
+],"debug":true,"afkList":[],"mutedUsers":[],"bannedUsers":[],"skippable":true,"usercommand":true,"allcommand":true,"afkInterval":485,"blacklistInterval":null,"randomInterval":490,"autoskip":false,"autoskipTimer":null,"autodisableInterval":null,"queueing":0,"queueable":true,"currentDJID":5226916,"currentMediaCid":"s88r_q7oufE","currentMediaStart":1432793520843,"historyList":[["zV8tJXRUtHg",1432771590001,1432789190910],["kvDMlk3kSYg",1432771595577,1432789198263],["a80o9o-2Vrw",1432771600675,1432789440991],["iPUmE-tne5U",1432771778731,1432789452164],["oh4wgGIN_qE",1432772008885,1432789682358],["I-h4A7bF8wQ",1432772243988,1432789917483],["ateQQc-AgEM",1432772454069,1432790127595],["8NjbGr2nk2c",1432772482569,1432785797611],["koJlIGDImiU",1432772669820],["gMhMaNAmT-U",1432772941005],["Urdlvw0SSEc",1432772997149,1432790353572],["Idhq-CLU21g",1432773206269,1432790667764],["pIgZ7gMze7A",1432773283276,1432790680529],["ojDWH2ZuwNk",1432773300309,1432790912785],["m_-Qtz70_z4",1432773508366,1432791120899],["XfR9iY5y94s",1432773732538,1432791345033],["-qCDypgAV_E",1432773955596,1432791568084],["GOsoa4AGRhY",1432774149679,1432791762136],["Zs3xXlXSOKk",1432774286758,1432791899345],["iywaBOMvYLI",1432774504988,1432786819684],["D4aaXDfSRDc",1432774730132,1432786578803],["K84j7CJIUKU",1432774971203,1432786496954],["9jK-NcRmVcw",1432775261929,1432792120504],["EkwD5rQ-_d4",1432775304460,1432792417688],["YLncxyCXPsU",1432775621560,1432792734747],["6W5pq4bIzIw",1432775832673,1432793493588],["EOvMpND2OZY",1432776509962,1432793516269],["2LlSs-IM-TM",1432776759115],["s88r_q7oufE",1432776767999,1432793520843],["IaNzrXAUHBk",1432777027430],["FTxqH0tukqQ",1432777413227],["V-xpJRwIA-Q",1432777570350],["-25ibpmTMWM",1432777809805],["3eOuK-pYhy4",1432777970651],["Nt4SNfcd72s",1432778223772],["a3ir9HC9vYg",1432779175045],["DIfPeoyLfkg",1432779456198],["6259846",1432779673921],["W6H8WcTPnWM",1432779911329],["14kLQ9TLZcI",1432780104437],["4NO-h9PFum4",1432780242613],["EUSS7bEKxsQ",1432780447681],["GeZZr_p6vB8",1432783686698],["snILjFUkk_A",1432783938989],["zQ41hqlV0Kk",1432784206229],["nfk6sCzRTbM",1432784476197],["Yynstc_bFRE",1432784738407],["T81xsEyfl3c",1432784961056],["4kHl4FoK1Ys",1432787045163],["2tptckbCokA",1432787240920],["VtNH2ftJVS8",1432787451127],["DVgBVcsAK1o",1432787723164],["jJaT7qQpaqs",1432788650757],["W9wwsxiLGbg",1432788656349],["_j5HZjg75AM",1432789182868]],"cycleTimer":479,"roomstats":{"accountName":null,"totalWoots":24,"totalCurates":6,"totalMehs":0,"tastyCount":0,"launchTime":1432771419768,"songCount":100,"chatmessages":196},"messages":{"from":[],"to":[],"message":[]},"queue":{"id":[],"position":[]},"newBlacklist":[],"newBlacklistIDs":[],"blacklistLoaded":true,"roulette":{"rouletteStatus":false,"randomRouletteMin":45,"randomRouletteMax":120,"nextRandomRoulette":"2015-05-28T08:00:29.861Z","participants":[],"countdown":null}}"
+
+		*/
         var basicBotStorageInfo = {
             time: Date.now(),
             stored: true,
@@ -332,7 +359,8 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.24",
+        version: "2.1.4.00040.25
+		",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2064,6 +2092,7 @@ for(var i=wlArr.length-1; i>=0; i--){
 
                 if (basicBot.loggedInID === chat.uid) return;
                 var chatmsg = chat.message.toUpperCase();
+                basicBot.roomUtilities.logDebug("Larry AI chatmsg: " + chatmsg);
                 chatmsg = chatmsg.replace(/\W/g, '')      // Remove all non-alphanumeric values
                 chatmsg = chatmsg.replace(/[0-9]/g, '');  // Remove all numeric values
                 chatmsg = chatmsg.replace(/'/g, '');
