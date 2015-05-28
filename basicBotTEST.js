@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.17
+/** version: 2.1.4.00040.18
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -321,7 +321,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.17",
+        version: "2.1.4.00040.18",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2781,7 +2781,7 @@ You're so fat, you could sell shade.
                     var newUsers = [];
                     for (var i = 0; i < basicBot.room.users.length; i++) {
 					    basicBot.roomUtilities.logDebug("Adding User: " + basicBot.room.users[i].username);
-                        newUsers.push(basicBot.roomUtilities.validateUserUpdateUser(basicBot.room.users[i]));
+                        newUsers.push(basicBot.roomUtilities.cloneUser(basicBot.room.users[i]));
                     }
 				    basicBot.roomUtilities.logDebug("Done Adding Users.  Count: " + newUsers.length);
                     /*
@@ -2791,7 +2791,33 @@ You're so fat, you could sell shade.
                 }
                 catch(err) { basicBot.roomUtilities.logException("validateUserCheck: " + err.message); }
             },
-            validateUserUpdateUser: function (user) {
+			cloneObject: function (fromObj, toObj) {   			//http://stackoverflow.com/questions/728360/most-elegant-way-to-clone-a-javascript-object
+                try {
+				    if (null == fromObj || "object" != typeof fromObj) return toObj;
+                    for (var prop in toObj) {
+				        if (fromObj.hasOwnProperty(prop)) {
+						    if (typeof toObj[prop] === "object") {
+                                basicBot.roomUtilities.logDebug("Cloning object: " + prop);
+							    toObj[prop] = basicBot.roomUtilities.cloneObject(fromObj[prop], toObj[prop]);
+							}
+							else {
+                                basicBot.roomUtilities.logDebug("Cloning: " + prop);
+							    toObj[prop] = fromObj[prop];
+							}
+						}
+					return toObj;
+                }
+                catch(err) { basicBot.roomUtilities.logException("cloneObject: " + err.message); }
+			},
+			cloneUser: function (user) {
+                try {
+                    var newUser = new basicBot.User(user.id, user.username);
+					return basicBot.roomUtilities.cloneObject(newUser, user);
+                }
+                catch(err) { basicBot.roomUtilities.logException("cloneUser: " + err.message); }
+			},
+			/*  todoer OBSOLETE DELETE
+            validateUserUpdateUser: function (user) {  
                 try {
                     var newUser = new basicBot.User(user.id, user.username);
                     for (var prop in newUser) {
@@ -2808,6 +2834,7 @@ You're so fat, you could sell shade.
                 }
                 catch(err) { basicBot.roomUtilities.logException("validateUserUpdateUser: " + err.message); }
             },
+			*/
             exportNewBlacklistedSongs: function () {
                 var list = {};
                 for (var i = 0; i < basicBot.room.newBlacklist.length; i++) {
@@ -3120,7 +3147,7 @@ You're so fat, you could sell shade.
                     basicBot.roomUtilities.chatLog("Running Bot: " + runningBot);
                     return;
                 }
-				if (command === "/chat") return;  // Prevent infinite loop as /chat is handled by Origem.
+				if (command === "/grab") return;  // Prevent infinite loop as /chat is handled by Origem.
                 //todoer TEST
                 basicBot.commandChat.cid = "";
                 basicBot.commandChat.message = basicBot.settings.commandLiteral + command.substring(1, command.length);
