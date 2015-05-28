@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.21
+/** version: 2.1.4.00040.22
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -79,7 +79,6 @@ https://plug.dj/_/booth/remove/3598437
 function narcisDeleteChat(a){
   $.ajax({url:"https://plug.dj/_/chat/"+a,type:"DELETE"});
 }
-
 
 https://plug.dj/_/grabs
 Request body: {"playlistID":7527918,"historyID":"3602db39-e515-4739-aa24-0dc084f384bc"}
@@ -332,7 +331,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.21",
+        version: "2.1.4.00040.22",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2781,9 +2780,19 @@ You're so fat, you could sell shade.
                     basicBot.roomUtilities.logDebug(basicBot.room.newBlacklist);
                 }
             },
+            compareObjectKeys: function (objA, objB) {
+                var aKeys = Object.keys(objA).sort();
+                var bKeys = Object.keys(objB).sort();
+				basicBot.roomUtilities.logDebug("JSON.stringify(aKeys): " + JSON.stringify(aKeys));
+				basicBot.roomUtilities.logDebug("JSON.stringify(bKeys): " + JSON.stringify(bKeys));
+                return JSON.stringify(aKeys) === JSON.stringify(bKeys);
+			},
             validateUserCheck: function () {
                 try {
-                    basicBot.roomUtilities.logDebug("EXECUTING - validateUserCheck");
+                    basicBot.roomUtilities.logDebug("EXECUTING - validateUserCheckA");
+                    var newUser = new basicBot.User(user.id, user.username);
+				    if (basicBot.roomUtilities.compareObjectKeys(basicBot.room.users[0], newUser) === true) return;
+                    basicBot.roomUtilities.logDebug("EXECUTING - validateUserCheckB");
                     if (typeof basicBot.room.users[0].rollStats.lifeWoot !== "undefined") basicBot.roomUtilities.logDebug("life woot exists.");
                     if (typeof basicBot.room.users[0].rollStats.lifeWoot === "undefined") basicBot.roomUtilities.logDebug("life woot does not exist.");
                     if (typeof basicBot.room.users[0].rollStats.streak !== "undefined") basicBot.roomUtilities.logDebug("streak does not exist.");
