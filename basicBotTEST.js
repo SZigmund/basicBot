@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.26
+/** version: 2.1.4.00040.27
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -359,7 +359,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.26",
+        version: "2.1.4.00040.27",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -3229,7 +3229,8 @@ You're so fat, you could sell shade.
                     basicBot.roomUtilities.chatLog("Running Bot: " + runningBot);
                     return;
                 }
-				if (command === "/grab") return;  // Prevent infinite loop as /chat is handled by Origem.
+				if (command === "/whois") return;  // Handled by Origem.
+				if (command === "/grab") return;   // Prevent infinite loop as /chat is handled by Origem.
                 //todoer TEST
                 basicBot.commandChat.cid = "";
                 basicBot.commandChat.message = basicBot.settings.commandLiteral + command.substring(1, command.length);
