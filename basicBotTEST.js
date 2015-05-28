@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.16
+/** version: 2.1.4.00040.17
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -321,7 +321,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.16",
+        version: "2.1.4.00040.17",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2778,8 +2778,7 @@ You're so fat, you could sell shade.
                     if (typeof basicBot.room.users[0].rollStats.streak !== "undefined") basicBot.roomUtilities.logDebug("streak does not exist.");
                     if (typeof basicBot.room.users[0].rollStats.streak !== "undefined") return;
                     basicBot.roomUtilities.logDebug("Update Required! Streak does not exist.");
-                    return;
-                    var newUsers[];
+                    var newUsers = [];
                     for (var i = 0; i < basicBot.room.users.length; i++) {
 					    basicBot.roomUtilities.logDebug("Adding User: " + basicBot.room.users[i].username);
                         newUsers.push(basicBot.roomUtilities.validateUserUpdateUser(basicBot.room.users[i]));
@@ -2788,6 +2787,7 @@ You're so fat, you could sell shade.
                     /*
                     basicBot.room.users = newUsers[];
                     */
+                    return;
                 }
                 catch(err) { basicBot.roomUtilities.logException("validateUserCheck: " + err.message); }
             },
