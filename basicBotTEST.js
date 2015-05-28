@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.22
+/** version: 2.1.4.00040.23
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -331,7 +331,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.22",
+        version: "2.1.4.00040.23",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2790,7 +2790,7 @@ You're so fat, you could sell shade.
             validateUserCheck: function () {
                 try {
                     basicBot.roomUtilities.logDebug("EXECUTING - validateUserCheckA");
-                    var newUser = new basicBot.User(user.id, user.username);
+                    var newUser = new basicBot.User(999, "Test");
 				    if (basicBot.roomUtilities.compareObjectKeys(basicBot.room.users[0], newUser) === true) return;
                     basicBot.roomUtilities.logDebug("EXECUTING - validateUserCheckB");
                     if (typeof basicBot.room.users[0].rollStats.lifeWoot !== "undefined") basicBot.roomUtilities.logDebug("life woot exists.");
