@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.13
+/** version: 2.1.4.00040.14
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -229,14 +229,14 @@ Grab - Playlist Insert:
         else {
             var settings = JSON.parse(localStorage.getItem("basicBotsettings"));
             var room = JSON.parse(localStorage.getItem("basicBotRoom"));
-			if (localStorage.getItem("BLACKLIST") !== null) {
+            if (localStorage.getItem("BLACKLIST") !== null) {
               basicBot.room.newBlacklist = JSON.parse(localStorage["BLACKLIST"]);
               basicBot.room.newBlacklistIDs = JSON.parse(localStorage["BLACKLISTIDS"]);
               basicBot.roomUtilities.logDebug("BL LOAD:   BL Count: " + basicBot.room.newBlacklist.length);
               basicBot.roomUtilities.logDebug("BL LOAD: BLID Count: " + basicBot.room.newBlacklistIDs.length);
-			}
+            }
             basicBot.room.blacklistLoaded = true;
-			basicBot.roomUtilities.logDebug("BL LOADED: TRUE");
+            basicBot.roomUtilities.logDebug("BL LOADED: TRUE");
             var elapsed = Date.now() - JSON.parse(info).time;
             if ((elapsed < 1 * 60 * 60 * 1000)) {
                 basicBot.roomUtilities.chatLog(basicBot.chat.retrievingdata);
@@ -321,7 +321,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.13",
+        version: "2.1.4.00040.14",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -616,8 +616,9 @@ Grab - Playlist Insert:
             tastyCommentArray: [
             ":cake: *** Tasty point for you, you go Glen Coco!  (%%POINTFROM%%) *** :cake:",
             ":cake: *** I don't feel I have to explain my fake points to you Warren. (%%POINTFROM%%) *** :cake:",
+            ":cake: *** %%POINTFROM%% things this song is aca-awesome *** :cake:",
             ":cake: *** %%POINTFROM%% thinks this song is pretty fetch. Stop trying to make fetch happen. *** :cake:",
-			":cake: *** %%POINTFROM%% thinks you might just be funky cold medina. *** :cake:",
+            ":cake: *** %%POINTFROM%% thinks you might just be funky cold medina. *** :cake:",
             ":cake: *** That tasty point from %%POINTFROM%% really brings the room together. *** :cake:",
             ":cake: *** The jury may be out on this song but %%POINTFROM%% thinks it’s pretty tasty *** :cake:",
             ":cake: *** %%POINTFROM%% salutes those who rock. *** :cake:",
@@ -1612,7 +1613,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                 }
                 user.rollStats.lifeTotal++;
                 user.rollStats.dayTotal++;
-				return basicBot.userUtilities.getRolledStats(user);
+                return basicBot.userUtilities.getRolledStats(user);
               }
                 catch(err) {
                   basicBot.roomUtilities.logException("updateRolledStats: " + err.message);
@@ -2052,8 +2053,8 @@ for(var i=wlArr.length-1; i>=0; i--){
 
                 if (basicBot.loggedInID === chat.uid) return;
                 var chatmsg = chat.message.toUpperCase();
-				chatmsg = chatmsg.replace(/\W/g, '')      // Remove all non-alphanumeric values
-				chatmsg = chatmsg.replace(/[0-9]/g, '');  // Remove all numeric values
+                chatmsg = chatmsg.replace(/\W/g, '')      // Remove all non-alphanumeric values
+                chatmsg = chatmsg.replace(/[0-9]/g, '');  // Remove all numeric values
                 chatmsg = chatmsg.replace(/'/g, '');
                 chatmsg = chatmsg.replace("\'", '');
                 chatmsg = chatmsg.replace('\'', '');
@@ -2105,9 +2106,9 @@ You're so fat, you could sell shade.
                 //todo: if (chatmsg.indexOf("STUFFITLARRY") > -1) basicBot.roomUtilities.randomInsult();
                 //todo: if (chatmsg.indexOf("LARRYSTUFFIT") > -1) basicBot.roomUtilities.randomInsult();
                 //todo: if (chatmsg.indexOf("WTFLARRY") > -1) basicBot.roomUtilities.randomInsult();
-				//DAMNITLARRY
-				//you're an asshole larry
-				//LARRYSONTHE JOB - Where the fuck else would I be @user? 
+                //DAMNITLARRY
+                //you're an asshole larry
+                //LARRYSONTHE JOB - Where the fuck else would I be @user? 
                 if (chatmsg.indexOf("KNUCKLEHEADLARRY") > -1) fuComment = "I know you are but what am I %%FU%%";
                 if (chatmsg.indexOf("YOUREANASSLARRY") > -1) fuComment = "I'd like to see things from your point of view %%FU%%, too bad I can't shove my head that far up my ass!";
                 if (chatmsg.indexOf("WATCHYOURBACKLARRY") > -1) fuComment = "I'm scared %%FU%%";
@@ -2431,7 +2432,7 @@ You're so fat, you could sell shade.
                               'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
                               'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
                               'hip','soul','soulful','cover','yummy','ohyeah','twist','shout','trippy','hot','country','stellar','smoove','pantydropper','baby','mmm','tits','hooters',
-                              'tmbg','rhythm','kool','kewl','killer','biatch'];
+                              'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell'];
                     if (commandList.indexOf(cmd) < 0) return true;
                     return false;
                 }
@@ -2771,35 +2772,38 @@ You're so fat, you could sell shade.
             },
             validateUserCheck: function () {
                 try {
-				    if (typeof basicBot.room.users[0].rollStats.lifeWoot !== "undefined") basicBot.roomUtilities.logDebug("life woot exists.");
-				    if (typeof basicBot.room.users[0].rollStats.streak !== "undefined") return;
-					basicBot.roomUtilities.logDebug("Update Required! Streak does not exist.");
-					return;
-					/*
-					var newUsers[];
+                    basicBot.roomUtilities.logDebug("EXECUTING - validateUserCheck");
+                    if (typeof basicBot.room.users[0].rollStats.lifeWoot !== "undefined") basicBot.roomUtilities.logDebug("life woot exists.");
+                    if (typeof basicBot.room.users[0].rollStats.lifeWoot === "undefined") basicBot.roomUtilities.logDebug("life woot does not exist.");
+                    if (typeof basicBot.room.users[0].rollStats.streak !== "undefined") basicBot.roomUtilities.logDebug("streak does not exist.");
+                    if (typeof basicBot.room.users[0].rollStats.streak !== "undefined") return;
+                    basicBot.roomUtilities.logDebug("Update Required! Streak does not exist.");
+                    return;
+                    /*
+                    var newUsers[];
                     for (var i = 0; i < basicBot.room.users.length; i++) {
                         newUsers.push(basicBot.roomUtilities.validateUserUpdateUser(basicBot.room.users[i]));
-					}
-					basicBot.room.users = newUsers[];
-					*/
-				}
+                    }
+                    basicBot.room.users = newUsers[];
+                    */
+                }
                 catch(err) { basicBot.roomUtilities.logException("validateUserCheck: " + err.message); }
             },
             validateUserUpdateUser: function (user) {
                 try {
                     var newUser = new basicBot.User(user.id, user.username);
-					for (var prop in newUser) {
-					    if (user[prop] !== "undefined") {
-						    basicBot.roomUtilities.logDebug("Existing Property: " + prop);
-						    //newUser[prop] = user[prop];
-						}
-						else
-						{
-						    basicBot.roomUtilities.logDebug("New Property: ");
-						}
+                    for (var prop in newUser) {
+                        if (user[prop] !== "undefined") {
+                            basicBot.roomUtilities.logDebug("Existing Property: " + prop);
+                            //newUser[prop] = user[prop];
+                        }
+                        else
+                        {
+                            basicBot.roomUtilities.logDebug("New Property: ");
+                        }
                     }
-					return newUser;
-				}
+                    return newUser;
+                }
                 catch(err) { basicBot.roomUtilities.logException("validateUserUpdateUser: " + err.message); }
             },
             exportNewBlacklistedSongs: function () {
@@ -3425,6 +3429,12 @@ You're so fat, you could sell shade.
                     type: "DELETE"
                 })
             };
+            API.removeCurrentDJ = function (cid) {
+                $.ajax({
+                    url: "https://plug.dj/_/booth",
+                    type: "DELETE"
+                })
+            };
 
             // ==========================================================
             // Detect room change and disable the bot:
@@ -3449,7 +3459,8 @@ You're so fat, you could sell shade.
             retrieveSettings();
             //basicBot.roomUtilities.logDebug("TODO - STARTUP retrieveFromStorage");
             retrieveFromStorage();
-			basicBot.roomUtilities.validateUserCheck();
+            if (roomURL !== "/-752559695349757775") basicBot.room.debug = false;
+            basicBot.roomUtilities.validateUserCheck();
 
             //basicBot.roomUtilities.logDebug("TODO - STARTUP 1");
             window.bot = basicBot;
@@ -3462,7 +3473,6 @@ You're so fat, you could sell shade.
             basicBot.logNewBlacklistedSongs = basicBot.roomUtilities.logNewBlacklistedSongs;
             */
             
-            if (roomURL === "/-752559695349757775") basicBot.room.debug = true;
             //basicBot.roomUtilities.logDebug("TODO - STARTUP 2");
             if (basicBot.room.roomstats.launchTime === null) {
                 basicBot.room.roomstats.launchTime = Date.now();
@@ -5592,7 +5602,7 @@ You're so fat, you could sell shade.
                                                                      grabs: user.votes.curate, 
                                                                      tasty: user.votes.tasty});
                         msg += " " + basicBot.userUtilities.getRolledStats(user);
-						var byusername = " [ executed by " + chat.un + " ]";
+                        var byusername = " [ executed by " + chat.un + " ]";
                         if (chat.un !== name) msg += byusername;
                         basicBot.roomUtilities.sendChat(msg);
                     }
@@ -5807,14 +5817,13 @@ You're so fat, you could sell shade.
                     catch(err) { basicBot.roomUtilities.logException("englishCommand: " + err.message); }
                 }
             },
-            grabCommand: {  //Added 02/14/2015 Zig
+            grabCommand: {  //Added 05/27/2015 Zig  (This command relies on Origem Woot to be running)
                 command: 'grab',
                 rank: 'manager',
                 type: 'exact',
-                functionality: function (chat, cmd)                 {
-                  try  {
-                    $("#grab").click();
-                  }  
+                functionality: function (chat, cmd) {
+                  basicBot.roomUtilities.sendChat("/grab");
+                  //try  {  $("#grab").click(); }  
                 catch(err) {
                   basicBot.roomUtilities.logException("grabCommand: " + err.message);
                 }
@@ -5985,7 +5994,7 @@ You're so fat, you could sell shade.
                           'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
                           'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
                           'hip','soul','soulful','cover','yummy','ohyeah','twist','shout','trippy','hot','country','stellar','smoove','pantydropper','baby','mmm','tits','hooters',
-                          'tmbg','rhythm','kool','kewl','killer','biatch'],
+                          'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
@@ -6071,8 +6080,21 @@ You're so fat, you could sell shade.
                     }, 1000);
                 }
             },
-            ziggCommand: {
-                command: 'zigg',
+            zig1Command: {
+                command: 'zig1',
+                rank: 'cohost',
+                type: 'exact',
+                functionality: function (chat, cmd)  {
+                    try {
+			            API.removeCurrentDJ;
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("zig1Command: " + err.message);
+                    }
+                }
+            },
+            zig2Command: {
+                command: 'zig2',
                 rank: 'cohost',
                 type: 'exact',
                 functionality: function (chat, cmd)  {
@@ -6086,13 +6108,26 @@ You're so fat, you could sell shade.
 
                     }
                     catch(err) {
-                        basicBot.roomUtilities.logException("ziggCommand: " + err.message);
+                        basicBot.roomUtilities.logException("zig2Command: " + err.message);
+                    }
+                }
+            },
+            zig3Command: {
+                command: 'zig3',
+                rank: 'cohost',
+                type: 'exact',
+                functionality: function (chat, cmd)  {
+                    try {
+			            basicBot.roomUtilities.validateUserCheck();
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("zig3Command: " + err.message);
                     }
                 }
             },
             zigXXXCommand: {
-			    
-			},
+                
+            },
             zigCommand: {
                 command: 'zig',
                 rank: 'cohost',
