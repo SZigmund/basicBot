@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.01
+/** version: 2.1.4.00040.02
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -281,7 +281,7 @@ Grab - Playlist Insert:
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.01",
+        version: "2.1.4.00040.02",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1780,6 +1780,7 @@ for(var i=wlArr.length-1; i>=0; i--){
             botIsDj: function () {
                 try {
                     var dj = API.getDJ();
+                    var wlist = API.getWaitList();
                     if ((typeof dj === 'undefined') && (wlist.length > 0)) return true;
                     if (typeof dj === 'undefined') return false;
                     if (dj.id === basicBot.loggedInID) return true;
@@ -1844,6 +1845,7 @@ for(var i=wlArr.length-1; i>=0; i--){
             bouncerDjing: function () {
                 try {
                     var dj = API.getDJ();
+                    var wlist = API.getWaitList();
                     if ((typeof dj === 'undefined') && (wlist.length > 0)) return true;
                     if (typeof dj === 'undefined') return false;
                     if (basicBot.userUtilities.getPermission(dj.id) > 1) return true;
