@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.28
+/** version: 2.1.4.00040.29
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -367,7 +367,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.28",
+        version: "2.1.4.00040.29",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1635,7 +1635,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                 var user = basicBot.userUtilities.lookupUserName(username);
                 return user.bootable;
             },
-            getRolledStats (roomUser, wooting) {
+            getRolledStats: function (roomUser, wooting) {
                 try {
                    return " [Today: " + roomUser.rollStats.dayWoot + "/" + roomUser.rollStats.dayTotal + " Lifetime: " + roomUser.rollStats.lifeWoot + "/" + roomUser.rollStats.lifeTotal + "]";
               }
@@ -1644,7 +1644,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                   return "";
                 }
             },
-            updateRolledStats (username, wooting) {
+            updateRolledStats: function (username, wooting) {
                 try {
                 var user = basicBot.userUtilities.lookupUserName(username);
                 var DOY = basicBot.roomUtilities.getDOY();
