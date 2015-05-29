@@ -1,8 +1,16 @@
-/** version: 2.1.4.00040.27
+/** version: 2.1.4.00040.28
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
 
+
+
+USERNAME: &LT;SPAN&GT;LEVI HOMER&LT;/SPAN&GT;&LT;BR&GT;ID: &LT;SPAN&GT;5226916&LT;/SPAN&GT;&LT;BR&GT;LEVEL: &LT;SPAN&GT;12&LT;/SPAN&GT;&LT;BR&GT;LANGUAGE: &LT;SPAN&GT;EN&LT;/SPAN&GT;&LT;BR&GT;SUBSCRIBER: &LT;SPAN&GT;NO&LT;/SPAN&GT;&LT;BR&GT;WAITLIST POSITION: &LT;SPAN&GT;NOT IN WAITLIST&LT;/SPAN&GT;&LT;BR&GT;JOINED: &LT;SPAN&GT;INVALID DATE UTC&LT;/SPAN&GT;&LT;BR&GT;RANK: &LT;SPAN&GT;
+
+
+USERNAME: <SPAN>LEVI HOMER</SPAN><BR>ID: <SPAN>5226916</SPAN><BR>LEVEL: <SPAN>12</SPAN><BR>LANGUAGE: <SPAN>EN</SPAN><BR>SUBSCRIBER: <SPAN>NO</SPAN><BR>WAITLIST POSITION: <SPAN>NOT IN WAITLIST</SPAN><BR>JOINED: <SPAN>INVALID DATE UTC</SPAN><BR>RANK: <SPAN>
+
+&
 [7/9 80% - 47/93 51%]
 .lastplayed user
 .mystats user
@@ -359,7 +367,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.27",
+        version: "2.1.4.00040.28",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1863,6 +1871,7 @@ for(var i=wlArr.length-1; i>=0; i--){
             botIsDj: function () {
                 try {
                     var dj = API.getDJ();
+					var wlist = API.getWaitList();
                     if ((typeof dj === 'undefined') && (wlist.length > 0)) return true;
                     if (typeof dj === 'undefined') return false;
                     if (dj.id === basicBot.loggedInID) return true;
@@ -1927,6 +1936,7 @@ for(var i=wlArr.length-1; i>=0; i--){
             bouncerDjing: function () {
                 try {
                     var dj = API.getDJ();
+					var wlist = API.getWaitList();
                     if ((typeof dj === 'undefined') && (wlist.length > 0)) return true;
                     if (typeof dj === 'undefined') return false;
                     if (basicBot.userUtilities.getPermission(dj.id) > 1) return true;
@@ -2147,6 +2157,7 @@ You're so fat, you could sell shade.
                 //todo: if (chatmsg.indexOf("WTFLARRY") > -1) basicBot.roomUtilities.randomInsult();
                 //DAMNITLARRY
                 //you're an asshole larry
+				//LARRY'S AN ASS
                 //LARRYSONTHE JOB - Where the fuck else would I be @user? 
                 if (chatmsg.indexOf("KNUCKLEHEADLARRY") > -1) fuComment = "I know you are but what am I %%FU%%";
                 if (chatmsg.indexOf("YOUREANASSLARRY") > -1) fuComment = "I'd like to see things from your point of view %%FU%%, too bad I can't shove my head that far up my ass!";
@@ -3573,7 +3584,7 @@ You're so fat, you could sell shade.
             //basicBot.roomUtilities.logDebug("TODO - STARTUP retrieveFromStorage");
             retrieveFromStorage();
             if (roomURL !== "/-752559695349757775") basicBot.room.debug = false;
-            basicBot.roomUtilities.validateUserCheck();
+            //basicBot.roomUtilities.validateUserCheck();
 
             //basicBot.roomUtilities.logDebug("TODO - STARTUP 1");
             window.bot = basicBot;
