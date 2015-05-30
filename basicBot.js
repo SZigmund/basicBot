@@ -1,58 +1,4 @@
-/** version: 2.1.4.00040.02
-START[1429226840663] NOW[1429226843027]
-[1429226840663]
-[1429226843027]
-
-.lastplayed user
-.mystats user
-.logout cohost
-currdj.votes.tasty += 1;
-
- 
-<div class="from"><span class="un" style="color: rgb(238, 200, 27);">Booth Alert</span><span class="timestamp" style="display: inline;">9:09am</span></div>
-<div class="text" style="color: rgb(255, 255, 255);">Are you ready to play? you are in 1 of the waitlist!</div>
-
-<div class="text" style="color: rgb(239, 37, 37);">
-    Profile: <a href="https://plug.dj/@/buckeyechick" target="_blank">Click here</a>
-</div>
-<div class="text" style="color: rgb(239, 37, 37);">
-    Username: <span>BuckeyeChick</span><br>
-    ID: <span>4104098</span><br>
-    Level: <span>13</span><br>
-    WaitList Position: <span>Not in WaitList</span><br>
-    Joined: <span>4/25/2012, 11:26:07 PM UTC</span><br>
-    Rank: <span>Resident DJ</span><br>
-    Profile: <a href="https://plug.dj/@/buckeyechick" target="_blank">Click here</a>
-</div>
-1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456
-3 strikes and you're out (for 10 mins)
-
-.unban Dexter Nix
-.ban @Dexter Nix
-.dasboot 5226880
-
-Levis Homer: 5226916
-Dexter Nix:  5226880
-Doc_Z: 3837756
-Larry: 3864950
-
-Ban Forever:
-{"userID":5226916,"reason":1,"duration":"f"}
-
-Booth me:
-https://plug.dj/_/booth
-Remove current dj:
-https://plug.dj/_/booth/remove/3598437
- 
-function narcisDeleteChat(a){
-  $.ajax({url:"https://plug.dj/_/chat/"+a,type:"DELETE"});
-}
-
- 
-Grab:
-{"playlistID":6096830,"historyID":"291d773b-c5e7-4dce-b555-5842efd94b6f"}
-Grab - Playlist Insert: 
-{"media":[{"id":0,"format":1,"cid":"0gpMlAiqcjU","author":"The Fratellis","title":"Henrietta","image":"//i.ytimg.com/vi/0gpMlAiqcjU/default.jpg","duration":228}],"append":false}
+/** version: 2.1.4.00041
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -89,6 +35,10 @@ Grab - Playlist Insert:
     API.botDjNow = function () {
         try {
             if (basicBot.roomUtilities.botInWaitList() || basicBot.roomUtilities.botIsDj()) return;
+            /* This should work but doesn't:
+            API.moderateAddDJ(basicBot.loggedInID);
+            */
+            // This works for now:
             $("#dj-button").click();
         }
         catch(err) {
@@ -98,8 +48,11 @@ Grab - Playlist Insert:
     API.botHopDown = function () {
         try {
             if (!basicBot.roomUtilities.botInWaitList() && !basicBot.roomUtilities.botIsDj()) return;
+            $.ajax({url: "https://plug.dj/_/booth",type: "DELETE" })
+            /* This works well:
             $("#dj-button").click();
             setTimeout(function () { $("#dialog-confirm > div:nth-child(3) > div.button.submit").click(); }, 1 * 1000);
+            */
             /* This also appears to work:
             setTimeout(function () { $("#dialog-confirm > div:nth-child(3) > div.button.submit > span").click(); }, 1 * 1000);
             */
@@ -116,15 +69,48 @@ Grab - Playlist Insert:
     };
 
     var storeToStorage = function () {
+        try {
+        basicBot.roomUtilities.logDebug("START: storeToStorage");
         localStorage.setItem("basicBotsettings", JSON.stringify(basicBot.settings));
         localStorage.setItem("basicBotRoom", JSON.stringify(basicBot.room));
+        basicBot.roomUtilities.logDebug("STORED DATA: " + JSON.stringify(basicBot.room));
+        /* todoer Figure this shit OUT!!!
+             this.votes = {
+                songs: 0,
+                tasty: 0,
+                woot: 0,
+                meh: 0,
+                curate: 0
+            };
+votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
+                        var msg = subChat(basicBot.chat.mystats, {name: user.username, 
+                                                                     songs: user.votes.songs,
+                                                                     woot: user.votes.woot, 
+                                                                     mehs: user.votes.meh, 
+                                                                     grabs: user.votes.curate, 
+                                                                     tasty: user.votes.tasty});
+        "DEBUG: STORED DATA: {"users":[
+
+{"id":5226916,"username":"LeviHomer","jointime":1432793489836,"lastActivity":1432793516617,"votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0},"tastyVote":false,"rolled":false,"lastEta":null,"beerRun":false,"inMeeting":false,"atLunch":false,"afkWarningCount":0,"badSongCount":0,"afkCountdown":null,"inRoom":true,"isMuted":false,"rollStats":{"lifeWoot":0,"lifeTotal":0,"dayWoot":0,"dayTotal":0,"DOY":-1},"lastDC":{"time":null,"leftroom":null,"resetReason":"","position":-1,"songCount":0},"lastKnownPosition":-1,"lastSeenInLine":null},
+
+{"id":5226880,"username":"DexterNix","jointime":1432793489845,"lastActivity":1432793489845,"votes":{"songs":0,"tasty":0,"woot":0,"meh":0,"curate":0},"tastyVote":false,"rolled":false,"lastEta":null,"beerRun":false,"inMeeting":false,"atLunch":false,"afkWarningCount":0,"badSongCount":0,"afkCountdown":null,"inRoom":true,"isMuted":false,"rollStats":{"lifeWoot":0,"lifeTotal":0,"dayWoot":0,"dayTotal":0,"DOY":-1},"lastDC":{"time":null,"leftroom":null,"resetReason":"","position":-1,"songCount":0},"lastKnownPosition":0,"lastSeenInLine":null},
+
+{"id":3837756,"username":"Doc_Z","jointime":1432793489850,"lastActivity":1432793489850,"votes":{"songs":0,"tasty":0,"woot":2,"meh":0,"curate":0},"tastyVote":false,"rolled":false,"lastEta":null,"bootable":false,"beerRun":false,"inMeeting":false,"atLunch":false,"afkWarningCount":0,"badSongCount":0,"afkCountdown":null,"inRoom":true,"isMuted":false,"rollStats":{"lifeWoot":0,"lifeTotal":0,"dayWoot":0,"dayTotal":0,"DOY":-1},"lastDC":{"time":null,"leftroom":null,"resetReason":"","position":-1,"songCount":0},"lastKnownPosition":0,"lastSeenInLine":null}
+
+],"debug":true,"afkList":[],"mutedUsers":[],"bannedUsers":[],"skippable":true,"usercommand":true,"allcommand":true,"afkInterval":485,"blacklistInterval":null,"randomInterval":490,"autoskip":false,"autoskipTimer":null,"autodisableInterval":null,"queueing":0,"queueable":true,"currentDJID":5226916,"currentMediaCid":"s88r_q7oufE","currentMediaStart":1432793520843,"historyList":[["zV8tJXRUtHg",1432771590001,1432789190910],["kvDMlk3kSYg",1432771595577,1432789198263],["a80o9o-2Vrw",1432771600675,1432789440991],["iPUmE-tne5U",1432771778731,1432789452164],["oh4wgGIN_qE",1432772008885,1432789682358],["I-h4A7bF8wQ",1432772243988,1432789917483],["ateQQc-AgEM",1432772454069,1432790127595],["8NjbGr2nk2c",1432772482569,1432785797611],["koJlIGDImiU",1432772669820],["gMhMaNAmT-U",1432772941005],["Urdlvw0SSEc",1432772997149,1432790353572],["Idhq-CLU21g",1432773206269,1432790667764],["pIgZ7gMze7A",1432773283276,1432790680529],["ojDWH2ZuwNk",1432773300309,1432790912785],["m_-Qtz70_z4",1432773508366,1432791120899],["XfR9iY5y94s",1432773732538,1432791345033],["-qCDypgAV_E",1432773955596,1432791568084],["GOsoa4AGRhY",1432774149679,1432791762136],["Zs3xXlXSOKk",1432774286758,1432791899345],["iywaBOMvYLI",1432774504988,1432786819684],["D4aaXDfSRDc",1432774730132,1432786578803],["K84j7CJIUKU",1432774971203,1432786496954],["9jK-NcRmVcw",1432775261929,1432792120504],["EkwD5rQ-_d4",1432775304460,1432792417688],["YLncxyCXPsU",1432775621560,1432792734747],["6W5pq4bIzIw",1432775832673,1432793493588],["EOvMpND2OZY",1432776509962,1432793516269],["2LlSs-IM-TM",1432776759115],["s88r_q7oufE",1432776767999,1432793520843],["IaNzrXAUHBk",1432777027430],["FTxqH0tukqQ",1432777413227],["V-xpJRwIA-Q",1432777570350],["-25ibpmTMWM",1432777809805],["3eOuK-pYhy4",1432777970651],["Nt4SNfcd72s",1432778223772],["a3ir9HC9vYg",1432779175045],["DIfPeoyLfkg",1432779456198],["6259846",1432779673921],["W6H8WcTPnWM",1432779911329],["14kLQ9TLZcI",1432780104437],["4NO-h9PFum4",1432780242613],["EUSS7bEKxsQ",1432780447681],["GeZZr_p6vB8",1432783686698],["snILjFUkk_A",1432783938989],["zQ41hqlV0Kk",1432784206229],["nfk6sCzRTbM",1432784476197],["Yynstc_bFRE",1432784738407],["T81xsEyfl3c",1432784961056],["4kHl4FoK1Ys",1432787045163],["2tptckbCokA",1432787240920],["VtNH2ftJVS8",1432787451127],["DVgBVcsAK1o",1432787723164],["jJaT7qQpaqs",1432788650757],["W9wwsxiLGbg",1432788656349],["_j5HZjg75AM",1432789182868]],"cycleTimer":479,"roomstats":{"accountName":null,"totalWoots":24,"totalCurates":6,"totalMehs":0,"tastyCount":0,"launchTime":1432771419768,"songCount":100,"chatmessages":196},"messages":{"from":[],"to":[],"message":[]},"queue":{"id":[],"position":[]},"newBlacklist":[],"newBlacklistIDs":[],"blacklistLoaded":true,"roulette":{"rouletteStatus":false,"randomRouletteMin":45,"randomRouletteMax":120,"nextRandomRoulette":"2015-05-28T08:00:29.861Z","participants":[],"countdown":null}}"
+
+        */
         var basicBotStorageInfo = {
             time: Date.now(),
             stored: true,
             version: basicBot.version
         };
+        basicBot.roomUtilities.logDebug("DONE: storeToStorage - UserCnt: " + basicBot.room.users.length + " TIME: " + basicBotStorageInfo.time);
         localStorage.setItem("basicBotStorageInfo", JSON.stringify(basicBotStorageInfo));
-
+        }
+        catch(err) {
+           basicBot.roomUtilities.logException("storeToStorage: " + err.message);
+        }
     };
 
     var subChat = function (chat, obj) {
@@ -197,13 +183,23 @@ Grab - Playlist Insert:
         else {
             var settings = JSON.parse(localStorage.getItem("basicBotsettings"));
             var room = JSON.parse(localStorage.getItem("basicBotRoom"));
+            basicBot.roomUtilities.logDebug("room.users.length: " + room.users.length);
+            if (localStorage.getItem("BLACKLIST") !== null) {
+              basicBot.room.newBlacklist = JSON.parse(localStorage["BLACKLIST"]);
+              basicBot.room.newBlacklistIDs = JSON.parse(localStorage["BLACKLISTIDS"]);
+              basicBot.roomUtilities.logDebug("BL LOAD:   BL Count: " + basicBot.room.newBlacklist.length);
+              basicBot.roomUtilities.logDebug("BL LOAD: BLID Count: " + basicBot.room.newBlacklistIDs.length);
+            }
+            basicBot.room.blacklistLoaded = true;
+            basicBot.roomUtilities.logDebug("BL LOADED: TRUE");
             var elapsed = Date.now() - JSON.parse(info).time;
+            basicBot.room.users = room.users;
+            basicBot.roomUtilities.logDebug("basicBot.room.users.length: " + basicBot.room.users.length + " TIME: " + JSON.parse(info).time);
             if ((elapsed < 1 * 60 * 60 * 1000)) {
                 basicBot.roomUtilities.chatLog(basicBot.chat.retrievingdata);
                 for (var prop in settings) {
                     basicBot.settings[prop] = settings[prop];
                 }
-                basicBot.room.users = room.users;
                 basicBot.room.afkList = room.afkList;
                 basicBot.room.historyList = room.historyList;
                 basicBot.room.mutedUsers = room.mutedUsers;
@@ -211,7 +207,7 @@ Grab - Playlist Insert:
                 basicBot.room.roomstats = room.roomstats;
                 basicBot.room.messages = room.messages;
                 basicBot.room.queue = room.queue;
-                basicBot.room.newBlacklisted = room.newBlacklisted;
+                //basicBot.room.newBlacklist = room.newBlacklist;
                 basicBot.roomUtilities.chatLog(basicBot.chat.datarestored);
             }
         }
@@ -277,11 +273,11 @@ Grab - Playlist Insert:
     var runningBot = false;
     var botCreator = "Matthew aka. Yemasthui";
     var botCreatorIDs = [3837756];
-    var botIDs = [3864950, 5226916];
+    var botIDs = [3864950, 5226916,5226880];
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.02",
+        version: "2.1.4.00041",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -576,7 +572,9 @@ Grab - Playlist Insert:
             tastyCommentArray: [
             ":cake: *** Tasty point for you, you go Glen Coco!  (%%POINTFROM%%) *** :cake:",
             ":cake: *** I don't feel I have to explain my fake points to you Warren. (%%POINTFROM%%) *** :cake:",
+            ":cake: *** %%POINTFROM%% things this song is aca-awesome *** :cake:",
             ":cake: *** %%POINTFROM%% thinks this song is pretty fetch. Stop trying to make fetch happen. *** :cake:",
+            ":cake: *** %%POINTFROM%% thinks you might just be funky cold medina. *** :cake:",
             ":cake: *** That tasty point from %%POINTFROM%% really brings the room together. *** :cake:",
             ":cake: *** The jury may be out on this song but %%POINTFROM%% thinks it’s pretty tasty *** :cake:",
             ":cake: *** %%POINTFROM%% salutes those who rock. *** :cake:",
@@ -1139,13 +1137,10 @@ Grab - Playlist Insert:
             youtubeLink: null,
             website: null,
             intervalMessages: [],
-            // Currently banList (new blacklist) is unused:
-            banList: [],
             messageInterval: 5,
             songstats: true,
             commandLiteral: ".",
-            //songbanlist: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/SongBan.json",
-            blacklists: {
+            blacklistsOBS: {
                 BAN: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/Banned.json",
                 NSFW: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json",
                 OP: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleOPlist.json"
@@ -1153,7 +1148,7 @@ Grab - Playlist Insert:
         },
         room: {
             users: [],
-            debug: false,
+            debug: true,
             afkList: [],
             mutedUsers: [],
             bannedUsers: [],
@@ -1199,35 +1194,32 @@ Grab - Playlist Insert:
                 id: [],
                 position: []
             },
-            blacklists: {
-
-            },
-            newBlacklisted: [],
-            //newBlacklistedSongFunction: null,
-
-            newBlacklistedSongFunction: function (track, list) {
+            newBlacklist: [],
+            newBlacklistIDs: [],
+            blacklistLoaded: false,
+            newBlacklistedSongFunction1: function (track, list) {
                 try {
                 basicBot.roomUtilities.logDebug("ADDING Track: " + track.mid + " List: " + list);
                 var data2send = "";
                 data2send = JSON.stringify(bl);
                 localStorage.setItem( 'memoriesdata', JSON.stringify(bl) );
                 basicBot.roomUtilities.logDebug("data2send: " + data2send);
-                for (var bl in basicBot.room.blacklists) {
+                for (var bl in basicBot.room.blacklistsOBS) {
                     $.post("https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json",{
                      data: data2send
                      });
                 }
                 }
-                catch(err) { basicBot.roomUtilities.logException("newBlacklistedSongFunction: " + err.message); }
+                catch(err) { basicBot.roomUtilities.logException("newBlacklistedSongFunction1: " + err.message); }
             },
             
-            newBlacklistedSongFunctionXX: function (track, list) {
+            newBlacklistedSongFunction2: function (track, list) {
                 try {
                 basicBot.roomUtilities.logDebug("ADDING Track: " + track.mid + " List: " + list);
                 var data2send = "";
                 data2send = JSON.stringify(bl);
                 basicBot.roomUtilities.logDebug("data2send: " + data2send);
-                for (var bl in basicBot.room.blacklists) {
+                for (var bl in basicBot.room.blacklistsOBS) {
                     $.post("https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json",{
                      data: data2send
                      });
@@ -1257,7 +1249,7 @@ $.ajax({
                     basicBot.roomUtilities.logDebug("BL: " + bl + " Len: " + basicBot.room.blacklists[bl].length);
                     if (basicBot.settings.blacklistEnabled) {
                         if (basicBot.room.blacklists[bl].indexOf(mid) > -1) {
-                            basicBot.roomUtilities.sendChat(subChat(basicBot.chat.isblacklisted, {blacklist: bl}));
+                            basicBot.roomUtilities.sendChat(basicBot.chat.isblacklisted);
                             basicBot.userUtilities.skipBadSong(obj.dj.id);
                             SongSkipped = true;
                             return;
@@ -1278,13 +1270,13 @@ for(var i=wlArr.length-1; i>=0; i--){
 */
 
                 }
-                catch(err) { basicBot.roomUtilities.logException("newBlacklistedSongFunction: " + err.message); }
+                catch(err) { basicBot.roomUtilities.logException("newBlacklistedSongFunction2: " + err.message); }
                 /*
             var mid = obj.media.format + ':' + obj.media.cid;
             for (var bl in basicBot.room.blacklists) {
                 if (basicBot.settings.blacklistEnabled) {
                     if (basicBot.room.blacklists[bl].indexOf(mid) > -1) {
-                        basicBot.roomUtilities.sendChat(subChat(basicBot.chat.isblacklisted, {blacklist: bl}));
+                        basicBot.roomUtilities.sendChat(basicBot.chat.isblacklisted);
                         basicBot.userUtilities.skipBadSong(obj.dj.id);
                         SongSkipped = true;
                         return;
@@ -1553,23 +1545,45 @@ for(var i=wlArr.length-1; i>=0; i--){
                 var user = basicBot.userUtilities.lookupUserName(username);
                 return user.bootable;
             },
-            updateRolledStats (username, wooting) {
-            try {
-                var user = basicBot.userUtilities.lookupUserName(username);
+            resetDailyRolledStats: function (roomUser) {
+                try {
                 var DOY = basicBot.roomUtilities.getDOY();
-                if (user.rollStats.DOY !== DOY) {
-                    user.rollStats.DOY = DOY;
-                    user.rollStats.dayWoot = 0;
-                    user.rollStats.dayTotal = 0;
+                if (roomUser.rollStats.DOY !== DOY) {
+                    roomUser.rollStats.DOY = DOY;
+                    roomUser.rollStats.dayWoot = 0;
+                    roomUser.rollStats.dayTotal = 0;
                 }
+              }
+                catch(err) {
+                  basicBot.roomUtilities.logException("resetDailyRolledStats: " + err.message);
+                  return "";
+                }
+            },
+            getRolledStats: function (roomUser) {
+                try {
+                   var rollStats = " [Today: " + roomUser.rollStats.dayWoot + "/" + roomUser.rollStats.dayTotal;
+                   rollStats +=  " " + basicBot.roomUtilities.formatPercentage(roomUser.rollStats.dayWoot, roomUser.rollStats.dayTotal) + "]";
+                   rollStats += " [Lifetime: " + roomUser.rollStats.lifeWoot + "/" + roomUser.rollStats.lifeTotal;
+                   rollStats +=  " " + basicBot.roomUtilities.formatPercentage(roomUser.rollStats.lifeWoot, roomUser.rollStats.lifeTotal) + "]";
+                   return rollStats;
+                }
+                catch(err) {
+                  basicBot.roomUtilities.logException("getRolledStats: " + err.message);
+                  return "";
+                }
+            },
+            updateRolledStats: function (username, wooting) {
+                try {
+                var roomUser = basicBot.userUtilities.lookupUserName(username);
+                basicBot.userUtilities.resetDailyRolledStats(roomUser);
                 if (wooting) {
-                    user.rollStats.lifeWoot++;
-                    user.rollStats.dayWoot++;
+                    roomUser.rollStats.lifeWoot++;
+                    roomUser.rollStats.dayWoot++;
                 }
-                user.rollStats.lifeTotal++;
-                user.rollStats.dayTotal++;
-                return " [Today: " + user.rollStats.dayWoot + "/" + user.rollStats.dayTotal + " Lifetime: " + user.rollStats.lifeWoot + "/" + user.rollStats.lifeTotal + "]";
-                }
+                roomUser.rollStats.lifeTotal++;
+                roomUser.rollStats.dayTotal++;
+                return basicBot.userUtilities.getRolledStats(roomUser);
+              }
                 catch(err) {
                   basicBot.roomUtilities.logException("updateRolledStats: " + err.message);
                   return "";
@@ -1830,6 +1844,11 @@ for(var i=wlArr.length-1; i>=0; i--){
                   basicBot.roomUtilities.logException("resetTastyCount: " + err.message);
                 }
             },
+            formatPercentage: function(a, b) {
+                if (a === 0) return "0%";
+                if (b === 0) return "100%";
+                return (((a / b).toFixed(2)) * 100).toFixed(0) + "%";
+            },
             botInWaitList: function () {
                 try {
                 var wl = API.getWaitList();
@@ -1858,7 +1877,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                 catch(err) {
                   basicBot.roomUtilities.logException("bouncerDjing: " + err.message);
                 }
-        },
+            },
             checkHopDown: function () {
                 try {
                     if (!basicBot.settings.autoHopUp) return;
@@ -2010,6 +2029,9 @@ for(var i=wlArr.length-1; i>=0; i--){
 
                 if (basicBot.loggedInID === chat.uid) return;
                 var chatmsg = chat.message.toUpperCase();
+                basicBot.roomUtilities.logDebug("Larry AI chatmsg: " + chatmsg);
+                chatmsg = chatmsg.replace(/\W/g, '')      // Remove all non-alphanumeric values
+                chatmsg = chatmsg.replace(/[0-9]/g, '');  // Remove all numeric values
                 chatmsg = chatmsg.replace(/'/g, '');
                 chatmsg = chatmsg.replace("\'", '');
                 chatmsg = chatmsg.replace('\'', '');
@@ -2019,16 +2041,21 @@ for(var i=wlArr.length-1; i>=0; i--){
                 chatmsg = chatmsg.replace(/-/g, '');
                 chatmsg = chatmsg.replace(/ /g, '');
                 chatmsg = chatmsg.replace(/THELAW/g, '');
-                chatmsg = chatmsg.replace(/YOUARE/g, "YOURE");   // Convert 2 words to the contractions
+                chatmsg = chatmsg.replace(/FUCKBOT/g, "LARRY");
+                chatmsg = chatmsg.replace(/BOTT/g, "LARRY");
+                chatmsg = chatmsg.replace(/BOT/g, "LARRY");
+                chatmsg = chatmsg.replace(/HOWIS/g, "HOWS");     // Convert 2 words to the contraction
+                chatmsg = chatmsg.replace(/YOUARE/g, "YOURE");   // Convert 2 words to the contraction
                 chatmsg = chatmsg.replace(/LARRYIS/g, "LARRYS");
                 chatmsg = chatmsg.replace(/IAM/g, "IM");
                 basicBot.roomUtilities.logDebug("Larry AI chatmsg: " + chatmsg);
-                //what the hell was that i can eat a bowl of althabet soup and shit out a smarter insult than that
-                //Well I could agree with you, but then we'd both be wrong.
-                //
-                //Two wrongs don't make a right, take your parents as an example.
-                //The last time I saw a face like yours I fed it a banana.
+
 /*
+what the hell was that i can eat a bowl of alphabet soup and shit out a smarter insult than that
+Well I could agree with you, but then we'd both be wrong.
+I love it when someone insults me. That means I don’t have to be nice anymore.
+Two wrongs don't make a right, take your parents as an example.
+The last time I saw a face like yours I fed it a banana.
 Your birth certificate is an apology letter from the condom factory.
 Is your ass jealous of the amount of shit that just came out of your mouth?
 You bring everyone a lot of joy, when you leave the room.
@@ -2045,6 +2072,21 @@ If I were to slap you, it would be considered animal abuse!
 You didn't fall out of the stupid tree. You were dragged through dumbass forest.
 You're so fat, you could sell shade.
 */
+                //todo: if (chatmsg.indexOf("USUCKLARRY") > -1) basicBot.roomUtilities.randomInsult();
+                //todo: if (chatmsg.indexOf("DUCKULARRY") > -1) basicBot.roomUtilities.randomInsult();
+                //todo: if (chatmsg.indexOf("DUMBASSLARRY") > -1) basicBot.roomUtilities.randomInsult();
+                //todo: if (chatmsg.indexOf("SHITHEADLARRY") > -1) basicBot.roomUtilities.randomInsult();
+                //todo: if (chatmsg.indexOf("STUPIDASSLARRY") > -1) basicBot.roomUtilities.randomInsult();
+                //todo: if (chatmsg.indexOf("STFULARRY") > -1) basicBot.roomUtilities.randomInsult();
+                //todo: if (chatmsg.indexOf("SHUTUPLARRY") > -1) basicBot.roomUtilities.randomInsult();
+                //todo: if (chatmsg.indexOf("LARRYSHUTUP") > -1) basicBot.roomUtilities.randomInsult();
+                //todo: if (chatmsg.indexOf("STUFFITLARRY") > -1) basicBot.roomUtilities.randomInsult();
+                //todo: if (chatmsg.indexOf("LARRYSTUFFIT") > -1) basicBot.roomUtilities.randomInsult();
+                //todo: if (chatmsg.indexOf("WTFLARRY") > -1) basicBot.roomUtilities.randomInsult();
+                //DAMNITLARRY
+                //you're an asshole larry
+                //LARRY'S AN ASS
+                //LARRYSONTHE JOB - Where the fuck else would I be @user? 
                 if (chatmsg.indexOf("KNUCKLEHEADLARRY") > -1) fuComment = "I know you are but what am I %%FU%%";
                 if (chatmsg.indexOf("YOUREANASSLARRY") > -1) fuComment = "I'd like to see things from your point of view %%FU%%, too bad I can't shove my head that far up my ass!";
                 if (chatmsg.indexOf("WATCHYOURBACKLARRY") > -1) fuComment = "I'm scared %%FU%%";
@@ -2092,6 +2134,7 @@ You're so fat, you could sell shade.
                 if (chatmsg.indexOf("HOWAREYOULARRY") > -1) fuComment =  basicBot.roomUtilities.howAreYouComment();
                 if (chatmsg.indexOf("HOWAREULARRY") > -1) fuComment =  basicBot.roomUtilities.howAreYouComment();
                 if (chatmsg.indexOf("HOWRULARRY") > -1) fuComment =  basicBot.roomUtilities.howAreYouComment();
+                if (chatmsg.indexOf("HOWSLARRY") > -1) fuComment =  basicBot.roomUtilities.howAreYouComment();
                 if (chatmsg.indexOf("HOWAREYOUDOINLARRY") > -1) fuComment =  basicBot.roomUtilities.howAreYouComment();
                 if (chatmsg.indexOf("HOWAREYOUDOINGLARRY") > -1) fuComment =  basicBot.roomUtilities.howAreYouComment();
                 if (chatmsg.indexOf("HOWAREYOUTODAYLARRY") > -1) fuComment =  basicBot.roomUtilities.howAreYouComment();
@@ -2119,7 +2162,7 @@ You're so fat, you could sell shade.
                 if (chatmsg.indexOf("LARRYDOESNTTAKEANYSHIT") > -1) fuComment = "Damn skippy I don't %%FU%%.";
                 if (chatmsg.indexOf("LARRYDOESNOTTAKEANYSHIT") > -1) fuComment = "Damn skippy I don't %%FU%%.";
                 if (chatmsg.indexOf("SHITHEADLARRY") > -1) fuComment = "I know you are but what am I %%FU%%?";
-                if (chatmsg.indexOf("LARRYSASHITHEAD") > -1) fuComment = "Takes one to know one %%FU%%?";
+                if (chatmsg.indexOf("LARRYSASHITHEAD") > -1) fuComment = "Takes one to know one %%FU%%!";
                 
                 if (chatmsg.indexOf("LARRYFU") > -1) fuComment = basicBot.roomUtilities.fuComment();
                 if (chatmsg.indexOf("LARRYFUCKU") > -1) fuComment = basicBot.roomUtilities.fuComment();
@@ -2209,7 +2252,7 @@ You're so fat, you could sell shade.
                     //basicBot.roomUtilities.logDebug("timeRemaining: " + timeRemaining);
                     //basicBot.roomUtilities.logDebug("newMedia.duration: " + newMedia.duration);
                     //basicBot.roomUtilities.logInfo("DUR1[" + newMedia.duration + "] REMAIN[" + timeRemaining + "] DIFF[" + (newMedia.duration - timeRemaining) + "]");
-                    //basicBot.roomUtilities.logObject(newMedia);
+                    //basicBot.roomUtilities.logObject(newMedia, "media");
                     if ((newMedia.duration - timeRemaining) > 2) return true;
                     //-------------------------------------------------------------------------------------------------------------------
                     //This is to handle the plug bug where the time remaining is actually longer than the song duration:
@@ -2273,10 +2316,13 @@ You're so fat, you could sell shade.
                 }
                 catch(err) { basicBot.roomUtilities.logException("rouletteTimeRange: " + err.message); }
             },
-            logObject: function (objectToLog) {
+            logObject: function (objectToLog, objectName) {
                 try {
                     for (var prop in objectToLog) {
-                        basicBot.roomUtilities.logDebug("Prop: " + prop.toUpperCase() + " value: " + objectToLog[prop]);
+                        if (typeof objectToLog[prop] === "object") 
+                            basicBot.roomUtilities.logObject(objectToLog[prop], objectName + "." + prop.toUpperCase());
+                        else
+                            basicBot.roomUtilities.logDebug("Prop->" + objectName.toUpperCase() + ": "  + prop.toUpperCase() + " value: " + objectToLog[prop]);
                     }
                 }
                 catch(err) { basicBot.roomUtilities.logException("logObject: " + err.message); }
@@ -2301,7 +2347,7 @@ You're so fat, you could sell shade.
                     var whoismsg = "";
                     if (uid < 0) return "Undefined User";
                     var pluguser = basicBot.userUtilities.getPlugUserID(uid);
-                    //basicBot.roomUtilities.logObject(pluguser);
+                    //basicBot.roomUtilities.logObject(pluguser, "plugUser");
                     var avatar = pluguser.avatarID;
                     var level = pluguser.level;
                     var rawjoined = pluguser.joined;
@@ -2366,7 +2412,8 @@ You're so fat, you could sell shade.
                               'firstclass','firstrate','topnotch','aweinspiring','superduper','dabomb','dashit','badass','bomb','popcorn','awesomesauce','awesomeness','sick',
                               'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
                               'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
-                              'hip','soul','soulful','cover','yummy'];
+                              'hip','soul','soulful','cover','yummy','ohyeah','twist','shout','trippy','hot','country','stellar','smoove','pantydropper','baby','mmm','tits','hooters',
+                              'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell'];
                     if (commandList.indexOf(cmd) < 0) return true;
                     return false;
                 }
@@ -2495,8 +2542,8 @@ You're so fat, you could sell shade.
                             var dcPos = roomUser.lastDC.position;
                             var miaTime = 0;
                             var resetUser = false;
-                            if (logging) basicBot.roomUtilities.logObject(roomUser);
-                            if (logging) basicBot.roomUtilities.logObject(roomUser.lastDC);
+                            if (logging) basicBot.roomUtilities.logObject(roomUser, "roomUser");
+                            if (logging) basicBot.roomUtilities.logObject(roomUser.lastDC, "LastDC");
                             if (logging) basicBot.roomUtilities.logDebug("User: " + roomUser.username + " - " + roomUser.id);
                             // If left room > 10 mins ago:
                             if (leftroom !== null) {
@@ -2698,16 +2745,124 @@ You're so fat, you could sell shade.
             },
             logNewBlacklistedSongs: function () {
                 if (typeof console.table !== 'undefined') {
-                    console.table(basicBot.room.newBlacklisted);
+                    console.table(basicBot.room.newBlacklist);
                 }
                 else {
-                    basicBot.roomUtilities.logDebug(basicBot.room.newBlacklisted);
+                    basicBot.roomUtilities.logDebug(basicBot.room.newBlacklist);
                 }
             },
+            compareObjectKeys: function (objA, objB) {
+                var aKeys = Object.keys(objA).sort();
+                var bKeys = Object.keys(objB).sort();
+                basicBot.roomUtilities.logDebug("JSON.stringify(aKeys): " + JSON.stringify(aKeys));
+                basicBot.roomUtilities.logDebug("JSON.stringify(bKeys): " + JSON.stringify(bKeys));
+                return JSON.stringify(aKeys) === JSON.stringify(bKeys);
+                /*
+["afkCountdown","afkWarningCount","atLunch","badSongCount","beerRun",
+"id","inMeeting","inRoom","isMuted","jointime","lastActivity","lastDC","lastEta","lastKnownPosition",
+"lastSeenInLine","rollStats","rolled","tastyVote","username","votes"]"
+
+["afkCountdown","afkWarningCount","atLunch","badSongCount","beerRun",
+"bootable",
+"id","inMeeting","inRoom","isMuted","jointime","lastActivity","lastDC","lastEta","lastKnownPosition",
+"lastSeenInLine","rollStats","rolled","tastyVote","username","votes"]"
+
+                */
+            },
+            validateUserCheck: function () {
+                try {
+                    basicBot.roomUtilities.logDebug("EXECUTING - validateUserCheckA");
+                    var newUser = new basicBot.User(999, "Test");
+                    if (basicBot.roomUtilities.compareObjectKeys(basicBot.room.users[0], newUser) === true) return;
+                    basicBot.roomUtilities.logDebug("EXECUTING - validateUserCheckB");
+                    if (typeof basicBot.room.users[0].rollStats.lifeWoot !== "undefined") basicBot.roomUtilities.logDebug("life woot exists.");
+                    if (typeof basicBot.room.users[0].rollStats.lifeWoot === "undefined") basicBot.roomUtilities.logDebug("life woot does not exist.");
+                    if (typeof basicBot.room.users[0].rollStats.streak !== "undefined") basicBot.roomUtilities.logDebug("streak does not exist.");
+                    if (typeof basicBot.room.users[0].rollStats.streak !== "undefined") return;
+                    if (typeof basicBot.room.users[0].bootable === "undefined") basicBot.roomUtilities.logDebug("bootable does not exist.");
+                    if (typeof basicBot.room.users[0].bootable !== "undefined") basicBot.roomUtilities.logDebug("bootable exists.");
+                    basicBot.roomUtilities.logDebug("Update Required! Streak does not exist.");
+                    var newUsers = [];
+                    for (var i = 0; i < basicBot.room.users.length; i++) {
+                        basicBot.roomUtilities.logDebug("Adding User: " + basicBot.room.users[i].username);
+                        newUsers.push(basicBot.roomUtilities.cloneUser(basicBot.room.users[i]));
+                    }
+                    basicBot.roomUtilities.logDebug("Done Adding Users.  Count: " + newUsers.length);
+                    var user = newUsers[0];
+                    var msg = subChat(basicBot.chat.mystats, {name: user.username, 
+                                                                     songs: user.votes.songs,
+                                                                     woot: user.votes.woot, 
+                                                                     mehs: user.votes.meh, 
+                                                                     grabs: user.votes.curate, 
+                                                                     tasty: user.votes.tasty});
+                    user = basicBot.room.users[0];
+                    msg += subChat(basicBot.chat.mystats, {name: user.username, 
+                                                                     songs: user.votes.songs,
+                                                                     woot: user.votes.woot, 
+                                                                     mehs: user.votes.meh, 
+                                                                     grabs: user.votes.curate, 
+                                                                     tasty: user.votes.tasty});
+                    basicBot.roomUtilities.sendChat(msg);
+                    /*
+                    basicBot.room.users = newUsers[];
+                    */
+                    return;
+                }
+                catch(err) { basicBot.roomUtilities.logException("validateUserCheck: " + err.message); }
+            },
+            cloneObject: function (fromObj, toObj) {               //http://stackoverflow.com/questions/728360/most-elegant-way-to-clone-a-javascript-object
+                try {
+                    if (null == fromObj || "object" != typeof fromObj) return toObj;
+                    if (typeof toObj.bootable === "undefined") basicBot.roomUtilities.logDebug("bootable does not exist.");
+                    if (typeof toObj.bootable !== "undefined") basicBot.roomUtilities.logDebug("bootable exists.");
+                    for (var prop in toObj) {
+                        if (fromObj.hasOwnProperty(prop)) {
+                            if (typeof toObj[prop] === "object") {
+                                basicBot.roomUtilities.logDebug("Cloning object: " + prop);
+                                toObj[prop] = basicBot.roomUtilities.cloneObject(fromObj[prop], toObj[prop]);
+                            }
+                            else {
+                                basicBot.roomUtilities.logDebug("Cloning: " + prop);
+                                toObj[prop] = fromObj[prop];
+                            }
+                        }
+                        else
+                            basicBot.roomUtilities.logDebug("New property: " + prop);
+                    }
+                    return toObj;
+                }
+                catch(err) { basicBot.roomUtilities.logException("cloneObject: " + err.message); }
+            },
+            cloneUser: function (user) {
+                try {
+                    var newUser = new basicBot.User(user.id, user.username);
+                    return basicBot.roomUtilities.cloneObject(newUser, user);
+                }
+                catch(err) { basicBot.roomUtilities.logException("cloneUser: " + err.message); }
+            },
+            /*  todoer OBSOLETE DELETE
+            validateUserUpdateUser: function (user) {  
+                try {
+                    var newUser = new basicBot.User(user.id, user.username);
+                    for (var prop in newUser) {
+                        if (user[prop] !== "undefined") {
+                            basicBot.roomUtilities.logDebug("Existing Property: " + prop);
+                            //newUser[prop] = user[prop];
+                        }
+                        else
+                        {
+                            basicBot.roomUtilities.logDebug("New Property: " + prop);
+                        }
+                    }
+                    return newUser;
+                }
+                catch(err) { basicBot.roomUtilities.logException("validateUserUpdateUser: " + err.message); }
+            },
+            */
             exportNewBlacklistedSongs: function () {
                 var list = {};
-                for (var i = 0; i < basicBot.room.newBlacklisted.length; i++) {
-                    var track = basicBot.room.newBlacklisted[i];
+                for (var i = 0; i < basicBot.room.newBlacklist.length; i++) {
+                    var track = basicBot.room.newBlacklist[i];
                     list[track.list] = [];
                     list[track.list].push({
                         title: track.title,
@@ -2839,7 +2994,7 @@ You're so fat, you could sell shade.
                 if (basicBot.settings.voteSkipEnabled) {
                     if (mehs >= (basicBot.settings.voteSkipLimit)) {
                         basicBot.roomUtilities.sendChat(subChat(basicBot.chat.voteskipexceededlimit, {name: dj.username, limit: basicBot.settings.voteSkipLimit}));
-                        basicBot.userUtilities.skipBadSong(obj.dj.id);
+                        basicBot.userUtilities.skipBadSong(dj.id);
                     }
                 }
           }
@@ -2916,17 +3071,27 @@ You're so fat, you could sell shade.
             if (basicBot.settings.autoWootBot === true) setTimeout(basicBot.roomUtilities.wootThisSong, 3000);
 
             //basicBot.roomUtilities.logDebug("eventDjadvance:5");
+            /* todo FOREACH LOOP */
             var mid = obj.media.format + ':' + obj.media.cid;
+            if (basicBot.settings.blacklistEnabled) {
+                if (basicBot.room.newBlacklistIDs.indexOf(mid) > -1) {
+                    basicBot.roomUtilities.sendChat(basicBot.chat.isblacklisted);
+                    basicBot.userUtilities.skipBadSong(obj.dj.id);
+                    return;
+                }
+            }
+/*
             for (var bl in basicBot.room.blacklists) {
                 //basicBot.roomUtilities.logDebug("BL: " + bl + " Len: " + basicBot.room.blacklists[bl].length);
                 if (basicBot.settings.blacklistEnabled) {
                     if (basicBot.room.blacklists[bl].indexOf(mid) > -1) {
-                        basicBot.roomUtilities.sendChat(subChat(basicBot.chat.isblacklisted, {blacklist: bl}));
+                        basicBot.roomUtilities.sendChat(basicBot.chat.isblacklisted);
                         basicBot.userUtilities.skipBadSong(obj.dj.id);
                         return;
                     }
                 }
             }
+*/
             //basicBot.roomUtilities.logDebug("eventDjadvance:5-2");
             // Auto-skip SC song during restricted hours (7AM-3PM EST)
             basicBot.room.currentMediaCid = obj.media.cid;
@@ -3006,6 +3171,8 @@ You're so fat, you could sell shade.
                     basicBot.roomUtilities.chatLog("Running Bot: " + runningBot);
                     return;
                 }
+                if (command === "/whois") return;  // Handled by Origem.
+                if (command === "/grab") return;   // Prevent infinite loop as /grab is handled by Origem.
                 //todoer TEST
                 basicBot.commandChat.cid = "";
                 basicBot.commandChat.message = basicBot.settings.commandLiteral + command.substring(1, command.length);
@@ -3161,7 +3328,7 @@ You're so fat, you could sell shade.
             //chat.uid chat.message chat.cid
                 try {
                     var cmd;
-                    //basicBot.roomUtilities.logObject(chat);
+                    //basicBot.roomUtilities.logObject(chat, "chat");
                     //basicBot.roomUtilities.logDebug("commandCheck chat: " + chat.message);
                     if (chat.message.substring(0,1) === basicBot.settings.commandLiteral) {
                         var space = chat.message.indexOf(' ');
@@ -3311,13 +3478,25 @@ You're so fat, you could sell shade.
             if (basicBot.userUtilities.getPermission(plugUser) < 2) return basicBot.roomUtilities.chatLog(basicBot.chat.greyuser);
             if (basicBot.userUtilities.getPermission(plugUser) === 2) basicBot.roomUtilities.chatLog(basicBot.chat.bouncer);
             basicBot.connectAPI();
+            API.grabSong = function (playlistID, historyID) {
+                try {
+                $.ajax({
+                    url: "https://plug.dj/_/grabs",
+                    data: "{playlistID:" + playlistID + ",historyID:" + historyID + "}",
+                    type: "POST"
+                })
+                 //Request body: {"playlistID":7527918,"historyID":"3602db39-e515-4739-aa24-0dc084f384bc"}
+                }
+                catch(err) { basicBot.roomUtilities.logException("API.grabSong: " + err.message); }
+
+            };
             API.moderateDeleteChat = function (cid) {
                 $.ajax({
                     url: "https://plug.dj/_/chat/" + cid,
                     type: "DELETE"
                 })
             };
-
+            
             // ==========================================================
             // Detect room change and disable the bot:
             // ==========================================================
@@ -3341,16 +3520,20 @@ You're so fat, you could sell shade.
             retrieveSettings();
             //basicBot.roomUtilities.logDebug("TODO - STARTUP retrieveFromStorage");
             retrieveFromStorage();
+            if (roomURL !== "/-752559695349757775") basicBot.room.debug = false;
+            //basicBot.roomUtilities.validateUserCheck();
+
             //basicBot.roomUtilities.logDebug("TODO - STARTUP 1");
             window.bot = basicBot;
+            /*
             blacklistInterval = setInterval(function () {
                 basicBot.roomUtilities.updateBlacklists()
             }, 10 * 60 * 1000);
             basicBot.roomUtilities.updateBlacklists();
             basicBot.getNewBlacklistedSongs = basicBot.roomUtilities.exportNewBlacklistedSongs;
             basicBot.logNewBlacklistedSongs = basicBot.roomUtilities.logNewBlacklistedSongs;
+            */
             
-            if (roomURL === "/-752559695349757775") basicBot.room.debug = true;
             //basicBot.roomUtilities.logDebug("TODO - STARTUP 2");
             if (basicBot.room.roomstats.launchTime === null) {
                 basicBot.room.roomstats.launchTime = Date.now();
@@ -3736,82 +3919,32 @@ You're so fat, you could sell shade.
                 }
             },
 
-//            songbanCommand: {
-//                command: 'songban',
-//                rank: 'bouncer',
-//                type: 'exact',
-//                functionality: function (chat, cmd) {
-//                    try {
-//                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-//                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-//                    else {
-//                        var msg = chat.message;
-//                        if (msg.length === cmd.length) return basicBot.roomUtilities.sendChat(subChat(basicBot.chat.nolistspecified, {name: chat.un}));
-//                        var list = "BAN";
-//                        if (typeof basicBot.room.blacklists[list] === 'undefined') return basicBot.roomUtilities.sendChat(subChat(basicBot.chat.invalidlistspecified, {name: chat.un}));
-//                        else {
-//                            var media = API.getMedia();
-//                            var track = {
-//                                list: list,
-//                                author: media.author,
-//                                title: media.title,
-//                                mid: media.format + ':' + media.cid
-//                            };
-//                            basicBot.room.newBlacklisted.push(track);
-//                            basicBot.room.blacklists[list].push(media.format + ':' + media.cid);
-//                            basicBot.roomUtilities.sendChat(subChat(basicBot.chat.newblacklisted, {name: chat.un, blacklist: list, author: media.author, title: media.title, mid: media.format + ':' + media.cid}));
-//                            API.moderateForceSkip();
-//                            if (typeof basicBot.room.newBlacklistedSongFunction === 'function') {
-//                                basicBot.room.newBlacklistedSongFunction(track, list);
-//                            }
-//                        }
-//                    }
-//                    
-//                    var ajaxResponse = $.ajax({
-//                      type: "post", 
-//                      url: "./api.cfm",
-//                      contentType: "application/json",
-//                      data: JSON.stringify( postData )
-//                    })
-//                }
-//                    catch(err) { basicBot.roomUtilities.logException("blacklistCommand: " + err.message); }
-//                }
-//            },
             blacklistCommand: {
-                command: ['blacklist', 'bl'],
+                command: ['blacklist', 'bl','songban','bansong'],
                 rank: 'bouncer',
-                type: 'startsWith',
+                type: 'exact',
                 functionality: function (chat, cmd) {
                     try {
-                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                    else {
-                        var msg = chat.message;
-                        if (msg.length === cmd.length) return basicBot.roomUtilities.sendChat(subChat(basicBot.chat.nolistspecified, {name: chat.un}));
-                        var list = msg.substr(cmd.length + 1);
-                        if (typeof basicBot.room.blacklists[list] === 'undefined') return basicBot.roomUtilities.sendChat(subChat(basicBot.chat.invalidlistspecified, {name: chat.un}));
-                        else {
-                            var media = API.getMedia();
-                            var track = {
-                                list: list,
-                                author: media.author,
-                                title: media.title,
-                                mid: media.format + ':' + media.cid
-                            };
-                            var dj = API.getDJ();
-                            basicBot.room.newBlacklisted.push(track);
-                            //Add the song to the black list:
-                            basicBot.roomUtilities.logDebug("List LenA: " + basicBot.room.blacklists[list].length);
-                            basicBot.room.blacklists[list].push(media.format + ':' + media.cid);
-                            basicBot.roomUtilities.logDebug("List LenB: " + basicBot.room.blacklists[list].length);
-                            basicBot.roomUtilities.sendChat(subChat(basicBot.chat.newblacklisted, {name: dj.username, blacklist: list, author: media.author, title: media.title, mid: media.format + ':' + media.cid}));
-                            basicBot.userUtilities.skipBadSong(dj.id);
-                            if (typeof basicBot.room.newBlacklistedSongFunction === 'function') {
-                                basicBot.room.newBlacklistedSongFunction(track, list);
-                            }
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        var media = API.getMedia();
+                        var track = {
+                            author: media.author,
+                            title: media.title,
+                            mid: media.format + ':' + media.cid
+                        };
+                        var dj = API.getDJ();
+                        basicBot.room.newBlacklist.push(track);
+                        basicBot.room.newBlacklistIDs.push(track.mid);
+                        if (basicBot.room.blacklistLoaded) localStorage["BLACKLIST"] = JSON.stringify(basicBot.room.newBlacklist);
+                        basicBot.roomUtilities.logDebug("BL Saved: " + basicBot.room.newBlacklist.lenght + " songs");
+                        if (basicBot.room.blacklistLoaded) localStorage["BLACKLISTIDS"] = JSON.stringify(basicBot.room.newBlacklistIDs);
+                        basicBot.roomUtilities.logDebug("BL Saved: " + basicBot.room.newBlacklistIDs.lenght + " song ids");
+                        setTimeout(function () {
+                            basicBot.roomUtilities.sendChat(subChat(basicBot.chat.newblacklisted, {name: dj.username, author: media.author, title: media.title, mid: media.format + ':' + media.cid}));
+                            }, 1000);
+                        basicBot.userUtilities.skipBadSong(dj.id);
                         }
-                    }
-                    }
                     catch(err) { basicBot.roomUtilities.logException("blacklistCommand: " + err.message); }
                 }
             },
@@ -3830,7 +3963,6 @@ You're so fat, you could sell shade.
                         var format = API.getMedia().format;
                         var cid = API.getMedia().cid;
                         var songid = format + ":" + cid;
-
                         basicBot.roomUtilities.sendChat(subChat(basicBot.chat.blinfo, {name: name, author: author, title: title, songid: songid}));
                     }
                 }
@@ -4223,8 +4355,9 @@ You're so fat, you could sell shade.
                         if (msg.length !== cmd.length) {
                             function get_id(api_key, fixedtag, func)
                             {
+                                // Old URL: "https://api.giphy.com/v1/gifs/random?", 
                                 $.getJSON(
-                                    "https://api.giphy.com/v1/gifs/random?", 
+                                    "https://tv.giphy.com/v1/gifs/random?", 
                                     { 
                                         "format": "json",
                                         "api_key": api_key,
@@ -5530,6 +5663,8 @@ You're so fat, you could sell shade.
                                                                      mehs: user.votes.meh, 
                                                                      grabs: user.votes.curate, 
                                                                      tasty: user.votes.tasty});
+                        basicBot.userUtilities.resetDailyRolledStats(user);
+                        msg += " Roll Stats: " + basicBot.userUtilities.getRolledStats(user);
                         var byusername = " [ executed by " + chat.un + " ]";
                         if (chat.un !== name) msg += byusername;
                         basicBot.roomUtilities.sendChat(msg);
@@ -5745,13 +5880,15 @@ You're so fat, you could sell shade.
                     catch(err) { basicBot.roomUtilities.logException("englishCommand: " + err.message); }
                 }
             },
-            grabCommand: {  //Added 02/14/2015 Zig
+            grabCommand: {  //Added 05/27/2015 Zig  (This command relies on Origem Woot to be running)
                 command: 'grab',
                 rank: 'manager',
                 type: 'exact',
-                functionality: function (chat, cmd)                 {
-                  try  {
-                    $("#grab").click();
+                functionality: function (chat, cmd) {
+                try  {
+                  basicBot.roomUtilities.sendChat("/grab");
+                  //todo: API.grabSong(....
+                  //  $("#grab").click(); 
                   }  
                 catch(err) {
                   basicBot.roomUtilities.logException("grabCommand: " + err.message);
@@ -5843,8 +5980,7 @@ You're so fat, you could sell shade.
                             resultsMsg = subChat(basicBot.chat.rollresultsbad, {name: chat.un, roll: rollResults});
                             wooting = false;
                         }
-                        resultsMsg += basicBot.userUtilities.updateRolledStats(chat.un, wooting);
-                        basicBot.roomUtilities.sendChat(resultsMsg);
+                        basicBot.roomUtilities.sendChat(resultsMsg + basicBot.userUtilities.updateRolledStats(chat.un, wooting));
                         /*
                         if (rollResults >= (dicesides * 0.8))
                             setTimeout(function () { basicBot.userUtilities.tastyVote(basicBot.userUtilities.getCurrentPlugUser().id, "winner"); }, 1000);
@@ -5923,7 +6059,8 @@ You're so fat, you could sell shade.
                           'firstclass','firstrate','topnotch','aweinspiring','superduper','dabomb','dashit','badass','bomb','popcorn','awesomesauce','awesomeness','sick',
                           'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
                           'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
-                          'hip','soul','soulful','cover','yummy'],
+                          'hip','soul','soulful','cover','yummy','ohyeah','twist','shout','trippy','hot','country','stellar','smoove','pantydropper','baby','mmm','tits','hooters',
+                          'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
@@ -6009,42 +6146,62 @@ You're so fat, you could sell shade.
                     }, 1000);
                 }
             },
-            ziggCommand: {
-                command: 'zigg',
+            zigaCommand: {
+                command: 'ziga',
                 rank: 'cohost',
                 type: 'exact',
                 functionality: function (chat, cmd)  {
                     try {
-                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                        basicBot.roomUtilities.chatLog("<div class=\"text\" style=\"color: rgb(239, 37, 37);\">Profile: <a href=\"https://plug.dj/@/buckeyechick\" target=\"_blank\">Click here</a></div>");
-                        setTimeout(function () { 
-                            basicBot.roomUtilities.chatLog("<a href=\"https://plug.dj/@/buckeyechick\" target=\"_blank\">Click here</a>");
-                         }, 1 * 1000);
-
+                        API.botDjNow();
                     }
                     catch(err) {
-                        basicBot.roomUtilities.logException("ziggCommand: " + err.message);
+                        basicBot.roomUtilities.logException("zigaCommand: " + err.message);
                     }
                 }
             },
-            zigCommand: {
-                command: 'zig',
+            zigaaCommand: {
+                command: 'zigaa',
                 rank: 'cohost',
                 type: 'exact',
                 functionality: function (chat, cmd)  {
                     try {
-                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                        basicBot.roomUtilities.chatLog("<div class=\"text\" style=\"color: rgb(239, 37, 37);\">Profile: <a href=\"https://plug.dj/@/buckeyechick\" target=\"_blank\">Click here</a></div>");
-                        setTimeout(function () { 
-                            basicBot.roomUtilities.chatLog("<a href=\"https://plug.dj/@/buckeyechick\" target=\"_blank\">Click here</a>");
-                         }, 1 * 1000);
-
+                        API.botHopDown();
                     }
                     catch(err) {
-                        basicBot.roomUtilities.logException("zigCommand: " + err.message);
+                        basicBot.roomUtilities.logException("zigaaCommand: " + err.message);
                     }
+                }
+            },
+            zigcCommand: {
+                command: 'zigc',
+                rank: 'cohost',
+                type: 'exact',
+                functionality: function (chat, cmd)  {
+                    try {
+                        basicBot.roomUtilities.validateUserCheck();
+                    }
+                    catch(err) { basicBot.roomUtilities.logException("zigcCommand: " + err.message); }
+                }
+            },
+            zigdCommand: {
+                command: 'zigd',
+                rank: 'cohost',
+                type: 'exact',
+                functionality: function (chat, cmd)  {
+                    try {
+                    //grab song testing:
+                        var songHistory = API.getHistory();
+                        //var songHistory = API.getUsers();
+                        basicBot.roomUtilities.logObject(songHistory[0], "songHistory");
+                        basicBot.roomUtilities.logDebug("Media cid: " + songHistory[0].media.cid);
+                        var newMedia = API.getMedia();
+                        basicBot.roomUtilities.logObject(newMedia, "Media");
+                        API.grabSong("7527918", songHistory[0].media.cid);
+//Request body: {"playlistID":,"historyID":"3602db39-e515-4739-aa24-0dc084f384bc"}
+//7527918
+
+                        }
+                    catch(err) { basicBot.roomUtilities.logException("zigdCommand: " + err.message); }
                 }
             },
             debugCommand: {
