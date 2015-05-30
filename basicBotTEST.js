@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.34
+/** version: 2.1.4.00040.35
 mystats
 ziga  Up
 zigaa Down
@@ -6,7 +6,6 @@ zigaa Down
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
-
 
 
 USERNAME: &LT;SPAN&GT;LEVI HOMER&LT;/SPAN&GT;&LT;BR&GT;ID: &LT;SPAN&GT;5226916&LT;/SPAN&GT;&LT;BR&GT;LEVEL: &LT;SPAN&GT;12&LT;/SPAN&GT;&LT;BR&GT;LANGUAGE: &LT;SPAN&GT;EN&LT;/SPAN&GT;&LT;BR&GT;SUBSCRIBER: &LT;SPAN&GT;NO&LT;/SPAN&GT;&LT;BR&GT;WAITLIST POSITION: &LT;SPAN&GT;NOT IN WAITLIST&LT;/SPAN&GT;&LT;BR&GT;JOINED: &LT;SPAN&GT;INVALID DATE UTC&LT;/SPAN&GT;&LT;BR&GT;RANK: &LT;SPAN&GT;
@@ -136,10 +135,11 @@ Grab - Playlist Insert:
     API.botDjNow = function () {
         try {
             if (basicBot.roomUtilities.botInWaitList() || basicBot.roomUtilities.botIsDj()) return;
+            /* This should work but doesn't:
             API.moderateAddDJ(basicBot.loggedInID);
-            /* This works too:
-            $("#dj-button").click();
             */
+            // This works for now:
+            $("#dj-button").click();
         }
         catch(err) {
             basicBot.roomUtilities.logException("botDjNow: " + err.message);
@@ -377,7 +377,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.34",
+        version: "2.1.4.00040.35",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -5760,7 +5760,7 @@ You're so fat, you could sell shade.
                                                                      grabs: user.votes.curate, 
                                                                      tasty: user.votes.tasty});
                         basicBot.userUtilities.resetDailyRolledStats(user);
-                        msg += " " + basicBot.userUtilities.getRolledStats(user);
+                        msg += " Roll Stats: " + basicBot.userUtilities.getRolledStats(user);
                         var byusername = " [ executed by " + chat.un + " ]";
                         if (chat.un !== name) msg += byusername;
                         basicBot.roomUtilities.sendChat(msg);
