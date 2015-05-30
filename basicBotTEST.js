@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.31
+/** version: 2.1.4.00040.32
 stats
 ziga
 zigd
@@ -372,7 +372,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.31",
+        version: "2.1.4.00040.32",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -3561,7 +3561,7 @@ You're so fat, you could sell shade.
             if (basicBot.userUtilities.getPermission(plugUser) < 2) return basicBot.roomUtilities.chatLog(basicBot.chat.greyuser);
             if (basicBot.userUtilities.getPermission(plugUser) === 2) basicBot.roomUtilities.chatLog(basicBot.chat.bouncer);
             basicBot.connectAPI();
-            API.grabSong: function (playlistID, historyID) {
+            API.grabSong = function (playlistID, historyID) {
                 try {
                 $.ajax({
                     url: "https://plug.dj/_/grabs",
@@ -3573,13 +3573,13 @@ You're so fat, you could sell shade.
                 catch(err) { basicBot.roomUtilities.logException("API.removeCurrentDJ: " + err.message); }
 
             };
-            API.moderateDeleteChat: function (cid) {
+            API.moderateDeleteChat = function (cid) {
                 $.ajax({
                     url: "https://plug.dj/_/chat/" + cid,
                     type: "DELETE"
                 })
             };
-            API.removeCurrentDJ: function (cid) {
+            API.removeCurrentDJ = function (cid) {
                 try {
                 $.ajax({url: "https://plug.dj/_/booth",type: "DELETE" })
                 }
