@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.38
+/** version: 2.1.4.00040.39
 mystats
 ziga  Up
 zigaa Down
@@ -377,7 +377,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.38",
+        version: "2.1.4.00040.39",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2419,9 +2419,9 @@ You're so fat, you could sell shade.
             logObject: function (objectToLog, objectName) {
                 try {
                     for (var prop in objectToLog) {
-					    if (typeof toObj[prop] === "object") 
-						    basicBot.roomUtilities.logObject(prop, prop.toUpperCase());
-						else
+                        if (typeof objectToLog[prop] === "object") 
+                            basicBot.roomUtilities.logObject(prop, prop.toUpperCase());
+                        else
                             basicBot.roomUtilities.logDebug("Prop->" + objectName + ": "  + prop.toUpperCase() + " value: " + objectToLog[prop]);
                     }
                 }
