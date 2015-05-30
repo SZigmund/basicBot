@@ -1,4 +1,7 @@
-/** version: 2.1.4.00040.29
+/** version: 2.1.4.00040.30
+stats
+ziga
+
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
 [1429226843027]
@@ -159,12 +162,12 @@ Grab - Playlist Insert:
     };
 
     var storeToStorage = function () {
-	    try {
+        try {
         basicBot.roomUtilities.logDebug("START: storeToStorage");
         localStorage.setItem("basicBotsettings", JSON.stringify(basicBot.settings));
         localStorage.setItem("basicBotRoom", JSON.stringify(basicBot.room));
-		basicBot.roomUtilities.logDebug("STORED DATA: " + JSON.stringify(basicBot.room));
-		/* todoer Figure this shit OUT!!!
+        basicBot.roomUtilities.logDebug("STORED DATA: " + JSON.stringify(basicBot.room));
+        /* todoer Figure this shit OUT!!!
              this.votes = {
                 songs: 0,
                 tasty: 0,
@@ -179,7 +182,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
                                                                      mehs: user.votes.meh, 
                                                                      grabs: user.votes.curate, 
                                                                      tasty: user.votes.tasty});
-		"DEBUG: STORED DATA: {"users":[
+        "DEBUG: STORED DATA: {"users":[
 
 {"id":5226916,"username":"LeviHomer","jointime":1432793489836,"lastActivity":1432793516617,"votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0},"tastyVote":false,"rolled":false,"lastEta":null,"beerRun":false,"inMeeting":false,"atLunch":false,"afkWarningCount":0,"badSongCount":0,"afkCountdown":null,"inRoom":true,"isMuted":false,"rollStats":{"lifeWoot":0,"lifeTotal":0,"dayWoot":0,"dayTotal":0,"DOY":-1},"lastDC":{"time":null,"leftroom":null,"resetReason":"","position":-1,"songCount":0},"lastKnownPosition":-1,"lastSeenInLine":null},
 
@@ -189,7 +192,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
 
 ],"debug":true,"afkList":[],"mutedUsers":[],"bannedUsers":[],"skippable":true,"usercommand":true,"allcommand":true,"afkInterval":485,"blacklistInterval":null,"randomInterval":490,"autoskip":false,"autoskipTimer":null,"autodisableInterval":null,"queueing":0,"queueable":true,"currentDJID":5226916,"currentMediaCid":"s88r_q7oufE","currentMediaStart":1432793520843,"historyList":[["zV8tJXRUtHg",1432771590001,1432789190910],["kvDMlk3kSYg",1432771595577,1432789198263],["a80o9o-2Vrw",1432771600675,1432789440991],["iPUmE-tne5U",1432771778731,1432789452164],["oh4wgGIN_qE",1432772008885,1432789682358],["I-h4A7bF8wQ",1432772243988,1432789917483],["ateQQc-AgEM",1432772454069,1432790127595],["8NjbGr2nk2c",1432772482569,1432785797611],["koJlIGDImiU",1432772669820],["gMhMaNAmT-U",1432772941005],["Urdlvw0SSEc",1432772997149,1432790353572],["Idhq-CLU21g",1432773206269,1432790667764],["pIgZ7gMze7A",1432773283276,1432790680529],["ojDWH2ZuwNk",1432773300309,1432790912785],["m_-Qtz70_z4",1432773508366,1432791120899],["XfR9iY5y94s",1432773732538,1432791345033],["-qCDypgAV_E",1432773955596,1432791568084],["GOsoa4AGRhY",1432774149679,1432791762136],["Zs3xXlXSOKk",1432774286758,1432791899345],["iywaBOMvYLI",1432774504988,1432786819684],["D4aaXDfSRDc",1432774730132,1432786578803],["K84j7CJIUKU",1432774971203,1432786496954],["9jK-NcRmVcw",1432775261929,1432792120504],["EkwD5rQ-_d4",1432775304460,1432792417688],["YLncxyCXPsU",1432775621560,1432792734747],["6W5pq4bIzIw",1432775832673,1432793493588],["EOvMpND2OZY",1432776509962,1432793516269],["2LlSs-IM-TM",1432776759115],["s88r_q7oufE",1432776767999,1432793520843],["IaNzrXAUHBk",1432777027430],["FTxqH0tukqQ",1432777413227],["V-xpJRwIA-Q",1432777570350],["-25ibpmTMWM",1432777809805],["3eOuK-pYhy4",1432777970651],["Nt4SNfcd72s",1432778223772],["a3ir9HC9vYg",1432779175045],["DIfPeoyLfkg",1432779456198],["6259846",1432779673921],["W6H8WcTPnWM",1432779911329],["14kLQ9TLZcI",1432780104437],["4NO-h9PFum4",1432780242613],["EUSS7bEKxsQ",1432780447681],["GeZZr_p6vB8",1432783686698],["snILjFUkk_A",1432783938989],["zQ41hqlV0Kk",1432784206229],["nfk6sCzRTbM",1432784476197],["Yynstc_bFRE",1432784738407],["T81xsEyfl3c",1432784961056],["4kHl4FoK1Ys",1432787045163],["2tptckbCokA",1432787240920],["VtNH2ftJVS8",1432787451127],["DVgBVcsAK1o",1432787723164],["jJaT7qQpaqs",1432788650757],["W9wwsxiLGbg",1432788656349],["_j5HZjg75AM",1432789182868]],"cycleTimer":479,"roomstats":{"accountName":null,"totalWoots":24,"totalCurates":6,"totalMehs":0,"tastyCount":0,"launchTime":1432771419768,"songCount":100,"chatmessages":196},"messages":{"from":[],"to":[],"message":[]},"queue":{"id":[],"position":[]},"newBlacklist":[],"newBlacklistIDs":[],"blacklistLoaded":true,"roulette":{"rouletteStatus":false,"randomRouletteMin":45,"randomRouletteMax":120,"nextRandomRoulette":"2015-05-28T08:00:29.861Z","participants":[],"countdown":null}}"
 
-		*/
+        */
         var basicBotStorageInfo = {
             time: Date.now(),
             stored: true,
@@ -367,7 +370,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.29",
+        version: "2.1.4.00040.30",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1635,7 +1638,21 @@ for(var i=wlArr.length-1; i>=0; i--){
                 var user = basicBot.userUtilities.lookupUserName(username);
                 return user.bootable;
             },
-            getRolledStats: function (roomUser, wooting) {
+            resetDailyRolledStats: function (roomUser) {
+                try {
+                var DOY = basicBot.roomUtilities.getDOY();
+                if (roomUser.rollStats.DOY !== DOY) {
+                    roomUser.rollStats.DOY = DOY;
+                    roomUser.rollStats.dayWoot = 0;
+                    roomUser.rollStats.dayTotal = 0;
+                }
+              }
+                catch(err) {
+                  basicBot.roomUtilities.logException("resetDailyRolledStats: " + err.message);
+                  return "";
+                }
+            },
+            getRolledStats: function (roomUser) {
                 try {
                    return " [Today: " + roomUser.rollStats.dayWoot + "/" + roomUser.rollStats.dayTotal + " Lifetime: " + roomUser.rollStats.lifeWoot + "/" + roomUser.rollStats.lifeTotal + "]";
               }
@@ -1646,20 +1663,15 @@ for(var i=wlArr.length-1; i>=0; i--){
             },
             updateRolledStats: function (username, wooting) {
                 try {
-                var user = basicBot.userUtilities.lookupUserName(username);
-                var DOY = basicBot.roomUtilities.getDOY();
-                if (user.rollStats.DOY !== DOY) {
-                    user.rollStats.DOY = DOY;
-                    user.rollStats.dayWoot = 0;
-                    user.rollStats.dayTotal = 0;
-                }
+                var roomUser = basicBot.userUtilities.lookupUserName(username);
+                basicBot.userUtilities.resetDailyRolledStats(roomUser);
                 if (wooting) {
-                    user.rollStats.lifeWoot++;
-                    user.rollStats.dayWoot++;
+                    roomUser.rollStats.lifeWoot++;
+                    roomUser.rollStats.dayWoot++;
                 }
-                user.rollStats.lifeTotal++;
-                user.rollStats.dayTotal++;
-                return basicBot.userUtilities.getRolledStats(user);
+                roomUser.rollStats.lifeTotal++;
+                roomUser.rollStats.dayTotal++;
+                return basicBot.userUtilities.getRolledStats(roomUser);
               }
                 catch(err) {
                   basicBot.roomUtilities.logException("updateRolledStats: " + err.message);
@@ -1871,7 +1883,7 @@ for(var i=wlArr.length-1; i>=0; i--){
             botIsDj: function () {
                 try {
                     var dj = API.getDJ();
-					var wlist = API.getWaitList();
+                    var wlist = API.getWaitList();
                     if ((typeof dj === 'undefined') && (wlist.length > 0)) return true;
                     if (typeof dj === 'undefined') return false;
                     if (dj.id === basicBot.loggedInID) return true;
@@ -1936,7 +1948,7 @@ for(var i=wlArr.length-1; i>=0; i--){
             bouncerDjing: function () {
                 try {
                     var dj = API.getDJ();
-					var wlist = API.getWaitList();
+                    var wlist = API.getWaitList();
                     if ((typeof dj === 'undefined') && (wlist.length > 0)) return true;
                     if (typeof dj === 'undefined') return false;
                     if (basicBot.userUtilities.getPermission(dj.id) > 1) return true;
@@ -2157,7 +2169,7 @@ You're so fat, you could sell shade.
                 //todo: if (chatmsg.indexOf("WTFLARRY") > -1) basicBot.roomUtilities.randomInsult();
                 //DAMNITLARRY
                 //you're an asshole larry
-				//LARRY'S AN ASS
+                //LARRY'S AN ASS
                 //LARRYSONTHE JOB - Where the fuck else would I be @user? 
                 if (chatmsg.indexOf("KNUCKLEHEADLARRY") > -1) fuComment = "I know you are but what am I %%FU%%";
                 if (chatmsg.indexOf("YOUREANASSLARRY") > -1) fuComment = "I'd like to see things from your point of view %%FU%%, too bad I can't shove my head that far up my ass!";
@@ -2823,10 +2835,10 @@ You're so fat, you could sell shade.
             compareObjectKeys: function (objA, objB) {
                 var aKeys = Object.keys(objA).sort();
                 var bKeys = Object.keys(objB).sort();
-				basicBot.roomUtilities.logDebug("JSON.stringify(aKeys): " + JSON.stringify(aKeys));
-				basicBot.roomUtilities.logDebug("JSON.stringify(bKeys): " + JSON.stringify(bKeys));
+                basicBot.roomUtilities.logDebug("JSON.stringify(aKeys): " + JSON.stringify(aKeys));
+                basicBot.roomUtilities.logDebug("JSON.stringify(bKeys): " + JSON.stringify(bKeys));
                 return JSON.stringify(aKeys) === JSON.stringify(bKeys);
-				/*
+                /*
 ["afkCountdown","afkWarningCount","atLunch","badSongCount","beerRun",
 "id","inMeeting","inRoom","isMuted","jointime","lastActivity","lastDC","lastEta","lastKnownPosition",
 "lastSeenInLine","rollStats","rolled","tastyVote","username","votes"]"
@@ -2836,35 +2848,35 @@ You're so fat, you could sell shade.
 "id","inMeeting","inRoom","isMuted","jointime","lastActivity","lastDC","lastEta","lastKnownPosition",
 "lastSeenInLine","rollStats","rolled","tastyVote","username","votes"]"
 
-				*/
-			},
+                */
+            },
             validateUserCheck: function () {
                 try {
                     basicBot.roomUtilities.logDebug("EXECUTING - validateUserCheckA");
                     var newUser = new basicBot.User(999, "Test");
-				    if (basicBot.roomUtilities.compareObjectKeys(basicBot.room.users[0], newUser) === true) return;
+                    if (basicBot.roomUtilities.compareObjectKeys(basicBot.room.users[0], newUser) === true) return;
                     basicBot.roomUtilities.logDebug("EXECUTING - validateUserCheckB");
                     if (typeof basicBot.room.users[0].rollStats.lifeWoot !== "undefined") basicBot.roomUtilities.logDebug("life woot exists.");
                     if (typeof basicBot.room.users[0].rollStats.lifeWoot === "undefined") basicBot.roomUtilities.logDebug("life woot does not exist.");
                     if (typeof basicBot.room.users[0].rollStats.streak !== "undefined") basicBot.roomUtilities.logDebug("streak does not exist.");
                     if (typeof basicBot.room.users[0].rollStats.streak !== "undefined") return;
-					if (typeof basicBot.room.users[0].bootable === "undefined") basicBot.roomUtilities.logDebug("bootable does not exist.");
-					if (typeof basicBot.room.users[0].bootable !== "undefined") basicBot.roomUtilities.logDebug("bootable exists.");
+                    if (typeof basicBot.room.users[0].bootable === "undefined") basicBot.roomUtilities.logDebug("bootable does not exist.");
+                    if (typeof basicBot.room.users[0].bootable !== "undefined") basicBot.roomUtilities.logDebug("bootable exists.");
                     basicBot.roomUtilities.logDebug("Update Required! Streak does not exist.");
                     var newUsers = [];
                     for (var i = 0; i < basicBot.room.users.length; i++) {
-					    basicBot.roomUtilities.logDebug("Adding User: " + basicBot.room.users[i].username);
+                        basicBot.roomUtilities.logDebug("Adding User: " + basicBot.room.users[i].username);
                         newUsers.push(basicBot.roomUtilities.cloneUser(basicBot.room.users[i]));
                     }
-				    basicBot.roomUtilities.logDebug("Done Adding Users.  Count: " + newUsers.length);
-					var user = newUsers[0];
+                    basicBot.roomUtilities.logDebug("Done Adding Users.  Count: " + newUsers.length);
+                    var user = newUsers[0];
                     var msg = subChat(basicBot.chat.mystats, {name: user.username, 
                                                                      songs: user.votes.songs,
                                                                      woot: user.votes.woot, 
                                                                      mehs: user.votes.meh, 
                                                                      grabs: user.votes.curate, 
                                                                      tasty: user.votes.tasty});
-					user = basicBot.room.users[0];
+                    user = basicBot.room.users[0];
                     msg += subChat(basicBot.chat.mystats, {name: user.username, 
                                                                      songs: user.votes.songs,
                                                                      woot: user.votes.woot, 
@@ -2879,37 +2891,37 @@ You're so fat, you could sell shade.
                 }
                 catch(err) { basicBot.roomUtilities.logException("validateUserCheck: " + err.message); }
             },
-			cloneObject: function (fromObj, toObj) {   			//http://stackoverflow.com/questions/728360/most-elegant-way-to-clone-a-javascript-object
+            cloneObject: function (fromObj, toObj) {               //http://stackoverflow.com/questions/728360/most-elegant-way-to-clone-a-javascript-object
                 try {
-				    if (null == fromObj || "object" != typeof fromObj) return toObj;
-					if (typeof toObj.bootable === "undefined") basicBot.roomUtilities.logDebug("bootable does not exist.");
-					if (typeof toObj.bootable !== "undefined") basicBot.roomUtilities.logDebug("bootable exists.");
+                    if (null == fromObj || "object" != typeof fromObj) return toObj;
+                    if (typeof toObj.bootable === "undefined") basicBot.roomUtilities.logDebug("bootable does not exist.");
+                    if (typeof toObj.bootable !== "undefined") basicBot.roomUtilities.logDebug("bootable exists.");
                     for (var prop in toObj) {
-				        if (fromObj.hasOwnProperty(prop)) {
-						    if (typeof toObj[prop] === "object") {
+                        if (fromObj.hasOwnProperty(prop)) {
+                            if (typeof toObj[prop] === "object") {
                                 basicBot.roomUtilities.logDebug("Cloning object: " + prop);
-							    toObj[prop] = basicBot.roomUtilities.cloneObject(fromObj[prop], toObj[prop]);
-							}
-							else {
+                                toObj[prop] = basicBot.roomUtilities.cloneObject(fromObj[prop], toObj[prop]);
+                            }
+                            else {
                                 basicBot.roomUtilities.logDebug("Cloning: " + prop);
-							    toObj[prop] = fromObj[prop];
-							}
-						}
-						else
-						    basicBot.roomUtilities.logDebug("New property: " + prop);
-					}
-					return toObj;
+                                toObj[prop] = fromObj[prop];
+                            }
+                        }
+                        else
+                            basicBot.roomUtilities.logDebug("New property: " + prop);
+                    }
+                    return toObj;
                 }
                 catch(err) { basicBot.roomUtilities.logException("cloneObject: " + err.message); }
-			},
-			cloneUser: function (user) {
+            },
+            cloneUser: function (user) {
                 try {
                     var newUser = new basicBot.User(user.id, user.username);
-					return basicBot.roomUtilities.cloneObject(newUser, user);
+                    return basicBot.roomUtilities.cloneObject(newUser, user);
                 }
                 catch(err) { basicBot.roomUtilities.logException("cloneUser: " + err.message); }
-			},
-			/*  todoer OBSOLETE DELETE
+            },
+            /*  todoer OBSOLETE DELETE
             validateUserUpdateUser: function (user) {  
                 try {
                     var newUser = new basicBot.User(user.id, user.username);
@@ -2927,7 +2939,7 @@ You're so fat, you could sell shade.
                 }
                 catch(err) { basicBot.roomUtilities.logException("validateUserUpdateUser: " + err.message); }
             },
-			*/
+            */
             exportNewBlacklistedSongs: function () {
                 var list = {};
                 for (var i = 0; i < basicBot.room.newBlacklist.length; i++) {
@@ -3240,8 +3252,8 @@ You're so fat, you could sell shade.
                     basicBot.roomUtilities.chatLog("Running Bot: " + runningBot);
                     return;
                 }
-				if (command === "/whois") return;  // Handled by Origem.
-				if (command === "/grab") return;   // Prevent infinite loop as /chat is handled by Origem.
+                if (command === "/whois") return;  // Handled by Origem.
+                if (command === "/grab") return;   // Prevent infinite loop as /grab is handled by Origem.
                 //todoer TEST
                 basicBot.commandChat.cid = "";
                 basicBot.commandChat.message = basicBot.settings.commandLiteral + command.substring(1, command.length);
@@ -3553,11 +3565,11 @@ You're so fat, you could sell shade.
                     type: "DELETE"
                 })
             };
-            API.removeCurrentDJ = function (cid) {
-                $.ajax({
-                    url: "https://plug.dj/_/booth",
-                    type: "DELETE"
-                })
+            API.removeCurrentDJ: function (cid) {
+                try {
+                $.ajax({url: "https://plug.dj/_/booth",type: "DELETE" })
+                }
+                catch(err) { basicBot.roomUtilities.logException("API.removeCurrentDJ: " + err.message); }
             };
 
             // ==========================================================
@@ -5725,6 +5737,7 @@ You're so fat, you could sell shade.
                                                                      mehs: user.votes.meh, 
                                                                      grabs: user.votes.curate, 
                                                                      tasty: user.votes.tasty});
+                        basicBot.userUtilities.resetDailyRolledStats(user);
                         msg += " " + basicBot.userUtilities.getRolledStats(user);
                         var byusername = " [ executed by " + chat.un + " ]";
                         if (chat.un !== name) msg += byusername;
@@ -5946,10 +5959,10 @@ You're so fat, you could sell shade.
                 rank: 'manager',
                 type: 'exact',
                 functionality: function (chat, cmd) {
-				try  {
+                try  {
                   basicBot.roomUtilities.sendChat("/grab");
                   //  $("#grab").click(); 
-				  }  
+                  }  
                 catch(err) {
                   basicBot.roomUtilities.logException("grabCommand: " + err.message);
                 }
@@ -6212,7 +6225,7 @@ You're so fat, you could sell shade.
                 type: 'exact',
                 functionality: function (chat, cmd)  {
                     try {
-			            API.removeCurrentDJ;
+                        API.removeCurrentDJ();
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("zigaCommand: " + err.message);
@@ -6244,7 +6257,7 @@ You're so fat, you could sell shade.
                 type: 'exact',
                 functionality: function (chat, cmd)  {
                     try {
-			            basicBot.roomUtilities.validateUserCheck();
+                        basicBot.roomUtilities.validateUserCheck();
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("zigcCommand: " + err.message);
