@@ -1,6 +1,8 @@
-/** version: 2.1.4.00040.30
+/** version: 2.1.4.00040.31
 stats
 ziga
+zigd
+grab
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -94,7 +96,7 @@ function narcisDeleteChat(a){
 
 https://plug.dj/_/grabs
 Request body: {"playlistID":7527918,"historyID":"3602db39-e515-4739-aa24-0dc084f384bc"}
-
+7527918
 Grab:
 {"playlistID":6096830,"historyID":"291d773b-c5e7-4dce-b555-5842efd94b6f"}
 Grab - Playlist Insert: 
@@ -370,7 +372,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.30",
+        version: "2.1.4.00040.31",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -3559,7 +3561,19 @@ You're so fat, you could sell shade.
             if (basicBot.userUtilities.getPermission(plugUser) < 2) return basicBot.roomUtilities.chatLog(basicBot.chat.greyuser);
             if (basicBot.userUtilities.getPermission(plugUser) === 2) basicBot.roomUtilities.chatLog(basicBot.chat.bouncer);
             basicBot.connectAPI();
-            API.moderateDeleteChat = function (cid) {
+            API.grabSong: function (playlistID, historyID) {
+                try {
+                $.ajax({
+                    url: "https://plug.dj/_/grabs",
+                    data: "{playlistID:" + playlistID + ",historyID:" + historyID + "}"
+                    type: "POST"
+                })
+                 //Request body: {"playlistID":7527918,"historyID":"3602db39-e515-4739-aa24-0dc084f384bc"}
+                }
+                catch(err) { basicBot.roomUtilities.logException("API.removeCurrentDJ: " + err.message); }
+
+            };
+            API.moderateDeleteChat: function (cid) {
                 $.ajax({
                     url: "https://plug.dj/_/chat/" + cid,
                     type: "DELETE"
@@ -6259,13 +6273,25 @@ You're so fat, you could sell shade.
                     try {
                         basicBot.roomUtilities.validateUserCheck();
                     }
-                    catch(err) {
-                        basicBot.roomUtilities.logException("zigcCommand: " + err.message);
-                    }
+                    catch(err) { basicBot.roomUtilities.logException("zigcCommand: " + err.message); }
                 }
             },
-            zigXXXCommand: {
-                
+            zigdCommand: {
+                command: 'zigd',
+                rank: 'cohost',
+                type: 'exact',
+                functionality: function (chat, cmd)  {
+                    try {
+                        var songHistory = API.getHistory();
+                        //var songHistory = API.getUsers();
+                        basicBot.roomUtilities.logObject(songHistory[0]);
+                        //API.grabSong("7527918", songHistory.id);
+//Request body: {"playlistID":,"historyID":"3602db39-e515-4739-aa24-0dc084f384bc"}
+//7527918
+
+                        }
+                    catch(err) { basicBot.roomUtilities.logException("zigdCommand: " + err.message); }
+                }
             },
             zigCommand: {
                 command: 'zig',
