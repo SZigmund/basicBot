@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.32
+/** version: 2.1.4.00040.33
 stats
 ziga
 zigd
@@ -372,7 +372,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.32",
+        version: "2.1.4.00040.33",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -3565,7 +3565,7 @@ You're so fat, you could sell shade.
                 try {
                 $.ajax({
                     url: "https://plug.dj/_/grabs",
-                    data: "{playlistID:" + playlistID + ",historyID:" + historyID + "}"
+                    data: "{playlistID:" + playlistID + ",historyID:" + historyID + "}",
                     type: "POST"
                 })
                  //Request body: {"playlistID":7527918,"historyID":"3602db39-e515-4739-aa24-0dc084f384bc"}
