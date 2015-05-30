@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.35
+/** version: 2.1.4.00040.36
 mystats
 ziga  Up
 zigaa Down
@@ -373,11 +373,11 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var runningBot = false;
     var botCreator = "Matthew aka. Yemasthui";
     var botCreatorIDs = [3837756];
-    var botIDs = [3864950, 5226916];
+    var botIDs = [3864950, 5226916,5226880];
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.35",
+        version: "2.1.4.00040.36",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1945,7 +1945,7 @@ for(var i=wlArr.length-1; i>=0; i--){
                 }
             },
             formatPercentage: function(a, b) {
-                if (a === 0) return "100%";
+                if (a === 0) return "0%";
                 if (b === 0) return "100%";
                 return (((a / b).toFixed(2)) * 100).toFixed(0) + "%";
             },
@@ -6305,9 +6305,9 @@ You're so fat, you could sell shade.
                     try {
                         var songHistory = API.getHistory();
                         //var songHistory = API.getUsers();
-                        basicBot.roomUtilities.logObject(songHistory[0].Media);
-                        basicBot.roomUtilities.logDebug("Media cid: " + songHistory[0].Media.cid);
-                        API.grabSong("7527918", songHistory[0].Media.cid);
+                        basicBot.roomUtilities.logObject(songHistory[0].media);
+                        basicBot.roomUtilities.logDebug("Media cid: " + songHistory[0].media.cid);
+                        API.grabSong("7527918", songHistory[0].media.cid);
 //Request body: {"playlistID":,"historyID":"3602db39-e515-4739-aa24-0dc084f384bc"}
 //7527918
 
