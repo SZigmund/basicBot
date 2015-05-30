@@ -1,7 +1,5 @@
-/** version: 2.1.4.00040.39
-mystats
-ziga  Up
-zigaa Down
+/** version: 2.1.4.00040.40
+zigd
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -377,7 +375,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.39",
+        version: "2.1.4.00040.40",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2420,9 +2418,9 @@ You're so fat, you could sell shade.
                 try {
                     for (var prop in objectToLog) {
                         if (typeof objectToLog[prop] === "object") 
-                            basicBot.roomUtilities.logObject(prop, prop.toUpperCase());
+                            basicBot.roomUtilities.logObject(objectToLog[prop], objectName + "." + prop.toUpperCase());
                         else
-                            basicBot.roomUtilities.logDebug("Prop->" + objectName + ": "  + prop.toUpperCase() + " value: " + objectToLog[prop]);
+                            basicBot.roomUtilities.logDebug("Prop->" + objectName.toUpperCase() + ": "  + prop.toUpperCase() + " value: " + objectToLog[prop]);
                     }
                 }
                 catch(err) { basicBot.roomUtilities.logException("logObject: " + err.message); }
@@ -6310,6 +6308,8 @@ You're so fat, you could sell shade.
                         //var songHistory = API.getUsers();
                         basicBot.roomUtilities.logObject(songHistory[0], "songHistory");
                         basicBot.roomUtilities.logDebug("Media cid: " + songHistory[0].media.cid);
+						var newMedia = API.getMedia();
+						basicBot.roomUtilities.logObject(newMedia, "Media");
                         API.grabSong("7527918", songHistory[0].media.cid);
 //Request body: {"playlistID":,"historyID":"3602db39-e515-4739-aa24-0dc084f384bc"}
 //7527918
