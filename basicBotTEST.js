@@ -1,8 +1,7 @@
-/** version: 2.1.4.00040.33
-stats
-ziga
-zigd
-grab
+/** version: 2.1.4.00040.34
+mystats
+ziga  Up
+zigaa Down
 
 START[1429226840663] NOW[1429226843027]
 [1429226840663]
@@ -137,7 +136,10 @@ Grab - Playlist Insert:
     API.botDjNow = function () {
         try {
             if (basicBot.roomUtilities.botInWaitList() || basicBot.roomUtilities.botIsDj()) return;
+            API.moderateAddDJ(basicBot.loggedInID);
+            /* This works too:
             $("#dj-button").click();
+            */
         }
         catch(err) {
             basicBot.roomUtilities.logException("botDjNow: " + err.message);
@@ -146,8 +148,11 @@ Grab - Playlist Insert:
     API.botHopDown = function () {
         try {
             if (!basicBot.roomUtilities.botInWaitList() && !basicBot.roomUtilities.botIsDj()) return;
+            $.ajax({url: "https://plug.dj/_/booth",type: "DELETE" })
+            /* This works well:
             $("#dj-button").click();
             setTimeout(function () { $("#dialog-confirm > div:nth-child(3) > div.button.submit").click(); }, 1 * 1000);
+            */
             /* This also appears to work:
             setTimeout(function () { $("#dialog-confirm > div:nth-child(3) > div.button.submit > span").click(); }, 1 * 1000);
             */
@@ -372,7 +377,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.33",
+        version: "2.1.4.00040.34",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1656,8 +1661,12 @@ for(var i=wlArr.length-1; i>=0; i--){
             },
             getRolledStats: function (roomUser) {
                 try {
-                   return " [Today: " + roomUser.rollStats.dayWoot + "/" + roomUser.rollStats.dayTotal + " Lifetime: " + roomUser.rollStats.lifeWoot + "/" + roomUser.rollStats.lifeTotal + "]";
-              }
+                   var rollStats = " [Today: " + roomUser.rollStats.dayWoot + "/" + roomUser.rollStats.dayTotal;
+                   rollStats +=  " " + basicBot.roomUtilities.formatPercentage(roomUser.rollStats.dayWoot, roomUser.rollStats.dayTotal) + "]";
+                   rollStats += " [Lifetime: " + roomUser.rollStats.lifeWoot + "/" + roomUser.rollStats.lifeTotal;
+                   rollStats +=  " " + basicBot.roomUtilities.formatPercentage(roomUser.rollStats.lifeWoot, roomUser.rollStats.lifeTotal) + "]";
+                   return rollStats;
+                }
                 catch(err) {
                   basicBot.roomUtilities.logException("getRolledStats: " + err.message);
                   return "";
@@ -1934,6 +1943,11 @@ for(var i=wlArr.length-1; i>=0; i--){
                 catch(err) {
                   basicBot.roomUtilities.logException("resetTastyCount: " + err.message);
                 }
+            },
+            formatPercentage: function(a, b) {
+                if (a === 0) return "100%";
+                if (b === 0) return "100%";
+                return (((a / b).toFixed(2)) * 100).toFixed(0) + "%";
             },
             botInWaitList: function () {
                 try {
@@ -3570,7 +3584,7 @@ You're so fat, you could sell shade.
                 })
                  //Request body: {"playlistID":7527918,"historyID":"3602db39-e515-4739-aa24-0dc084f384bc"}
                 }
-                catch(err) { basicBot.roomUtilities.logException("API.removeCurrentDJ: " + err.message); }
+                catch(err) { basicBot.roomUtilities.logException("API.grabSong: " + err.message); }
 
             };
             API.moderateDeleteChat = function (cid) {
@@ -3579,13 +3593,7 @@ You're so fat, you could sell shade.
                     type: "DELETE"
                 })
             };
-            API.removeCurrentDJ = function (cid) {
-                try {
-                $.ajax({url: "https://plug.dj/_/booth",type: "DELETE" })
-                }
-                catch(err) { basicBot.roomUtilities.logException("API.removeCurrentDJ: " + err.message); }
-            };
-
+            
             // ==========================================================
             // Detect room change and disable the bot:
             // ==========================================================
@@ -6239,10 +6247,23 @@ You're so fat, you could sell shade.
                 type: 'exact',
                 functionality: function (chat, cmd)  {
                     try {
-                        API.removeCurrentDJ();
+                        API.botDjNow();
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("zigaCommand: " + err.message);
+                    }
+                }
+            },
+            zigaaCommand: {
+                command: 'zigaa',
+                rank: 'cohost',
+                type: 'exact',
+                functionality: function (chat, cmd)  {
+                    try {
+                        API.botHopDown();
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("zigaaCommand: " + err.message);
                     }
                 }
             },
@@ -6284,8 +6305,9 @@ You're so fat, you could sell shade.
                     try {
                         var songHistory = API.getHistory();
                         //var songHistory = API.getUsers();
-                        basicBot.roomUtilities.logObject(songHistory[0]);
-                        //API.grabSong("7527918", songHistory.id);
+                        basicBot.roomUtilities.logObject(songHistory[0].Media);
+                        basicBot.roomUtilities.logDebug("Media cid: " + songHistory[0].Media.cid);
+                        API.grabSong("7527918", songHistory[0].Media.cid);
 //Request body: {"playlistID":,"historyID":"3602db39-e515-4739-aa24-0dc084f384bc"}
 //7527918
 
