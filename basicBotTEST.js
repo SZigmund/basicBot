@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.36
+/** version: 2.1.4.00040.37
 mystats
 ziga  Up
 zigaa Down
@@ -377,7 +377,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.36",
+        version: "2.1.4.00040.37",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -6305,6 +6305,7 @@ You're so fat, you could sell shade.
                     try {
                         var songHistory = API.getHistory();
                         //var songHistory = API.getUsers();
+                        basicBot.roomUtilities.logObject(songHistory[0]);
                         basicBot.roomUtilities.logObject(songHistory[0].media);
                         basicBot.roomUtilities.logDebug("Media cid: " + songHistory[0].media.cid);
                         API.grabSong("7527918", songHistory[0].media.cid);
