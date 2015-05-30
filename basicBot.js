@@ -2072,21 +2072,23 @@ If I were to slap you, it would be considered animal abuse!
 You didn't fall out of the stupid tree. You were dragged through dumbass forest.
 You're so fat, you could sell shade.
 */
-                //todo: if (chatmsg.indexOf("USUCKLARRY") > -1) basicBot.roomUtilities.randomInsult();
-                //todo: if (chatmsg.indexOf("DUCKULARRY") > -1) basicBot.roomUtilities.randomInsult();
-                //todo: if (chatmsg.indexOf("DUMBASSLARRY") > -1) basicBot.roomUtilities.randomInsult();
-                //todo: if (chatmsg.indexOf("SHITHEADLARRY") > -1) basicBot.roomUtilities.randomInsult();
-                //todo: if (chatmsg.indexOf("STUPIDASSLARRY") > -1) basicBot.roomUtilities.randomInsult();
-                //todo: if (chatmsg.indexOf("STFULARRY") > -1) basicBot.roomUtilities.randomInsult();
-                //todo: if (chatmsg.indexOf("SHUTUPLARRY") > -1) basicBot.roomUtilities.randomInsult();
-                //todo: if (chatmsg.indexOf("LARRYSHUTUP") > -1) basicBot.roomUtilities.randomInsult();
-                //todo: if (chatmsg.indexOf("STUFFITLARRY") > -1) basicBot.roomUtilities.randomInsult();
-                //todo: if (chatmsg.indexOf("LARRYSTUFFIT") > -1) basicBot.roomUtilities.randomInsult();
-                //todo: if (chatmsg.indexOf("WTFLARRY") > -1) basicBot.roomUtilities.randomInsult();
-                //DAMNITLARRY
-                //you're an asshole larry
-                //LARRY'S AN ASS
-                //LARRYSONTHE JOB - Where the fuck else would I be @user? 
+                if (chatmsg.indexOf("USUCKLARRY") > -1) fuComment = "You're still sore about the other night %%FU%% :kiss:";
+                if (chatmsg.indexOf("DUCKULARRY") > -1) fuComment = basicBot.roomUtilities.fuComment();
+                if (chatmsg.indexOf("DUMBASSLARRY") > -1) fuComment = "I'd slap you, but shit stains. %%FU%%";
+                if (chatmsg.indexOf("SHITHEADLARRY") > -1) fuComment = "I could eat a bowl of alphabet soup and shit out a smarter statement than that %%FU%%";
+                if (chatmsg.indexOf("STUPIDASSLARRY") > -1) fuComment = "I could eat a bowl of alphabet soup and shit out a smarter statement than that %%FU%%";
+                if (chatmsg.indexOf("LARRYSTFU") > -1) fuComment = "Make me %%FU%%";
+                if (chatmsg.indexOf("STFULARRY") > -1) fuComment = "Make me %%FU%%";
+                if (chatmsg.indexOf("SHUTUPLARRY") > -1) fuComment = "Make me %%FU%%";
+                if (chatmsg.indexOf("LARRYSHUTUP") > -1) fuComment = "Make me %%FU%%";
+                if (chatmsg.indexOf("STUFFITLARRY") > -1) fuComment = "That's not what you said the other night %%FU%% :kiss:";
+                if (chatmsg.indexOf("LARRYSTUFFIT") > -1) fuComment = "That's not what you said the other night %%FU%% :kiss:";
+                if (chatmsg.indexOf("WTFLARRY") > -1) fuComment = "I do what I wanna do %%FU%%";
+                if (chatmsg.indexOf("DAMNITLARRY") > -1) fuComment = "Why all the hate %%FU%%?";
+                if (chatmsg.indexOf("YOUREANASSHOLELARRY") > -1) fuComment = "You know it %%FU%%?";
+                if (chatmsg.indexOf("LARRYSANASS") > -1) fuComment = "You know it %%FU%%?";
+                if (chatmsg.indexOf("LARRYSONTHEJOB") > -1) fuComment = "Where the fuck else would I be %%FU%%?";
+                if (chatmsg.indexOf("LARRYSHARDCORE") > -1) fuComment = "You fucking know it %%FU%%";
                 if (chatmsg.indexOf("KNUCKLEHEADLARRY") > -1) fuComment = "I know you are but what am I %%FU%%";
                 if (chatmsg.indexOf("YOUREANASSLARRY") > -1) fuComment = "I'd like to see things from your point of view %%FU%%, too bad I can't shove my head that far up my ass!";
                 if (chatmsg.indexOf("WATCHYOURBACKLARRY") > -1) fuComment = "I'm scared %%FU%%";
