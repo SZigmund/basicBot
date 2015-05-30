@@ -1,4 +1,4 @@
-/** version: 2.1.4.00040.37
+/** version: 2.1.4.00040.38
 mystats
 ziga  Up
 zigaa Down
@@ -377,7 +377,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.37",
+        version: "2.1.4.00040.38",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2352,7 +2352,7 @@ You're so fat, you could sell shade.
                     //basicBot.roomUtilities.logDebug("timeRemaining: " + timeRemaining);
                     //basicBot.roomUtilities.logDebug("newMedia.duration: " + newMedia.duration);
                     //basicBot.roomUtilities.logInfo("DUR1[" + newMedia.duration + "] REMAIN[" + timeRemaining + "] DIFF[" + (newMedia.duration - timeRemaining) + "]");
-                    //basicBot.roomUtilities.logObject(newMedia);
+                    //basicBot.roomUtilities.logObject(newMedia, "media");
                     if ((newMedia.duration - timeRemaining) > 2) return true;
                     //-------------------------------------------------------------------------------------------------------------------
                     //This is to handle the plug bug where the time remaining is actually longer than the song duration:
@@ -2416,10 +2416,13 @@ You're so fat, you could sell shade.
                 }
                 catch(err) { basicBot.roomUtilities.logException("rouletteTimeRange: " + err.message); }
             },
-            logObject: function (objectToLog) {
+            logObject: function (objectToLog, objectName) {
                 try {
                     for (var prop in objectToLog) {
-                        basicBot.roomUtilities.logDebug("Prop: " + prop.toUpperCase() + " value: " + objectToLog[prop]);
+					    if (typeof toObj[prop] === "object") 
+						    basicBot.roomUtilities.logObject(prop, prop.toUpperCase());
+						else
+                            basicBot.roomUtilities.logDebug("Prop->" + objectName + ": "  + prop.toUpperCase() + " value: " + objectToLog[prop]);
                     }
                 }
                 catch(err) { basicBot.roomUtilities.logException("logObject: " + err.message); }
@@ -2444,7 +2447,7 @@ You're so fat, you could sell shade.
                     var whoismsg = "";
                     if (uid < 0) return "Undefined User";
                     var pluguser = basicBot.userUtilities.getPlugUserID(uid);
-                    //basicBot.roomUtilities.logObject(pluguser);
+                    //basicBot.roomUtilities.logObject(pluguser, "plugUser");
                     var avatar = pluguser.avatarID;
                     var level = pluguser.level;
                     var rawjoined = pluguser.joined;
@@ -2639,8 +2642,8 @@ You're so fat, you could sell shade.
                             var dcPos = roomUser.lastDC.position;
                             var miaTime = 0;
                             var resetUser = false;
-                            if (logging) basicBot.roomUtilities.logObject(roomUser);
-                            if (logging) basicBot.roomUtilities.logObject(roomUser.lastDC);
+                            if (logging) basicBot.roomUtilities.logObject(roomUser, "roomUser");
+                            if (logging) basicBot.roomUtilities.logObject(roomUser.lastDC, "LastDC");
                             if (logging) basicBot.roomUtilities.logDebug("User: " + roomUser.username + " - " + roomUser.id);
                             // If left room > 10 mins ago:
                             if (leftroom !== null) {
@@ -3425,7 +3428,7 @@ You're so fat, you could sell shade.
             //chat.uid chat.message chat.cid
                 try {
                     var cmd;
-                    //basicBot.roomUtilities.logObject(chat);
+                    //basicBot.roomUtilities.logObject(chat, "chat");
                     //basicBot.roomUtilities.logDebug("commandCheck chat: " + chat.message);
                     if (chat.message.substring(0,1) === basicBot.settings.commandLiteral) {
                         var space = chat.message.indexOf(' ');
@@ -6305,8 +6308,7 @@ You're so fat, you could sell shade.
                     try {
                         var songHistory = API.getHistory();
                         //var songHistory = API.getUsers();
-                        basicBot.roomUtilities.logObject(songHistory[0]);
-                        basicBot.roomUtilities.logObject(songHistory[0].media);
+                        basicBot.roomUtilities.logObject(songHistory[0], "songHistory");
                         basicBot.roomUtilities.logDebug("Media cid: " + songHistory[0].media.cid);
                         API.grabSong("7527918", songHistory[0].media.cid);
 //Request body: {"playlistID":,"historyID":"3602db39-e515-4739-aa24-0dc084f384bc"}
