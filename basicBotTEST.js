@@ -1,13 +1,6 @@
-/** version: 2.1.4.00040.40
-zigd
-
-START[1429226840663] NOW[1429226843027]
-[1429226840663]
-[1429226843027]
-
+/** version: 2.1.4.00040.41
 
 USERNAME: &LT;SPAN&GT;LEVI HOMER&LT;/SPAN&GT;&LT;BR&GT;ID: &LT;SPAN&GT;5226916&LT;/SPAN&GT;&LT;BR&GT;LEVEL: &LT;SPAN&GT;12&LT;/SPAN&GT;&LT;BR&GT;LANGUAGE: &LT;SPAN&GT;EN&LT;/SPAN&GT;&LT;BR&GT;SUBSCRIBER: &LT;SPAN&GT;NO&LT;/SPAN&GT;&LT;BR&GT;WAITLIST POSITION: &LT;SPAN&GT;NOT IN WAITLIST&LT;/SPAN&GT;&LT;BR&GT;JOINED: &LT;SPAN&GT;INVALID DATE UTC&LT;/SPAN&GT;&LT;BR&GT;RANK: &LT;SPAN&GT;
-
 
 USERNAME: <SPAN>LEVI HOMER</SPAN><BR>ID: <SPAN>5226916</SPAN><BR>LEVEL: <SPAN>12</SPAN><BR>LANGUAGE: <SPAN>EN</SPAN><BR>SUBSCRIBER: <SPAN>NO</SPAN><BR>WAITLIST POSITION: <SPAN>NOT IN WAITLIST</SPAN><BR>JOINED: <SPAN>INVALID DATE UTC</SPAN><BR>RANK: <SPAN>
 
@@ -375,7 +368,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.40",
+        version: "2.1.4.00040.41",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -4453,8 +4446,9 @@ You're so fat, you could sell shade.
                         if (msg.length !== cmd.length) {
                             function get_id(api_key, fixedtag, func)
                             {
+                                // Old URL: "https://api.giphy.com/v1/gifs/random?", 
                                 $.getJSON(
-                                    "https://api.giphy.com/v1/gifs/random?", 
+                                    "https://tv.giphy.com/v1/gifs/random?", 
                                     { 
                                         "format": "json",
                                         "api_key": api_key,
@@ -5984,6 +5978,7 @@ You're so fat, you could sell shade.
                 functionality: function (chat, cmd) {
                 try  {
                   basicBot.roomUtilities.sendChat("/grab");
+				  //todo: API.grabSong(....
                   //  $("#grab").click(); 
                   }  
                 catch(err) {
@@ -6304,6 +6299,7 @@ You're so fat, you could sell shade.
                 type: 'exact',
                 functionality: function (chat, cmd)  {
                     try {
+					//grab song testing:
                         var songHistory = API.getHistory();
                         //var songHistory = API.getUsers();
                         basicBot.roomUtilities.logObject(songHistory[0], "songHistory");
