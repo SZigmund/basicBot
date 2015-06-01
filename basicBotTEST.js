@@ -1,95 +1,4 @@
-/** version: 2.1.4.00040.41
-
-USERNAME: &LT;SPAN&GT;LEVI HOMER&LT;/SPAN&GT;&LT;BR&GT;ID: &LT;SPAN&GT;5226916&LT;/SPAN&GT;&LT;BR&GT;LEVEL: &LT;SPAN&GT;12&LT;/SPAN&GT;&LT;BR&GT;LANGUAGE: &LT;SPAN&GT;EN&LT;/SPAN&GT;&LT;BR&GT;SUBSCRIBER: &LT;SPAN&GT;NO&LT;/SPAN&GT;&LT;BR&GT;WAITLIST POSITION: &LT;SPAN&GT;NOT IN WAITLIST&LT;/SPAN&GT;&LT;BR&GT;JOINED: &LT;SPAN&GT;INVALID DATE UTC&LT;/SPAN&GT;&LT;BR&GT;RANK: &LT;SPAN&GT;
-
-USERNAME: <SPAN>LEVI HOMER</SPAN><BR>ID: <SPAN>5226916</SPAN><BR>LEVEL: <SPAN>12</SPAN><BR>LANGUAGE: <SPAN>EN</SPAN><BR>SUBSCRIBER: <SPAN>NO</SPAN><BR>WAITLIST POSITION: <SPAN>NOT IN WAITLIST</SPAN><BR>JOINED: <SPAN>INVALID DATE UTC</SPAN><BR>RANK: <SPAN>
-
-&
-[7/9 80% - 47/93 51%]
-.lastplayed user
-.mystats user
-.logout cohost
-currdj.votes.tasty += 1;
-
-
-var bl = [];
-function myAddFunction() {
-  bl.push(myRandomFunction());
-}
-function myDisplayFunction() {
-  var i = 0;
-  for (i=0;i<bl.length;i++) console.log(bl[i]);
-}
-function mySaveFunction() {
-localStorage["ytbl"] = JSON.stringify(bl);
-}
-function myLoadFunction() {
-  bl = JSON.parse(localStorage["ytbl"]);
-}
-
-
-
-function myAddFunction() {
-  basicBot.room.newBlacklist.push(myRandomFunction());
-}
-function myDisplayFunction() {
-  var i = 0;
-  for (i=0;i<bl.length;i++) console.log(basicBot.room.newBlacklist[i]);
-}
-function mySaveFunction() {
-localStorage["BLACKLIST"] = JSON.stringify(basicBot.room.newBlacklist);
-}
-function myLoadFunction() {
-  basicBot.room.newBlacklist = JSON.parse(localStorage["BLACKLIST"]);
-}
-
-
-<div class="from"><span class="un" style="color: rgb(238, 200, 27);">Booth Alert</span><span class="timestamp" style="display: inline;">9:09am</span></div>
-<div class="text" style="color: rgb(255, 255, 255);">Are you ready to play? you are in 1 of the waitlist!</div>
-
-<div class="text" style="color: rgb(239, 37, 37);">
-    Profile: <a href="https://plug.dj/@/buckeyechick" target="_blank">Click here</a>
-</div>
-<div class="text" style="color: rgb(239, 37, 37);">
-    Username: <span>BuckeyeChick</span><br>
-    ID: <span>4104098</span><br>
-    Level: <span>13</span><br>
-    WaitList Position: <span>Not in WaitList</span><br>
-    Joined: <span>4/25/2012, 11:26:07 PM UTC</span><br>
-    Rank: <span>Resident DJ</span><br>
-    Profile: <a href="https://plug.dj/@/buckeyechick" target="_blank">Click here</a>
-</div>
-1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456
-3 strikes and you're out (for 10 mins)
-
-.unban Dexter Nix
-.ban @Dexter Nix
-.dasboot 5226880
-
-Levis Homer: 5226916
-Dexter Nix:  5226880
-Doc_Z: 3837756
-Larry: 3864950
-
-Ban Forever:
-{"userID":5226916,"reason":1,"duration":"f"}
-
-Booth me:
-https://plug.dj/_/booth
-Remove current dj:
-https://plug.dj/_/booth/remove/3598437
- 
-function narcisDeleteChat(a){
-  $.ajax({url:"https://plug.dj/_/chat/"+a,type:"DELETE"});
-}
-
-https://plug.dj/_/grabs
-Request body: {"playlistID":7527918,"historyID":"3602db39-e515-4739-aa24-0dc084f384bc"}
-7527918
-Grab:
-{"playlistID":6096830,"historyID":"291d773b-c5e7-4dce-b555-5842efd94b6f"}
-Grab - Playlist Insert: 
-{"media":[{"id":0,"format":1,"cid":"0gpMlAiqcjU","author":"The Fratellis","title":"Henrietta","image":"//i.ytimg.com/vi/0gpMlAiqcjU/default.jpg","duration":228}],"append":false}
+/** version: 2.1.4.00041.01
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -368,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00040.41",
+        version: "2.1.4.00041.01",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2163,21 +2072,23 @@ If I were to slap you, it would be considered animal abuse!
 You didn't fall out of the stupid tree. You were dragged through dumbass forest.
 You're so fat, you could sell shade.
 */
-                //todo: if (chatmsg.indexOf("USUCKLARRY") > -1) basicBot.roomUtilities.randomInsult();
-                //todo: if (chatmsg.indexOf("DUCKULARRY") > -1) basicBot.roomUtilities.randomInsult();
-                //todo: if (chatmsg.indexOf("DUMBASSLARRY") > -1) basicBot.roomUtilities.randomInsult();
-                //todo: if (chatmsg.indexOf("SHITHEADLARRY") > -1) basicBot.roomUtilities.randomInsult();
-                //todo: if (chatmsg.indexOf("STUPIDASSLARRY") > -1) basicBot.roomUtilities.randomInsult();
-                //todo: if (chatmsg.indexOf("STFULARRY") > -1) basicBot.roomUtilities.randomInsult();
-                //todo: if (chatmsg.indexOf("SHUTUPLARRY") > -1) basicBot.roomUtilities.randomInsult();
-                //todo: if (chatmsg.indexOf("LARRYSHUTUP") > -1) basicBot.roomUtilities.randomInsult();
-                //todo: if (chatmsg.indexOf("STUFFITLARRY") > -1) basicBot.roomUtilities.randomInsult();
-                //todo: if (chatmsg.indexOf("LARRYSTUFFIT") > -1) basicBot.roomUtilities.randomInsult();
-                //todo: if (chatmsg.indexOf("WTFLARRY") > -1) basicBot.roomUtilities.randomInsult();
-                //DAMNITLARRY
-                //you're an asshole larry
-                //LARRY'S AN ASS
-                //LARRYSONTHE JOB - Where the fuck else would I be @user? 
+                if (chatmsg.indexOf("USUCKLARRY") > -1) fuComment = "You're still sore about the other night %%FU%% :kiss:";
+                if (chatmsg.indexOf("DUCKULARRY") > -1) fuComment = basicBot.roomUtilities.fuComment();
+                if (chatmsg.indexOf("DUMBASSLARRY") > -1) fuComment = "I'd slap you, but shit stains. %%FU%%";
+                if (chatmsg.indexOf("SHITHEADLARRY") > -1) fuComment = "I could eat a bowl of alphabet soup and shit out a smarter statement than that %%FU%%";
+                if (chatmsg.indexOf("STUPIDASSLARRY") > -1) fuComment = "I could eat a bowl of alphabet soup and shit out a smarter statement than that %%FU%%";
+                if (chatmsg.indexOf("LARRYSTFU") > -1) fuComment = "Make me %%FU%%";
+                if (chatmsg.indexOf("STFULARRY") > -1) fuComment = "Make me %%FU%%";
+                if (chatmsg.indexOf("SHUTUPLARRY") > -1) fuComment = "Make me %%FU%%";
+                if (chatmsg.indexOf("LARRYSHUTUP") > -1) fuComment = "Make me %%FU%%";
+                if (chatmsg.indexOf("STUFFITLARRY") > -1) fuComment = "That's not what you said the other night %%FU%% :kiss:";
+                if (chatmsg.indexOf("LARRYSTUFFIT") > -1) fuComment = "That's not what you said the other night %%FU%% :kiss:";
+                if (chatmsg.indexOf("WTFLARRY") > -1) fuComment = "I do what I wanna do %%FU%%";
+                if (chatmsg.indexOf("DAMNITLARRY") > -1) fuComment = "Why all the hate %%FU%%?";
+                if (chatmsg.indexOf("YOUREANASSHOLELARRY") > -1) fuComment = "You know it %%FU%%?";
+                if (chatmsg.indexOf("LARRYSANASS") > -1) fuComment = "You know it %%FU%%?";
+                if (chatmsg.indexOf("LARRYSONTHEJOB") > -1) fuComment = "Where the fuck else would I be %%FU%%?";
+                if (chatmsg.indexOf("LARRYSHARDCORE") > -1) fuComment = "You fucking know it %%FU%%";
                 if (chatmsg.indexOf("KNUCKLEHEADLARRY") > -1) fuComment = "I know you are but what am I %%FU%%";
                 if (chatmsg.indexOf("YOUREANASSLARRY") > -1) fuComment = "I'd like to see things from your point of view %%FU%%, too bad I can't shove my head that far up my ass!";
                 if (chatmsg.indexOf("WATCHYOURBACKLARRY") > -1) fuComment = "I'm scared %%FU%%";
@@ -5858,6 +5769,7 @@ You're so fat, you could sell shade.
                     if (msg.length === cmd.length) return;
                     //basicBot.roomUtilities.logDebug("echoCommand:4");
                     var msgContent = msg.substring(cmd.length + 1);
+                    msgContent = msgContent.replace(/&#39;/g, "'");
                     basicBot.roomUtilities.logInfo(chat.un + " used echo: " + msgContent);
                     return basicBot.roomUtilities.sendChat(msgContent);
                     }
@@ -5978,7 +5890,7 @@ You're so fat, you could sell shade.
                 functionality: function (chat, cmd) {
                 try  {
                   basicBot.roomUtilities.sendChat("/grab");
-				  //todo: API.grabSong(....
+                  //todo: API.grabSong(....
                   //  $("#grab").click(); 
                   }  
                 catch(err) {
@@ -6263,25 +6175,6 @@ You're so fat, you could sell shade.
                     }
                 }
             },
-            zigbCommand: {
-                command: 'zigb',
-                rank: 'cohost',
-                type: 'exact',
-                functionality: function (chat, cmd)  {
-                    try {
-                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                        basicBot.roomUtilities.chatLog("<div class=\"text\" style=\"color: rgb(239, 37, 37);\">Profile: <a href=\"https://plug.dj/@/buckeyechick\" target=\"_blank\">Click here</a></div>");
-                        setTimeout(function () { 
-                            basicBot.roomUtilities.chatLog("<a href=\"https://plug.dj/@/buckeyechick\" target=\"_blank\">Click here</a>");
-                         }, 1 * 1000);
-
-                    }
-                    catch(err) {
-                        basicBot.roomUtilities.logException("zigbCommand: " + err.message);
-                    }
-                }
-            },
             zigcCommand: {
                 command: 'zigc',
                 rank: 'cohost',
@@ -6299,38 +6192,19 @@ You're so fat, you could sell shade.
                 type: 'exact',
                 functionality: function (chat, cmd)  {
                     try {
-					//grab song testing:
+                    //grab song testing:
                         var songHistory = API.getHistory();
                         //var songHistory = API.getUsers();
                         basicBot.roomUtilities.logObject(songHistory[0], "songHistory");
                         basicBot.roomUtilities.logDebug("Media cid: " + songHistory[0].media.cid);
-						var newMedia = API.getMedia();
-						basicBot.roomUtilities.logObject(newMedia, "Media");
+                        var newMedia = API.getMedia();
+                        basicBot.roomUtilities.logObject(newMedia, "Media");
                         API.grabSong("7527918", songHistory[0].media.cid);
 //Request body: {"playlistID":,"historyID":"3602db39-e515-4739-aa24-0dc084f384bc"}
 //7527918
 
                         }
                     catch(err) { basicBot.roomUtilities.logException("zigdCommand: " + err.message); }
-                }
-            },
-            zigCommand: {
-                command: 'zig',
-                rank: 'cohost',
-                type: 'exact',
-                functionality: function (chat, cmd)  {
-                    try {
-                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                        basicBot.roomUtilities.chatLog("<div class=\"text\" style=\"color: rgb(239, 37, 37);\">Profile: <a href=\"https://plug.dj/@/buckeyechick\" target=\"_blank\">Click here</a></div>");
-                        setTimeout(function () { 
-                            basicBot.roomUtilities.chatLog("<a href=\"https://plug.dj/@/buckeyechick\" target=\"_blank\">Click here</a>");
-                         }, 1 * 1000);
-
-                    }
-                    catch(err) {
-                        basicBot.roomUtilities.logException("zigCommand: " + err.message);
-                    }
                 }
             },
             debugCommand: {
