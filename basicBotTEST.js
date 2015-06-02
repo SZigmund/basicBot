@@ -1,4 +1,4 @@
-/** version: 2.1.4.00041.02
+/** version: 2.1.4.00041.03
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00041.02",
+        version: "2.1.4.00041.03",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -6100,7 +6100,7 @@ You're so fat, you could sell shade.
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                        basicBot.roomUtilities.sendChat("Explain ROULETTE: Managers can start the game by typing .roulette.  Type .join to join the game. The winner gets moved to a random place in line. It is a Russian roulette in that the new position is random. So, when you win you may get moved back in line.");
+                        basicBot.roomUtilities.sendChat("Explain ROULETTE: Managers type .roulette to start the game.  Type .join to join the game. The winner gets moved to a random place in line. It is a Russian roulette in that the new position is random. So, when you win you may get moved back in line.");
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("exroulettecommand: " + err.message);
@@ -6115,7 +6115,7 @@ You're so fat, you could sell shade.
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                        basicBot.roomUtilities.sendChat("Explain TASTY POINTS: Tasty points is just another way for your fellow DJs to say nice play.  Since most of us run auto-woot extentions it is just a nice way to let others know you really appreciate their selection.");
+                        basicBot.roomUtilities.sendChat("Explain TASTY POINTS: This is another way to let your fellow DJs know you enjoy their play.  Since most of us run auto-woot extentions it is just a nice way to let others know when they play an extra tasty selection.");
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("extastycommand: " + err.message);
@@ -6130,7 +6130,7 @@ You're so fat, you could sell shade.
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                        basicBot.roomUtilities.sendChat("Explain MEETING: If you have to go afk type, .meeting or .lunch and Larry will remove you from line. When you return hop back in line and Larry will restore you to your position in line. Waring: If you leave the room for over 10 mins you'll lose your spot.");
+                        basicBot.roomUtilities.sendChat("Explain MEETING: If you have to go afk type, .meeting or .lunch and Larry will remove you from line. When you return hop back in line and Larry will restore your position in line. If you leave the room for over 10 mins you'll lose your spot.");
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("exmeeting: " + err.message);
@@ -6163,8 +6163,6 @@ You're so fat, you could sell shade.
                         else {
 						
                             if(chat.message.length === cmd.length) return basicBot.roomUtilities.chatLog('/me No user specified.');
-                basicBot.roomUtilities.chatLog(newUserWhoisInfo);
-                basicBot.roomUtilities.logDebug("WelcomeBack: " + user.id + ": " + user.username);
                             var name = chat.message.substring(cmd.length + 2);
                             var roomUser = basicBot.userUtilities.lookupUserName(name);
                             if(typeof roomUser === 'boolean') return basicBot.roomUtilities.chatLog('/me Invalid user specified.');
