@@ -1,4 +1,4 @@
-/** version: 2.1.4.00042
+/** version: 2.1.4.00043
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00042",
+        version: "2.1.4.00043",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2416,7 +2416,7 @@ You're so fat, you could sell shade.
                               'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
                               'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
                               'hip','soul','soulful','cover','yummy','ohyeah','twist','shout','trippy','hot','country','stellar','smoove','pantydropper','baby','mmm','tits','hooters',
-                              'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell','lesbian','lesbians','niceconnect','connect'];
+                              'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell','lesbian','lesbians','niceconnect','connect','kazoo','win'];
                     if (commandList.indexOf(cmd) < 0) return true;
                     return false;
                 }
@@ -6065,7 +6065,7 @@ You're so fat, you could sell shade.
                           'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
                           'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
                           'hip','soul','soulful','cover','yummy','ohyeah','twist','shout','trippy','hot','country','stellar','smoove','pantydropper','baby','mmm','tits','hooters',
-                          'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell','lesbian','lesbians','niceconnect','connect'],
+                          'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell','lesbian','lesbians','niceconnect','connect','kazoo','win'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
@@ -6093,8 +6093,8 @@ You're so fat, you could sell shade.
                 }
             },
             exrouletteCommand: {
-                command: 'exroulette',
-                rank: 'user',
+                command: ['exroulette','roulette?'],
+                rank: 'residentdj',
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     try {
@@ -6108,8 +6108,8 @@ You're so fat, you could sell shade.
                 }
             },
             extastyCommand: {
-                command: 'extasty',
-                rank: 'user',
+                command: ['extasty','tasty?'],
+                rank: 'residentdj',
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     try {
@@ -6123,8 +6123,8 @@ You're so fat, you could sell shade.
                 }
             },
             exmeetingCommand: {
-                command: ['exmeeting', 'exlunch', 'exbeerrun'],
-                rank: 'user',
+                command: ['exmeeting', 'exlunch', 'exbeerrun','meeting?', 'lunch?', 'beerrun?'],
+                rank: 'residentdj',
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     try {
@@ -6138,8 +6138,8 @@ You're so fat, you could sell shade.
                 }
             },
             exrollCommand: {
-                command: 'exroll',
-                rank: 'user',
+                command: ['exroll','roll?'],
+                rank: 'residentdj',
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     try {
