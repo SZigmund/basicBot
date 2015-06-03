@@ -2416,7 +2416,7 @@ You're so fat, you could sell shade.
                               'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
                               'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
                               'hip','soul','soulful','cover','yummy','ohyeah','twist','shout','trippy','hot','country','stellar','smoove','pantydropper','baby','mmm','tits','hooters',
-                              'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell'];
+                              'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell','lesbian','lesbians','niceconnect','connect'];
                     if (commandList.indexOf(cmd) < 0) return true;
                     return false;
                 }
@@ -6065,7 +6065,7 @@ You're so fat, you could sell shade.
                           'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
                           'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
                           'hip','soul','soulful','cover','yummy','ohyeah','twist','shout','trippy','hot','country','stellar','smoove','pantydropper','baby','mmm','tits','hooters',
-                          'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell'],
+                          'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell','lesbian','lesbians','niceconnect','connect'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
