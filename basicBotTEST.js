@@ -1,4 +1,4 @@
-/** version: 2.1.4.00041.03
+/** version: 2.1.4.00042.01
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00041.03",
+        version: "2.1.4.00042.01",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -747,7 +747,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
             ],
             randomCommentArray: [
             "I told him we already got one",
-			"Religion is like a penis, it's fine to have one and be proud of it, but when you take it out and start waving it in my face, that's where we have a problem.",
+            "Religion is like a penis, it's fine to have one and be proud of it, but when you take it out and start waving it in my face, that's where we have a problem.",
             "You don't think she'd yada yada sex?....I've yada yada'd sex.",
             "@Bacon_Cheeseburger time for another PBR!",
             "You can't make somebody love you.  You can only stalk them and hope for the best",
@@ -2416,7 +2416,7 @@ You're so fat, you could sell shade.
                               'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
                               'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
                               'hip','soul','soulful','cover','yummy','ohyeah','twist','shout','trippy','hot','country','stellar','smoove','pantydropper','baby','mmm','tits','hooters',
-                              'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell'];
+                              'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell','lesbian','lesbians','niceconnect','connect','kazoo','win'];
                     if (commandList.indexOf(cmd) < 0) return true;
                     return false;
                 }
@@ -6065,7 +6065,7 @@ You're so fat, you could sell shade.
                           'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
                           'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
                           'hip','soul','soulful','cover','yummy','ohyeah','twist','shout','trippy','hot','country','stellar','smoove','pantydropper','baby','mmm','tits','hooters',
-                          'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell'],
+                          'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell','lesbian','lesbians','niceconnect','connect','kazoo','win'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
@@ -6092,9 +6092,9 @@ You're so fat, you could sell shade.
                     }
                 }
             },
-			exrouletteCommand: {
-                command: 'exroulette',
-                rank: 'user',
+            exrouletteCommand: {
+                command: ['exroulette','roulette?'],
+                rank: 'residentdj',
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     try {
@@ -6106,10 +6106,10 @@ You're so fat, you could sell shade.
                         basicBot.roomUtilities.logException("exroulettecommand: " + err.message);
                     }
                 }
-			},
-			extastyCommand: {
-                command: 'extasty',
-                rank: 'user',
+            },
+            extastyCommand: {
+                command: ['extasty','tasty?'],
+                rank: 'residentdj',
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     try {
@@ -6121,10 +6121,10 @@ You're so fat, you could sell shade.
                         basicBot.roomUtilities.logException("extastycommand: " + err.message);
                     }
                 }
-			},
-			exmeetingCommand: {
-                command: ['exmeeting', 'exlunch', 'exbeerrun'],
-                rank: 'user',
+            },
+            exmeetingCommand: {
+                command: ['exmeeting', 'exlunch', 'exbeerrun','meeting?', 'lunch?', 'beerrun?'],
+                rank: 'residentdj',
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     try {
@@ -6136,10 +6136,10 @@ You're so fat, you could sell shade.
                         basicBot.roomUtilities.logException("exmeeting: " + err.message);
                     }
                 }
-			},
-			exrollCommand: {
-                command: 'exroll',
-                rank: 'user',
+            },
+            exrollCommand: {
+                command: ['exroll','roll?'],
+                rank: 'residentdj',
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     try {
@@ -6151,8 +6151,8 @@ You're so fat, you could sell shade.
                         basicBot.roomUtilities.logException("exrollcommand: " + err.message);
                     }
                 }
-			},
-			loguserCommand: {
+            },
+            loguserCommand: {
                 command: 'loguser',
                 rank: 'bouncer',
                 type: 'startsWith',
@@ -6161,22 +6161,22 @@ You're so fat, you could sell shade.
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                         else {
-						
+                        
                             if(chat.message.length === cmd.length) return basicBot.roomUtilities.chatLog('/me No user specified.');
                             var name = chat.message.substring(cmd.length + 2);
                             var roomUser = basicBot.userUtilities.lookupUserName(name);
                             if(typeof roomUser === 'boolean') return basicBot.roomUtilities.chatLog('/me Invalid user specified.');
-							var resetDebug = false;
-							if (basicBot.room.debug === false) resetDebug = true;
-							basicBot.room.debug = true;
-							basicBot.roomUtilities.logObject(roomUser, "User");
-							basicBot.roomUtilities.logDebug("JSON: " + JSON.stringify(roomUser));
-							if (resetDebug) basicBot.room.debug = false;
+                            var resetDebug = false;
+                            if (basicBot.room.debug === false) resetDebug = true;
+                            basicBot.room.debug = true;
+                            basicBot.roomUtilities.logObject(roomUser, "User");
+                            basicBot.roomUtilities.logDebug("JSON: " + JSON.stringify(roomUser));
+                            if (resetDebug) basicBot.room.debug = false;
                         }
                     }
                     catch(err) { basicBot.roomUtilities.logException("loguserCommand: " + err.message); }
                 }
-			},
+            },
             nsfwCommand: {   //Added 04/22/2015 Zig
                 command: 'nsfw',
                 rank: 'user',
