@@ -194,6 +194,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
             basicBot.roomUtilities.logDebug("BL LOADED: TRUE");
             var elapsed = Date.now() - JSON.parse(info).time;
             basicBot.room.users = room.users;
+			basicBot.room.historyList = room.historyList;
             basicBot.roomUtilities.logDebug("basicBot.room.users.length: " + basicBot.room.users.length + " TIME: " + JSON.parse(info).time);
             if ((elapsed < 1 * 60 * 60 * 1000)) {
                 basicBot.roomUtilities.chatLog(basicBot.chat.retrievingdata);
@@ -201,7 +202,6 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
                     basicBot.settings[prop] = settings[prop];
                 }
                 basicBot.room.afkList = room.afkList;
-                basicBot.room.historyList = room.historyList;
                 basicBot.room.mutedUsers = room.mutedUsers;
                 basicBot.room.autoskip = room.autoskip;
                 basicBot.room.roomstats = room.roomstats;
@@ -572,7 +572,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
             tastyCommentArray: [
             ":cake: *** Tasty point for you, you go Glen Coco!  (%%POINTFROM%%) *** :cake:",
             ":cake: *** I don't feel I have to explain my fake points to you Warren. (%%POINTFROM%%) *** :cake:",
-            ":cake: *** %%POINTFROM%% things this song is aca-awesome *** :cake:",
+            ":cake: *** %%POINTFROM%% thinks this song is aca-awesome *** :cake:",
             ":cake: *** %%POINTFROM%% thinks this song is pretty fetch. Stop trying to make fetch happen. *** :cake:",
             ":cake: *** %%POINTFROM%% thinks you might just be funky cold medina. *** :cake:",
             ":cake: *** That tasty point from %%POINTFROM%% really brings the room together. *** :cake:",
@@ -2166,6 +2166,7 @@ You're so fat, you could sell shade.
                 if (chatmsg.indexOf("LARRYDOESNOTTAKEANYSHIT") > -1) fuComment = "Damn skippy I don't %%FU%%.";
                 if (chatmsg.indexOf("SHITHEADLARRY") > -1) fuComment = "I know you are but what am I %%FU%%?";
                 if (chatmsg.indexOf("LARRYSASHITHEAD") > -1) fuComment = "Takes one to know one %%FU%%!";
+                if (chatmsg.indexOf("LOLLARRY") > -1) fuComment = "I know, %%FU%%, I crack my shit up too!! :laughing:";
                 
                 if (chatmsg.indexOf("LARRYFU") > -1) fuComment = basicBot.roomUtilities.fuComment();
                 if (chatmsg.indexOf("LARRYFUCKU") > -1) fuComment = basicBot.roomUtilities.fuComment();
@@ -2416,7 +2417,7 @@ You're so fat, you could sell shade.
                               'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
                               'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
                               'hip','soul','soulful','cover','yummy','ohyeah','twist','shout','trippy','hot','country','stellar','smoove','pantydropper','baby','mmm','tits','hooters',
-                              'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell','lesbian','lesbians','niceconnect','connect','kazoo','win'];
+                              'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell','lesbian','lesbians','niceconnect','connect','kazoo','win','webejammin'];
                     if (commandList.indexOf(cmd) < 0) return true;
                     return false;
                 }
@@ -6065,7 +6066,7 @@ You're so fat, you could sell shade.
                           'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
                           'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
                           'hip','soul','soulful','cover','yummy','ohyeah','twist','shout','trippy','hot','country','stellar','smoove','pantydropper','baby','mmm','tits','hooters',
-                          'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell','lesbian','lesbians','niceconnect','connect','kazoo','win'],
+                          'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell','lesbian','lesbians','niceconnect','connect','kazoo','win','webejammin'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
