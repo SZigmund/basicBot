@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.11
+/** version: 2.1.4.00043.12
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.11",
+        version: "2.1.4.00043.12",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -5210,8 +5210,8 @@ You're so fat, you could sell shade.
                     }
                 }
             },
-            bansonglistCommand: {
-                command: 'bansonglist',
+            banlistCommand: {
+                command: 'banlist',
                 rank: 'manager',
                 type: 'exact',
                 functionality: function (chat, cmd) {
@@ -5219,12 +5219,32 @@ You're so fat, you could sell shade.
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                         basicBot.roomUtilities.logNewBlacklistedSongs();
+                        for (var i = 0; i < basicBot.room.newBlacklist.length; i++) {
+                            var track = basicBot.room.newBlacklist[i];
+                            basicBot.roomUtilities.chatLog(track.mid + ": [" + track.author + " - " + track.title + "]");
+						}
+                        for (var i = 0; i < basicBot.room.newBlacklist.length; i++) {
+                            var track = basicBot.room.newBlacklist[i];
+                            basicBot.roomUtilities.chatLog(track.mid + ": [" + track.author + " - " + track.title + "]");
+						}
+                        for (var i = 0; i < basicBot.room.newBlacklist.length; i++) {
+                            var track = basicBot.room.newBlacklist[i];
+                            basicBot.roomUtilities.chatLog(track.mid + ": [" + track.author + " - " + track.title + "]");
+						}
+                        for (var i = 0; i < basicBot.room.newBlacklist.length; i++) {
+                            var track = basicBot.room.newBlacklist[i];
+                            basicBot.roomUtilities.chatLog(track.mid + ": [" + track.author + " - " + track.title + "]");
+						}
+                        for (var i = 0; i < basicBot.room.newBlacklist.length; i++) {
+                            var track = basicBot.room.newBlacklist[i];
+                            basicBot.roomUtilities.chatLog(track.mid + ": [" + track.author + " - " + track.title + "]");
+						}
                         for (var track in basicBot.room.newBlacklist) {
                             basicBot.roomUtilities.chatLog(track.mid + ": [" + track.author + " - " + track.title + "]");
                             basicBot.roomUtilities.logObject(track, "Track");
                         }
                     }
-                    catch (err) { basicBot.roomUtilities.logException("bansonglist: " + err.message); }
+                    catch (err) { basicBot.roomUtilities.logException("banlist: " + err.message); }
                 }
             },
             oobCommand: {
