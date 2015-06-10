@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.09
+/** version: 2.1.4.00043.10
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.09",
+        version: "2.1.4.00043.10",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -5210,6 +5210,21 @@ You're so fat, you could sell shade.
                     }
                 }
             },
+            bansonglistCommand: {
+                command: 'bansonglist',
+                rank: 'manager',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        for (var track in basicBot.room.newBlacklist) {
+						    basicBot.roomUtilities.chatLog(track.mid + ": [" + track.author + " - " + track.title + "]");
+						}
+                    }
+                    catch (err) { basicBot.roomUtilities.logException("bansonglist: " + err.message); }
+                }
+            },
             oobCommand: {
                 command: ['oob','bansong','songban','blacklist','bl'],
                 rank: 'bouncer',
@@ -6102,6 +6117,22 @@ You're so fat, you could sell shade.
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("exmeh: " + err.message);
+                    }
+                }
+            },
+			//todoer delete after having fun with this:
+            autorollCommand: {
+                command: 'autoroll',
+                rank: 'residentdj',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        basicBot.roomUtilities.sendChat("Auto-Roll feature enabled for: " + chat.un);
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("autoroll: " + err.message);
                     }
                 }
             },
