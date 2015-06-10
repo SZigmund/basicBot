@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.06
+/** version: 2.1.4.00043.07
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.06",
+        version: "2.1.4.00043.07",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -3061,13 +3061,10 @@ You're so fat, you could sell shade.
             var mid = obj.media.format + ':' + obj.media.cid;
             if (basicBot.settings.blacklistEnabled) {
                 if (basicBot.room.newBlacklistIDs.indexOf(mid) > -1) {
-                    setTimeout(function () { basicBot.roomUtilities.sendChat(basicBot.chat.isblacklisted); }, 1000);
+                    setTimeout(function () { basicBot.roomUtilities.sendChat(subChat(basicBot.chat.isblacklisted, {name: obj.dj.username, song: API.getMedia().title})); }, 1000);
                     basicBot.settings.suppressSongStats = true;
                     setTimeout(function () { basicBot.settings.suppressSongStats = false }, 5000);
                     basicBot.userUtilities.skipBadSong(obj.dj.id, basicBot.loggedInName, "Blacklisted song");
-                    setTimeout(function () {
-                        basicBot.roomUtilities.sendChat("@" + obj.dj.username + ": your song has been skipped. Please read the rules before you play your next song.");    
-                    }, 1500);
                     setTimeout(function () {
                         basicBot.roomUtilities.sendChat(subChat(basicBot.chat.roomrules, {link: basicBot.settings.rulesLink}));
                     }, 2000);
