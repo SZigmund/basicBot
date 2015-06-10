@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.07
+/** version: 2.1.4.00043.08
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.07",
+        version: "2.1.4.00043.08",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2363,7 +2363,7 @@ You're so fat, you could sell shade.
                               'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
                               'hip','soul','soulful','cover','yummy','ohyeah','twist','shout','trippy','hot','country','stellar','smoove','pantydropper','baby','mmm','tits','hooters',
                               'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell','lesbian','lesbians','niceconnect','connect','kazoo','win','webejammin',
-                              'bellyrub','groove','gold','golden','twofer','phat','punkrock','punkrocker','merp','derp','herp-a-derp','narf','amazing','doabarrellroll'];
+                              'bellyrub','groove','gold','golden','twofer','phat','punkrock','punkrocker','merp','derp','herp-a-derp','narf','amazing','doabarrellroll','plusone'];
                     if (commandList.indexOf(cmd) < 0) return true;
                     return false;
                 }
@@ -3060,8 +3060,9 @@ You're so fat, you could sell shade.
             /* todo FOREACH LOOP */
             var mid = obj.media.format + ':' + obj.media.cid;
             if (basicBot.settings.blacklistEnabled) {
+			    var banMsg = subChat(basicBot.chat.isblacklisted, {name: obj.dj.username, song: API.getMedia().title});
                 if (basicBot.room.newBlacklistIDs.indexOf(mid) > -1) {
-                    setTimeout(function () { basicBot.roomUtilities.sendChat(subChat(basicBot.chat.isblacklisted, {name: obj.dj.username, song: API.getMedia().title})); }, 1000);
+                    setTimeout(function () { basicBot.roomUtilities.sendChat(banMsg); }, 1000);
                     basicBot.settings.suppressSongStats = true;
                     setTimeout(function () { basicBot.settings.suppressSongStats = false }, 5000);
                     basicBot.userUtilities.skipBadSong(obj.dj.id, basicBot.loggedInName, "Blacklisted song");
@@ -6012,7 +6013,7 @@ You're so fat, you could sell shade.
                           'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
                           'hip','soul','soulful','cover','yummy','ohyeah','twist','shout','trippy','hot','country','stellar','smoove','pantydropper','baby','mmm','tits','hooters',
                           'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell','lesbian','lesbians','niceconnect','connect','kazoo','win','webejammin',
-                          'bellyrub','groove','gold','golden','twofer','phat','punkrock','punkrocker','merp','derp','herp-a-derp','narf','amazing','doabarrellroll'],
+                          'bellyrub','groove','gold','golden','twofer','phat','punkrock','punkrocker','merp','derp','herp-a-derp','narf','amazing','doabarrellroll','plusone'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
