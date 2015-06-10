@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.14
+/** version: 2.1.4.00043.16
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.14",
+        version: "2.1.4.00043.16",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -5210,6 +5210,32 @@ You're so fat, you could sell shade.
                     }
                 }
             },
+            banremoveCommand: {
+                command: 'banremove',
+                rank: 'manager',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        basicBot.roomUtilities.logNewBlacklistedSongs();
+                        var msg = chat.message;
+
+                        if (msg.length === cmd.length) basicBot.roomUtilities.sendChat("Missing mid to remove...");
+                        var midToRemove = msg.substring(cmd.length + 1);
+                        basicBot.roomUtilities.logDebug("Keyword: " + midToRemove);
+                        var idxToRemove = basicBot.room.newBlacklistIDs.indexOf(mid);
+                        if (idxToRemove < 0) basicBot.roomUtilities.sendChat("Could not locate mid: " + midToRemove);
+                        if (basicBot.room.newBlacklist.length !== basicBot.room.newBlacklistIDs.length) basicBot.roomUtilities.sendChat("Could not remove song ban, corrupt song list info.");
+                        var track = basicBot.room.newBlacklist[idxToRemove];
+                        var msg = "Song removed from ban list: [" + track.author + " - " + track.title + "] idx: " + idxToRemove;
+                        //basicBot.room.newBlacklist.splice(idxToRemove, 1);  // Remove 1 item from list
+                        //basicBot.room.newBlacklist.splice(idxToRemove, 1);  // Remove 1 item from list
+                        basicBot.roomUtilities.sendChat(msg);
+                    }
+                    catch (err) { basicBot.roomUtilities.logException("banremove: " + err.message); }
+                }
+            },
             banlistCommand: {
                 command: 'banlist',
                 rank: 'manager',
@@ -5221,13 +5247,13 @@ You're so fat, you could sell shade.
                         basicBot.roomUtilities.logNewBlacklistedSongs();
                         var keyword = "";
                         var msg = chat.message;
-                        if (msg.length > cmd.length) keyword = msg.substring(cmd.length + 2).toUpperCase();
+                        if (msg.length > cmd.length) keyword = msg.substring(cmd.length + 1).toUpperCase();
                         basicBot.roomUtilities.logDebug("Keyword: " + keyword);
                         for (var i = 0; i < basicBot.room.newBlacklist.length; i++) {
                             var track = basicBot.room.newBlacklist[i];
                             var trackinfo = track.title.toUpperCase() + track.author.toUpperCase();
                             if (trackinfo.indexOf(keyword) > -1)
-                                basicBot.roomUtilities.chatLog(track.mid + ": [" + track.author + " - " + track.title + "]");
+                                basicBot.roomUtilities.chatLog("[" + track.author + " - " + track.title + "] -> " + track.mid);
                         }
                         /*
                         for (var track in basicBot.room.newBlacklist) {
