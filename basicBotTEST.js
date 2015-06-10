@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.23
+/** version: 2.1.4.00043.24
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.23",
+        version: "2.1.4.00043.24",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -3502,11 +3502,12 @@ You're so fat, you could sell shade.
                     type: "DELETE"
                 })
             };
+            var roomURL = window.location.pathname;
             
             // ==========================================================
             // Detect room change and disable the bot:
             // ==========================================================
-            var roomURL = window.location.pathname;
+			/*
             var Check;
             var detect = function(){
                 if(roomURL != window.location.pathname){
@@ -3520,6 +3521,7 @@ You're so fat, you could sell shade.
                 }
             };
             Check = setInterval(function(){ detect() }, 100);
+			*/
             // ==========================================================
             
             //basicBot.roomUtilities.logDebug("TODO - STARTUP retrieveSettings");
