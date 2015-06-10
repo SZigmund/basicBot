@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.22
+/** version: 2.1.4.00043.23
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.22",
+        version: "2.1.4.00043.23",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2418,8 +2418,8 @@ You're so fat, you could sell shade.
                         title: media.title,
                         mid: media.format + ':' + media.cid
                     };
-					basicBot.roomUtilities.banSong(track);
-					basicBot.roomUtilities.banSongSkip(media, username);
+                    basicBot.roomUtilities.banSong(track);
+                    basicBot.roomUtilities.banSongSkip(media, username);
                 }
                 catch(err) { basicBot.roomUtilities.logException("ERROR:banCurrentSong: " + err.message); }
             },
@@ -5222,7 +5222,7 @@ You're so fat, you could sell shade.
                     }
                 }
             },
-            banremoveCommand: {
+            banremoveCommand: {  //Added: 06/10/2015 Remove a song from the ban list by the cid key
                 command: 'banremove',
                 rank: 'cohost',
                 type: 'startsWith',
@@ -5250,8 +5250,25 @@ You're so fat, you could sell shade.
                     catch (err) { basicBot.roomUtilities.logException("banremove: " + err.message); }
                 }
             },
-            banallhistoryCommand: {
-                command: 'banallhistory',
+            banremoveallsongsCommand: { //Added: 06/10/2015 Remove all banned / blacklisted songs
+                command: 'banremoveallsongs',
+                rank: 'cohost',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        if (basicBot.room.newBlacklist.length !== basicBot.room.newBlacklistIDs.length) basicBot.roomUtilities.sendChat("Could not remove song ban, corrupt song list info.");
+                        basicBot.room.newBlacklist.splice(0, basicBot.room.newBlacklist.length);  // Remove all items from list
+                        basicBot.room.newBlacklistIDs.splice(0, basicBot.room.newBlacklistIDs.length);  // Remove all items from list
+                        if (basicBot.room.blacklistLoaded) localStorage["BLACKLIST"] = JSON.stringify(basicBot.room.newBlacklist);
+                        if (basicBot.room.blacklistLoaded) localStorage["BLACKLISTIDS"] = JSON.stringify(basicBot.room.newBlacklistIDs);
+                    }
+                    catch (err) { basicBot.roomUtilities.logException("banremoveallsongs: " + err.message); }
+                }
+            },
+            banallhistorysongsCommand: { //Added: 06/10/2015 Add all songs in current room history to the ban song list
+                command: 'banallhistorysongs',
                 rank: 'cohost',
                 type: 'exact',
                 functionality: function (chat, cmd) {
@@ -5261,23 +5278,23 @@ You're so fat, you could sell shade.
                         var songHistory = API.getHistory();
                         for (var i = 0; i < songHistory.length; i++) {
                             var song = songHistory[i];
-							if (i === 0) basicBot.roomUtilities.logObject(song, "SONG");
-							var songMid = song.media.format + ':' + song.media.cid;
+                            if (i === 0) basicBot.roomUtilities.logObject(song, "SONG");
+                            var songMid = song.media.format + ':' + song.media.cid;
                             if (basicBot.room.newBlacklistIDs.indexOf(songMid) < 0) {
-							//var media = API.getMedia();
-								var track = {
-									author: song.media.author,
-									title: song.media.title,
-									mid: songMid
-								};
-								basicBot.roomUtilities.banSong(track);
-							}
-						}
+                            //var media = API.getMedia();
+                                var track = {
+                                    author: song.media.author,
+                                    title: song.media.title,
+                                    mid: songMid
+                                };
+                                basicBot.roomUtilities.banSong(track);
+                            }
+                        }
                     }
-                    catch (err) { basicBot.roomUtilities.logException("banallhistory: " + err.message); }
+                    catch (err) { basicBot.roomUtilities.logException("banallhistorysongs: " + err.message); }
                 }
             },
-            banlistCommand: {
+            banlistCommand: {   //Added: 06/10/2015 List all banned songs
                 command: ['banlist','banlistpublic'],
                 rank: 'cohost',
                 type: 'startsWith',
