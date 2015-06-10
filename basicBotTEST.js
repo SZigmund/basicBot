@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.21
+/** version: 2.1.4.00043.22
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.21",
+        version: "2.1.4.00043.22",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -5262,12 +5262,13 @@ You're so fat, you could sell shade.
                         for (var i = 0; i < songHistory.length; i++) {
                             var song = songHistory[i];
 							if (i === 0) basicBot.roomUtilities.logObject(song, "SONG");
-                            if (basicBot.room.newBlacklistIDs.indexOf(mid) < 0) {
+							var songMid = song.media.format + ':' + song.media.cid;
+                            if (basicBot.room.newBlacklistIDs.indexOf(songMid) < 0) {
 							//var media = API.getMedia();
 								var track = {
-									author: song.author,
-									title: song.title,
-									mid: song.format + ':' + song.cid
+									author: song.media.author,
+									title: song.media.title,
+									mid: songMid
 								};
 								basicBot.roomUtilities.banSong(track);
 							}
@@ -5312,16 +5313,16 @@ You're so fat, you could sell shade.
                             var msgtoSend = "Found " + matchCnt + " matches.";
                             if (matchCnt > 10) msgtoSend +=  "(only display first 10)"
                             basicBot.roomUtilities.sendChat(msgtoSend);
-                            if (matchCnt > 0) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsg); }, 1 * 500);
-                            if (matchCnt > 1) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsg); }, 2 * 500);
-                            if (matchCnt > 2) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsg); }, 3 * 500);
-                            if (matchCnt > 3) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsg); }, 4 * 500);
-                            if (matchCnt > 4) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsg); }, 5 * 500);
-                            if (matchCnt > 5) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsg); }, 6 * 500);
-                            if (matchCnt > 6) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsg); }, 7 * 500);
-                            if (matchCnt > 7) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsg); }, 8 * 500);
-                            if (matchCnt > 8) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsg); }, 9 * 500);
-                            if (matchCnt > 9) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsg); }, 10 * 500);
+                            if (matchCnt > 0) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsgs[0]); }, 1 * 500);
+                            if (matchCnt > 1) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsgs[1]); }, 2 * 500);
+                            if (matchCnt > 2) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsgs[2]); }, 3 * 500);
+                            if (matchCnt > 3) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsgs[3]); }, 4 * 500);
+                            if (matchCnt > 4) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsgs[4]); }, 5 * 500);
+                            if (matchCnt > 5) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsgs[5]); }, 6 * 500);
+                            if (matchCnt > 6) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsgs[6]); }, 7 * 500);
+                            if (matchCnt > 7) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsgs[7]); }, 8 * 500);
+                            if (matchCnt > 8) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsgs[8]); }, 9 * 500);
+                            if (matchCnt > 9) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsgs[9]); }, 10 * 500);
                         }
                     }
                     catch (err) { basicBot.roomUtilities.logException("banlist: " + err.message); }
