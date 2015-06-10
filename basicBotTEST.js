@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.02
+/** version: 2.1.4.00043.03
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -194,7 +194,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
             basicBot.roomUtilities.logDebug("BL LOADED: TRUE");
             var elapsed = Date.now() - JSON.parse(info).time;
             basicBot.room.users = room.users;
-			basicBot.room.historyList = room.historyList;
+            basicBot.room.historyList = room.historyList;
             basicBot.roomUtilities.logDebug("basicBot.room.users.length: " + basicBot.room.users.length + " TIME: " + JSON.parse(info).time);
             if ((elapsed < 1 * 60 * 60 * 1000)) {
                 basicBot.roomUtilities.chatLog(basicBot.chat.retrievingdata);
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.02",
+        version: "2.1.4.00043.03",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1238,59 +1238,9 @@ $.ajax({
     }
 });
 */
-                /*
-                    $.post("https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json",{
-                     JSON.stringify( basicBot.room.blacklists[list] )    
-                    })
-                */
-                /*
-                for (var bl in basicBot.room.blacklists) {
-                    basicBot.roomUtilities.logDebug("BL: " + bl[0]);
-                    basicBot.roomUtilities.logDebug("BL: " + bl[0]);
-                    basicBot.roomUtilities.logDebug("BL: " + bl + " Len: " + basicBot.room.blacklists[bl].length);
-                    if (basicBot.settings.blacklistEnabled) {
-                        if (basicBot.room.blacklists[bl].indexOf(mid) > -1) {
-                            basicBot.roomUtilities.sendChat(basicBot.chat.isblacklisted);
-                            basicBot.userUtilities.skipBadSong(obj.dj.id);
-                            SongSkipped = true;
-                            return;
-                        }
-                    }
-                }
-                
-                
-                
-var wlArr=API.getWaitList();
-window.globalWaitlist=new Array();
-for(var i=wlArr.length-1; i>=0; i--){
-  var waitlist_userid=wlArr[i].id;
-  var rname=wlArr[i].username;
-  var rpos=eval(API.getWaitListPosition(waitlist_userid))+eval(1);
-  window.globalWaitlist.push(wlArr[i].id+","+rpos+","+rurl+","+rname+","+API.getDJ().id)
-  }
-*/
 
                 }
                 catch(err) { basicBot.roomUtilities.logException("newBlacklistedSongFunction2: " + err.message); }
-                /*
-            var mid = obj.media.format + ':' + obj.media.cid;
-            for (var bl in basicBot.room.blacklists) {
-                if (basicBot.settings.blacklistEnabled) {
-                    if (basicBot.room.blacklists[bl].indexOf(mid) > -1) {
-                        basicBot.roomUtilities.sendChat(basicBot.chat.isblacklisted);
-                        basicBot.userUtilities.skipBadSong(obj.dj.id);
-                        SongSkipped = true;
-                        return;
-                    }
-                }
-            }
-                            var track = {
-                                list: list,
-                                author: media.author,
-                                title: media.title,
-                                mid: media.format + ':' + media.cid
-                            };
-            */
             },
             roulette: {
                 rouletteStatus: false,
@@ -1615,8 +1565,8 @@ for(var i=wlArr.length-1; i>=0; i--){
                   basicBot.roomUtilities.logException("removeDJ: " + err.message);
                 }
             },
-            skipBadSong: function (userId) {
-                basicBot.roomUtilities.logDebug("Skip song: " + userId);
+            skipBadSong: function (userId, skippedBy, reason) {
+                basicBot.roomUtilities.logInfo("Skip song, dj id: " + userId + ": skiped by: " + skippedBy + " Reason: " + reason);
                 var tooMany = false;
                 tooMany = basicBot.userUtilities.tooManyBadSongs(userId);
                 if (tooMany) API.botDjNow();
@@ -2389,12 +2339,6 @@ You're so fat, you could sell shade.
                 }
                 catch(err) { basicBot.roomUtilities.logException("whoisinfo: " + err.message); }
             },
-            logInfo: function(msg) {
-                try {
-                   console.log("INFO: " + msg);
-                }
-                catch(err) { basicBot.roomUtilities.logException("logInfo: " + err.message); }
-            },
             isBopCommand: function (cmd) {
                 try {
                     var commandList = ['tasty', 'rock', 'props', 'woot', 'groot', 'groovy', 'jam','nice','bop','cowbell','sax','ukulele','tango','samba','disco','waltz','metal',
@@ -2417,19 +2361,20 @@ You're so fat, you could sell shade.
                               'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
                               'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
                               'hip','soul','soulful','cover','yummy','ohyeah','twist','shout','trippy','hot','country','stellar','smoove','pantydropper','baby','mmm','tits','hooters',
-                              'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell','lesbian','lesbians','niceconnect','connect','kazoo','win','webejammin'];
+                              'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell','lesbian','lesbians','niceconnect','connect','kazoo','win','webejammin',
+                              'bellyrub','groove','gold','golden','twofer','phat','punkrock','punkrocker','merp','derp','herp-a-derp','narf','amazing','doabarrellroll'];
                     if (commandList.indexOf(cmd) < 0) return true;
                     return false;
                 }
                 catch(err) { basicBot.roomUtilities.logException("isBopCommand: " + err.message); }
             },
-            chatLog: function(msg) {
+            chatLog: function(msg) {  // Logs to Larry's chat only
                 try {
                     API.chatLog(msg);
                 }
                 catch(err) { basicBot.roomUtilities.logException("chatLog: " + err.message); }
             },
-            sendChat: function(msg) {
+            sendChat: function(msg) {  // Send chat to all
                 try {
                     //basicBot.roomUtilities.logDebug("runningBot: " + runningBot);
                     if (runningBot) API.sendChat(msg);
@@ -2437,7 +2382,19 @@ You're so fat, you could sell shade.
                 }
                 catch(err) { basicBot.roomUtilities.logException("sendChat: " + err.message); }
             },
-            logDebug: function(msg) {
+            logInfo: function(msg) {  // Log info to console
+                try {
+                   console.log("INFO: " + msg);
+                }
+                catch(err) { basicBot.roomUtilities.logException("logInfo: " + err.message); }
+            },
+            logException: function(msg) {  // Log exception to console
+                try {
+                   console.log("ERROR: " + msg);
+                }
+                catch(err) { console.log("ERROR:logException: " + err.message); }
+            },
+            logDebug: function(msg) {  // Logs to console only if running in debug mode
                 try {
                    if (basicBot.room.debug === false) return;
                    console.log("DEBUG: " + msg);
@@ -2452,11 +2409,33 @@ You're so fat, you could sell shade.
               var day = Math.floor(diff / oneDay);
               return day;
             },
-            logException: function(msg) {
+            banSong: function(username) {
                 try {
-                   console.log("ERROR: " + msg);
+                    var media = API.getMedia();
+                    var track = {
+                        author: media.author,
+                        title: media.title,
+                        mid: media.format + ':' + media.cid
+                    };
+                    var dj = API.getDJ();
+                    basicBot.room.newBlacklist.push(track);
+                    basicBot.room.newBlacklistIDs.push(track.mid);
+                    if (basicBot.room.blacklistLoaded) localStorage["BLACKLIST"] = JSON.stringify(basicBot.room.newBlacklist);
+                    if (basicBot.room.blacklistLoaded) localStorage["BLACKLISTIDS"] = JSON.stringify(basicBot.room.newBlacklistIDs);
+                    basicBot.userUtilities.skipBadSong(dj.id, username, "OOB");
+                    basicBot.room.skippable = false;
+                    setTimeout(function () { basicBot.room.skippable = true }, 5 * 1000);
+                    setTimeout(function () {
+                        basicBot.roomUtilities.sendChat(subChat(basicBot.chat.newblacklisted, {name: dj.username, author: media.author, title: media.title, mid: media.format + ':' + media.cid}));
+                    }, 1000);
+                    setTimeout(function () {
+                        basicBot.roomUtilities.sendChat("@" + dj.username + ": your song has been skipped. Please read the rules before you play your next song.");    
+                    }, 1500);
+                    setTimeout(function () {
+                        basicBot.roomUtilities.sendChat(subChat(basicBot.chat.roomrules, {link: basicBot.settings.rulesLink}));
+                    }, 2000);
                 }
-                catch(err) { console.log("ERROR:logException: " + err.message); }
+                catch(err) { basicBot.roomUtilities.logException("ERROR:banSong: " + err.message); }
             },
             skipSoundCloudNow: function () {
                 if (!basicBot.settings.skipSound5Days && !basicBot.settings.skipSound7Days) return false;
@@ -2893,7 +2872,7 @@ You're so fat, you could sell shade.
             }
         },
         eventUserjoin: function (user) {
-            if (!runningBot) return;  //todoer spit out the user link
+            if (!runningBot) return;  //todoer spit out the user link to local screen if NOT running bot
             var known = false;
             var index = null;
             for (var i = 0; i < basicBot.room.users.length; i++) {
@@ -2998,7 +2977,7 @@ You're so fat, you could sell shade.
                 if (basicBot.settings.voteSkipEnabled) {
                     if (mehs >= (basicBot.settings.voteSkipLimit)) {
                         basicBot.roomUtilities.sendChat(subChat(basicBot.chat.voteskipexceededlimit, {name: dj.username, limit: basicBot.settings.voteSkipLimit}));
-                        basicBot.userUtilities.skipBadSong(dj.id);
+                        basicBot.userUtilities.skipBadSong(dj.id, "Room", "Too many Mehs");
                     }
                 }
           }
@@ -3080,7 +3059,13 @@ You're so fat, you could sell shade.
             if (basicBot.settings.blacklistEnabled) {
                 if (basicBot.room.newBlacklistIDs.indexOf(mid) > -1) {
                     basicBot.roomUtilities.sendChat(basicBot.chat.isblacklisted);
-                    basicBot.userUtilities.skipBadSong(obj.dj.id);
+                    basicBot.userUtilities.skipBadSong(obj.dj.id, basicBot.loggedInName, "Blacklisted song");
+                    setTimeout(function () {
+                        basicBot.roomUtilities.sendChat("@" + obj.dj.username + ": your song has been skipped. Please read the rules before you play your next song.");    
+                    }, 1000);
+                    setTimeout(function () {
+                        basicBot.roomUtilities.sendChat(subChat(basicBot.chat.roomrules, {link: basicBot.settings.rulesLink}));
+                    }, 1500);
                     return;
                 }
             }
@@ -3090,7 +3075,7 @@ You're so fat, you could sell shade.
                 if (basicBot.settings.blacklistEnabled) {
                     if (basicBot.room.blacklists[bl].indexOf(mid) > -1) {
                         basicBot.roomUtilities.sendChat(basicBot.chat.isblacklisted);
-                        basicBot.userUtilities.skipBadSong(obj.dj.id);
+                        basicBot.userUtilities.skipBadSong(obj.dj.id, basicBot.loggedInName, "Blacklisted song");
                         return;
                     }
                 }
@@ -3108,7 +3093,7 @@ You're so fat, you could sell shade.
                     //basicBot.roomUtilities.logDebug("Skipping SC song");
                     var msg = "Sorry @" + obj.dj.username + " Sound Cloud songs are not permitted in this room " + basicBot.settings.skipSoundRange + " too many regulars cannot hear them.";
                     basicBot.roomUtilities.sendChat(msg);
-                    basicBot.userUtilities.skipBadSong(obj.dj.id);
+                    basicBot.userUtilities.skipBadSong(obj.dj.id, basicBot.loggedInName, "Sound Cloud song");
                     return;
                 }
             }
@@ -3121,7 +3106,7 @@ You're so fat, you could sell shade.
                 if (basicBot.settings.repeatSongs && (lastPlayedMs < repeatLimit) && (lastPlayedMs > 5000))
                 {
                     basicBot.roomUtilities.sendChat(subChat(basicBot.chat.songknown2, {name: obj.dj.username, lasttime: basicBot.roomUtilities.msToStr(lastPlayedMs)}));
-                    basicBot.userUtilities.skipBadSong(obj.dj.id);
+                    basicBot.userUtilities.skipBadSong(obj.dj.id, basicBot.loggedInName, "Song in history");
                     SongSkipped = true;
                 }
                 else
@@ -3141,7 +3126,7 @@ You're so fat, you could sell shade.
             if (basicBot.settings.timeGuard && newMedia.duration > basicBot.settings.maximumSongLength * 60 && !basicBot.room.roomevent && !SongSkipped) {
                 var name = obj.dj.username;
                 basicBot.roomUtilities.sendChat(subChat(basicBot.chat.timelimit, {name: name, maxlength: basicBot.settings.maximumSongLength}));
-                basicBot.userUtilities.skipBadSong(obj.dj.id);
+                basicBot.userUtilities.skipBadSong(obj.dj.id, basicBot.loggedInName, "Song too long");
                 SongSkipped = true;
             }
             //basicBot.roomUtilities.logDebug("eventDjadvance:10");
@@ -3152,6 +3137,7 @@ You're so fat, you could sell shade.
                 basicBot.room.autoskipTimer = setTimeout(function () {
                     //basicBot.roomUtilities.logDebug("Skipping track.");
                     //basicBot.roomUtilities.sendChat('Song stuck, skipping...');
+                    basicBot.roomUtilities.logInfo("Skip song: " + media.title + " by: " + basicBot.loggedInName + " Reason: AutoSkip enabled.");
                     API.moderateForceSkip();
                 }, remaining + 3000);
             }
@@ -3923,37 +3909,6 @@ You're so fat, you could sell shade.
                     }
                 }
             },
-
-            blacklistCommand: {
-                command: ['blacklist', 'bl','songban','bansong'],
-                rank: 'bouncer',
-                type: 'exact',
-                functionality: function (chat, cmd) {
-                    try {
-                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                        var media = API.getMedia();
-                        var track = {
-                            author: media.author,
-                            title: media.title,
-                            mid: media.format + ':' + media.cid
-                        };
-                        var dj = API.getDJ();
-                        basicBot.room.newBlacklist.push(track);
-                        basicBot.room.newBlacklistIDs.push(track.mid);
-                        if (basicBot.room.blacklistLoaded) localStorage["BLACKLIST"] = JSON.stringify(basicBot.room.newBlacklist);
-                        basicBot.roomUtilities.logDebug("BL Saved: " + basicBot.room.newBlacklist.lenght + " songs");
-                        if (basicBot.room.blacklistLoaded) localStorage["BLACKLISTIDS"] = JSON.stringify(basicBot.room.newBlacklistIDs);
-                        basicBot.roomUtilities.logDebug("BL Saved: " + basicBot.room.newBlacklistIDs.lenght + " song ids");
-                        setTimeout(function () {
-                            basicBot.roomUtilities.sendChat(subChat(basicBot.chat.newblacklisted, {name: dj.username, author: media.author, title: media.title, mid: media.format + ':' + media.cid}));
-                            }, 1000);
-                        basicBot.userUtilities.skipBadSong(dj.id);
-                        }
-                    catch(err) { basicBot.roomUtilities.logException("blacklistCommand: " + err.message); }
-                }
-            },
-
             blinfoCommand: {
                 command: 'blinfo',
                 rank: 'bouncer',
@@ -4707,6 +4662,7 @@ You're so fat, you could sell shade.
                                 basicBot.roomUtilities.sendChat(subChat(basicBot.chat.usedlockskip, {name: chat.un}));
                                 basicBot.roomUtilities.booth.lockBooth();
                                 setTimeout(function (id) {
+                                    basicBot.roomUtilities.logInfo("Skip song: " + API.getMedia().title + " by: " + chat.un + " Reason: Lockskip command");
                                     API.moderateForceSkip();
                                     basicBot.room.skippable = false;
                                     setTimeout(function () {
@@ -4736,6 +4692,7 @@ You're so fat, you could sell shade.
                                 basicBot.roomUtilities.sendChat(subChat(basicBot.chat.usedlockskip, {name: chat.un}));
                                 basicBot.roomUtilities.booth.lockBooth();
                                 setTimeout(function (id) {
+                                    basicBot.roomUtilities.logInfo("Skip song: " + API.getMedia().title + " by: " + chat.un + " Reason: Lockskip command");
                                     API.moderateForceSkip();
                                     basicBot.room.skippable = false;
                                     basicBot.roomUtilities.sendChat(msgSend);
@@ -5124,6 +5081,7 @@ You're so fat, you could sell shade.
                             if (typeof user !== 'boolean') {
                                 basicBot.userUtilities.resetDC(user);
                                 if (API.getDJ().id === user.id) {
+                                    basicBot.roomUtilities.logInfo("Skip song: " + API.getMedia().title + " by: " + chat.un + " Reason: Remove command");
                                     API.moderateForceSkip();
                                     setTimeout(function () {
                                         API.moderateRemoveDJ(user.id);
@@ -5211,7 +5169,7 @@ You're so fat, you could sell shade.
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
-                        basicBot.roomUtilities.logInfo(subChat(basicBot.chat.skip, {name: chat.un}));
+                        basicBot.roomUtilities.logInfo("Skip song: " + API.getMedia().title + " by: " + chat.un + " Reason: Skip command");
                         API.moderateForceSkip();
                         basicBot.room.skippable = false;
                         setTimeout(function () {
@@ -5232,9 +5190,10 @@ You're so fat, you could sell shade.
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         try {
-                            basicBot.roomUtilities.logInfo(subChat(basicBot.chat.skip, {name: chat.un}));
+                            basicBot.roomUtilities.logInfo(subChat(basicBot.chat.skip, {name: chat.un + ":BLOCKED"}));
                             var dj = API.getDJ();
                             var msgSend = '@' + dj.username + ': this song has been blocked in the US. please find another version.';
+                            basicBot.roomUtilities.logInfo("Skip song: " + API.getMedia().title + " by: " + chat.un + " Reason: Blocked");
                             API.moderateForceSkip();
                             basicBot.room.skippable = false;
                             setTimeout(function () {
@@ -5248,33 +5207,19 @@ You're so fat, you could sell shade.
                     }
                 }
             },
-
             oobCommand: {
-                command: 'oob',
+                command: ['oob','bansong','songban','blacklist','bl'],
                 rank: 'bouncer',
                 type: 'exact',
                 functionality: function (chat, cmd) {
-                    if (!basicBot.roomUtilities.canSkip()) return basicBot.roomUtilities.sendChat("Skip too soon...");
-                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                    else {
-                        try {
-                            basicBot.roomUtilities.logInfo(subChat(basicBot.chat.skip, {name: chat.un}));
-                            var dj = API.getDJ();
-                            var msgSend = '@' + dj.username + ': your song has been skipped. Please read the rules before you play your next song.';
-                            API.moderateForceSkip();
-                            basicBot.room.skippable = false;
-                            setTimeout(function () {
-                                basicBot.room.skippable = true
-                            }, 5 * 1000);
-                            basicBot.roomUtilities.sendChat(msgSend);
-                            setTimeout(function () {
-                                basicBot.roomUtilities.sendChat(subChat(basicBot.chat.roomrules, {link: basicBot.settings.rulesLink}));
-                            }, 1000);
-                        }
-                        catch (e) {
-                            basicBot.roomUtilities.logException("oob: " + err.message);
-                        }
+                    try {
+                        if (!basicBot.roomUtilities.canSkip()) return basicBot.roomUtilities.sendChat("Skip too soon...");
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        basicBot.roomUtilities.bansong(chat.un);
+                    }
+                    catch (e) {
+                        basicBot.roomUtilities.logException("oob: " + err.message);
                     }
                 }
             },
@@ -6066,7 +6011,8 @@ You're so fat, you could sell shade.
                           'sexy','brilliant','steampunk','bagpipes','piccolo','whee','vibe','banjo','harmony','harmonica','flute','dancing','dancin','ducky','approval','winning','okay',
                           'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
                           'hip','soul','soulful','cover','yummy','ohyeah','twist','shout','trippy','hot','country','stellar','smoove','pantydropper','baby','mmm','tits','hooters',
-                          'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell','lesbian','lesbians','niceconnect','connect','kazoo','win','webejammin'],
+                          'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell','lesbian','lesbians','niceconnect','connect','kazoo','win','webejammin',
+                          'bellyrub','groove','gold','golden','twofer','phat','punkrock','punkrocker','merp','derp','herp-a-derp','narf','amazing','doabarrellroll'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
@@ -6138,6 +6084,41 @@ You're so fat, you could sell shade.
                     }
                 }
             },
+            exmehCommand: {
+                command: ['exmeh','meh?'],
+                rank: 'residentdj',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        if(chat.message.length === cmd.length) return basicBot.roomUtilities.sendChat('/me No user specified.');
+                        var name = chat.message.substring(cmd.length + 2);
+                        var roomUser = basicBot.userUtilities.lookupUserName(name);
+                        if(typeof roomUser === 'boolean') return basicBot.roomUtilities.sendChat('/me Invalid user specified.');
+                        var msgSend = "@" + roomUser.username + ": If you find yourself Meh-ing most songs, this isn't the room for you. Serial Meh'ers will be banned. If you don't like the music find a different room please.";
+                        basicBot.roomUtilities.sendChat(msgSend);
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("exmeh: " + err.message);
+                    }
+                }
+            },
+            exrefreshCommand: {
+                command: ['exrefresh','refresh?'],
+                rank: 'residentdj',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        basicBot.roomUtilities.sendChat("Hover over the video area and press the refresh button.  Press it repeatedly until a window pops up and lets you select an alternate song.");
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("exrefresh: " + err.message);
+                    }
+                }
+            },
             exrollCommand: {
                 command: ['exroll','roll?'],
                 rank: 'residentdj',
@@ -6150,6 +6131,21 @@ You're so fat, you could sell shade.
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("exrollcommand: " + err.message);
+                    }
+                }
+            },
+            kissCommand: {
+                command: 'kiss',
+                rank: 'residentdj',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        basicBot.roomUtilities.sendChat("/me gives " + chat.un + " a big fat :kiss:");
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("exkisscommand: " + err.message);
                     }
                 }
             },
