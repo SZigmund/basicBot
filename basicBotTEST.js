@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.19
+/** version: 2.1.4.00043.20
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.19",
+        version: "2.1.4.00043.20",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -5238,9 +5238,16 @@ You're so fat, you could sell shade.
                     catch (err) { basicBot.roomUtilities.logException("banremove: " + err.message); }
                 }
             },
+            banallhistoryCommand: {
+                command: 'banallhistory',
+                rank: 'cohost',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    try {
+            },
             banlistCommand: {
                 command: ['banlist','banlistpublic'],
-                rank: 'manager',
+                rank: 'cohost',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
                     try {
@@ -5248,35 +5255,43 @@ You're so fat, you could sell shade.
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                         basicBot.roomUtilities.logNewBlacklistedSongs();
                         var keyword = "";
-						var privatemsg = false;
-						if (chat.uid === basicBot.loggedInID) privatemsg = true;
-						if (cmd.toUpperCase() === 'BANLISTPUBLIC') privatemsg = false;
+                        var privatemsg = false;
+                        if (chat.uid === basicBot.loggedInID) privatemsg = true;
+                        if (cmd.toUpperCase() === "BANLISTPUBLIC") privatemsg = false;
                         var msg = chat.message;
-						var matchCnt = 0;
+                        var matchCnt = 0;
                         if (msg.length > cmd.length) keyword = msg.substring(cmd.length + 1).toUpperCase();
                         basicBot.roomUtilities.logDebug("Keyword: " + keyword);
+                        var dispMsgs = [];
                         for (var i = 0; i < basicBot.room.newBlacklist.length; i++) {
                             var track = basicBot.room.newBlacklist[i];
                             var trackinfo = track.title.toUpperCase() + track.author.toUpperCase();
                             if (trackinfo.indexOf(keyword) > -1) {
-							    if (privatemsg){
-                                    basicBot.roomUtilities.chatLog("[" + track.author + " - " + track.title + "] -> " + track.mid);
-								}
-								else {
-								    matchCnt++;
-									if (matchCnt <= 10) {
-										setTimeout(function () {
-											basicBot.roomUtilities.sendChat("[" + track.author + " - " + track.title + "] -> " + track.mid);
-										}, matchCnt * 500);
-									}
-								}
-							}
+                                var dispMsg = "[" + track.author + " - " + track.title + "] -> " + track.mid;
+                                if (privatemsg){
+                                    basicBot.roomUtilities.chatLog(dispMsg);
+                                }
+                                else {
+                                    matchCnt++;
+                                    if (matchCnt <= 10) dispMsgs.push(dispMsg);
+                                }
+                            }
                         }
-						if (!privatemsg) {
-						    var msgtoSend = "Found " + matchCnt + " matches.";
-						    if (matchCnt > 10) msgtoSend +=  "(only display first 10)"
-						    basicBot.roomUtilities.sendChat(msgtoSend);
-						}
+                        if (!privatemsg) {
+                            var msgtoSend = "Found " + matchCnt + " matches.";
+                            if (matchCnt > 10) msgtoSend +=  "(only display first 10)"
+                            basicBot.roomUtilities.sendChat(msgtoSend);
+                            if (matchCnt > 0) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsg); }, 1 * 500);
+                            if (matchCnt > 1) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsg); }, 2 * 500);
+                            if (matchCnt > 2) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsg); }, 3 * 500);
+                            if (matchCnt > 3) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsg); }, 4 * 500);
+                            if (matchCnt > 4) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsg); }, 5 * 500);
+                            if (matchCnt > 5) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsg); }, 6 * 500);
+                            if (matchCnt > 6) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsg); }, 7 * 500);
+                            if (matchCnt > 7) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsg); }, 8 * 500);
+                            if (matchCnt > 8) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsg); }, 9 * 500);
+                            if (matchCnt > 9) setTimeout(function () { basicBot.roomUtilities.sendChat(dispMsg); }, 10 * 500);
+                        }
                     }
                     catch (err) { basicBot.roomUtilities.logException("banlist: " + err.message); }
                 }
