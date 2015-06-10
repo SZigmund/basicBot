@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.03
+/** version: 2.1.4.00043.04
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.03",
+        version: "2.1.4.00043.04",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2718,10 +2718,10 @@ You're so fat, you could sell shade.
                                 })
                             })(bl);
                         }
-                        catch (e) {
+                        catch (err) {
                             basicBot.roomUtilities.chatLog('Error setting' + bl + 'blacklist.');
                             basicBot.roomUtilities.logException('Error setting' + bl + 'blacklist.');
-                            basicBot.roomUtilities.logException(e.message);
+                            basicBot.roomUtilities.logException(err.message);
                         }
                     }
                 }
@@ -5201,7 +5201,7 @@ You're so fat, you could sell shade.
                             }, 5 * 1000);
                             basicBot.roomUtilities.sendChat(msgSend);
                         }
-                        catch (e) {
+                        catch (err) {
                             basicBot.roomUtilities.logException("blockedCommand: " + err.message);
                         }
                     }
@@ -5216,11 +5216,9 @@ You're so fat, you could sell shade.
                         if (!basicBot.roomUtilities.canSkip()) return basicBot.roomUtilities.sendChat("Skip too soon...");
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                        basicBot.roomUtilities.bansong(chat.un);
+                        basicBot.roomUtilities.banSong(chat.un);
                     }
-                    catch (e) {
-                        basicBot.roomUtilities.logException("oob: " + err.message);
-                    }
+                    catch (err) { basicBot.roomUtilities.logException("oob: " + err.message); }
                 }
             },
             songstatsCommand: {
@@ -5545,7 +5543,7 @@ You're so fat, you could sell shade.
                                 API.moderateUnmuteUser(user.id);
                                 basicBot.roomUtilities.sendChat(subChat(basicBot.chat.unmuted, {name: chat.un, username: name}));
                             }
-                            catch (e) {
+                            catch (err) {
                                 basicBot.roomUtilities.sendChat(subChat(basicBot.chat.notmuted, {name: chat.un}));
                             }
                         }
