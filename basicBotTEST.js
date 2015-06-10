@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.17
+/** version: 2.1.4.00043.18
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.17",
+        version: "2.1.4.00043.18",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -5228,8 +5228,10 @@ You're so fat, you could sell shade.
                         if (basicBot.room.newBlacklist.length !== basicBot.room.newBlacklistIDs.length) basicBot.roomUtilities.sendChat("Could not remove song ban, corrupt song list info.");
                         var track = basicBot.room.newBlacklist[idxToRemove];
                         var msgToSend = chat.un + " removed [" + track.author + " - " + track.title + "] from the banned song list, idx: " + idxToRemove;
-                        //basicBot.room.newBlacklist.splice(idxToRemove, 1);  // Remove 1 item from list
-                        //basicBot.room.newBlacklistIDs.splice(idxToRemove, 1);  // Remove 1 item from list
+                        basicBot.room.newBlacklist.splice(idxToRemove, 1);  // Remove 1 item from list
+                        basicBot.room.newBlacklistIDs.splice(idxToRemove, 1);  // Remove 1 item from list
+                        if (basicBot.room.blacklistLoaded) localStorage["BLACKLIST"] = JSON.stringify(basicBot.room.newBlacklist);
+                        if (basicBot.room.blacklistLoaded) localStorage["BLACKLISTIDS"] = JSON.stringify(basicBot.room.newBlacklistIDs);
                         basicBot.roomUtilities.sendChat(msgToSend);
                         basicBot.roomUtilities.logInfo(msgToSend);
                     }
@@ -5977,6 +5979,7 @@ You're so fat, you could sell shade.
                         var resultsMsg = "";
                         var wooting = true;
                         if (rollResults > (dicesides * 0.5)) {
+                            // todoer Pick a random word and not always WINNER
                             setTimeout(function () { basicBot.userUtilities.tastyVote(basicBot.userUtilities.getCurrentPlugUser().id,"winner"); }, 1000);
                             setTimeout(function () { basicBot.roomUtilities.wootThisSong(); }, 1500);
                             resultsMsg = subChat(basicBot.chat.rollresultsgood, {name: chat.un, roll: rollResults});
