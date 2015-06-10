@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.04
+/** version: 2.1.4.00043.05
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.04",
+        version: "2.1.4.00043.05",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1140,6 +1140,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
             intervalMessages: [],
             messageInterval: 5,
             songstats: true,
+            suppressSongStats: false,
             commandLiteral: ".",
             blacklistsOBS: {
                 BAN: "https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/Banned.json",
@@ -2422,9 +2423,11 @@ You're so fat, you could sell shade.
                     basicBot.room.newBlacklistIDs.push(track.mid);
                     if (basicBot.room.blacklistLoaded) localStorage["BLACKLIST"] = JSON.stringify(basicBot.room.newBlacklist);
                     if (basicBot.room.blacklistLoaded) localStorage["BLACKLISTIDS"] = JSON.stringify(basicBot.room.newBlacklistIDs);
+                    basicBot.settings.suppressSongStats = true;
+                    setTimeout(function () { basicBot.settings.suppressSongStats = false }, 5000);
                     basicBot.userUtilities.skipBadSong(dj.id, username, "OOB");
                     basicBot.room.skippable = false;
-                    setTimeout(function () { basicBot.room.skippable = true }, 5 * 1000);
+                    setTimeout(function () { basicBot.room.skippable = true }, 5000);
                     setTimeout(function () {
                         basicBot.roomUtilities.sendChat(subChat(basicBot.chat.newblacklisted, {name: dj.username, author: media.author, title: media.title, mid: media.format + ':' + media.cid}));
                     }, 1000);
@@ -3006,7 +3009,7 @@ You're so fat, you could sell shade.
             var tastyCount = basicBot.room.roomstats.tastyCount;
             basicBot.roomUtilities.resetTastyCount();
             var lastplay = obj.lastPlay;
-            if (basicBot.settings.songstats && !(typeof lastplay === 'undefined')) {
+            if (!(typeof lastplay === 'undefined')) {
                 //basicBot.roomUtilities.logDebug("Last DJ: " + lastplay.dj.username);
                 if (typeof basicBot.chat.songstatistics === "undefined") {
                     statsMsg = "/me " + lastplay.dj.username + " played " + lastplay.media.author + " - " + lastplay.media.title + ": " + lastplay.score.positive + "W/" + lastplay.score.grabs + "G/" + lastplay.score.negative + "M.";
@@ -3017,7 +3020,7 @@ You're so fat, you could sell shade.
                 else {
                     statsMsg = subChat(basicBot.chat.songstatistics, {user: lastplay.dj.username, artist: lastplay.media.author, title: lastplay.media.title, woots: lastplay.score.positive, grabs: lastplay.score.grabs, mehs: lastplay.score.negative});
                 }
-                basicBot.roomUtilities.sendChat(statsMsg);
+                if (basicBot.settings.songstats && !basicBot.settings.suppressSongStats) basicBot.roomUtilities.sendChat(statsMsg);
                 //Check to see if DJ should get booted:
                 if (basicBot.userUtilities.getBootableID(lastplay.dj.username)) {
                     var bootuser = basicBot.userUtilities.lookupUserName(lastplay.dj.username);
