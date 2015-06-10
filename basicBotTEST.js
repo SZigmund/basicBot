@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.20
+/** version: 2.1.4.00043.21
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.20",
+        version: "2.1.4.00043.21",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2410,7 +2410,7 @@ You're so fat, you could sell shade.
               var day = Math.floor(diff / oneDay);
               return day;
             },
-            banSong: function(username) {
+            banCurrentSong: function(username) {
                 try {
                     var media = API.getMedia();
                     var track = {
@@ -2418,11 +2418,23 @@ You're so fat, you could sell shade.
                         title: media.title,
                         mid: media.format + ':' + media.cid
                     };
-                    var dj = API.getDJ();
+					basicBot.roomUtilities.banSong(track);
+					basicBot.roomUtilities.banSongSkip(media, username);
+                }
+                catch(err) { basicBot.roomUtilities.logException("ERROR:banCurrentSong: " + err.message); }
+            },
+            banSong: function(track) {
+                try {
                     basicBot.room.newBlacklist.push(track);
                     basicBot.room.newBlacklistIDs.push(track.mid);
                     if (basicBot.room.blacklistLoaded) localStorage["BLACKLIST"] = JSON.stringify(basicBot.room.newBlacklist);
                     if (basicBot.room.blacklistLoaded) localStorage["BLACKLISTIDS"] = JSON.stringify(basicBot.room.newBlacklistIDs);
+                }
+                catch(err) { basicBot.roomUtilities.logException("ERROR:banSong: " + err.message); }
+            },
+            banSongSkip: function(media, username) {
+                try {
+                    var dj = API.getDJ();
                     basicBot.settings.suppressSongStats = true;
                     setTimeout(function () { basicBot.settings.suppressSongStats = false }, 5000);
                     basicBot.userUtilities.skipBadSong(dj.id, username, "OOB");
@@ -2438,7 +2450,7 @@ You're so fat, you could sell shade.
                         basicBot.roomUtilities.sendChat(subChat(basicBot.chat.roomrules, {link: basicBot.settings.rulesLink}));
                     }, 2000);
                 }
-                catch(err) { basicBot.roomUtilities.logException("ERROR:banSong: " + err.message); }
+                catch(err) { basicBot.roomUtilities.logException("ERROR:banSongSkip: " + err.message); }
             },
             skipSoundCloudNow: function () {
                 if (!basicBot.settings.skipSound5Days && !basicBot.settings.skipSound7Days) return false;
@@ -5241,9 +5253,28 @@ You're so fat, you could sell shade.
             banallhistoryCommand: {
                 command: 'banallhistory',
                 rank: 'cohost',
-                type: 'startsWith',
+                type: 'exact',
                 functionality: function (chat, cmd) {
                     try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if ((!basicBot.commands.executable(this.rank, chat)) && chat.uid !== basicBot.loggedInID) return void (0);
+                        var songHistory = API.getHistory();
+                        for (var i = 0; i < songHistory.length; i++) {
+                            var song = songHistory[i];
+							if (i === 0) basicBot.roomUtilities.logObject(song, "SONG");
+                            if (basicBot.room.newBlacklistIDs.indexOf(mid) < 0) {
+							//var media = API.getMedia();
+								var track = {
+									author: song.author,
+									title: song.title,
+									mid: song.format + ':' + song.cid
+								};
+								basicBot.roomUtilities.banSong(track);
+							}
+						}
+                    }
+                    catch (err) { basicBot.roomUtilities.logException("banallhistory: " + err.message); }
+                }
             },
             banlistCommand: {
                 command: ['banlist','banlistpublic'],
@@ -5305,7 +5336,7 @@ You're so fat, you could sell shade.
                         if (!basicBot.roomUtilities.canSkip()) return basicBot.roomUtilities.sendChat("Skip too soon...");
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                        basicBot.roomUtilities.banSong(chat.un);
+                        basicBot.roomUtilities.banCurrentSong(chat.un);
                     }
                     catch (err) { basicBot.roomUtilities.logException("oob: " + err.message); }
                 }
