@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.08
+/** version: 2.1.4.00043.09
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.08",
+        version: "2.1.4.00043.09",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -1567,7 +1567,7 @@ $.ajax({
                 }
             },
             skipBadSong: function (userId, skippedBy, reason) {
-                basicBot.roomUtilities.logInfo("Skip song, dj id: " + userId + ": skiped by: " + skippedBy + " Reason: " + reason);
+                basicBot.roomUtilities.logInfo("Skip: [" + API.getMedia().title + "] dj id: " + userId + ": skiped by: " + skippedBy + " Reason: " + reason);
                 var tooMany = false;
                 tooMany = basicBot.userUtilities.tooManyBadSongs(userId);
                 if (tooMany) API.botDjNow();
@@ -3060,7 +3060,7 @@ You're so fat, you could sell shade.
             /* todo FOREACH LOOP */
             var mid = obj.media.format + ':' + obj.media.cid;
             if (basicBot.settings.blacklistEnabled) {
-			    var banMsg = subChat(basicBot.chat.isblacklisted, {name: obj.dj.username, song: API.getMedia().title});
+                var banMsg = subChat(basicBot.chat.isblacklisted, {name: obj.dj.username, song: API.getMedia().title});
                 if (basicBot.room.newBlacklistIDs.indexOf(mid) > -1) {
                     setTimeout(function () { basicBot.roomUtilities.sendChat(banMsg); }, 1000);
                     basicBot.settings.suppressSongStats = true;
@@ -5013,9 +5013,9 @@ You're so fat, you could sell shade.
                     }
                 }
             },
-            refreshCommand: {
-                command: 'refresh',
-                rank: 'manager',
+            refreshbrowserCommand: {
+                command: 'refreshbrowser',
+                rank: 'cohost',
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
