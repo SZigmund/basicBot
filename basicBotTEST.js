@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.32
+/** version: 2.1.4.00043.33
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.32",
+        version: "2.1.4.00043.33",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -5249,15 +5249,14 @@ You're so fat, you could sell shade.
                         basicBot.roomUtilities.logDebug("Loading BL List");
                         $.get(basicBot.blacklistLink, function (json) {
                             if (json !== null && typeof json !== "undefined") {
-                                if (typeof json === "string") json = JSON.parse(json);
-                                basicBot.room.newBlacklist = json;
+                                basicBot.roomUtilities.logDebug("BL List: " + json);
+                                basicBot.room.newBlacklist = JSON.parse(json);
                             }
                         });
                         basicBot.roomUtilities.logDebug("Loading BL IDs");
                         $.get(basicBot.blacklistIdLink, function (json) {
-                            if (json !== null && typeof json !== "undefined") {
-                                if (typeof json === "string") json = JSON.parse(json);
-                                basicBot.room.newBlacklistIDs = json;
+                                basicBot.roomUtilities.logDebug("BL IDs: " + json);
+                                basicBot.room.newBlacklistIDs = JSON.parse(json);
                             }
                         });
                         basicBot.roomUtilities.logDebug("NO SHIT??");
@@ -5284,7 +5283,7 @@ You're so fat, you could sell shade.
                         if (idxToRemove < 0) basicBot.roomUtilities.sendChat("Could not locate mid: " + midToRemove);
                         if (basicBot.room.newBlacklist.length !== basicBot.room.newBlacklistIDs.length) basicBot.roomUtilities.sendChat("Could not remove song ban, corrupt song list info.");
                         var track = basicBot.room.newBlacklist[idxToRemove];
-                        var msgToSend = chat.un + " removed [" + track.author + " - " + track.title + "] from the banned song list, idx: " + idxToRemove;
+                        var msgToSend = chat.un + " removed [" + track.author + " - " + track.title + "] from the banned song list.";
                         basicBot.room.newBlacklist.splice(idxToRemove, 1);  // Remove 1 item from list
                         basicBot.room.newBlacklistIDs.splice(idxToRemove, 1);  // Remove 1 item from list
                         if (basicBot.room.blacklistLoaded) localStorage["BLACKLIST"] = JSON.stringify(basicBot.room.newBlacklist);
@@ -5347,38 +5346,30 @@ You're so fat, you could sell shade.
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if ((!basicBot.commands.executable(this.rank, chat)) && chat.uid !== basicBot.loggedInID) return void (0);
-                        var histIndex = "2"; //Default to 2nd song on the list, or last song
+                        var histIndex = "2"; //Default to 2nd song on the list, or the last song played
                         var msg = chat.message;
                         if (msg.length > cmd.length) histIndex = msg.substring(cmd.length + 1);
-                        basicBot.roomUtilities.logDebug("histIndex: " + histIndex);
                         if (isNaN(histIndex)) {
                             basicBot.roomUtilities.sendChat("Invalid historical song index number");
                             return;
                         }
-                        basicBot.roomUtilities.logDebug("histIndex: " + histIndex);
                         var songHistory = API.getHistory();
                         if ((parseInt(histIndex) > songHistory.length) || (parseInt(histIndex) < 1)) {
                             basicBot.roomUtilities.sendChat("Invalid historical song index value");
                             return;
                         }
-                        basicBot.roomUtilities.logDebug("Loading Song: " + histIndex);
                         var song = songHistory[parseInt(histIndex) - 1];
                         if (typeof song === 'undefined') {
                             basicBot.roomUtilities.sendChat("Could not define song idx: " + histIndex);
                             return;
                         }
-                        basicBot.roomUtilities.logObject(song, "SONG");
-                        basicBot.roomUtilities.logDebug("Defining Mid");
                         var songMid = song.media.format + ':' + song.media.cid;
-                        basicBot.roomUtilities.logDebug("Banning Song MID: " + songMid);
                         if (basicBot.room.newBlacklistIDs.indexOf(songMid) < 0) {
-                            basicBot.roomUtilities.logDebug("Loading track");
                             var track = {
                                 author: song.media.author,
                                 title: song.media.title,
                                 mid: songMid
                             };
-                            basicBot.roomUtilities.logDebug("Banning Song");
                             basicBot.roomUtilities.banSong(track);
                             basicBot.roomUtilities.sendChat(subChat(basicBot.chat.newblacklisted, {name: song.user.username, author: song.media.author, title: song.media.title, mid: song.media.format + ':' + song.media.cid}));
                         }
