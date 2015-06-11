@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.28
+/** version: 2.1.4.00043.29
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.28",
+        version: "2.1.4.00043.29",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -5232,28 +5232,28 @@ You're so fat, you could sell shade.
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     try {
-                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return;
+                        if (!basicBot.commands.executable(this.rank, chat)) return;
                         basicBot.roomUtilities.logDebug("-----------------------------------------------------------");
-                        basicBot.roomUtilities.logDebug("ID COUNT: " + basicBot.chat basicBot.room.newBlacklistIDs.length);
-                        basicBot.roomUtilities.logDebug("LIST COUNT: " + basicBot.chat basicBot.room.newBlacklist.length);
+                        basicBot.roomUtilities.logDebug("ID COUNT: " + basicBot.room.newBlacklistIDs.length);
+                        basicBot.roomUtilities.logDebug("LIST COUNT: " + basicBot.room.newBlacklist.length);
                         basicBot.roomUtilities.logDebug("Loading BL List");
                         $.get(basicBot.blacklistLink, function (json) {
                             if (json !== null && typeof json !== "undefined") {
                                 if (typeof json === "string") json = JSON.parse(json);
-                                basicBot.chat basicBot.room.newBlacklist = json;
+                                basicBot.room.newBlacklist = json;
                             }
                         });
                         basicBot.roomUtilities.logDebug("Loading BL IDs");
                         $.get(basicBot.blacklistIdLink, function (json) {
                             if (json !== null && typeof json !== "undefined") {
                                 if (typeof json === "string") json = JSON.parse(json);
-                                basicBot.chat basicBot.room.newBlacklistIDs = json;
+                                basicBot.room.newBlacklistIDs = json;
                             }
                         });
                         basicBot.roomUtilities.logDebug("NO SHIT??");
-                        basicBot.roomUtilities.logDebug("ID COUNT: " + basicBot.chat basicBot.room.newBlacklistIDs.length);
-                        basicBot.roomUtilities.logDebug("LIST COUNT: " + basicBot.chat basicBot.room.newBlacklist.length);
+                        basicBot.roomUtilities.logDebug("ID COUNT: " + basicBot.room.newBlacklistIDs.length);
+                        basicBot.roomUtilities.logDebug("LIST COUNT: " + basicBot.room.newBlacklist.length);
                     }
                     catch (err) { basicBot.roomUtilities.logException("banlistimport: " + err.message); }
                 }
