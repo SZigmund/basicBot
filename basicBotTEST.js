@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.34
+/** version: 2.1.4.00043.35
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -185,7 +185,9 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
             var room = JSON.parse(localStorage.getItem("basicBotRoom"));
             basicBot.roomUtilities.logDebug("room.users.length: " + room.users.length);
             if (localStorage.getItem("BLACKLIST") !== null) {
+			  basicBot.roomUtilities.logInfo(JSON.parse(localStorage["BLACKLIST"]));
               basicBot.room.newBlacklist = JSON.parse(localStorage["BLACKLIST"]);
+			  basicBot.roomUtilities.logInfo(JSON.parse(localStorage["BLACKLISTIDS"]));
               basicBot.room.newBlacklistIDs = JSON.parse(localStorage["BLACKLISTIDS"]);
               basicBot.roomUtilities.logDebug("BL LOAD:   BL Count: " + basicBot.room.newBlacklist.length);
               basicBot.roomUtilities.logDebug("BL LOAD: BLID Count: " + basicBot.room.newBlacklistIDs.length);
@@ -277,7 +279,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.34",
+        version: "2.1.4.00043.35",
         status: false,
         name: "basicBot",
         loggedInID: null,
