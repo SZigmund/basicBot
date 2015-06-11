@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.26
+/** version: 2.1.4.00043.27
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.26",
+        version: "2.1.4.00043.27",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -286,6 +286,8 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
         scriptTestLink: "https://rawgit.com/SZigmund/basicBot/master/basicBotTEST.js",
         cmdLink: "http://bit.ly/1DbtUV7",
         chatLink: "https://rawgit.com/SZigmund/basicBot/master/lang/en.json",
+        blacklistLink: "https://rawgit.com/SZigmund/basicBot/master/Blacklist/list.json",
+        blacklistIdLink: "https://rawgit.com/SZigmund/basicBot/master/Blacklist/ids.json",
         chat: null,
         loadChat: loadChat,
         retrieveSettings: retrieveSettings,
@@ -5222,6 +5224,32 @@ You're so fat, you could sell shade.
                             basicBot.roomUtilities.logException("blockedCommand: " + err.message);
                         }
                     }
+                }
+            },
+            banlistimportCommand: {   //Added: 06/11/2015 Import ban list from last saved in Github
+                command: 'banlistimport',
+                rank: 'cohost',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                         
+                        $.get(basicBot.blacklistLink, function (json) {
+                            if (json !== null && typeof json !== "undefined") {
+                                if (typeof json === "string") json = JSON.parse(json);
+                                basicBot.chat basicBot.room.newBlacklist = json;
+                            }
+                        }
+
+                        $.get(basicBot.blacklistIdLink, function (json) {
+                            if (json !== null && typeof json !== "undefined") {
+                                if (typeof json === "string") json = JSON.parse(json);
+                                basicBot.chat basicBot.room.newBlacklistIDs = json;
+                            }
+                        }
+                    }
+                    catch (err) { basicBot.roomUtilities.logException("banlistimport: " + err.message); }
                 }
             },
             banremoveCommand: {  //Added: 06/10/2015 Remove a song from the ban list by the cid key
