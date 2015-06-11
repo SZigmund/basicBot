@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.29
+/** version: 2.1.4.00043.30
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.29",
+        version: "2.1.4.00043.30",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -5340,23 +5340,35 @@ You're so fat, you could sell shade.
                         if ((!basicBot.commands.executable(this.rank, chat)) && chat.uid !== basicBot.loggedInID) return void (0);
                         var histIndex = "2"; //Default to 2nd song on the list, or last song
                         if (msg.length > cmd.length) histIndex = msg.substring(cmd.length + 1);
+                        basicBot.roomUtilities.logDebug("histIndex: " + histIndex);
                         if (!isNaN(histIndex)) {
                             basicBot.roomUtilities.sendChat("Invalid historical song index number");
                             return;
                         }
+                        basicBot.roomUtilities.logDebug("histIndex: " + histIndex);
                         var songHistory = API.getHistory();
-                        if (histIndex > songHistory.length) {
-                            basicBot.roomUtilities.sendChat("Invalid historical song index number");
+                        if ((parseInt(histIndex) > songHistory.length) || (parseInt(histIndex) < 1)) {
+                            basicBot.roomUtilities.sendChat("Invalid historical song index value");
                             return;
                         }
-                        var song = songHistory[histIndex - 1];
+                        basicBot.roomUtilities.logDebug("Loading Song: " + histIndex);
+                        var song = songHistory[parseInt(histIndex) - 1];
+                        if (typeof song === 'undefined') {
+                            basicBot.roomUtilities.sendChat("Could not define song idx: " + histIndex);
+                            return;
+                        }
+                        basicBot.roomUtilities.logObject(song, "SONG");
+                        basicBot.roomUtilities.logDebug("Defining Mid");
                         var songMid = song.media.format + ':' + song.media.cid;
+                        basicBot.roomUtilities.logDebug("Banning Song MID: " + songMid);
                         if (basicBot.room.newBlacklistIDs.indexOf(songMid) < 0) {
+                            basicBot.roomUtilities.logDebug("Loading track");
                             var track = {
                                 author: song.media.author,
                                 title: song.media.title,
                                 mid: songMid
                             };
+                            basicBot.roomUtilities.logDebug("Banning Song");
                             basicBot.roomUtilities.banSong(track);
                             basicBot.roomUtilities.sendChat(subChat(basicBot.chat.newblacklisted, {name: song.user.username, author: song.media.author, title: song.media.title, mid: song.media.format + ':' + song.media.cid}));
                         }
