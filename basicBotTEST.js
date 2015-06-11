@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.37
+/** version: 2.1.4.00043.38
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -285,7 +285,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.37",
+        version: "2.1.4.00043.38",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -5254,15 +5254,19 @@ You're so fat, you could sell shade.
                         basicBot.roomUtilities.logDebug("-----------------------------------------------------------");
                         basicBot.roomUtilities.logDebug("ID COUNT: " + basicBot.room.newBlacklistIDs.length);
                         basicBot.roomUtilities.logDebug("LIST COUNT: " + basicBot.room.newBlacklist.length);
-                        basicBot.roomUtilities.logDebug("Loading BL List");
-                        $.get(basicBot.blacklistLink, function (blList) {
-                            basicBot.roomUtilities.logInfo("BL List: (" + blList.length + ") " + blList);
-                            basicBot.room.newBlacklist = JSON.parse(blList);
+                        basicBot.roomUtilities.logDebug("Loading BL List: " + basicBot.blacklistLink);
+                        $(function() {
+                            $.get(basicBot.blacklistLink, function (blList) {
+                                basicBot.roomUtilities.logInfo("BL List: (" + blList.length + ") " + blList);
+                                basicBot.room.newBlacklist = JSON.parse(blList);
+                            });
                         });
-                        basicBot.roomUtilities.logDebug("Loading BL IDs");
-                        $.get(basicBot.blacklistIdLink, function (BlIds) {
-                            basicBot.roomUtilities.logDebug("BL IDs: (" + BlIds.length + ") " + BlIds);
-                            basicBot.room.newBlacklistIDs = JSON.parse(BlIds);
+                        basicBot.roomUtilities.logDebug("Loading BL IDs: " + basicBot.blacklistIdLink);
+                        $(function() {
+                            $.get(basicBot.blacklistIdLink, function (BlIds) {
+                                basicBot.roomUtilities.logDebug("BL IDs: (" + BlIds.length + ") " + BlIds);
+                                basicBot.room.newBlacklistIDs = JSON.parse(BlIds);
+                            });
                         });
                         basicBot.roomUtilities.logDebug("NO SHIT??");
                         basicBot.roomUtilities.logDebug("ID COUNT: " + basicBot.room.newBlacklistIDs.length);
