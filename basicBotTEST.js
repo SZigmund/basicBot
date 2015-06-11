@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.30
+/** version: 2.1.4.00043.31
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.30",
+        version: "2.1.4.00043.31",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -5339,6 +5339,7 @@ You're so fat, you could sell shade.
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if ((!basicBot.commands.executable(this.rank, chat)) && chat.uid !== basicBot.loggedInID) return void (0);
                         var histIndex = "2"; //Default to 2nd song on the list, or last song
+                        var msg = chat.message;
                         if (msg.length > cmd.length) histIndex = msg.substring(cmd.length + 1);
                         basicBot.roomUtilities.logDebug("histIndex: " + histIndex);
                         if (!isNaN(histIndex)) {
