@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.31
+/** version: 2.1.4.00043.32
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -277,7 +277,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.31",
+        version: "2.1.4.00043.32",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -5232,6 +5232,15 @@ You're so fat, you could sell shade.
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     try {
+/*"DEBUG: -----------------------------------------------------------" basicBotTEST.js:2403:19
+"DEBUG: ID COUNT: 0" basicBotTEST.js:2403:19
+"DEBUG: LIST COUNT: 0" basicBotTEST.js:2403:19
+"DEBUG: Loading BL List" basicBotTEST.js:2403:19
+"DEBUG: Loading BL IDs" basicBotTEST.js:2403:19
+"DEBUG: NO SHIT??" basicBotTEST.js:2403:19
+"DEBUG: ID COUNT: 0" basicBotTEST.js:2403:19
+"DEBUG: LIST COUNT: 0" basicBotTEST.js:2403:19
+*/
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return;
                         if (!basicBot.commands.executable(this.rank, chat)) return;
                         basicBot.roomUtilities.logDebug("-----------------------------------------------------------");
@@ -5342,7 +5351,7 @@ You're so fat, you could sell shade.
                         var msg = chat.message;
                         if (msg.length > cmd.length) histIndex = msg.substring(cmd.length + 1);
                         basicBot.roomUtilities.logDebug("histIndex: " + histIndex);
-                        if (!isNaN(histIndex)) {
+                        if (isNaN(histIndex)) {
                             basicBot.roomUtilities.sendChat("Invalid historical song index number");
                             return;
                         }
