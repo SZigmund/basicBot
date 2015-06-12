@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.40
+/** version: 2.1.4.00043.41
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -285,7 +285,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.40",
+        version: "2.1.4.00043.41",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -294,8 +294,8 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
         scriptTestLink: "https://rawgit.com/SZigmund/basicBot/master/basicBotTEST.js",
         cmdLink: "http://bit.ly/1DbtUV7",
         chatLink: "https://rawgit.com/SZigmund/basicBot/master/lang/en.json",
-        blacklistLink: "https://rawgit.com/SZigmund/basicBot/master/Blacklist/list.asp",
-        blacklistIdLink: "https://rawgit.com/SZigmund/basicBot/master/Blacklist/ids.asp",
+        blacklistLink: "https://rawgit.com/SZigmund/basicBot/master/Blacklist/list.json",
+        blacklistIdLink: "https://rawgit.com/SZigmund/basicBot/master/Blacklist/ids.json",
         chat: null,
         loadChat: loadChat,
         retrieveSettings: retrieveSettings,
@@ -2410,12 +2410,50 @@ You're so fat, you could sell shade.
                 }
                 catch(err) { console.log("ERROR:logException: " + err.message); }
             },
+            
             importBlackList: function() { // banlistimport << command
+                try {
+                    basicBot.roomUtilities.logDebug("Loading BL List: " + basicBot.blacklistLink);
+                    $.get(basicBot.blacklistLink, function (json) {
+                        basicBot.roomUtilities.logDebug("Loaded");
+                        if (json !== null && typeof json !== "undefined") {
+                            basicBot.roomUtilities.logDebug("not null not undef");
+                            if (typeof json === "string") {
+                                json = JSON.parse(json);
+                                basicBot.roomUtilities.logDebug("string");
+                            }
+                            basicBot.room.newBlacklist =  json;
+                        }
+                    });
+                    //});
+                    basicBot.roomUtilities.logDebug("LIST COUNT: " + basicBot.room.newBlacklist.length);
+                }
+                catch(err) { console.log("ERROR:importBlackList: " + err.message); }
+            },
+            importBlackListIds: function() {
+                try {
+                    basicBot.roomUtilities.logDebug("Loading BL IDs: " + basicBot.blacklistIdLink);
+                    $.get(basicBot.blacklistIdLink, function (json) {
+                        basicBot.roomUtilities.logDebug("Loaded");
+                        if (json !== null && typeof json !== "undefined") {
+                            basicBot.roomUtilities.logDebug("not null not undef");
+                            if (typeof json === "string") {
+                                basicBot.roomUtilities.logDebug("string");
+                                json = JSON.parse(json);
+                            }
+                            basicBot.room.newBlacklistIDs = json;
+                        }
+                    });
+                    basicBot.roomUtilities.logDebug("ID COUNT: " + basicBot.room.newBlacklistIDs.length);
+                }
+                catch(err) { console.log("ERROR:importBlackListIds: " + err.message); }
+            },
+            importBlackListXXX: function() { // banlistimport << command
                 try {
                         basicBot.roomUtilities.logDebug("Loading BL List: " + basicBot.blacklistLink);
                 //$(function() {
                         $.get(basicBot.blacklistLink, function (blList, status) {
-						    alert("Data: " + blList + "\nStatus: " + status);
+                            alert("Data: " + blList + "\nStatus: " + status);
                             basicBot.roomUtilities.logInfo("BL List: (" + blList.length + ") " + blList + "\nStatus: " + status);
                             basicBot.room.newBlacklist = JSON.parse(blList);
                         });
@@ -2424,13 +2462,13 @@ You're so fat, you could sell shade.
                 }
                 catch(err) { console.log("ERROR:importBlackList: " + err.message); }
             },
-            importBlackListIds: function() {
+            importBlackListIdsXXX: function() {
                 try {
                         basicBot.roomUtilities.logDebug("Loading BL IDs: " + basicBot.blacklistIdLink);
                     //$(function() {
                         $.get(basicBot.blacklistIdLink, function (BlIds, status) {
                             alert("Data: " + BlIds + "\nStatus: " + status);
-							basicBot.roomUtilities.logDebug("BL IDs: (" + BlIds.length + ") " + BlIds + "\nStatus: " + status);
+                            basicBot.roomUtilities.logDebug("BL IDs: (" + BlIds.length + ") " + BlIds + "\nStatus: " + status);
                             basicBot.room.newBlacklistIDs = JSON.parse(BlIds);
                         });
                     //});
