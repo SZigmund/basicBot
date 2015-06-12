@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.39
+/** version: 2.1.4.00043.40
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -285,7 +285,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.39",
+        version: "2.1.4.00043.40",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2410,11 +2410,12 @@ You're so fat, you could sell shade.
                 }
                 catch(err) { console.log("ERROR:logException: " + err.message); }
             },
-            importBlackList: function() {
+            importBlackList: function() { // banlistimport << command
                 try {
                         basicBot.roomUtilities.logDebug("Loading BL List: " + basicBot.blacklistLink);
                 //$(function() {
                         $.get(basicBot.blacklistLink, function (blList, status) {
+						    alert("Data: " + blList + "\nStatus: " + status);
                             basicBot.roomUtilities.logInfo("BL List: (" + blList.length + ") " + blList + "\nStatus: " + status);
                             basicBot.room.newBlacklist = JSON.parse(blList);
                         });
@@ -2428,7 +2429,8 @@ You're so fat, you could sell shade.
                         basicBot.roomUtilities.logDebug("Loading BL IDs: " + basicBot.blacklistIdLink);
                     //$(function() {
                         $.get(basicBot.blacklistIdLink, function (BlIds, status) {
-                            basicBot.roomUtilities.logDebug("BL IDs: (" + BlIds.length + ") " + BlIds + "\nStatus: " + status);
+                            alert("Data: " + BlIds + "\nStatus: " + status);
+							basicBot.roomUtilities.logDebug("BL IDs: (" + BlIds.length + ") " + BlIds + "\nStatus: " + status);
                             basicBot.room.newBlacklistIDs = JSON.parse(BlIds);
                         });
                     //});
@@ -5270,25 +5272,10 @@ You're so fat, you could sell shade.
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     try {
-/*"DEBUG: -----------------------------------------------------------" basicBotTEST.js:2403:19
-"DEBUG: ID COUNT: 0" basicBotTEST.js:2403:19
-"DEBUG: LIST COUNT: 0" basicBotTEST.js:2403:19
-"DEBUG: Loading BL List" basicBotTEST.js:2403:19
-"DEBUG: Loading BL IDs" basicBotTEST.js:2403:19
-"DEBUG: NO SHIT??" basicBotTEST.js:2403:19
-"DEBUG: ID COUNT: 0" basicBotTEST.js:2403:19
-"DEBUG: LIST COUNT: 0" basicBotTEST.js:2403:19
-*/
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return;
                         if (!basicBot.commands.executable(this.rank, chat)) return;
-                        basicBot.roomUtilities.logDebug("-----------------------------------------------------------");
-                        basicBot.roomUtilities.logDebug("ID COUNT: " + basicBot.room.newBlacklistIDs.length);
-                        basicBot.roomUtilities.logDebug("LIST COUNT: " + basicBot.room.newBlacklist.length);
                         basicBot.roomUtilities.importBlackList();
                         basicBot.roomUtilities.importBlackListIds();
-                        basicBot.roomUtilities.logDebug("NO SHIT??");
-                        basicBot.roomUtilities.logDebug("ID COUNT: " + basicBot.room.newBlacklistIDs.length);
-                        basicBot.roomUtilities.logDebug("LIST COUNT: " + basicBot.room.newBlacklist.length);
                     }
                     catch (err) { basicBot.roomUtilities.logException("banlistimport: " + err.message); }
                 }
