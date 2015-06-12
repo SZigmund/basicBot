@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.47
+/** version: 2.1.4.00043.48
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -285,7 +285,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.47",
+        version: "2.1.4.00043.48",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2394,7 +2394,7 @@ You're so fat, you could sell shade.
             sendChat: function(msg) {  // Send chat to all
                 try {
                     //todoer Delete this after we re-enable the bot kill on room change code.
-                    if(settings.botRoomUrl != window.location.pathname) return;  // If we leave the room where we started the bot stop displaying messages.
+                    if(basicBot.settings.botRoomUrl != window.location.pathname) return;  // If we leave the room where we started the bot stop displaying messages.
                     if (runningBot) API.sendChat(msg);
                     else basicBot.roomUtilities.chatLog(msg);
                 }
@@ -3559,7 +3559,7 @@ You're so fat, you could sell shade.
                     type: "DELETE"
                 })
             };
-            settings.botRoomUrl = window.location.pathname;
+            basicBot.settings.botRoomUrl = window.location.pathname;
             
             // ==========================================================
             // Detect room change and disable the bot:
@@ -3567,7 +3567,7 @@ You're so fat, you could sell shade.
             /*
             var Check;
             var detect = function(){
-                if(settings.botRoomUrl != window.location.pathname){
+                if(basicBot.settings.botRoomUrl != window.location.pathname){
                     clearInterval(Check)
                     basicBot.roomUtilities.logInfo("Killing bot after room change.");
                     storeToStorage();
@@ -3585,7 +3585,7 @@ You're so fat, you could sell shade.
             retrieveSettings();
             //basicBot.roomUtilities.logDebug("TODO - STARTUP retrieveFromStorage");
             retrieveFromStorage();
-            if (settings.botRoomUrl !== "/-752559695349757775") basicBot.room.debug = false;
+            if (basicBot.settings.botRoomUrl !== "/-752559695349757775") basicBot.room.debug = false;
             //basicBot.roomUtilities.validateUserCheck();
 
             //basicBot.roomUtilities.logDebug("TODO - STARTUP 1");
