@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.42
+/** version: 2.1.4.00043.43
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -285,7 +285,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.42",
+        version: "2.1.4.00043.43",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2423,7 +2423,7 @@ You're so fat, you could sell shade.
                             //    basicBot.roomUtilities.logDebug("string");
                             //}
                             basicBot.roomUtilities.logDebug("JSON: " + json);
-                            if (logging) basicBot.roomUtilities.logObject(json, "BL");
+                            basicBot.roomUtilities.logObject(json, "BL");
                             basicBot.room.newBlacklist =  JSON.parse(json);
                         }
                     });
@@ -2444,7 +2444,7 @@ You're so fat, you could sell shade.
                             //    json = JSON.parse(json);
                             //}
                             basicBot.roomUtilities.logDebug("JSON: " + json);
-                            if (logging) basicBot.roomUtilities.logObject(json, "ID");
+                            basicBot.roomUtilities.logObject(json, "ID");
                             basicBot.room.newBlacklistIDs = JSON.parse(json);
                         }
                     });
