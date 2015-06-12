@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.41
+/** version: 2.1.4.00043.42
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -285,7 +285,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.41",
+        version: "2.1.4.00043.42",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2418,11 +2418,13 @@ You're so fat, you could sell shade.
                         basicBot.roomUtilities.logDebug("Loaded");
                         if (json !== null && typeof json !== "undefined") {
                             basicBot.roomUtilities.logDebug("not null not undef");
-                            if (typeof json === "string") {
-                                json = JSON.parse(json);
-                                basicBot.roomUtilities.logDebug("string");
-                            }
-                            basicBot.room.newBlacklist =  json;
+                            //if (typeof json === "string") {
+                            //    json = JSON.parse(json);
+                            //    basicBot.roomUtilities.logDebug("string");
+                            //}
+                            basicBot.roomUtilities.logDebug("JSON: " + json);
+                            if (logging) basicBot.roomUtilities.logObject(json, "BL");
+                            basicBot.room.newBlacklist =  JSON.parse(json);
                         }
                     });
                     //});
@@ -2437,11 +2439,13 @@ You're so fat, you could sell shade.
                         basicBot.roomUtilities.logDebug("Loaded");
                         if (json !== null && typeof json !== "undefined") {
                             basicBot.roomUtilities.logDebug("not null not undef");
-                            if (typeof json === "string") {
-                                basicBot.roomUtilities.logDebug("string");
-                                json = JSON.parse(json);
-                            }
-                            basicBot.room.newBlacklistIDs = json;
+                            //if (typeof json === "string") {
+                            //    basicBot.roomUtilities.logDebug("string");
+                            //    json = JSON.parse(json);
+                            //}
+                            basicBot.roomUtilities.logDebug("JSON: " + json);
+                            if (logging) basicBot.roomUtilities.logObject(json, "ID");
+                            basicBot.room.newBlacklistIDs = JSON.parse(json);
                         }
                     });
                     basicBot.roomUtilities.logDebug("ID COUNT: " + basicBot.room.newBlacklistIDs.length);
@@ -2616,7 +2620,6 @@ You're so fat, you could sell shade.
                             var logging = false;
                             if (roomUser.username === "Doc_Z") logging = true;
                             if (roomUser.username === "cadilla") logging = true;
-                            if (logging) 
                             var leftroom = roomUser.lastDC.leftroom;
                             var dcPos = roomUser.lastDC.position;
                             var miaTime = 0;
