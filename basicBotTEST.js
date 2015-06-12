@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.44
+/** version: 2.1.4.00043.45
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -285,7 +285,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.44",
+        version: "2.1.4.00043.45",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2416,7 +2416,8 @@ You're so fat, you could sell shade.
                     $.get(basicBot.blacklistLink, function (json) {
                         if (json !== null && typeof json !== "undefined") {
                             basicBot.roomUtilities.logObject(json, "BL");
-                            for (var track in json) {
+                            for (var idx in json) {
+                                var track = json[idx];
                                 if (basicBot.room.newBlacklistIDs.indexOf(track.mid) < 0) basicBot.roomUtilities.banSong(track);
                             }
                         }
