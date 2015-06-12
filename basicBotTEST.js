@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.43
+/** version: 2.1.4.00043.44
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -285,7 +285,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.43",
+        version: "2.1.4.00043.44",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2413,21 +2413,14 @@ You're so fat, you could sell shade.
             
             importBlackList: function() { // banlistimport << command
                 try {
-                    basicBot.roomUtilities.logDebug("Loading BL List: " + basicBot.blacklistLink);
                     $.get(basicBot.blacklistLink, function (json) {
-                        basicBot.roomUtilities.logDebug("Loaded");
                         if (json !== null && typeof json !== "undefined") {
-                            basicBot.roomUtilities.logDebug("not null not undef");
-                            //if (typeof json === "string") {
-                            //    json = JSON.parse(json);
-                            //    basicBot.roomUtilities.logDebug("string");
-                            //}
-                            basicBot.roomUtilities.logDebug("JSON: " + json);
                             basicBot.roomUtilities.logObject(json, "BL");
-                            basicBot.room.newBlacklist =  JSON.parse(json);
+                            for (var track in json) {
+                                if (basicBot.room.newBlacklistIDs.indexOf(track.mid) < 0) basicBot.roomUtilities.banSong(track);
+                            }
                         }
                     });
-                    //});
                     basicBot.roomUtilities.logDebug("LIST COUNT: " + basicBot.room.newBlacklist.length);
                 }
                 catch(err) { console.log("ERROR:importBlackList: " + err.message); }
@@ -2448,34 +2441,6 @@ You're so fat, you could sell shade.
                             basicBot.room.newBlacklistIDs = JSON.parse(json);
                         }
                     });
-                    basicBot.roomUtilities.logDebug("ID COUNT: " + basicBot.room.newBlacklistIDs.length);
-                }
-                catch(err) { console.log("ERROR:importBlackListIds: " + err.message); }
-            },
-            importBlackListXXX: function() { // banlistimport << command
-                try {
-                        basicBot.roomUtilities.logDebug("Loading BL List: " + basicBot.blacklistLink);
-                //$(function() {
-                        $.get(basicBot.blacklistLink, function (blList, status) {
-                            alert("Data: " + blList + "\nStatus: " + status);
-                            basicBot.roomUtilities.logInfo("BL List: (" + blList.length + ") " + blList + "\nStatus: " + status);
-                            basicBot.room.newBlacklist = JSON.parse(blList);
-                        });
-                    //});
-                    basicBot.roomUtilities.logDebug("LIST COUNT: " + basicBot.room.newBlacklist.length);
-                }
-                catch(err) { console.log("ERROR:importBlackList: " + err.message); }
-            },
-            importBlackListIdsXXX: function() {
-                try {
-                        basicBot.roomUtilities.logDebug("Loading BL IDs: " + basicBot.blacklistIdLink);
-                    //$(function() {
-                        $.get(basicBot.blacklistIdLink, function (BlIds, status) {
-                            alert("Data: " + BlIds + "\nStatus: " + status);
-                            basicBot.roomUtilities.logDebug("BL IDs: (" + BlIds.length + ") " + BlIds + "\nStatus: " + status);
-                            basicBot.room.newBlacklistIDs = JSON.parse(BlIds);
-                        });
-                    //});
                     basicBot.roomUtilities.logDebug("ID COUNT: " + basicBot.room.newBlacklistIDs.length);
                 }
                 catch(err) { console.log("ERROR:importBlackListIds: " + err.message); }
@@ -5316,7 +5281,6 @@ You're so fat, you could sell shade.
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return;
                         if (!basicBot.commands.executable(this.rank, chat)) return;
                         basicBot.roomUtilities.importBlackList();
-                        basicBot.roomUtilities.importBlackListIds();
                     }
                     catch (err) { basicBot.roomUtilities.logException("banlistimport: " + err.message); }
                 }
@@ -5377,7 +5341,7 @@ You're so fat, you could sell shade.
                         var songHistory = API.getHistory();
                         for (var i = 0; i < songHistory.length; i++) {
                             var song = songHistory[i];
-                            if (i === 0) basicBot.roomUtilities.logObject(song, "SONG");
+                            //if (i === 0) basicBot.roomUtilities.logObject(song, "SONG");
                             var songMid = song.media.format + ':' + song.media.cid;
                             if (basicBot.room.newBlacklistIDs.indexOf(songMid) < 0) {
                             //var media = API.getMedia();
