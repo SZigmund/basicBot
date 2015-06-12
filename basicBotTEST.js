@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.38
+/** version: 2.1.4.00043.39
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -285,7 +285,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.38",
+        version: "2.1.4.00043.39",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -294,8 +294,8 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
         scriptTestLink: "https://rawgit.com/SZigmund/basicBot/master/basicBotTEST.js",
         cmdLink: "http://bit.ly/1DbtUV7",
         chatLink: "https://rawgit.com/SZigmund/basicBot/master/lang/en.json",
-        blacklistLink: "https://rawgit.com/SZigmund/basicBot/master/Blacklist/list.txt",
-        blacklistIdLink: "https://rawgit.com/SZigmund/basicBot/master/Blacklist/ids.txt",
+        blacklistLink: "https://rawgit.com/SZigmund/basicBot/master/Blacklist/list.asp",
+        blacklistIdLink: "https://rawgit.com/SZigmund/basicBot/master/Blacklist/ids.asp",
         chat: null,
         loadChat: loadChat,
         retrieveSettings: retrieveSettings,
@@ -1248,6 +1248,11 @@ $.ajax({
        //alert("error");
     }
 });
+
+                    $.post("https://rawgit.com/SZigmund/basicBot-customization/master/blacklists/ExampleNSFWlist.json",{
+                     JSON.stringify( basicBot.room.blacklists[list] )    
+                    })
+
 */
 
                 }
@@ -2404,6 +2409,32 @@ You're so fat, you could sell shade.
                    console.log("ERROR: " + msg);
                 }
                 catch(err) { console.log("ERROR:logException: " + err.message); }
+            },
+            importBlackList: function() {
+                try {
+                        basicBot.roomUtilities.logDebug("Loading BL List: " + basicBot.blacklistLink);
+                //$(function() {
+                        $.get(basicBot.blacklistLink, function (blList, status) {
+                            basicBot.roomUtilities.logInfo("BL List: (" + blList.length + ") " + blList + "\nStatus: " + status);
+                            basicBot.room.newBlacklist = JSON.parse(blList);
+                        });
+                    //});
+                    basicBot.roomUtilities.logDebug("LIST COUNT: " + basicBot.room.newBlacklist.length);
+                }
+                catch(err) { console.log("ERROR:importBlackList: " + err.message); }
+            },
+            importBlackListIds: function() {
+                try {
+                        basicBot.roomUtilities.logDebug("Loading BL IDs: " + basicBot.blacklistIdLink);
+                    //$(function() {
+                        $.get(basicBot.blacklistIdLink, function (BlIds, status) {
+                            basicBot.roomUtilities.logDebug("BL IDs: (" + BlIds.length + ") " + BlIds + "\nStatus: " + status);
+                            basicBot.room.newBlacklistIDs = JSON.parse(BlIds);
+                        });
+                    //});
+                    basicBot.roomUtilities.logDebug("ID COUNT: " + basicBot.room.newBlacklistIDs.length);
+                }
+                catch(err) { console.log("ERROR:importBlackListIds: " + err.message); }
             },
             logDebug: function(msg) {  // Logs to console only if running in debug mode
                 try {
@@ -5217,7 +5248,6 @@ You're so fat, you could sell shade.
                     if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                     else {
                         try {
-                            basicBot.roomUtilities.logInfo(subChat(basicBot.chat.skip, {name: chat.un + ":BLOCKED"}));
                             var dj = API.getDJ();
                             var msgSend = '@' + dj.username + ': this song has been blocked in the US. please find another version.';
                             basicBot.roomUtilities.logInfo("Skip song: " + API.getMedia().title + " by: " + chat.un + " Reason: Blocked");
@@ -5254,20 +5284,8 @@ You're so fat, you could sell shade.
                         basicBot.roomUtilities.logDebug("-----------------------------------------------------------");
                         basicBot.roomUtilities.logDebug("ID COUNT: " + basicBot.room.newBlacklistIDs.length);
                         basicBot.roomUtilities.logDebug("LIST COUNT: " + basicBot.room.newBlacklist.length);
-                        basicBot.roomUtilities.logDebug("Loading BL List: " + basicBot.blacklistLink);
-                        $(function() {
-                            $.get(basicBot.blacklistLink, function (blList) {
-                                basicBot.roomUtilities.logInfo("BL List: (" + blList.length + ") " + blList);
-                                basicBot.room.newBlacklist = JSON.parse(blList);
-                            });
-                        });
-                        basicBot.roomUtilities.logDebug("Loading BL IDs: " + basicBot.blacklistIdLink);
-                        $(function() {
-                            $.get(basicBot.blacklistIdLink, function (BlIds) {
-                                basicBot.roomUtilities.logDebug("BL IDs: (" + BlIds.length + ") " + BlIds);
-                                basicBot.room.newBlacklistIDs = JSON.parse(BlIds);
-                            });
-                        });
+                        basicBot.roomUtilities.importBlackList();
+                        basicBot.roomUtilities.importBlackListIds();
                         basicBot.roomUtilities.logDebug("NO SHIT??");
                         basicBot.roomUtilities.logDebug("ID COUNT: " + basicBot.room.newBlacklistIDs.length);
                         basicBot.roomUtilities.logDebug("LIST COUNT: " + basicBot.room.newBlacklist.length);
