@@ -1,4 +1,4 @@
-/** version: 2.1.4.00043.45
+/** version: 2.1.4.00043.46
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -285,7 +285,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00043.45",
+        version: "2.1.4.00043.46",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2290,9 +2290,9 @@ You're so fat, you could sell shade.
                 try {
                     for (var prop in objectToLog) {
                         if (typeof objectToLog[prop] === "object") 
-                            basicBot.roomUtilities.logObject(objectToLog[prop], objectName + "." + prop.toUpperCase());
+                            basicBot.roomUtilities.logObject(objectToLog[prop], objectName + "." + prop);
                         else
-                            basicBot.roomUtilities.logDebug("Prop->" + objectName.toUpperCase() + ": "  + prop.toUpperCase() + " value: " + objectToLog[prop]);
+                            basicBot.roomUtilities.logDebug("Prop->" + objectName + ": "  + prop + " value: " + objectToLog[prop]);
                     }
                 }
                 catch(err) { basicBot.roomUtilities.logException("logObject: " + err.message); }
@@ -2418,6 +2418,11 @@ You're so fat, you could sell shade.
                             basicBot.roomUtilities.logObject(json, "BL");
                             for (var idx in json) {
                                 var track = json[idx];
+                                //var track = {
+                                //    author: json[idx].author,
+                                //    title: json[idx].title,
+                                //    mid: json[idx].mid
+                                //};
                                 if (basicBot.room.newBlacklistIDs.indexOf(track.mid) < 0) basicBot.roomUtilities.banSong(track);
                             }
                         }
@@ -5436,6 +5441,19 @@ You're so fat, you could sell shade.
                         basicBot.roomUtilities.logNewBlacklistedSongs();
                     }
                     catch (err) { basicBot.roomUtilities.logException("banlistconsole: " + err.message); }
+                }
+            },
+            banlistcountCommand: {   //Added: 06/12/2015 List all banned songs
+                command: 'banlistcount',
+                rank: 'bouncer',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        basicBot.roomUtilities.sendChat("I've got " + basicBot.room.newBlacklist.length + " songs on the ban list " + chat.un + ".");
+                    }
+                    catch (err) { basicBot.roomUtilities.logException("banlistcount: " + err.message); }
                 }
             },
             banlistCommand: {   //Added: 06/10/2015 List all banned songs
