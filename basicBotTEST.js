@@ -1,4 +1,4 @@
-/** version: 2.1.4.00044.01
+/** version: 2.1.4.00044.02
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -285,7 +285,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00044.01",
+        version: "2.1.4.00044.02",
         status: false,
         name: "basicBot",
         loggedInID: null,
@@ -2390,8 +2390,8 @@ You're so fat, you could sell shade.
                         return false;
                     }
                     // Else return a random Tasty command for Larry to use on his .tasty points:
-                    var idx = Math.floor(Math.random() * this.commandList.length);
-                    return this.commandList[idx];
+                    var idx = Math.floor(Math.random() * commandList.length);
+                    return commandList[idx];
                 }
                 catch(err) { basicBot.roomUtilities.logException("bopCommand: " + err.message); }
             },
@@ -5313,12 +5313,12 @@ You're so fat, you could sell shade.
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                         
                         var msg = chat.message;
-                        if (msg.length === cmd.length) basicBot.roomUtilities.sendChat("Missing mid to remove...");
+                        if (msg.length === cmd.length) return basicBot.roomUtilities.sendChat("Missing mid to remove...");
                         var midToRemove = msg.substring(cmd.length + 1);
                         basicBot.roomUtilities.logDebug("Keyword: " + midToRemove);
                         var idxToRemove = basicBot.room.newBlacklistIDs.indexOf(midToRemove);
-                        if (idxToRemove < 0) basicBot.roomUtilities.sendChat("Could not locate mid: " + midToRemove);
-                        if (basicBot.room.newBlacklist.length !== basicBot.room.newBlacklistIDs.length) basicBot.roomUtilities.sendChat("Could not remove song ban, corrupt song list info.");
+                        if (idxToRemove < 0) return basicBot.roomUtilities.sendChat("Could not locate mid: " + midToRemove);
+                        if (basicBot.room.newBlacklist.length !== basicBot.room.newBlacklistIDs.length) return basicBot.roomUtilities.sendChat("Could not remove song ban, corrupt song list info.");
                         var track = basicBot.room.newBlacklist[idxToRemove];
                         var msgToSend = chat.un + " removed [" + track.author + " - " + track.title + "] from the banned song list.";
                         basicBot.room.newBlacklist.splice(idxToRemove, 1);  // Remove 1 item from list
