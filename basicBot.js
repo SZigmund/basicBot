@@ -1,4 +1,4 @@
-/** version: 2.1.4.00044
+/** version: 2.1.4.00045
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -285,8 +285,9 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00044",
+        version: "2.1.4.00045",
         status: false,
+        botMuted: false,
         name: "basicBot",
         loggedInID: null,
         loggedInName: "",
@@ -1639,7 +1640,8 @@ $.ajax({
                 var u;
                 if (typeof obj === "object") u = obj;
                 else u = basicBot.userUtilities.getPlugUserID(obj);
-                if (botCreatorIDs.indexOf(u.id) > -1) return 10;
+                if (botCreatorIDs.indexOf(u.id) > -1) return 10;    // admin
+                if (basicBot.loggedInID === u.id) return 4;          // cohost
                 //basicBot.roomUtilities.logDebug("Role: " + u.role);
                 //basicBot.roomUtilities.logDebug("Name: " + u.username);
                 //basicBot.roomUtilities.logDebug("ID: " + u.id);
@@ -2019,6 +2021,7 @@ $.ajax({
                 basicBot.roomUtilities.logDebug("Larry AI chatmsg: " + chatmsg);
 
 /*
+People suffocate in your mother's vomit
 what the hell was that i can eat a bowl of alphabet soup and shit out a smarter insult than that
 Well I could agree with you, but then we'd both be wrong.
 I love it when someone insults me. That means I don’t have to be nice anymore.
@@ -2077,6 +2080,7 @@ You're so fat, you could sell shade.
                 if (chatmsg.indexOf("FUCKINGLARRY") > -1) fuComment = "Do you kiss you mother with that mouth %%FU%%?";
                 if (chatmsg.indexOf("BITEMELARRY") > -1) fuComment = "I wouldn't give you the pleasure %%FU%%....You're a freak!";
                 if (chatmsg.indexOf("IHATEYOULARRY") > -1) fuComment = "I don't exactly hate you %%FU%%, but if you were on fire and I had water, I'd drink it!";
+                if (chatmsg.indexOf("LARRYIHATEYOU") > -1) fuComment = "I don't exactly hate you %%FU%%, but if you were on fire and I had water, I'd drink it!";
                 if (chatmsg.indexOf("HATESLARRY") > -1) fuComment = "Well rest assured the feeling is mutual %%FU%%!  :kiss:";
                 if (chatmsg.indexOf("LARRYHATESMYNAME") > -1) fuComment = "I don't like the name %%FU%%, only fagots and sailors are called that name, from now on you're Gomer Pyle";
 
@@ -2119,6 +2123,7 @@ You're so fat, you could sell shade.
                 if (chatmsg.indexOf("HITSLARRY") > -1) fuComment = "Hits %%FU%% upside the head!";
                 if (chatmsg.indexOf("SMACKSLARRY") > -1) fuComment = "Smacks %%FU%% upside the head!";
                 if (chatmsg.indexOf("THANKSLARRY") > -1) fuComment = "You're welcome %%FU%%.";
+                if (chatmsg.indexOf("THXLARRY") > -1) fuComment = "You're welcome %%FU%%.";
                 if (chatmsg.indexOf("THANKYOULARRY") > -1) fuComment = "You're welcome %%FU%%.";
                 if (chatmsg.indexOf("HILARRY") > -1) fuComment = "Hi %%FU%%.";
                 if (chatmsg.indexOf("HELLOLARRY") > -1) fuComment = "Hello %%FU%%.";
@@ -2356,7 +2361,7 @@ You're so fat, you could sell shade.
                 }
                 catch(err) { basicBot.roomUtilities.logException("whoisinfo: " + err.message); }
             },
-            isBopCommand: function (cmd) {
+            bopCommand: function (cmd) {
                 try {
                     var commandList = ['tasty', 'rock', 'props', 'woot', 'groot', 'groovy', 'jam','nice','bop','cowbell','sax','ukulele','tango','samba','disco','waltz','metal',
                               'bob','boogie','cavort','conga','flit','foxtrot','frolic','gambol','hop','hustle','jig','jitter','jitterbug','jive','jump','leap','prance',
@@ -2380,10 +2385,16 @@ You're so fat, you could sell shade.
                               'hip','soul','soulful','cover','yummy','ohyeah','twist','shout','trippy','hot','country','stellar','smoove','pantydropper','baby','mmm','tits','hooters',
                               'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell','lesbian','lesbians','niceconnect','connect','kazoo','win','webejammin',
                               'bellyrub','groove','gold','golden','twofer','phat','punkrock','punkrocker','merp','derp','herp-a-derp','narf','amazing','doabarrellroll','plusone'];
-                    if (commandList.indexOf(cmd) < 0) return true;
-                    return false;
+                    // If a command if passed in validate it and return true if it is a Tasty command:
+                    if (cmd.length > 0) {
+                        if (commandList.indexOf(cmd) < 0) return true;
+                        return false;
+                    }
+                    // Else return a random Tasty command for Larry to use on his .tasty points:
+                    var idx = Math.floor(Math.random() * commandList.length);
+                    return commandList[idx];
                 }
-                catch(err) { basicBot.roomUtilities.logException("isBopCommand: " + err.message); }
+                catch(err) { basicBot.roomUtilities.logException("bopCommand: " + err.message); }
             },
             chatLog: function(msg) {  // Logs to Larry's chat only
                 try {
@@ -2395,8 +2406,12 @@ You're so fat, you could sell shade.
                 try {
                     //todoer Delete this after we re-enable the bot kill on room change code.
                     //if(basicBot.settings.botRoomUrl != window.location.pathname) return;  // If we leave the room where we started the bot stop displaying messages.
-                    if (runningBot) API.sendChat(msg);
-                    else basicBot.roomUtilities.chatLog(msg);
+                    if (basicBot.botMuted === true) 
+                        basicBot.roomUtilities.logInfo(msg);
+                    else if (runningBot) 
+                        API.sendChat(msg);
+                    else 
+                        basicBot.roomUtilities.chatLog(msg);
                 }
                 catch(err) { basicBot.roomUtilities.logException("sendChat: " + err.message); }
             },
@@ -3134,7 +3149,7 @@ You're so fat, you could sell shade.
                     setTimeout(function () { basicBot.roomUtilities.sendChat(banMsg); }, 1000);
                     basicBot.settings.suppressSongStats = true;
                     setTimeout(function () { basicBot.settings.suppressSongStats = false }, 5000);
-                    basicBot.userUtilities.skipBadSong(obj.dj.id, basicBot.loggedInName, "Blacklisted song");
+                    basicBot.userUtilities.skipBadSong(obj.dj.id, basicBot.loggedInName, "Banned song");
                     setTimeout(function () {
                         basicBot.roomUtilities.sendChat(subChat(basicBot.chat.roomrules, {link: basicBot.settings.rulesLink}));
                     }, 2000);
@@ -3404,7 +3419,7 @@ You're so fat, you could sell shade.
                     //basicBot.roomUtilities.logDebug("commandCheck cmd: " + cmd);
                     //basicBot.roomUtilities.logDebug("commandCheck chat.uid: " + chat.uid);
                     var userPerm = basicBot.userUtilities.getPermission(chat.uid);
-                    if (chat.message.toLowerCase() !== ".join" && chat.message.toLowerCase() !== ".leave" && (!basicBot.roomUtilities.isBopCommand(cmd))) {
+                    if (chat.message.toLowerCase() !== ".join" && chat.message.toLowerCase() !== ".leave" && (!basicBot.roomUtilities.bopCommand(cmd))) {
                         //basicBot.roomUtilities.logDebug("commandCheck1: " + cmd);
                         if (userPerm === 0 && !basicBot.room.usercommand) return void (0);
                         //basicBot.roomUtilities.logDebug("commandCheck2: " + cmd);
@@ -3585,6 +3600,7 @@ You're so fat, you could sell shade.
             retrieveSettings();
             //basicBot.roomUtilities.logDebug("TODO - STARTUP retrieveFromStorage");
             retrieveFromStorage();
+            basicBot.botMuted = false;
             if (basicBot.settings.botRoomUrl !== "/-752559695349757775") basicBot.room.debug = false;
             //basicBot.roomUtilities.validateUserCheck();
 
@@ -5303,12 +5319,12 @@ You're so fat, you could sell shade.
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                         
                         var msg = chat.message;
-                        if (msg.length === cmd.length) basicBot.roomUtilities.sendChat("Missing mid to remove...");
+                        if (msg.length === cmd.length) return basicBot.roomUtilities.sendChat("Missing mid to remove...");
                         var midToRemove = msg.substring(cmd.length + 1);
                         basicBot.roomUtilities.logDebug("Keyword: " + midToRemove);
                         var idxToRemove = basicBot.room.newBlacklistIDs.indexOf(midToRemove);
-                        if (idxToRemove < 0) basicBot.roomUtilities.sendChat("Could not locate mid: " + midToRemove);
-                        if (basicBot.room.newBlacklist.length !== basicBot.room.newBlacklistIDs.length) basicBot.roomUtilities.sendChat("Could not remove song ban, corrupt song list info.");
+                        if (idxToRemove < 0) return basicBot.roomUtilities.sendChat("Could not locate mid: " + midToRemove);
+                        if (basicBot.room.newBlacklist.length !== basicBot.room.newBlacklistIDs.length) return basicBot.roomUtilities.sendChat("Could not remove song ban, corrupt song list info.");
                         var track = basicBot.room.newBlacklist[idxToRemove];
                         var msgToSend = chat.un + " removed [" + track.author + " - " + track.title + "] from the banned song list.";
                         basicBot.room.newBlacklist.splice(idxToRemove, 1);  // Remove 1 item from list
@@ -5344,11 +5360,14 @@ You're so fat, you could sell shade.
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     try {
+                        var songCount = 0;
+                        var banCount = 0;
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if ((!basicBot.commands.executable(this.rank, chat)) && chat.uid !== basicBot.loggedInID) return void (0);
                         var songHistory = API.getHistory();
                         for (var i = 0; i < songHistory.length; i++) {
                             var song = songHistory[i];
+                            songCount++;
                             //if (i === 0) basicBot.roomUtilities.logObject(song, "SONG");
                             var songMid = song.media.format + ':' + song.media.cid;
                             if (basicBot.room.newBlacklistIDs.indexOf(songMid) < 0) {
@@ -5359,8 +5378,10 @@ You're so fat, you could sell shade.
                                     mid: songMid
                                 };
                                 basicBot.roomUtilities.banSong(track);
+                                banCount++;
                             }
                         }
+                        basicBot.roomUtilities.logInfo("Banned " + banCount + " out of " + songCount + " songs");
                     }
                     catch (err) { basicBot.roomUtilities.logException("banallhistorysongs: " + err.message); }
                 }
@@ -5520,6 +5541,20 @@ You're so fat, you could sell shade.
                         basicBot.roomUtilities.banCurrentSong(chat.un);
                     }
                     catch (err) { basicBot.roomUtilities.logException("oob: " + err.message); }
+                }
+            },
+            botmutedCommand: {
+                command: 'botmuted',
+                rank: 'cohost',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        basicBot.botMuted = (!basicBot.botMuted);
+                        basicBot.roomUtilities.logInfo("Bot Muted = " + basicBot.botMuted);
+                    }
+                    catch (err) { basicBot.roomUtilities.logException("botmutedCommand: " + err.message); }
                 }
             },
             songstatsCommand: {
@@ -6221,8 +6256,8 @@ You're so fat, you could sell shade.
                         var resultsMsg = "";
                         var wooting = true;
                         if (rollResults > (dicesides * 0.5)) {
-                            // todoer Pick a random word and not always WINNER
-                            setTimeout(function () { basicBot.userUtilities.tastyVote(basicBot.userUtilities.getCurrentPlugUser().id,"winner"); }, 1000);
+                            //Pick a random word for the tasty command
+                            setTimeout(function () { basicBot.userUtilities.tastyVote(basicBot.userUtilities.getCurrentPlugUser().id,basicBot.roomUtilities.bopCommand("")); }, 1000);
                             setTimeout(function () { basicBot.roomUtilities.wootThisSong(); }, 1500);
                             resultsMsg = subChat(basicBot.chat.rollresultsgood, {name: chat.un, roll: rollResults});
                         }
