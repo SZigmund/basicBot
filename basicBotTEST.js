@@ -1,4 +1,4 @@
-/** version: 2.1.4.00044.02
+/** version: 2.1.4.00044.03
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -285,8 +285,9 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00044.02",
+        version: "2.1.4.00044.03",
         status: false,
+        botMuted: false,
         name: "basicBot",
         loggedInID: null,
         loggedInName: "",
@@ -2405,8 +2406,12 @@ You're so fat, you could sell shade.
                 try {
                     //todoer Delete this after we re-enable the bot kill on room change code.
                     //if(basicBot.settings.botRoomUrl != window.location.pathname) return;  // If we leave the room where we started the bot stop displaying messages.
-                    if (runningBot) API.sendChat(msg);
-                    else basicBot.roomUtilities.chatLog(msg);
+                    if (basicBot.botMuted === true) 
+                        basicBot.roomUtilities.logInfo(msg);
+                    else if (runningBot) 
+                        API.sendChat(msg);
+                    else 
+                        basicBot.roomUtilities.chatLog(msg);
                 }
                 catch(err) { basicBot.roomUtilities.logException("sendChat: " + err.message); }
             },
@@ -3595,6 +3600,7 @@ You're so fat, you could sell shade.
             retrieveSettings();
             //basicBot.roomUtilities.logDebug("TODO - STARTUP retrieveFromStorage");
             retrieveFromStorage();
+            basicBot.botMuted = false;
             if (basicBot.settings.botRoomUrl !== "/-752559695349757775") basicBot.room.debug = false;
             //basicBot.roomUtilities.validateUserCheck();
 
@@ -5354,11 +5360,14 @@ You're so fat, you could sell shade.
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     try {
+                        var songCount = 0;
+                        var banCount = 0;
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if ((!basicBot.commands.executable(this.rank, chat)) && chat.uid !== basicBot.loggedInID) return void (0);
                         var songHistory = API.getHistory();
                         for (var i = 0; i < songHistory.length; i++) {
                             var song = songHistory[i];
+                            songCount++;
                             //if (i === 0) basicBot.roomUtilities.logObject(song, "SONG");
                             var songMid = song.media.format + ':' + song.media.cid;
                             if (basicBot.room.newBlacklistIDs.indexOf(songMid) < 0) {
@@ -5369,8 +5378,10 @@ You're so fat, you could sell shade.
                                     mid: songMid
                                 };
                                 basicBot.roomUtilities.banSong(track);
+                                banCount++;
                             }
                         }
+                        basicBot.roomUtilities.logInfo("Banned " + banCount + " out of " + songCount + " songs");
                     }
                     catch (err) { basicBot.roomUtilities.logException("banallhistorysongs: " + err.message); }
                 }
@@ -5530,6 +5541,20 @@ You're so fat, you could sell shade.
                         basicBot.roomUtilities.banCurrentSong(chat.un);
                     }
                     catch (err) { basicBot.roomUtilities.logException("oob: " + err.message); }
+                }
+            },
+            botmutedCommand: {
+                command: 'botmuted',
+                rank: 'cohost',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        basicBot.botMuted = (!basicBot.botMuted);
+                        basicBot.roomUtilities.logInfo("Bot Muted = " + basicBot.botMuted);
+                    }
+                    catch (err) { basicBot.roomUtilities.logException("botmutedCommand: " + err.message); }
                 }
             },
             songstatsCommand: {
