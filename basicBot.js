@@ -1,4 +1,4 @@
-/** version: 2.1.4.00045
+/** version: 2.1.4.00046
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -285,7 +285,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00045",
+        version: "2.1.4.00046",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -758,6 +758,12 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
             "It is F*cking certain"
             ],
             randomCommentArray: [
+            "Okay. You people sit tight, hold the fort and keep the home fires burning. And if we're not back by dawn... call the president.",
+            "Everybody relax, I'm here.",
+            "Once you go Bot, you'll never go back baby.",
+            "I'm a reasonable guy. But, I've just experienced some very unreasonable things.",
+            "Like I told my last wife, I says, 'Honey, I never drive faster than I can see. Besides that, it's all in the reflexes.'",
+            "We take what we want and leave the rest, just like your salad bar.",
             "I told him we already got one",
             "Religion is like a penis, it's fine to have one and be proud of it, but when you take it out and start waving it in my face, that's where we have a problem.",
             "You don't think she'd yada yada sex?....I've yada yada'd sex.",
@@ -1741,12 +1747,15 @@ $.ajax({
                 var msg = "";
                 if (user.beerRun === true) {
                     msg = subChat(basicBot.chat.beerrunreturn, {name: basicBot.userUtilities.getPlugUser(user).username, time: time, position: newPosition});
+                    if (newPosition <= 1) newPosition = 2;
                 }
                 else if (user.inMeeting === true) {
                     msg = subChat(basicBot.chat.meetingreturn, {name: basicBot.userUtilities.getPlugUser(user).username, time: time, position: newPosition});
+                    if (newPosition <= 1) newPosition = 2;
                 }
                 else if (user.atLunch === true) {
                     msg = subChat(basicBot.chat.lunchreturn, {name: basicBot.userUtilities.getPlugUser(user).username, time: time, position: newPosition});
+                    if (newPosition <= 1) newPosition = 2;
                 }
                 else {
                     msg = subChat(basicBot.chat.valid, {name: basicBot.userUtilities.getPlugUser(user).username, time: time, position: newPosition});
@@ -2363,6 +2372,7 @@ You're so fat, you could sell shade.
             },
             bopCommand: function (cmd) {
                 try {
+				//TODO: menorah xmas dreidel plus many other holiday commands  (Only work if the month is 12)
                     var commandList = ['tasty', 'rock', 'props', 'woot', 'groot', 'groovy', 'jam','nice','bop','cowbell','sax','ukulele','tango','samba','disco','waltz','metal',
                               'bob','boogie','cavort','conga','flit','foxtrot','frolic','gambol','hop','hustle','jig','jitter','jitterbug','jive','jump','leap','prance',
                               'promenade','rhumba','shimmy','strut','sway','swing','great','hail','good','acceptable','bad','excellent','exceptional','favorable','marvelous',
@@ -2384,7 +2394,25 @@ You're so fat, you could sell shade.
                               'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
                               'hip','soul','soulful','cover','yummy','ohyeah','twist','shout','trippy','hot','country','stellar','smoove','pantydropper','baby','mmm','tits','hooters',
                               'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell','lesbian','lesbians','niceconnect','connect','kazoo','win','webejammin',
-                              'bellyrub','groove','gold','golden','twofer','phat','punkrock','punkrocker','merp','derp','herp-a-derp','narf','amazing','doabarrellroll','plusone'];
+                              'bellyrub','groove','gold','golden','twofer','phat','punkrock','punkrocker','merp','derp','herp-a-derp','narf','amazing','doabarrellroll','plusone',
+                              '133t','roofus','rufus','schway','shiz','shiznak','shiznik','shiznip','shiznit','shiznot','shizot','shwanky','shway',
+                              'sic','sicc','skippy','slammin','slamming','slinkster','smack','smashing','smashingly','snizzo','spiffylicious','superfly',
+                              'swass','tender','thrill','tight','tits','tizight','todiefor','to die for','trill','tuff','vicious','whizz-bang','wick',
+                              'wow','omg','A-1','ace','aces','aight','allthatandabagofchips','all that and a bag of chips','alrighty','alvo','amped',
+                              'A-Ok','ass-kicking','awesome-possum','awesome possum','awesomepossum','awesomesauce','awesome sauce','awesome-sauce',
+                              'awsum','bad-ass','badassical','badonkadonk','bananas','bang','bangupjob','bang up job','beast','beastly','bees-knees',
+                              'bees knees','beesknees','bodacious','bomb','bomb-ass','bomb diggidy','bomb-diggidy','bombdiggidy','bonkers','bonzer',
+                              'boomtown','bostin','brill','bumping','capitol','cats ass','cats-ass','catsass','chilling','choice','classic','clutch',
+                              'coo','coolage','cool beans','cool-beans','coolbeans','coolness','cramazing','cray-cray','crazy','crisp','crucial','da bomb',
+                              'da shit','da-bomb','da-shit','dashiznit','dabomb','dashit','da shiznit','da-shiznit','dope','ear candy','ear-candy','earcandy',
+                              'easy','epic','fan-fucking-tastic','fantabulous','far out','far-out','farout','fly','fresh','funsies','gangstar','gangster',
+                              'gansta','gold','golden','gr8','hardcore','hellacious','hoopla','hype','ill','itsallgood','its all good','jiggy','jinky','jiggity',
+                              'jolly good','jolly-good','jollygood','k3w1','kickass','kick-ass','kick ass','kick in the pants','kickinthepants','kicks','legendary',
+                              'legit','like a boss','like a champ','like whoa','likeaboss','likeachamp','likewhoa','lush','mint','money','neato','nice','off da hook',
+                              'off the chain','off the hook','out of sight','peachy keen','peachy-keen','offdahook','offthechain','offthehook','outofsight',
+                              'peachykeen','perf','phatness','phenom','prime-time','primo','rad','radical','rage','rancid','random','nice cover','nicecover','raw',
+                              'redonkulus','righteous','rocking','rock-solid','rollin','3fer','4fer','threefer','fourfer','nice2fer','amazeballs','craycray'
+                              'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin'];
                     // If a command if passed in validate it and return true if it is a Tasty command:
                     if (cmd.length > 0) {
                         if (commandList.indexOf(cmd) < 0) return true;
@@ -6347,7 +6375,25 @@ You're so fat, you could sell shade.
                           'hunkydory','peach','divine','radiant','sublime','refined','foxy','allskate','rush','boston','mumford','murica','2fer','boom','bitches','oar','hipster',
                           'hip','soul','soulful','cover','yummy','ohyeah','twist','shout','trippy','hot','country','stellar','smoove','pantydropper','baby','mmm','tits','hooters',
                           'tmbg','rhythm','kool','kewl','killer','biatch','woodblock','morecowbell','lesbian','lesbians','niceconnect','connect','kazoo','win','webejammin',
-                          'bellyrub','groove','gold','golden','twofer','phat','punkrock','punkrocker','merp','derp','herp-a-derp','narf','amazing','doabarrellroll','plusone'],
+                          'bellyrub','groove','gold','golden','twofer','phat','punkrock','punkrocker','merp','derp','herp-a-derp','narf','amazing','doabarrellroll','plusone',
+                          '133t','roofus','rufus','schway','shiz','shiznak','shiznik','shiznip','shiznit','shiznot','shizot','shwanky','shway',
+                          'sic','sicc','skippy','slammin','slamming','slinkster','smack','smashing','smashingly','snizzo','spiffylicious','superfly',
+                          'swass','tender','thrill','tight','tits','tizight','todiefor','to die for','trill','tuff','vicious','whizz-bang','wick',
+                          'wow','omg','A-1','ace','aces','aight','allthatandabagofchips','all that and a bag of chips','alrighty','alvo','amped',
+                          'A-Ok','ass-kicking','awesome-possum','awesome possum','awesomepossum','awesomesauce','awesome sauce','awesome-sauce',
+                          'awsum','bad-ass','badassical','badonkadonk','bananas','bang','bangupjob','bang up job','beast','beastly','bees-knees',
+                          'bees knees','beesknees','bodacious','bomb','bomb-ass','bomb diggidy','bomb-diggidy','bombdiggidy','bonkers','bonzer',
+                          'boomtown','bostin','brill','bumping','capitol','cats ass','cats-ass','catsass','chilling','choice','classic','clutch',
+                          'coo','coolage','cool beans','cool-beans','coolbeans','coolness','cramazing','cray-cray','crazy','crisp','crucial','da bomb',
+                          'da shit','da-bomb','da-shit','dashiznit','dabomb','dashit','da shiznit','da-shiznit','dope','ear candy','ear-candy','earcandy',
+                          'easy','epic','fan-fucking-tastic','fantabulous','far out','far-out','farout','fly','fresh','funsies','gangstar','gangster',
+                          'gansta','gold','golden','gr8','hardcore','hellacious','hoopla','hype','ill','itsallgood','its all good','jiggy','jinky','jiggity',
+                          'jolly good','jolly-good','jollygood','k3w1','kickass','kick-ass','kick ass','kick in the pants','kickinthepants','kicks','legendary',
+                          'legit','like a boss','like a champ','like whoa','likeaboss','likeachamp','likewhoa','lush','mint','money','neato','nice','off da hook',
+                          'off the chain','off the hook','out of sight','peachy keen','peachy-keen','offdahook','offthechain','offthehook','outofsight',
+                          'peachykeen','perf','phatness','phenom','prime-time','primo','rad','radical','rage','rancid','random','nice cover','nicecover','raw',
+                          'redonkulus','righteous','rocking','rock-solid','rollin','3fer','4fer','threefer','fourfer','nice2fer','amazeballs','craycray'
+                          'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
