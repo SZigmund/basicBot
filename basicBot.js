@@ -1,4 +1,4 @@
-/** version: 2.1.4.00046
+/** version: 2.1.4.00047
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -285,7 +285,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00046",
+        version: "2.1.4.00047",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -760,7 +760,6 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
             randomCommentArray: [
             "Okay. You people sit tight, hold the fort and keep the home fires burning. And if we're not back by dawn... call the president.",
             "Everybody relax, I'm here.",
-            "Once you go Bot, you'll never go back baby.",
             "I'm a reasonable guy. But, I've just experienced some very unreasonable things.",
             "Like I told my last wife, I says, 'Honey, I never drive faster than I can see. Besides that, it's all in the reflexes.'",
             "We take what we want and leave the rest, just like your salad bar.",
@@ -2411,7 +2410,7 @@ You're so fat, you could sell shade.
                               'legit','like a boss','like a champ','like whoa','likeaboss','likeachamp','likewhoa','lush','mint','money','neato','nice','off da hook',
                               'off the chain','off the hook','out of sight','peachy keen','peachy-keen','offdahook','offthechain','offthehook','outofsight',
                               'peachykeen','perf','phatness','phenom','prime-time','primo','rad','radical','rage','rancid','random','nice cover','nicecover','raw',
-                              'redonkulus','righteous','rocking','rock-solid','rollin','3fer','4fer','threefer','fourfer','nice2fer','amazeballs','craycray'
+                              'redonkulus','righteous','rocking','rock-solid','rollin','3fer','4fer','threefer','fourfer','nice2fer','amazeballs','craycray',
                               'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin'];
                     // If a command if passed in validate it and return true if it is a Tasty command:
                     if (cmd.length > 0) {
@@ -6392,7 +6391,7 @@ You're so fat, you could sell shade.
                           'legit','like a boss','like a champ','like whoa','likeaboss','likeachamp','likewhoa','lush','mint','money','neato','nice','off da hook',
                           'off the chain','off the hook','out of sight','peachy keen','peachy-keen','offdahook','offthechain','offthehook','outofsight',
                           'peachykeen','perf','phatness','phenom','prime-time','primo','rad','radical','rage','rancid','random','nice cover','nicecover','raw',
-                          'redonkulus','righteous','rocking','rock-solid','rollin','3fer','4fer','threefer','fourfer','nice2fer','amazeballs','craycray'
+                          'redonkulus','righteous','rocking','rock-solid','rollin','3fer','4fer','threefer','fourfer','nice2fer','amazeballs','craycray',
                           'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin'],
                 rank: 'manager',
                 type: 'startsWith',
