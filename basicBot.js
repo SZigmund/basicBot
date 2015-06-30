@@ -1,4 +1,4 @@
-/** version: 2.1.4.00047
+/** version: 2.1.4.00048
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -285,7 +285,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00047",
+        version: "2.1.4.00048",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -332,9 +332,9 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
             maximumAfk: 60,
             afkRemoval: true,
             afk5Days: true,
-            afk7Days: false,
-            afkRemoveStart: 7,
-            afkRemoveEnd: 17,
+            afk7Days: true,
+            afkRemoveStart: 0,
+            afkRemoveEnd: 24,
             maximumDc: 90,
             maximumDcOutOfRoom: 10,
             bouncerPlus: true,
@@ -352,7 +352,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
             maximumSongLength: 8,
             repeatSongs: true,
             repeatSongTime: 180,
-            skipSound5Days: true,
+            skipSound5Days: false,
             skipSound7Days: false,
             skipSoundStart: 7,
             skipSoundEnd: 15,
@@ -2108,6 +2108,9 @@ You're so fat, you could sell shade.
                 if (chatmsg.indexOf("BUZZOFFLARRY") > -1) fuComment = "I'm not going anywhere %%FU%%. Sit back and just deal with it.  Or better yet, maybe we should chug on over to mamby pamby land, where maybe we can find some self-confidence for you, ya jackwagon!!.... Tissue?";
                 if (chatmsg.indexOf("LARRYBUZZOFF") > -1) fuComment = "I'm not going anywhere %%FU%%. Sit back and just deal with it.  Or better yet, maybe we should chug on over to mamby pamby land, where maybe we can find some self-confidence for you, ya jackwagon!!.... Tissue?";
                 if (chatmsg.indexOf("KISSMYASSLARRY") > -1) fuComment = "%%FU%%, I'm not into kissin' ass, just ask BK.";
+
+                if (chatmsg.indexOf("HILARRY") > -1) fuComment = "Hi %%FU%%.";
+                if (chatmsg.indexOf("HELLOLARRY") > -1) fuComment = "Hello %%FU%%.";
                 //todo - many optoins here:  http://www.neilstuff.com/howru100.html
                 if (chatmsg.indexOf("HOWYADOINLARRY") > -1) fuComment = basicBot.roomUtilities.howAreYouComment();
                 if (chatmsg.indexOf("HOWYADOINGLARRY") > -1) fuComment = basicBot.roomUtilities.howAreYouComment();
@@ -2133,8 +2136,6 @@ You're so fat, you could sell shade.
                 if (chatmsg.indexOf("THANKSLARRY") > -1) fuComment = "You're welcome %%FU%%.";
                 if (chatmsg.indexOf("THXLARRY") > -1) fuComment = "You're welcome %%FU%%.";
                 if (chatmsg.indexOf("THANKYOULARRY") > -1) fuComment = "You're welcome %%FU%%.";
-                if (chatmsg.indexOf("HILARRY") > -1) fuComment = "Hi %%FU%%.";
-                if (chatmsg.indexOf("HELLOLARRY") > -1) fuComment = "Hello %%FU%%.";
                 if (chatmsg.indexOf("LARRYSABADASS") > -1) fuComment = "You know it %%FU%%.";
                 if (chatmsg.indexOf("LARRYSTHESHIT") > -1) fuComment = "You know it %%FU%%.";
                 if (chatmsg.indexOf("LARRYSTHEBOMB") > -1) fuComment = "You know it %%FU%%.";
@@ -2371,7 +2372,7 @@ You're so fat, you could sell shade.
             },
             bopCommand: function (cmd) {
                 try {
-				//TODO: menorah xmas dreidel plus many other holiday commands  (Only work if the month is 12)
+                    //TODO: menorah xmas dreidel plus many other holiday commands  (Only work if the month is 12)
                     var commandList = ['tasty', 'rock', 'props', 'woot', 'groot', 'groovy', 'jam','nice','bop','cowbell','sax','ukulele','tango','samba','disco','waltz','metal',
                               'bob','boogie','cavort','conga','flit','foxtrot','frolic','gambol','hop','hustle','jig','jitter','jitterbug','jive','jump','leap','prance',
                               'promenade','rhumba','shimmy','strut','sway','swing','great','hail','good','acceptable','bad','excellent','exceptional','favorable','marvelous',
@@ -2411,7 +2412,8 @@ You're so fat, you could sell shade.
                               'off the chain','off the hook','out of sight','peachy keen','peachy-keen','offdahook','offthechain','offthehook','outofsight',
                               'peachykeen','perf','phatness','phenom','prime-time','primo','rad','radical','rage','rancid','random','nice cover','nicecover','raw',
                               'redonkulus','righteous','rocking','rock-solid','rollin','3fer','4fer','threefer','fourfer','nice2fer','amazeballs','craycray',
-                              'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin'];
+                              'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin','star','rockstar',':metal:',
+                              '10s','00s','90s','80s','70s','60s','50s','insane','clever'];
                     // If a command if passed in validate it and return true if it is a Tasty command:
                     if (cmd.length > 0) {
                         if (commandList.indexOf(cmd) < 0) return true;
@@ -6392,7 +6394,8 @@ You're so fat, you could sell shade.
                           'off the chain','off the hook','out of sight','peachy keen','peachy-keen','offdahook','offthechain','offthehook','outofsight',
                           'peachykeen','perf','phatness','phenom','prime-time','primo','rad','radical','rage','rancid','random','nice cover','nicecover','raw',
                           'redonkulus','righteous','rocking','rock-solid','rollin','3fer','4fer','threefer','fourfer','nice2fer','amazeballs','craycray',
-                          'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin'],
+                          'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin','star','rockstar',':metal:',
+                          '10s','00s','90s','80s','70s','60s','50s','insane','clever'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
