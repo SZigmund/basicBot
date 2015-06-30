@@ -1,4 +1,4 @@
-/** version: 2.1.4.00047.01
+/** version: 2.1.4.00047.02
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -285,7 +285,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00047.01",
+        version: "2.1.4.00047.02",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -332,9 +332,9 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
             maximumAfk: 60,
             afkRemoval: true,
             afk5Days: true,
-            afk7Days: false,
-            afkRemoveStart: 7,
-            afkRemoveEnd: 17,
+            afk7Days: true,
+            afkRemoveStart: 0,
+            afkRemoveEnd: 24,
             maximumDc: 90,
             maximumDcOutOfRoom: 10,
             bouncerPlus: true,
@@ -352,7 +352,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
             maximumSongLength: 8,
             repeatSongs: true,
             repeatSongTime: 180,
-            skipSound5Days: true,
+            skipSound5Days: false,
             skipSound7Days: false,
             skipSoundStart: 7,
             skipSoundEnd: 15,
@@ -2412,7 +2412,8 @@ You're so fat, you could sell shade.
                               'off the chain','off the hook','out of sight','peachy keen','peachy-keen','offdahook','offthechain','offthehook','outofsight',
                               'peachykeen','perf','phatness','phenom','prime-time','primo','rad','radical','rage','rancid','random','nice cover','nicecover','raw',
                               'redonkulus','righteous','rocking','rock-solid','rollin','3fer','4fer','threefer','fourfer','nice2fer','amazeballs','craycray',
-                              'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin','star','rockstar',':rock:'];
+                              'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin','star','rockstar',':metal:',
+                              '10s','00s','90s','80s','70s','60s','50s','insane','clever'];
                     // If a command if passed in validate it and return true if it is a Tasty command:
                     if (cmd.length > 0) {
                         if (commandList.indexOf(cmd) < 0) return true;
@@ -6393,7 +6394,8 @@ You're so fat, you could sell shade.
                           'off the chain','off the hook','out of sight','peachy keen','peachy-keen','offdahook','offthechain','offthehook','outofsight',
                           'peachykeen','perf','phatness','phenom','prime-time','primo','rad','radical','rage','rancid','random','nice cover','nicecover','raw',
                           'redonkulus','righteous','rocking','rock-solid','rollin','3fer','4fer','threefer','fourfer','nice2fer','amazeballs','craycray',
-                          'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin','star','rockstar',':rock:'],
+                          'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin','star','rockstar',':metal:',
+                          '10s','00s','90s','80s','70s','60s','50s','insane','clever'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
