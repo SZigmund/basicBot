@@ -1,4 +1,4 @@
-/** version: 2.1.4.00048.07
+/** version: 2.1.4.00048.08
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
@@ -301,7 +301,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00048.07",
+        version: "2.1.4.00048.08",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -1403,19 +1403,19 @@ $.ajax({
                 try {
                     userIDs = [];
                     leaderBoard = [];
-                    for (var listIdx = 0; listIdx < 10; listIdx++) {
+                    for (var leaderIdx = 0; leaderIdx < 10; leaderIdx++) {
                         var rollCount = 0;
                         var addUserIdx = -1;
-                        for (var i = 0; i < basicBot.room.users.length; i++) {
+                        for (var userIdx = 0; userIdx < basicBot.room.users.length; userIdx++) {
                             var skipUser = false;
-                            var roomUser = basicBot.room.users[i];
+                            var roomUser = basicBot.room.users[userIdx];
                             //todoer REPACE 1 with 50
                             basicBot.roomUtilities.logDebug("Scanning User: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
                             if (userIDs.indexOf(roomUser.id) > -1) skipUser = true;  // Already in the leader list
                             if (roomUser.rollStats.lifeTotal < 1) skipUser = true;  // Require 50 rolls to get on the leader board
                             if (roomUser.rollStats.lifeTotal < rollCount) skipUser = true;
                             if (!skipUser) {
-                                addUserIdx = i;
+                                addUserIdx = userIdx;
                                 basicBot.roomUtilities.logDebug("New Leader: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
                                 rollCount = roomUser.rollStats.lifeTotal;
                             }
@@ -1447,13 +1447,13 @@ $.ajax({
                 try {
                     userIDs = [];
                     leaderBoard = [];
-                    addUserIdx = i;
-                    for (var listIdx = 0; listIdx < 10; listIdx++) {
+                    var addUserIdx = -1;
+                    for (var leaderIdx = 0; leaderIdx < 10; leaderIdx++) {
                         addUserIdx = -1;
                         var rollPct = 0.0;
-                        for (var i = 0; i < basicBot.room.users.length; i++) {
+                        for (var userIdx = 0; userIdx < basicBot.room.users.length; userIdx++) {
                             var skipUser = false;
-                            var roomUser = basicBot.room.users[i];
+                            var roomUser = basicBot.room.users[userIdx];
                             if (userIDs.indexOf(roomUser.id) > -1) skipUser = true;  // Already in the leader list
                             basicBot.roomUtilities.logDebug("Scanning User: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
                             //todoer REPACE 1 with 50
@@ -1464,7 +1464,7 @@ $.ajax({
                             }
                             if (!skipUser) {
                                 basicBot.roomUtilities.logDebug("New Leader: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal + "-" + UserPct);
-                                addUserIdx = i;
+                                addUserIdx = userIdx;
                                 rollPct = UserPct;
                             }
                         }
