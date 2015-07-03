@@ -1,4 +1,4 @@
-/** version: 2.1.4.00047.02
+/** version: 2.1.4.00048.01
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -285,7 +285,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00047.02",
+        version: "2.1.4.00048.01",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -1375,6 +1375,82 @@ $.ajax({
             this.lastSeenInLine = null;
         },
         userUtilities: {
+            displayLeaderBoard: function(leaderBoard, username) {
+                try {
+                  console.table(leaderBoard);
+                catch(err) {
+                  basicBot.roomUtilities.logException("displayLeaderBoard: " + err.message);
+                }
+            },
+            loadTopPoints: function() {
+                try {
+                    userIDs = [];
+                    leaderBoard = [];
+                    var topStats = {
+                        username: "",
+                        rollCount: 0,
+                        winCount: 0,
+                        rollPct: ""
+                    };
+                    for (var listIdx = 0; listIdx < 10; listIdx++) {
+                        topStats.rollCount = 0;
+                        for (var i = 0; i < basicBot.room.users.length; i++) {
+                            var skipUser = false;
+                            var roomUser = basicBot.room.users[i];
+                            if (userIDs.indexOf(roomUser.id) > -1) skipUser = true;  // Already in the leader list
+                            if (roomUser.rollStats.lifeTotal < 50) skipUser = true;  // Require 50 rolls to get on the leader board
+                            if (roomUser.rollStats.lifeTotal < topStats.rollCount) skipUser = true;
+                            if (!skipUser) var addUserId = roomUser;
+                        }
+                    topStats.username: addUserId.username;
+                    topStats.rollCount: addUserId.rollStats.lifeTotal;
+                    topStats.winCount: addUserId.rollStats.lifeWoot;
+                    topStats.rollPct: basicBot.roomUtilities.formatPercentage(addUserId.rollStats.lifeWoot, addUserId.rollStats.lifeTotal);
+                    leaderBoard.push(topStats);
+                    userIDs.push(addUserId.id);
+                    }
+                    return leaderBoard;
+                }
+                catch(err) {
+                  basicBot.roomUtilities.logException("loadTopPoints: " + err.message);
+                }
+            },
+            loadTopPct: function(username) {
+                try {
+                    userIDs = [];
+                    leaderBoard = [];
+                    var topStats = {
+                        username: "",
+                        rollCount: 0,
+                        winCount: 0,
+                        rollPct: ""
+                    };
+                    for (var listIdx = 0; listIdx < 10; listIdx++) {
+                        topStats.rollPct = 0.0;
+                        for (var i = 0; i < basicBot.room.users.length; i++) {
+                            var skipUser = false;
+                            var roomUser = basicBot.room.users[i];
+                            if (userIDs.indexOf(roomUser.id) > -1) skipUser = true;  // Already in the leader list
+                            if (roomUser.rollStats.lifeTotal < 50) skipUser = true;  // Require 50 rolls to get on the leader board
+                            if (!skipUser) {
+                              var UserPct = roomUser.rollStats.lifeWoot / roomUser..rollStats.lifeTotal;
+                              if (UserPct < topStats.rollPct) skipUser = true;
+                            }
+                            if (!skipUser) var addUserId = roomUser;
+                        }
+                    topStats.username: addUserId.username;
+                    topStats.rollCount: addUserId.rollStats.lifeTotal;
+                    topStats.winCount: addUserId.rollStats.lifeWoot;
+                    topStats.rollPct: basicBot.roomUtilities.formatPercentage(addUserId.rollStats.lifeWoot, addUserId.rollStats.lifeTotal);
+                    leaderBoard.push(topStats);
+                    userIDs.push(addUserId.id);
+                    }
+                    return leaderBoard;
+                }
+                catch(err) {
+                  basicBot.roomUtilities.logException("loadTopPct: " + err.message);
+                }
+            },
             englishMessage: function(lang, username) {
                 try {
                     var engMsg = '/me @' + username + ' ';
@@ -2413,7 +2489,8 @@ You're so fat, you could sell shade.
                               'peachykeen','perf','phatness','phenom','prime-time','primo','rad','radical','rage','rancid','random','nice cover','nicecover','raw',
                               'redonkulus','righteous','rocking','rock-solid','rollin','3fer','4fer','threefer','fourfer','nice2fer','amazeballs','craycray',
                               'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin','star','rockstar',':metal:',
-                              '10s','00s','90s','80s','70s','60s','50s','insane','clever'];
+                              '10s','00s','90s','80s','70s','60s','50s','insane','clever',':heart:',':heart_decoration:',':heart_eyes:',':heart_eyes_cat:',':heartbeat:',
+                              ':heartpulse:',':hearts:',':yellow_heart:',':green_heart:',':blue_heart:',':two_hearts:',':revolving_hearts:',':sparkling_heart:',':blue_heart:'];
                     // If a command if passed in validate it and return true if it is a Tasty command:
                     if (cmd.length > 0) {
                         if (commandList.indexOf(cmd) < 0) return true;
@@ -6395,7 +6472,8 @@ You're so fat, you could sell shade.
                           'peachykeen','perf','phatness','phenom','prime-time','primo','rad','radical','rage','rancid','random','nice cover','nicecover','raw',
                           'redonkulus','righteous','rocking','rock-solid','rollin','3fer','4fer','threefer','fourfer','nice2fer','amazeballs','craycray',
                           'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin','star','rockstar',':metal:',
-                          '10s','00s','90s','80s','70s','60s','50s','insane','clever'],
+                          '10s','00s','90s','80s','70s','60s','50s','insane','clever',':heart:',':heart_decoration:',':heart_eyes:',':heart_eyes_cat:',':heartbeat:',
+                          ':heartpulse:',':hearts:',':yellow_heart:',':green_heart:',':blue_heart:',':two_hearts:',':revolving_hearts:',':sparkling_heart:',':blue_heart:'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
@@ -6571,6 +6649,38 @@ You're so fat, you could sell shade.
                         }
                     }
                     catch(err) { basicBot.roomUtilities.logException("loguserCommand: " + err.message); }
+                }
+            },
+            toppctCommand: {   //Added 07/03/2015 Zig
+                command: 'toppct',
+                rank: 'residentdj',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        leaderBoard = basicBot.userUtilities.loadTopPct();
+                        basicBot.userUtilities.displayLeaderBoard(leaderBoard, chat.un);
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("toppct: " + err.message);
+                    }
+                }
+            },
+            toppointsCommand: {   //Added 07/03/2015 Zig
+                command: 'toppoints',
+                rank: 'residentdj',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        var leaderBoard = basicBot.userUtilities.loadTopPoints();
+                        basicBot.userUtilities.displayLeaderBoard(leaderBoard, chat.un);
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("toppoints: " + err.message);
+                    }
                 }
             },
             nsfwCommand: {   //Added 04/22/2015 Zig
