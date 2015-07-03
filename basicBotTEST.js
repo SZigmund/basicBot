@@ -1,4 +1,4 @@
-/** version: 2.1.4.00048.11
+/** version: 2.1.4.00048.12
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
@@ -301,7 +301,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00048.11",
+        version: "2.1.4.00048.12",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -1394,22 +1394,17 @@ $.ajax({
             displayLeaderBoard: function(leaderBoard, username) {
                 try {
                     console.table(leaderBoard);
-                    var Msg1 = "";
-                    var Msg2 = "";
-                    var Msg3 = "";
-                    for (var leaderIdx = 0; leaderIdx < 10; leaderIdx++) {
-                        Msg1 += "[" + leaderBoard[0].username + " " + leaderBoard[0].winCount + "/" + leaderBoard[0].rollCount + " " + leaderBoard.rollPct + "] ";
-                        //Msg1 += "[XXXXXXXXXXXXXXX  999/999 54%] ";
-                    }
-                    for (var leaderIdx = 0; leaderIdx < basicBot.room.users.length; leaderIdx++) {
+                    var MsgA = "";
+                    var MsgB = "";
+                    for (var leaderIdx = 0; leaderIdx < leaderBoard.length; leaderIdx++) {
+					
                         if (leaderIdx < 5)
-                           Msg2 += "[" + leaderBoard[0].username + " " + leaderBoard[0].winCount + "/" + leaderBoard[0].rollCount + " " + leaderBoard.rollPct + "] ";
+                           MsgA += "[" + leaderBoard[leaderIdx].username + " " + leaderBoard[leaderIdx].winCount + "/" + leaderBoard[leaderIdx].rollCount + " " + leaderBoard[leaderIdx].rollPct + "]" + String.fromCharCode(10);
                         else
-                            Msg3 += "[" + leaderBoard[0].username + " " + leaderBoard[0].winCount + "/" + leaderBoard[0].rollCount + " " + leaderBoard.rollPct + "] ";
+                            MsgB += "[" + leaderBoard[leaderIdx].username + " " + leaderBoard[leaderIdx].winCount + "/" + leaderBoard[leaderIdx].rollCount + " " + leaderBoard[leaderIdx].rollPct + "]" + String.fromCharCode(10);
                     }
-                    basicBot.roomUtilities.sendChat(Msg1);
-                    setTimeout(function () { basicBot.roomUtilities.sendChat(Msg2); }, 500);
-                    setTimeout(function () { basicBot.roomUtilities.sendChat(Msg3); }, 1000);
+                    setTimeout(function () { basicBot.roomUtilities.sendChat(MsgA); }, 500);
+                    setTimeout(function () { basicBot.roomUtilities.sendChat(MsgB); }, 1000);
                 }
                 catch(err) {
                   basicBot.roomUtilities.logException("displayLeaderBoard: " + err.message);
