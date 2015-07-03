@@ -1,4 +1,4 @@
-/** version: 2.1.4.00048.10
+/** version: 2.1.4.00048.11
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
@@ -301,7 +301,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00048.10",
+        version: "2.1.4.00048.11",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -1407,10 +1407,9 @@ $.ajax({
                         else
                             Msg3 += "[" + leaderBoard[0].username + " " + leaderBoard[0].winCount + "/" + leaderBoard[0].rollCount + " " + leaderBoard.rollPct + "] ";
                     }
-                  }
-                  basicBot.roomUtilities.sendChat(Msg1);
-                  setTimeout(function () { basicBot.roomUtilities.sendChat(Msg2); }, 500);
-                  setTimeout(function () { basicBot.roomUtilities.sendChat(Msg3); }, 1000);
+                    basicBot.roomUtilities.sendChat(Msg1);
+                    setTimeout(function () { basicBot.roomUtilities.sendChat(Msg2); }, 500);
+                    setTimeout(function () { basicBot.roomUtilities.sendChat(Msg3); }, 1000);
                 }
                 catch(err) {
                   basicBot.roomUtilities.logException("displayLeaderBoard: " + err.message);
