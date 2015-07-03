@@ -1,4 +1,4 @@
-/** version: 2.1.4.00048.03
+/** version: 2.1.4.00048.04
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -285,7 +285,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00048.03",
+        version: "2.1.4.00048.04",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -1434,7 +1434,7 @@ $.ajax({
                             if (userIDs.indexOf(roomUser.id) > -1) skipUser = true;  // Already in the leader list
                             if (roomUser.rollStats.lifeTotal < 50) skipUser = true;  // Require 50 rolls to get on the leader board
                             if (!skipUser) {
-                              var UserPct = roomUser.rollStats.lifeWoot / roomUser..rollStats.lifeTotal;
+                              var UserPct = roomUser.rollStats.lifeWoot / roomUser.rollStats.lifeTotal;
                               if (UserPct < topStats.rollPct) skipUser = true;
                             }
                             if (!skipUser) var addUserId = roomUser;
