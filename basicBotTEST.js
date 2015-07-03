@@ -1,4 +1,4 @@
-/** version: 2.1.4.00048.02
+/** version: 2.1.4.00048.03
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -285,7 +285,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00048.02",
+        version: "2.1.4.00048.03",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -1403,10 +1403,10 @@ $.ajax({
                             if (roomUser.rollStats.lifeTotal < topStats.rollCount) skipUser = true;
                             if (!skipUser) var addUserId = roomUser;
                         }
-                    topStats.username: addUserId.username;
-                    topStats.rollCount: addUserId.rollStats.lifeTotal;
-                    topStats.winCount: addUserId.rollStats.lifeWoot;
-                    topStats.rollPct: basicBot.roomUtilities.formatPercentage(addUserId.rollStats.lifeWoot, addUserId.rollStats.lifeTotal);
+                    topStats.username = addUserId.username;
+                    topStats.rollCount = addUserId.rollStats.lifeTotal;
+                    topStats.winCount = addUserId.rollStats.lifeWoot;
+                    topStats.rollPct = basicBot.roomUtilities.formatPercentage(addUserId.rollStats.lifeWoot, addUserId.rollStats.lifeTotal);
                     leaderBoard.push(topStats);
                     userIDs.push(addUserId.id);
                     }
@@ -1439,10 +1439,10 @@ $.ajax({
                             }
                             if (!skipUser) var addUserId = roomUser;
                         }
-                    topStats.username: addUserId.username;
-                    topStats.rollCount: addUserId.rollStats.lifeTotal;
-                    topStats.winCount: addUserId.rollStats.lifeWoot;
-                    topStats.rollPct: basicBot.roomUtilities.formatPercentage(addUserId.rollStats.lifeWoot, addUserId.rollStats.lifeTotal);
+                    topStats.username = addUserId.username;
+                    topStats.rollCount = addUserId.rollStats.lifeTotal;
+                    topStats.winCount = addUserId.rollStats.lifeWoot;
+                    topStats.rollPct = basicBot.roomUtilities.formatPercentage(addUserId.rollStats.lifeWoot, addUserId.rollStats.lifeTotal);
                     leaderBoard.push(topStats);
                     userIDs.push(addUserId.id);
                     }
@@ -6660,7 +6660,7 @@ You're so fat, you could sell shade.
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                        leaderBoard = basicBot.userUtilities.loadTopPct();
+                        var leaderBoard = basicBot.userUtilities.loadTopPct();
                         basicBot.userUtilities.displayLeaderBoard(leaderBoard, chat.un);
                     }
                     catch(err) {
