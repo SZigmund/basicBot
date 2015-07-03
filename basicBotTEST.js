@@ -1,4 +1,4 @@
-/** version: 2.1.4.00048.08
+/** version: 2.1.4.00048.09
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
@@ -301,7 +301,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00048.08",
+        version: "2.1.4.00048.09",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -1393,7 +1393,24 @@ $.ajax({
         userUtilities: {
             displayLeaderBoard: function(leaderBoard, username) {
                 try {
-                  console.table(leaderBoard);
+                    console.table(leaderBoard);
+                    var Msg1 = "";
+                    var Msg2 = "";
+                    var Msg3 = "";
+                    for (var leaderIdx = 0; leaderIdx < 10; leaderIdx++) {
+                        Msg1 += "[" + leaderBoard[0].username + " " + leaderBoard[0].winCount + "/" leaderBoard[0].rollCount + " " + leaderBoard.rollPct + "] ";
+                        //Msg1 += "[XXXXXXXXXXXXXXX  999/999 54%] ";
+                    }
+                    for (var leaderIdx = 0; leaderIdx < basicBot.room.users.length; leaderIdx++) {
+                        if (leaderIdx < 5)
+                           Msg2 += "[" + leaderBoard[0].username + " " + leaderBoard[0].winCount + "/" leaderBoard[0].rollCount + " " + leaderBoard.rollPct + "] ";
+                        else
+                            Msg3 += "[" + leaderBoard[0].username + " " + leaderBoard[0].winCount + "/" leaderBoard[0].rollCount + " " + leaderBoard.rollPct + "] ";
+                    }
+                  }
+                  basicBot.roomUtilities.sendChat(Msg1);
+                  setTimeout(function () { basicBot.roomUtilities.sendChat(Msg2); }, 500);
+                  setTimeout(function () { basicBot.roomUtilities.sendChat(Msg3); }, 1000);
                 }
                 catch(err) {
                   basicBot.roomUtilities.logException("displayLeaderBoard: " + err.message);
@@ -1468,7 +1485,7 @@ $.ajax({
                                 rollPct = UserPct;
                             }
                         }
-                        if (addUserIdx !== null) {
+                        if (addUserIdx > -1) {
                             var topStats = {
                                 username: "",
                                 rollCount: 0,
