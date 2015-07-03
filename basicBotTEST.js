@@ -1,4 +1,4 @@
-/** version: 2.1.4.00048.09
+/** version: 2.1.4.00048.10
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
@@ -301,7 +301,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00048.09",
+        version: "2.1.4.00048.10",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -1398,14 +1398,14 @@ $.ajax({
                     var Msg2 = "";
                     var Msg3 = "";
                     for (var leaderIdx = 0; leaderIdx < 10; leaderIdx++) {
-                        Msg1 += "[" + leaderBoard[0].username + " " + leaderBoard[0].winCount + "/" leaderBoard[0].rollCount + " " + leaderBoard.rollPct + "] ";
+                        Msg1 += "[" + leaderBoard[0].username + " " + leaderBoard[0].winCount + "/" + leaderBoard[0].rollCount + " " + leaderBoard.rollPct + "] ";
                         //Msg1 += "[XXXXXXXXXXXXXXX  999/999 54%] ";
                     }
                     for (var leaderIdx = 0; leaderIdx < basicBot.room.users.length; leaderIdx++) {
                         if (leaderIdx < 5)
-                           Msg2 += "[" + leaderBoard[0].username + " " + leaderBoard[0].winCount + "/" leaderBoard[0].rollCount + " " + leaderBoard.rollPct + "] ";
+                           Msg2 += "[" + leaderBoard[0].username + " " + leaderBoard[0].winCount + "/" + leaderBoard[0].rollCount + " " + leaderBoard.rollPct + "] ";
                         else
-                            Msg3 += "[" + leaderBoard[0].username + " " + leaderBoard[0].winCount + "/" leaderBoard[0].rollCount + " " + leaderBoard.rollPct + "] ";
+                            Msg3 += "[" + leaderBoard[0].username + " " + leaderBoard[0].winCount + "/" + leaderBoard[0].rollCount + " " + leaderBoard.rollPct + "] ";
                     }
                   }
                   basicBot.roomUtilities.sendChat(Msg1);
