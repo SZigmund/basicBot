@@ -1,4 +1,4 @@
-/** version: 2.1.4.00048.01
+/** version: 2.1.4.00048.02
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -285,7 +285,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00048.01",
+        version: "2.1.4.00048.02",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -1378,6 +1378,7 @@ $.ajax({
             displayLeaderBoard: function(leaderBoard, username) {
                 try {
                   console.table(leaderBoard);
+                }
                 catch(err) {
                   basicBot.roomUtilities.logException("displayLeaderBoard: " + err.message);
                 }
