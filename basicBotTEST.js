@@ -1,4 +1,4 @@
-/** version: 2.1.4.00048.06
+/** version: 2.1.4.00048.07
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
@@ -301,7 +301,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00048.06",
+        version: "2.1.4.00048.07",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -1403,38 +1403,38 @@ $.ajax({
                 try {
                     userIDs = [];
                     leaderBoard = [];
-                    var topStats = {
-                        username: "",
-                        rollCount: 0,
-                        winCount: 0,
-                        rollPct: ""
-                    };
-                    var addUser = null;
                     for (var listIdx = 0; listIdx < 10; listIdx++) {
-                        topStats.rollCount = 0;
-                        addUser = null;
+                        var rollCount = 0;
+                        var addUserIdx = -1;
                         for (var i = 0; i < basicBot.room.users.length; i++) {
                             var skipUser = false;
                             var roomUser = basicBot.room.users[i];
                             //todoer REPACE 1 with 50
-						    basicBot.roomUtilities.logDebug("Scanning User: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
+                            basicBot.roomUtilities.logDebug("Scanning User: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
                             if (userIDs.indexOf(roomUser.id) > -1) skipUser = true;  // Already in the leader list
                             if (roomUser.rollStats.lifeTotal < 1) skipUser = true;  // Require 50 rolls to get on the leader board
-                            if (roomUser.rollStats.lifeTotal < topStats.rollCount) skipUser = true;
+                            if (roomUser.rollStats.lifeTotal < rollCount) skipUser = true;
                             if (!skipUser) {
-                                addUser = roomUser;
-						        basicBot.roomUtilities.logDebug("New Leader: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
-                                topStats.rollCount = roomUser.rollStats.lifeTotal;
+                                addUserIdx = i;
+                                basicBot.roomUtilities.logDebug("New Leader: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
+                                rollCount = roomUser.rollStats.lifeTotal;
                             }
                         }
-                        if (addUser !== null) {
-				            basicBot.roomUtilities.logDebug("Adding User: " + addUser.username + ": " + addUser.rollStats.lifeTotal);
-                            topStats.username = addUser.username;
-                            topStats.rollCount = addUser.rollStats.lifeTotal;
-                            topStats.winCount = addUser.rollStats.lifeWoot;
-                            topStats.rollPct = basicBot.roomUtilities.formatPercentage(addUser.rollStats.lifeWoot, addUser.rollStats.lifeTotal);
+                        
+                        if (addUserIdx > -1) {
+                            var topStats = {
+                                username: "",
+                                rollCount: 0,
+                                winCount: 0,
+                                rollPct: ""
+                            };
+                            basicBot.roomUtilities.logDebug("Adding User: " + basicBot.room.users[addUserIdx].username + ": " + basicBot.room.users[addUserIdx].rollStats.lifeTotal);
+                            topStats.username = basicBot.room.users[addUserIdx].username;
+                            topStats.rollCount = basicBot.room.users[addUserIdx].rollStats.lifeTotal;
+                            topStats.winCount = basicBot.room.users[addUserIdx].rollStats.lifeWoot;
+                            topStats.rollPct = basicBot.roomUtilities.formatPercentage(basicBot.room.users[addUserIdx].rollStats.lifeWoot, basicBot.room.users[addUserIdx].rollStats.lifeTotal);
                             leaderBoard.push(topStats);
-                            userIDs.push(addUser.id);
+                            userIDs.push(basicBot.room.users[addUserIdx].id);
                         }
                     }
                     return leaderBoard;
@@ -1447,41 +1447,41 @@ $.ajax({
                 try {
                     userIDs = [];
                     leaderBoard = [];
-                    var topStats = {
-                        username: "",
-                        rollCount: 0,
-                        winCount: 0,
-                        rollPct: ""
-                    };
-                    var addUser = null;
+                    addUserIdx = i;
                     for (var listIdx = 0; listIdx < 10; listIdx++) {
-                        addUser = null;
-                        topStats.rollPct = 0.0;
+                        addUserIdx = -1;
+                        var rollPct = 0.0;
                         for (var i = 0; i < basicBot.room.users.length; i++) {
                             var skipUser = false;
                             var roomUser = basicBot.room.users[i];
                             if (userIDs.indexOf(roomUser.id) > -1) skipUser = true;  // Already in the leader list
-						    basicBot.roomUtilities.logDebug("Scanning User: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
+                            basicBot.roomUtilities.logDebug("Scanning User: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
                             //todoer REPACE 1 with 50
                             if (roomUser.rollStats.lifeTotal < 1) skipUser = true;  // Require 50 rolls to get on the leader board
                             if (!skipUser) {
                               var UserPct = roomUser.rollStats.lifeWoot / roomUser.rollStats.lifeTotal;
-                              if (UserPct < topStats.rollPct) skipUser = true;
+                              if (UserPct < rollPct) skipUser = true;
                             }
                             if (!skipUser) {
-						        basicBot.roomUtilities.logDebug("New Leader: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal + "-" + UserPct);
-                                addUser = roomUser;
-                                topStats.rollPct = UserPct;
+                                basicBot.roomUtilities.logDebug("New Leader: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal + "-" + UserPct);
+                                addUserIdx = i;
+                                rollPct = UserPct;
                             }
                         }
-                        if (addUser !== null) {
-				            basicBot.roomUtilities.logDebug("Adding User: " + addUser.username + ": " + addUser.rollStats.lifeTotal);
-                            topStats.username = addUser.username;
-                            topStats.rollCount = addUser.rollStats.lifeTotal;
-                            topStats.winCount = addUser.rollStats.lifeWoot;
-                            topStats.rollPct = basicBot.roomUtilities.formatPercentage(addUser.rollStats.lifeWoot, addUser.rollStats.lifeTotal);
+                        if (addUserIdx !== null) {
+                            var topStats = {
+                                username: "",
+                                rollCount: 0,
+                                winCount: 0,
+                                rollPct: ""
+                            };
+                            basicBot.roomUtilities.logDebug("Adding User: " + basicBot.room.users[addUserIdx].username + ": " + basicBot.room.users[addUserIdx].rollStats.lifeTotal);
+                            topStats.username = basicBot.room.users[addUserIdx].username;
+                            topStats.rollCount = basicBot.room.users[addUserIdx].rollStats.lifeTotal;
+                            topStats.winCount = basicBot.room.users[addUserIdx].rollStats.lifeWoot;
+                            topStats.rollPct = basicBot.roomUtilities.formatPercentage(basicBot.room.users[addUserIdx].rollStats.lifeWoot, basicBot.room.users[addUserIdx].rollStats.lifeTotal);
                             leaderBoard.push(topStats);
-                            userIDs.push(addUser.id);
+                            userIDs.push(basicBot.room.users[addUserIdx].id);
                         }
                     }
                     return leaderBoard;
