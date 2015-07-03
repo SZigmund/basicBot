@@ -1,4 +1,4 @@
-/** version: 2.1.4.00048.12
+/** version: 2.1.4.00048.13
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
@@ -301,7 +301,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00048.12",
+        version: "2.1.4.00048.13",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -1397,11 +1397,11 @@ $.ajax({
                     var MsgA = "";
                     var MsgB = "";
                     for (var leaderIdx = 0; leaderIdx < leaderBoard.length; leaderIdx++) {
-					
+					    var strData = "[" + (leaderIdx + 1) + leaderBoard[leaderIdx].username + " " + leaderBoard[leaderIdx].winCount + "/" + leaderBoard[leaderIdx].rollCount + " " + leaderBoard[leaderIdx]. rollPct + "]\n\r"
                         if (leaderIdx < 5)
-                           MsgA += "[" + leaderBoard[leaderIdx].username + " " + leaderBoard[leaderIdx].winCount + "/" + leaderBoard[leaderIdx].rollCount + " " + leaderBoard[leaderIdx].rollPct + "]" + String.fromCharCode(10);
+                            MsgA += strData + String.fromCharCode(10);
                         else
-                            MsgB += "[" + leaderBoard[leaderIdx].username + " " + leaderBoard[leaderIdx].winCount + "/" + leaderBoard[leaderIdx].rollCount + " " + leaderBoard[leaderIdx].rollPct + "]" + String.fromCharCode(10);
+                            MsgB += strData + "\u000A";
                     }
                     setTimeout(function () { basicBot.roomUtilities.sendChat(MsgA); }, 500);
                     setTimeout(function () { basicBot.roomUtilities.sendChat(MsgB); }, 1000);
