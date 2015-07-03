@@ -1,4 +1,4 @@
-/** version: 2.1.4.00048.05
+/** version: 2.1.4.00048.06
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
@@ -301,7 +301,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00048.05",
+        version: "2.1.4.00048.06",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -1417,15 +1417,18 @@ $.ajax({
                             var skipUser = false;
                             var roomUser = basicBot.room.users[i];
                             //todoer REPACE 1 with 50
+						    basicBot.roomUtilities.logDebug("Scanning User: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
                             if (userIDs.indexOf(roomUser.id) > -1) skipUser = true;  // Already in the leader list
                             if (roomUser.rollStats.lifeTotal < 1) skipUser = true;  // Require 50 rolls to get on the leader board
                             if (roomUser.rollStats.lifeTotal < topStats.rollCount) skipUser = true;
                             if (!skipUser) {
                                 addUser = roomUser;
+						        basicBot.roomUtilities.logDebug("New Leader: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
                                 topStats.rollCount = roomUser.rollStats.lifeTotal;
                             }
                         }
                         if (addUser !== null) {
+				            basicBot.roomUtilities.logDebug("Adding User: " + addUser.username + ": " + addUser.rollStats.lifeTotal);
                             topStats.username = addUser.username;
                             topStats.rollCount = addUser.rollStats.lifeTotal;
                             topStats.winCount = addUser.rollStats.lifeWoot;
@@ -1458,6 +1461,7 @@ $.ajax({
                             var skipUser = false;
                             var roomUser = basicBot.room.users[i];
                             if (userIDs.indexOf(roomUser.id) > -1) skipUser = true;  // Already in the leader list
+						    basicBot.roomUtilities.logDebug("Scanning User: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
                             //todoer REPACE 1 with 50
                             if (roomUser.rollStats.lifeTotal < 1) skipUser = true;  // Require 50 rolls to get on the leader board
                             if (!skipUser) {
@@ -1465,13 +1469,15 @@ $.ajax({
                               if (UserPct < topStats.rollPct) skipUser = true;
                             }
                             if (!skipUser) {
+						        basicBot.roomUtilities.logDebug("New Leader: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal + "-" + UserPct);
                                 addUser = roomUser;
                                 topStats.rollPct = UserPct;
                             }
                         }
                         if (addUser !== null) {
+				            basicBot.roomUtilities.logDebug("Adding User: " + addUser.username + ": " + addUser.rollStats.lifeTotal);
                             topStats.username = addUser.username;
-                            topStats.rollCount = addUserId.rollStats.lifeTotal;
+                            topStats.rollCount = addUser.rollStats.lifeTotal;
                             topStats.winCount = addUser.rollStats.lifeWoot;
                             topStats.rollPct = basicBot.roomUtilities.formatPercentage(addUser.rollStats.lifeWoot, addUser.rollStats.lifeTotal);
                             leaderBoard.push(topStats);
