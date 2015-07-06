@@ -1,4 +1,4 @@
-/** version: 2.1.4.00048.14
+/** version: 2.1.4.00048.15
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
@@ -301,7 +301,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00048.14",
+        version: "2.1.4.00048.15",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -1397,7 +1397,7 @@ $.ajax({
                     var MsgA = "";
                     var MsgB = "";
                     for (var leaderIdx = 0; leaderIdx < leaderBoard.length; leaderIdx++) {
-					    var strData = "[" + numberToIcon(leaderIdx+1) + " " + leaderBoard[leaderIdx].username + " " + 
+					    var strData = "[" + basicBot.roomUtilities.numberToIcon(leaderIdx+1) + " " + leaderBoard[leaderIdx].username + " " + 
 						              leaderBoard[leaderIdx].winCount + "/" + leaderBoard[leaderIdx].rollCount + " " + leaderBoard[leaderIdx]. rollPct + "]\n\r"
                         if (leaderIdx < 5)
                             MsgA += strData + String.fromCharCode(10);
@@ -6432,11 +6432,11 @@ You're so fat, you could sell shade.
                             //Pick a random word for the tasty command
                             setTimeout(function () { basicBot.userUtilities.tastyVote(basicBot.userUtilities.getCurrentPlugUser().id,basicBot.roomUtilities.bopCommand("")); }, 1000);
                             setTimeout(function () { basicBot.roomUtilities.wootThisSong(); }, 1500);
-                            resultsMsg = subChat(basicBot.chat.rollresultsgood, {name: chat.un, roll: rollResults});
+                            resultsMsg = subChat(basicBot.chat.rollresultsgood, {name: chat.un, roll: basicBot.roomUtilities.numberToIcon(rollResults)});
                         }
                         else {
                             setTimeout(function () { basicBot.roomUtilities.mehThisSong(); }, 1000);
-                            resultsMsg = subChat(basicBot.chat.rollresultsbad, {name: chat.un, roll: rollResults});
+                            resultsMsg = subChat(basicBot.chat.rollresultsbad, {name: chat.un, roll: basicBot.roomUtilities.numberToIcon(rollResults)});
                             wooting = false;
                         }
                         basicBot.roomUtilities.sendChat(resultsMsg + basicBot.userUtilities.updateRolledStats(chat.un, wooting));
