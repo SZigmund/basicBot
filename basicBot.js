@@ -1,5 +1,4 @@
-/** version: 2.1.4.00048
-
+/** version: 2.1.4.00049
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
     var botCreator = "Matthew (Yemasthui)";
@@ -285,7 +284,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00048",
+        version: "2.1.4.00049",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -1375,6 +1374,119 @@ $.ajax({
             this.lastSeenInLine = null;
         },
         userUtilities: {
+            displayLeaderBoard: function(leaderBoard, username, dispPct, caption) {
+                try {
+                    console.table(leaderBoard);
+                    var MsgA = "";
+                    var MsgB = "";
+                    MsgA = caption;
+                    for (var leaderIdx = 0; leaderIdx < leaderBoard.length; leaderIdx++) {
+                        var strData = "[" + basicBot.roomUtilities.numberToIcon(leaderIdx+1) + " " + leaderBoard[leaderIdx].username + " ";
+                        if (dispPct)
+                            strData += leaderBoard[leaderIdx].winCount + "/" + leaderBoard[leaderIdx].rollCount + " " + leaderBoard[leaderIdx].rollPct + "] "
+                        else
+                            strData += leaderBoard[leaderIdx].rollCount + "] "
+                        if (leaderIdx < 5)
+                            MsgA += strData;
+                        else
+                            MsgB += strData;
+                    }
+                    setTimeout(function () { basicBot.roomUtilities.sendChat(MsgA); }, 500);
+                    setTimeout(function () { basicBot.roomUtilities.sendChat(MsgB); }, 1000);
+                }
+                catch(err) {
+                  basicBot.roomUtilities.logException("displayLeaderBoard: " + err.message);
+                }
+            },
+            loadTopPoints: function() {
+                try {
+                    userIDs = [];
+                    leaderBoard = [];
+                    for (var leaderIdx = 0; leaderIdx < 10; leaderIdx++) {
+                        var rollCount = 0;
+                        var addUserIdx = -1;
+                        for (var userIdx = 0; userIdx < basicBot.room.users.length; userIdx++) {
+                            var skipUser = false;
+                            var roomUser = basicBot.room.users[userIdx];
+                            //basicBot.roomUtilities.logDebug("Scanning User: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
+                            if (userIDs.indexOf(roomUser.id) > -1) skipUser = true;  // Already in the leader list
+                            if (roomUser.rollStats.lifeTotal < 50) skipUser = true;  // Require 50 rolls to get on the leader board
+                            if (roomUser.rollStats.lifeTotal < rollCount) skipUser = true;
+                            if (!skipUser) {
+                                addUserIdx = userIdx;
+                                //basicBot.roomUtilities.logDebug("New Leader: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
+                                rollCount = roomUser.rollStats.lifeTotal;
+                            }
+                        }
+                        
+                        if (addUserIdx > -1) {
+                            var topStats = {
+                                username: "",
+                                rollCount: 0,
+                                winCount: 0,
+                                rollPct: ""
+                            };
+                            //basicBot.roomUtilities.logDebug("Adding User: " + basicBot.room.users[addUserIdx].username + ": " + basicBot.room.users[addUserIdx].rollStats.lifeTotal);
+                            topStats.username = basicBot.room.users[addUserIdx].username;
+                            topStats.rollCount = basicBot.room.users[addUserIdx].rollStats.lifeTotal;
+                            topStats.winCount = basicBot.room.users[addUserIdx].rollStats.lifeWoot;
+                            topStats.rollPct = basicBot.roomUtilities.formatPercentage(basicBot.room.users[addUserIdx].rollStats.lifeWoot, basicBot.room.users[addUserIdx].rollStats.lifeTotal);
+                            leaderBoard.push(topStats);
+                            userIDs.push(basicBot.room.users[addUserIdx].id);
+                        }
+                    }
+                    return leaderBoard;
+                }
+                catch(err) {
+                  basicBot.roomUtilities.logException("loadTopPoints: " + err.message);
+                }
+            },
+            loadTopPct: function(username) {
+                try {
+                    userIDs = [];
+                    leaderBoard = [];
+                    var addUserIdx = -1;
+                    for (var leaderIdx = 0; leaderIdx < 10; leaderIdx++) {
+                        addUserIdx = -1;
+                        var rollPct = 0.0;
+                        for (var userIdx = 0; userIdx < basicBot.room.users.length; userIdx++) {
+                            var skipUser = false;
+                            var roomUser = basicBot.room.users[userIdx];
+                            if (userIDs.indexOf(roomUser.id) > -1) skipUser = true;  // Already in the leader list
+                            //basicBot.roomUtilities.logDebug("Scanning User: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
+                            if (roomUser.rollStats.lifeTotal < 50) skipUser = true;  // Require 50 rolls to get on the leader board
+                            if (!skipUser) {
+                              var UserPct = roomUser.rollStats.lifeWoot / roomUser.rollStats.lifeTotal;
+                              if (UserPct < rollPct) skipUser = true;
+                            }
+                            if (!skipUser) {
+                                //basicBot.roomUtilities.logDebug("New Leader: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal + "-" + UserPct);
+                                addUserIdx = userIdx;
+                                rollPct = UserPct;
+                            }
+                        }
+                        if (addUserIdx > -1) {
+                            var topStats = {
+                                username: "",
+                                rollCount: 0,
+                                winCount: 0,
+                                rollPct: ""
+                            };
+                            //basicBot.roomUtilities.logDebug("Adding User: " + basicBot.room.users[addUserIdx].username + ": " + basicBot.room.users[addUserIdx].rollStats.lifeTotal);
+                            topStats.username = basicBot.room.users[addUserIdx].username;
+                            topStats.rollCount = basicBot.room.users[addUserIdx].rollStats.lifeTotal;
+                            topStats.winCount = basicBot.room.users[addUserIdx].rollStats.lifeWoot;
+                            topStats.rollPct = basicBot.roomUtilities.formatPercentage(basicBot.room.users[addUserIdx].rollStats.lifeWoot, basicBot.room.users[addUserIdx].rollStats.lifeTotal);
+                            leaderBoard.push(topStats);
+                            userIDs.push(basicBot.room.users[addUserIdx].id);
+                        }
+                    }
+                    return leaderBoard;
+                }
+                catch(err) {
+                  basicBot.roomUtilities.logException("loadTopPct: " + err.message);
+                }
+            },
             englishMessage: function(lang, username) {
                 try {
                     var engMsg = '/me @' + username + ' ';
@@ -1821,6 +1933,22 @@ $.ajax({
                 catch(err) {
                   basicBot.roomUtilities.logException("resetTastyCount: " + err.message);
                 }
+            },
+            numberToIcon: function(intValue) {
+                switch (intValue) {
+                    case 0: return ":zero:";
+                    case 1: return ":one:";
+                    case 2: return ":two:";
+                    case 3: return ":three:";
+                    case 4: return ":four:";
+                    case 5: return ":five:";
+                    case 6: return ":six:";
+                    case 7: return ":seven:";
+                    case 8: return ":eight:";
+                    case 9: return ":nine:";
+                    case 10: return ":keycap_ten:";
+                }
+                return intValue;
             },
             formatPercentage: function(a, b) {
                 if (a === 0) return "0%";
@@ -2413,7 +2541,8 @@ You're so fat, you could sell shade.
                               'peachykeen','perf','phatness','phenom','prime-time','primo','rad','radical','rage','rancid','random','nice cover','nicecover','raw',
                               'redonkulus','righteous','rocking','rock-solid','rollin','3fer','4fer','threefer','fourfer','nice2fer','amazeballs','craycray',
                               'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin','star','rockstar',':metal:',
-                              '10s','00s','90s','80s','70s','60s','50s','insane','clever'];
+                              '10s','00s','90s','80s','70s','60s','50s','insane','clever',':heart:',':heart_decoration:',':heart_eyes:',':heart_eyes_cat:',':heartbeat:',
+                              ':heartpulse:',':hearts:',':yellow_heart:',':green_heart:',':blue_heart:',':two_hearts:',':revolving_hearts:',':sparkling_heart:',':blue_heart:'];
                     // If a command if passed in validate it and return true if it is a Tasty command:
                     if (cmd.length > 0) {
                         if (commandList.indexOf(cmd) < 0) return true;
@@ -6288,11 +6417,11 @@ You're so fat, you could sell shade.
                             //Pick a random word for the tasty command
                             setTimeout(function () { basicBot.userUtilities.tastyVote(basicBot.userUtilities.getCurrentPlugUser().id,basicBot.roomUtilities.bopCommand("")); }, 1000);
                             setTimeout(function () { basicBot.roomUtilities.wootThisSong(); }, 1500);
-                            resultsMsg = subChat(basicBot.chat.rollresultsgood, {name: chat.un, roll: rollResults});
+                            resultsMsg = subChat(basicBot.chat.rollresultsgood, {name: chat.un, roll: basicBot.roomUtilities.numberToIcon(rollResults)});
                         }
                         else {
                             setTimeout(function () { basicBot.roomUtilities.mehThisSong(); }, 1000);
-                            resultsMsg = subChat(basicBot.chat.rollresultsbad, {name: chat.un, roll: rollResults});
+                            resultsMsg = subChat(basicBot.chat.rollresultsbad, {name: chat.un, roll: basicBot.roomUtilities.numberToIcon(rollResults)});
                             wooting = false;
                         }
                         basicBot.roomUtilities.sendChat(resultsMsg + basicBot.userUtilities.updateRolledStats(chat.un, wooting));
@@ -6395,7 +6524,8 @@ You're so fat, you could sell shade.
                           'peachykeen','perf','phatness','phenom','prime-time','primo','rad','radical','rage','rancid','random','nice cover','nicecover','raw',
                           'redonkulus','righteous','rocking','rock-solid','rollin','3fer','4fer','threefer','fourfer','nice2fer','amazeballs','craycray',
                           'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin','star','rockstar',':metal:',
-                          '10s','00s','90s','80s','70s','60s','50s','insane','clever'],
+                          '10s','00s','90s','80s','70s','60s','50s','insane','clever',':heart:',':heart_decoration:',':heart_eyes:',':heart_eyes_cat:',':heartbeat:',
+                          ':heartpulse:',':hearts:',':yellow_heart:',':green_heart:',':blue_heart:',':two_hearts:',':revolving_hearts:',':sparkling_heart:',':blue_heart:'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
@@ -6571,6 +6701,38 @@ You're so fat, you could sell shade.
                         }
                     }
                     catch(err) { basicBot.roomUtilities.logException("loguserCommand: " + err.message); }
+                }
+            },
+            rollpctCommand: {   //Added 07/03/2015 Zig
+                command: 'rollpct',
+                rank: 'residentdj',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        var leaderBoard = basicBot.userUtilities.loadTopPct();
+                        basicBot.userUtilities.displayLeaderBoard(leaderBoard, chat.un, true, "Top Roll Percentages: ");
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("rollpct: " + err.message);
+                    }
+                }
+            },
+            rollptsCommand: {   //Added 07/03/2015 Zig
+                command: 'rollpts',
+                rank: 'residentdj',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        var leaderBoard = basicBot.userUtilities.loadTopPoints();
+                        basicBot.userUtilities.displayLeaderBoard(leaderBoard, chat.un, false, "Top Roll Points: ");
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("rollpts: " + err.message);
+                    }
                 }
             },
             nsfwCommand: {   //Added 04/22/2015 Zig
