@@ -1,4 +1,4 @@
-/** version: 2.1.4.00048.17
+/** version: 2.1.4.00048.18
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
@@ -301,7 +301,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00048.17",
+        version: "2.1.4.00048.18",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -1391,25 +1391,12 @@ $.ajax({
             this.lastSeenInLine = null;
         },
         userUtilities: {
-            displayLeaderBoard: function(leaderBoard, username, dispPct) {
+            displayLeaderBoard: function(leaderBoard, username, dispPct, caption) {
                 try {
                     console.table(leaderBoard);
                     var MsgA = "";
                     var MsgB = "";
-					//======================================
-					MsgA = "Top Points: ";
-                    for (var XIdx = 0; XIdx < 5; XIdx++) {
-					    var strDataX = "[" + basicBot.roomUtilities.numberToIcon(0+1) + " " + leaderBoard[0].username + " ";
-						if (dispPct)
-						    strDataX += leaderBoard[0].winCount + "/" + leaderBoard[0].rollCount + " " + leaderBoard[0].rollPct + "]"
-						else
-						    strDataX += leaderBoard[0].rollCount + "]"
-                        MsgA += strDataX + "\u000A";
-					}
-					basicBot.roomUtilities.sendChat(MsgA);
-					//======================================
-					MsgA = "Top Points: ";
-					if (dispPct) MsgA = "Top Percentages: ";
+					MsgA = caption;
                     for (var leaderIdx = 0; leaderIdx < leaderBoard.length; leaderIdx++) {
 					    var strData = "[" + basicBot.roomUtilities.numberToIcon(leaderIdx+1) + " " + leaderBoard[leaderIdx].username + " ";
 						if (dispPct)
@@ -1417,9 +1404,9 @@ $.ajax({
 						else
 						    strData += leaderBoard[leaderIdx].rollCount + "]"
                         if (leaderIdx < 5)
-                            MsgA += strData + "\u000A";
+                            MsgA += strData;
                         else
-                            MsgB += strData + "\u000A";
+                            MsgB += strData;
                     }
                     setTimeout(function () { basicBot.roomUtilities.sendChat(MsgA); }, 500);
                     setTimeout(function () { basicBot.roomUtilities.sendChat(MsgB); }, 1000);
@@ -6735,8 +6722,8 @@ You're so fat, you could sell shade.
                     catch(err) { basicBot.roomUtilities.logException("loguserCommand: " + err.message); }
                 }
             },
-            toppctCommand: {   //Added 07/03/2015 Zig
-                command: 'toppct',
+            rollpctCommand: {   //Added 07/03/2015 Zig
+                command: 'rollpct',
                 rank: 'residentdj',
                 type: 'exact',
                 functionality: function (chat, cmd) {
@@ -6744,15 +6731,15 @@ You're so fat, you could sell shade.
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                         var leaderBoard = basicBot.userUtilities.loadTopPct();
-                        basicBot.userUtilities.displayLeaderBoard(leaderBoard, chat.un, true);
+                        basicBot.userUtilities.displayLeaderBoard(leaderBoard, chat.un, true, "Top Roll Percentages: ");
                     }
                     catch(err) {
-                        basicBot.roomUtilities.logException("toppct: " + err.message);
+                        basicBot.roomUtilities.logException("rollpct: " + err.message);
                     }
                 }
             },
-            topptsCommand: {   //Added 07/03/2015 Zig
-                command: 'toppts',
+            rollptsCommand: {   //Added 07/03/2015 Zig
+                command: 'rollpts',
                 rank: 'residentdj',
                 type: 'exact',
                 functionality: function (chat, cmd) {
@@ -6760,10 +6747,10 @@ You're so fat, you could sell shade.
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                         var leaderBoard = basicBot.userUtilities.loadTopPoints();
-                        basicBot.userUtilities.displayLeaderBoard(leaderBoard, chat.un, false);
+                        basicBot.userUtilities.displayLeaderBoard(leaderBoard, chat.un, false, "Top Roll Points: ");
                     }
                     catch(err) {
-                        basicBot.roomUtilities.logException("toppts: " + err.message);
+                        basicBot.roomUtilities.logException("rollpts: " + err.message);
                     }
                 }
             },
