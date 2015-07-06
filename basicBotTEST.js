@@ -1,4 +1,4 @@
-/** version: 2.1.4.00048.13
+/** version: 2.1.4.00048.14
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
@@ -301,7 +301,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00048.13",
+        version: "2.1.4.00048.14",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -1397,7 +1397,8 @@ $.ajax({
                     var MsgA = "";
                     var MsgB = "";
                     for (var leaderIdx = 0; leaderIdx < leaderBoard.length; leaderIdx++) {
-					    var strData = "[" + (leaderIdx + 1) + leaderBoard[leaderIdx].username + " " + leaderBoard[leaderIdx].winCount + "/" + leaderBoard[leaderIdx].rollCount + " " + leaderBoard[leaderIdx]. rollPct + "]\n\r"
+					    var strData = "[" + numberToIcon(leaderIdx+1) + " " + leaderBoard[leaderIdx].username + " " + 
+						              leaderBoard[leaderIdx].winCount + "/" + leaderBoard[leaderIdx].rollCount + " " + leaderBoard[leaderIdx]. rollPct + "]\n\r"
                         if (leaderIdx < 5)
                             MsgA += strData + String.fromCharCode(10);
                         else
@@ -1948,6 +1949,22 @@ $.ajax({
                   basicBot.roomUtilities.logException("resetTastyCount: " + err.message);
                 }
             },
+            numberToIcon: function(intValue) {
+                switch (intValue) {
+					case 0: return ":zero:";
+					case 1: return ":one:";
+					case 2: return ":two:";
+					case 3: return ":three:";
+					case 4: return ":four:";
+					case 5: return ":five:";
+					case 6: return ":six:";
+					case 7: return ":seven:";
+					case 8: return ":eight:";
+					case 9: return ":nine:";
+					case 10: return ":keycap_ten:";
+				}
+				return intValue;
+			},
             formatPercentage: function(a, b) {
                 if (a === 0) return "0%";
                 if (b === 0) return "100%";
@@ -6717,8 +6734,8 @@ You're so fat, you could sell shade.
                     }
                 }
             },
-            toppointsCommand: {   //Added 07/03/2015 Zig
-                command: 'toppoints',
+            topptsCommand: {   //Added 07/03/2015 Zig
+                command: 'toppts',
                 rank: 'residentdj',
                 type: 'exact',
                 functionality: function (chat, cmd) {
@@ -6729,7 +6746,7 @@ You're so fat, you could sell shade.
                         basicBot.userUtilities.displayLeaderBoard(leaderBoard, chat.un);
                     }
                     catch(err) {
-                        basicBot.roomUtilities.logException("toppoints: " + err.message);
+                        basicBot.roomUtilities.logException("toppts: " + err.message);
                     }
                 }
             },
