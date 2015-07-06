@@ -1,4 +1,4 @@
-/** version: 2.1.4.00048.15
+/** version: 2.1.4.00048.16
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
@@ -301,7 +301,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00048.15",
+        version: "2.1.4.00048.16",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -1391,16 +1391,21 @@ $.ajax({
             this.lastSeenInLine = null;
         },
         userUtilities: {
-            displayLeaderBoard: function(leaderBoard, username) {
+            displayLeaderBoard: function(leaderBoard, username, dispPct) {
                 try {
                     console.table(leaderBoard);
                     var MsgA = "";
                     var MsgB = "";
+					MsgA = "Top Points: ";
+					if (dispPct) MsgA = "Top Percentages: ";
                     for (var leaderIdx = 0; leaderIdx < leaderBoard.length; leaderIdx++) {
-					    var strData = "[" + basicBot.roomUtilities.numberToIcon(leaderIdx+1) + " " + leaderBoard[leaderIdx].username + " " + 
-						              leaderBoard[leaderIdx].winCount + "/" + leaderBoard[leaderIdx].rollCount + " " + leaderBoard[leaderIdx]. rollPct + "]\n\r"
+					    var strData = "[" + basicBot.roomUtilities.numberToIcon(leaderIdx+1) + " " + leaderBoard[leaderIdx].username + " ";
+						if (dispPct)
+						    strData += leaderBoard[leaderIdx].winCount + "/" + leaderBoard[leaderIdx].rollCount + " " + leaderBoard[leaderIdx].rollPct + "]"
+						else
+						    strData += leaderBoard[leaderIdx].rollCount + "]"
                         if (leaderIdx < 5)
-                            MsgA += strData + String.fromCharCode(10);
+                            MsgA += strData + "\u000A";
                         else
                             MsgB += strData + "\u000A";
                     }
@@ -6727,7 +6732,7 @@ You're so fat, you could sell shade.
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                         var leaderBoard = basicBot.userUtilities.loadTopPct();
-                        basicBot.userUtilities.displayLeaderBoard(leaderBoard, chat.un);
+                        basicBot.userUtilities.displayLeaderBoard(leaderBoard, chat.un, true);
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("toppct: " + err.message);
@@ -6743,7 +6748,7 @@ You're so fat, you could sell shade.
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
                         var leaderBoard = basicBot.userUtilities.loadTopPoints();
-                        basicBot.userUtilities.displayLeaderBoard(leaderBoard, chat.un);
+                        basicBot.userUtilities.displayLeaderBoard(leaderBoard, chat.un, false);
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("toppts: " + err.message);
