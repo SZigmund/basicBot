@@ -1,4 +1,4 @@
-/** version: 2.1.4.00048.16
+/** version: 2.1.4.00048.17
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
                             //todoer REPACE 1 with 50
@@ -301,7 +301,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00048.16",
+        version: "2.1.4.00048.17",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -1396,6 +1396,18 @@ $.ajax({
                     console.table(leaderBoard);
                     var MsgA = "";
                     var MsgB = "";
+					//======================================
+					MsgA = "Top Points: ";
+                    for (var XIdx = 0; XIdx < 5; XIdx++) {
+					    var strDataX = "[" + basicBot.roomUtilities.numberToIcon(0+1) + " " + leaderBoard[0].username + " ";
+						if (dispPct)
+						    strDataX += leaderBoard[0].winCount + "/" + leaderBoard[0].rollCount + " " + leaderBoard[0].rollPct + "]"
+						else
+						    strDataX += leaderBoard[0].rollCount + "]"
+                        MsgA += strDataX + "\u000A";
+					}
+					basicBot.roomUtilities.sendChat(MsgA);
+					//======================================
 					MsgA = "Top Points: ";
 					if (dispPct) MsgA = "Top Percentages: ";
                     for (var leaderIdx = 0; leaderIdx < leaderBoard.length; leaderIdx++) {
