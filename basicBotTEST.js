@@ -1,21 +1,4 @@
-/** version: 2.1.4.00048.18
-                            //todoer REPACE 1 with 50
-                            //todoer REPACE 1 with 50
-                            //todoer REPACE 1 with 50
-                            //todoer REPACE 1 with 50
-                            //todoer REPACE 1 with 50
-                            //todoer REPACE 1 with 50
-                            //todoer REPACE 1 with 50
-                            //todoer REPACE 1 with 50
-                            //todoer REPACE 1 with 50
-                            //todoer REPACE 1 with 50
-                            //todoer REPACE 1 with 50
-                            //todoer REPACE 1 with 50
-                            //todoer REPACE 1 with 50
-                            //todoer REPACE 1 with 50
-                            //todoer REPACE 1 with 50
-                            //todoer REPACE 1 with 50
-
+/** version: 2.1.4.00049.01
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
     var botCreator = "Matthew (Yemasthui)";
@@ -301,7 +284,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00048.18",
+        version: "2.1.4.00049.01",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -1039,7 +1022,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
             "You're never too late for an uprising!",
             "You can't hear me because I'm not saying anything.",
             "Elephants are not made to hop up and down.",
-            "If I ever meet myself, I'll hit myself so hard I won't know what's hit me.",
+            "If I ever meet myself, I'll hit myself so hard I won't know what hit me.",
             "I don't negotiate with terrorists - 'Merica!!",
             "Would you think guanaria should cure diarrhea.... think about it...",
             "What's the point of having a democracy, if everybody's going to vote wrong?",
@@ -1396,13 +1379,13 @@ $.ajax({
                     console.table(leaderBoard);
                     var MsgA = "";
                     var MsgB = "";
-					MsgA = caption;
+                    MsgA = caption;
                     for (var leaderIdx = 0; leaderIdx < leaderBoard.length; leaderIdx++) {
-					    var strData = "[" + basicBot.roomUtilities.numberToIcon(leaderIdx+1) + " " + leaderBoard[leaderIdx].username + " ";
-						if (dispPct)
-						    strData += leaderBoard[leaderIdx].winCount + "/" + leaderBoard[leaderIdx].rollCount + " " + leaderBoard[leaderIdx].rollPct + "]"
-						else
-						    strData += leaderBoard[leaderIdx].rollCount + "]"
+                        var strData = "[" + basicBot.roomUtilities.numberToIcon(leaderIdx+1) + " " + leaderBoard[leaderIdx].username + " ";
+                        if (dispPct)
+                            strData += leaderBoard[leaderIdx].winCount + "/" + leaderBoard[leaderIdx].rollCount + " " + leaderBoard[leaderIdx].rollPct + "] "
+                        else
+                            strData += leaderBoard[leaderIdx].rollCount + "] "
                         if (leaderIdx < 5)
                             MsgA += strData;
                         else
@@ -1425,14 +1408,13 @@ $.ajax({
                         for (var userIdx = 0; userIdx < basicBot.room.users.length; userIdx++) {
                             var skipUser = false;
                             var roomUser = basicBot.room.users[userIdx];
-                            //todoer REPACE 1 with 50
-                            basicBot.roomUtilities.logDebug("Scanning User: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
+                            //basicBot.roomUtilities.logDebug("Scanning User: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
                             if (userIDs.indexOf(roomUser.id) > -1) skipUser = true;  // Already in the leader list
-                            if (roomUser.rollStats.lifeTotal < 1) skipUser = true;  // Require 50 rolls to get on the leader board
+                            if (roomUser.rollStats.lifeTotal < 50) skipUser = true;  // Require 50 rolls to get on the leader board
                             if (roomUser.rollStats.lifeTotal < rollCount) skipUser = true;
                             if (!skipUser) {
                                 addUserIdx = userIdx;
-                                basicBot.roomUtilities.logDebug("New Leader: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
+                                //basicBot.roomUtilities.logDebug("New Leader: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
                                 rollCount = roomUser.rollStats.lifeTotal;
                             }
                         }
@@ -1444,7 +1426,7 @@ $.ajax({
                                 winCount: 0,
                                 rollPct: ""
                             };
-                            basicBot.roomUtilities.logDebug("Adding User: " + basicBot.room.users[addUserIdx].username + ": " + basicBot.room.users[addUserIdx].rollStats.lifeTotal);
+                            //basicBot.roomUtilities.logDebug("Adding User: " + basicBot.room.users[addUserIdx].username + ": " + basicBot.room.users[addUserIdx].rollStats.lifeTotal);
                             topStats.username = basicBot.room.users[addUserIdx].username;
                             topStats.rollCount = basicBot.room.users[addUserIdx].rollStats.lifeTotal;
                             topStats.winCount = basicBot.room.users[addUserIdx].rollStats.lifeWoot;
@@ -1471,15 +1453,14 @@ $.ajax({
                             var skipUser = false;
                             var roomUser = basicBot.room.users[userIdx];
                             if (userIDs.indexOf(roomUser.id) > -1) skipUser = true;  // Already in the leader list
-                            basicBot.roomUtilities.logDebug("Scanning User: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
-                            //todoer REPACE 1 with 50
-                            if (roomUser.rollStats.lifeTotal < 1) skipUser = true;  // Require 50 rolls to get on the leader board
+                            //basicBot.roomUtilities.logDebug("Scanning User: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
+                            if (roomUser.rollStats.lifeTotal < 50) skipUser = true;  // Require 50 rolls to get on the leader board
                             if (!skipUser) {
                               var UserPct = roomUser.rollStats.lifeWoot / roomUser.rollStats.lifeTotal;
                               if (UserPct < rollPct) skipUser = true;
                             }
                             if (!skipUser) {
-                                basicBot.roomUtilities.logDebug("New Leader: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal + "-" + UserPct);
+                                //basicBot.roomUtilities.logDebug("New Leader: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal + "-" + UserPct);
                                 addUserIdx = userIdx;
                                 rollPct = UserPct;
                             }
@@ -1491,7 +1472,7 @@ $.ajax({
                                 winCount: 0,
                                 rollPct: ""
                             };
-                            basicBot.roomUtilities.logDebug("Adding User: " + basicBot.room.users[addUserIdx].username + ": " + basicBot.room.users[addUserIdx].rollStats.lifeTotal);
+                            //basicBot.roomUtilities.logDebug("Adding User: " + basicBot.room.users[addUserIdx].username + ": " + basicBot.room.users[addUserIdx].rollStats.lifeTotal);
                             topStats.username = basicBot.room.users[addUserIdx].username;
                             topStats.rollCount = basicBot.room.users[addUserIdx].rollStats.lifeTotal;
                             topStats.winCount = basicBot.room.users[addUserIdx].rollStats.lifeWoot;
@@ -1955,20 +1936,20 @@ $.ajax({
             },
             numberToIcon: function(intValue) {
                 switch (intValue) {
-					case 0: return ":zero:";
-					case 1: return ":one:";
-					case 2: return ":two:";
-					case 3: return ":three:";
-					case 4: return ":four:";
-					case 5: return ":five:";
-					case 6: return ":six:";
-					case 7: return ":seven:";
-					case 8: return ":eight:";
-					case 9: return ":nine:";
-					case 10: return ":keycap_ten:";
-				}
-				return intValue;
-			},
+                    case 0: return ":zero:";
+                    case 1: return ":one:";
+                    case 2: return ":two:";
+                    case 3: return ":three:";
+                    case 4: return ":four:";
+                    case 5: return ":five:";
+                    case 6: return ":six:";
+                    case 7: return ":seven:";
+                    case 8: return ":eight:";
+                    case 9: return ":nine:";
+                    case 10: return ":keycap_ten:";
+                }
+                return intValue;
+            },
             formatPercentage: function(a, b) {
                 if (a === 0) return "0%";
                 if (b === 0) return "100%";
@@ -2561,7 +2542,8 @@ You're so fat, you could sell shade.
                               'redonkulus','righteous','rocking','rock-solid','rollin','3fer','4fer','threefer','fourfer','nice2fer','amazeballs','craycray',
                               'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin','star','rockstar',':metal:',
                               '10s','00s','90s','80s','70s','60s','50s','insane','clever',':heart:',':heart_decoration:',':heart_eyes:',':heart_eyes_cat:',':heartbeat:',
-                              ':heartpulse:',':hearts:',':yellow_heart:',':green_heart:',':blue_heart:',':two_hearts:',':revolving_hearts:',':sparkling_heart:',':blue_heart:'];
+                              ':heartpulse:',':hearts:',':yellow_heart:',':green_heart:',':two_hearts:',':revolving_hearts:',':sparkling_heart:',':blue_heart:','giddyup','rockabilly',
+                              'nicefollow',':beer:',':beers:'];
                     // If a command if passed in validate it and return true if it is a Tasty command:
                     if (cmd.length > 0) {
                         if (commandList.indexOf(cmd) < 0) return true;
@@ -4071,7 +4053,27 @@ You're so fat, you could sell shade.
                     }
                 }
             },
-
+            trollCommand: {
+                command: 'troll',
+                rank: 'bouncer',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    try{
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        var msg = chat.message;
+                        //if (msg.length === cmd.length) return basicBot.roomUtilities.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
+                        if (msg.length === cmd.length) return(0);
+                        var name = msg.substring(cmd.length + 2);
+                        var user = basicBot.userUtilities.lookupUserName(name);
+                        if (typeof user === 'boolean') return basicBot.roomUtilities.sendChat(subChat(basicBot.chat.invaliduserspecified, {name: chat.un}));
+                        API.moderateBanUser(user.id, 1, API.BAN.PERMA);
+                    }
+                    catch (err) {
+                        basicBot.roomUtilities.logException("trollCommand: " + err.message);
+                    }
+                }
+            },
             afkresetCommand: {
                 command: 'afkreset',
                 rank: 'bouncer',
@@ -4794,9 +4796,9 @@ You're so fat, you could sell shade.
                 }
             },
 
-            killCommand: {
-                command: 'kill',
-                rank: 'bouncer',
+            killbotCommand: {
+                command: 'killbot',
+                rank: 'cohost',
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
@@ -6544,7 +6546,8 @@ You're so fat, you could sell shade.
                           'redonkulus','righteous','rocking','rock-solid','rollin','3fer','4fer','threefer','fourfer','nice2fer','amazeballs','craycray',
                           'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin','star','rockstar',':metal:',
                           '10s','00s','90s','80s','70s','60s','50s','insane','clever',':heart:',':heart_decoration:',':heart_eyes:',':heart_eyes_cat:',':heartbeat:',
-                          ':heartpulse:',':hearts:',':yellow_heart:',':green_heart:',':blue_heart:',':two_hearts:',':revolving_hearts:',':sparkling_heart:',':blue_heart:'],
+                          ':heartpulse:',':hearts:',':yellow_heart:',':green_heart:',':two_hearts:',':revolving_hearts:',':sparkling_heart:',':blue_heart:','giddyup','rockabilly',
+                          'nicefollow',':beer:',':beers:'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
