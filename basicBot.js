@@ -1,4 +1,4 @@
-/** version: 2.1.4.00049
+/** version: 2.1.4.00050
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
     var botCreator = "Matthew (Yemasthui)";
@@ -284,7 +284,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00049",
+        version: "2.1.4.00050",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -1022,7 +1022,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
             "You're never too late for an uprising!",
             "You can't hear me because I'm not saying anything.",
             "Elephants are not made to hop up and down.",
-            "If I ever meet myself, I'll hit myself so hard I won't know what's hit me.",
+            "If I ever meet myself, I'll hit myself so hard I won't know what hit me.",
             "I don't negotiate with terrorists - 'Merica!!",
             "Would you think guanaria should cure diarrhea.... think about it...",
             "What's the point of having a democracy, if everybody's going to vote wrong?",
@@ -2542,7 +2542,8 @@ You're so fat, you could sell shade.
                               'redonkulus','righteous','rocking','rock-solid','rollin','3fer','4fer','threefer','fourfer','nice2fer','amazeballs','craycray',
                               'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin','star','rockstar',':metal:',
                               '10s','00s','90s','80s','70s','60s','50s','insane','clever',':heart:',':heart_decoration:',':heart_eyes:',':heart_eyes_cat:',':heartbeat:',
-                              ':heartpulse:',':hearts:',':yellow_heart:',':green_heart:',':blue_heart:',':two_hearts:',':revolving_hearts:',':sparkling_heart:',':blue_heart:'];
+                              ':heartpulse:',':hearts:',':yellow_heart:',':green_heart:',':two_hearts:',':revolving_hearts:',':sparkling_heart:',':blue_heart:','giddyup','rockabilly',
+                              'nicefollow',':beer:',':beers:'];
                     // If a command if passed in validate it and return true if it is a Tasty command:
                     if (cmd.length > 0) {
                         if (commandList.indexOf(cmd) < 0) return true;
@@ -4052,7 +4053,27 @@ You're so fat, you could sell shade.
                     }
                 }
             },
-
+            trollCommand: {
+                command: 'troll',
+                rank: 'bouncer',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    try{
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        var msg = chat.message;
+                        //if (msg.length === cmd.length) return basicBot.roomUtilities.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
+                        if (msg.length === cmd.length) return(0);
+                        var name = msg.substring(cmd.length + 2);
+                        var user = basicBot.userUtilities.lookupUserName(name);
+                        if (typeof user === 'boolean') return basicBot.roomUtilities.sendChat(subChat(basicBot.chat.invaliduserspecified, {name: chat.un}));
+                        API.moderateBanUser(user.id, 1, API.BAN.PERMA);
+                    }
+                    catch (err) {
+                        basicBot.roomUtilities.logException("trollCommand: " + err.message);
+                    }
+                }
+            },
             afkresetCommand: {
                 command: 'afkreset',
                 rank: 'bouncer',
@@ -4775,9 +4796,9 @@ You're so fat, you could sell shade.
                 }
             },
 
-            killCommand: {
-                command: 'kill',
-                rank: 'bouncer',
+            killbotCommand: {
+                command: 'killbot',
+                rank: 'cohost',
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
@@ -6525,7 +6546,8 @@ You're so fat, you could sell shade.
                           'redonkulus','righteous','rocking','rock-solid','rollin','3fer','4fer','threefer','fourfer','nice2fer','amazeballs','craycray',
                           'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin','star','rockstar',':metal:',
                           '10s','00s','90s','80s','70s','60s','50s','insane','clever',':heart:',':heart_decoration:',':heart_eyes:',':heart_eyes_cat:',':heartbeat:',
-                          ':heartpulse:',':hearts:',':yellow_heart:',':green_heart:',':blue_heart:',':two_hearts:',':revolving_hearts:',':sparkling_heart:',':blue_heart:'],
+                          ':heartpulse:',':hearts:',':yellow_heart:',':green_heart:',':two_hearts:',':revolving_hearts:',':sparkling_heart:',':blue_heart:','giddyup','rockabilly',
+                          'nicefollow',':beer:',':beers:'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
