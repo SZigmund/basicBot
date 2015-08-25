@@ -1,4 +1,4 @@
-/** version: 2.1.4.00050.01
+/** version: 2.1.4.00050.02
 
 SAINTS TODO LIST:
 .ugh You know your play sucks when the chat goes quiet
@@ -290,7 +290,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00050.01",
+        version: "2.1.4.00050.02",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -5864,7 +5864,6 @@ You're so fat, you could sell shade.
 
                         setTimeout(function () { basicBot.roomUtilities.sendChat(msg2); }, 500);
                         return basicBot.roomUtilities.sendChat(msg);
-                        return ; 
                     }
                 }
             },
