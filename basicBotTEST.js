@@ -1,4 +1,10 @@
-/** version: 2.1.4.00049.01
+/** version: 2.1.4.00050.01
+
+SAINTS TODO LIST:
+.ugh You know your play sucks when the chat goes quiet
+.why Only getting woots cause we all have auto woot
+
+
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
     var botCreator = "Matthew (Yemasthui)";
@@ -284,7 +290,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00049.01",
+        version: "2.1.4.00050.01",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -2541,9 +2547,9 @@ You're so fat, you could sell shade.
                               'peachykeen','perf','phatness','phenom','prime-time','primo','rad','radical','rage','rancid','random','nice cover','nicecover','raw',
                               'redonkulus','righteous','rocking','rock-solid','rollin','3fer','4fer','threefer','fourfer','nice2fer','amazeballs','craycray',
                               'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin','star','rockstar',':metal:',
-                              '10s','00s','90s','80s','70s','60s','50s','insane','clever',':heart:',':heart_decoration:',':heart_eyes:',':heart_eyes_cat:',':heartbeat:',
+                              '10s','00s','90s','80s','70s','60s','50s','40s','30s','20s','insane','clever',':heart:',':heart_decoration:',':heart_eyes:',':heart_eyes_cat:',':heartbeat:',
                               ':heartpulse:',':hearts:',':yellow_heart:',':green_heart:',':two_hearts:',':revolving_hearts:',':sparkling_heart:',':blue_heart:','giddyup','rockabilly',
-                              'nicefollow',':beer:',':beers:'];
+                              'nicefollow',':beer:',':beers:','niceplay','11','oldies','oldie','pj','slayer','kinky'];
                     // If a command if passed in validate it and return true if it is a Tasty command:
                     if (cmd.length > 0) {
                         if (commandList.indexOf(cmd) < 0) return true;
@@ -5632,6 +5638,19 @@ You're so fat, you could sell shade.
                     catch (err) { basicBot.roomUtilities.logException("banlistjson: " + err.message); }
                 }
             },
+            userlistjsonCommand: {   //Added: 08/25/2015 List all users to json
+                command: 'userlistjson',
+                rank: 'cohost',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        basicBot.roomUtilities.logInfo(JSON.stringify(basicBot.room.users));
+                    }
+                    catch (err) { basicBot.roomUtilities.logException("userlistjson: " + err.message); }
+                }
+            },
             banlistconsoleCommand: {   //Added: 06/11/2015 List all banned songs
                 command: 'banlistconsole',
                 rank: 'cohost',
@@ -6239,21 +6258,21 @@ You're so fat, you could sell shade.
                 }
                 }
             },
-             beerCommand: {   //Added 02/25/2015 Zig
-                command: 'beer',
-                rank: 'mod',
-                type: 'startsWith',
-                functionality: function (chat, cmd) {
-                try{
-                    if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                    if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                    return basicBot.roomUtilities.sendChat("@Bacon_Cheeseburger time for another PBR!");
-                    }
-                catch(err) {
-                    basicBot.roomUtilities.logException("beerCommand: " + err.message);
-                }
-                }
-            },
+             //beerCommand: {   //Added 02/25/2015 Zig
+             //   command: 'beer',
+             //   rank: 'mod',
+             //   type: 'startsWith',
+             //   functionality: function (chat, cmd) {
+             //   try{
+             //       if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+             //       if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+             //       return basicBot.roomUtilities.sendChat("@Bacon_Cheeseburger time for another PBR!");
+             //       }
+             //   catch(err) {
+             //       basicBot.roomUtilities.logException("beerCommand: " + err.message);
+             //   }
+             //   }
+            //},
             speakCommand: {   //Added 02/25/2015 Zig
                 command: 'speak',
                 rank: 'mod',
@@ -6545,9 +6564,9 @@ You're so fat, you could sell shade.
                           'peachykeen','perf','phatness','phenom','prime-time','primo','rad','radical','rage','rancid','random','nice cover','nicecover','raw',
                           'redonkulus','righteous','rocking','rock-solid','rollin','3fer','4fer','threefer','fourfer','nice2fer','amazeballs','craycray',
                           'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin','star','rockstar',':metal:',
-                          '10s','00s','90s','80s','70s','60s','50s','insane','clever',':heart:',':heart_decoration:',':heart_eyes:',':heart_eyes_cat:',':heartbeat:',
+                          '10s','00s','90s','80s','70s','60s','50s','40s','30s','20s','insane','clever',':heart:',':heart_decoration:',':heart_eyes:',':heart_eyes_cat:',':heartbeat:',
                           ':heartpulse:',':hearts:',':yellow_heart:',':green_heart:',':two_hearts:',':revolving_hearts:',':sparkling_heart:',':blue_heart:','giddyup','rockabilly',
-                          'nicefollow',':beer:',':beers:'],
+                          'nicefollow',':beer:',':beers:','niceplay','11','oldies','oldie','pj','slayer','kinky'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
@@ -6667,6 +6686,36 @@ You're so fat, you could sell shade.
                     }
                     catch(err) {
                         basicBot.roomUtilities.logException("exrefresh: " + err.message);
+                    }
+                }
+            },
+            whyCommand: {
+                command: 'why',
+                rank: 'bouncer',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        basicBot.roomUtilities.sendChat("You're only getting woots cause we all have auto woot");
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("whycommand: " + err.message);
+                    }
+                }
+            },
+            ughCommand: {
+                command: 'ugh',
+                rank: 'bouncer',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        basicBot.roomUtilities.sendChat("You know your play sucks when the chat goes quiet");
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("ughcommand: " + err.message);
                     }
                 }
             },
