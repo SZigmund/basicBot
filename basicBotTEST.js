@@ -1,4 +1,9 @@
-/** version: 2.1.4.00050.03
+/** version: 2.1.4.00050.04
+
+SAINTS TODO LIST:
+.ugh You know your play sucks when the chat goes quiet
+.why Only getting woots cause we all have auto woot
+
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -285,7 +290,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00050.03",
+        version: "2.1.4.00050.04",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -2606,7 +2611,7 @@ You're so fat, you could sell shade.
                             for (var idx in json) {
                                 var newUser = json[idx];
 								//basicBot.room.usersImport.push(new basicBot.User(user.id, user.username));
-								basicBot.room.usersImport.push(newUser));
+								basicBot.room.usersImport.push(newUser);
                             }
                         }
                     });
