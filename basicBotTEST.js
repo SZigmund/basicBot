@@ -1,9 +1,4 @@
-/** version: 2.1.4.00050.02
-
-SAINTS TODO LIST:
-.ugh You know your play sucks when the chat goes quiet
-.why Only getting woots cause we all have auto woot
-
+/** version: 2.1.4.00050.03
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -290,7 +285,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00050.02",
+        version: "2.1.4.00050.03",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -301,6 +296,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
         cmdLink: "http://bit.ly/1DbtUV7",
         chatLink: "https://rawgit.com/SZigmund/basicBot/master/lang/en.json",
         blacklistLink: "https://rawgit.com/SZigmund/basicBot/master/Blacklist/list.json",
+        userlistLink: "https://rawgit.com/SZigmund/basicBot/master/Blacklist/users.json",
         blacklistIdLink: "https://rawgit.com/SZigmund/basicBot/master/Blacklist/ids.json",
         chat: null,
         loadChat: loadChat,
@@ -1172,6 +1168,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
         },
         room: {
             users: [],
+            usersImport: [],
             debug: true,
             afkList: [],
             mutedUsers: [],
@@ -1746,6 +1743,14 @@ $.ajax({
                 for (var i = 0; i < basicBot.room.users.length; i++) {
                     if (basicBot.room.users[i].username.trim() == name.trim()) {
                         return basicBot.room.users[i];
+                    }
+                }
+                return false;
+            },
+            lookupUserNameImport: function (name) {
+                for (var i = 0; i < basicBot.room.usersImport.length; i++) {
+                    if (basicBot.room.usersImport[i].username.trim() == name.trim()) {
+                        return basicBot.room.usersImport[i];
                     }
                 }
                 return false;
@@ -2592,7 +2597,23 @@ You're so fat, you could sell shade.
                 }
                 catch(err) { console.log("ERROR:logException: " + err.message); }
             },
-            
+
+            importUserList: function() { // userlistimport << command
+                try {
+                    $.get(basicBot.userlistLink, function (json) {
+                        if (json !== null && typeof json !== "undefined") {
+                            basicBot.roomUtilities.logObject(json, "USR");
+                            for (var idx in json) {
+                                var newUser = json[idx];
+								//basicBot.room.usersImport.push(new basicBot.User(user.id, user.username));
+								basicBot.room.usersImport.push(newUser));
+                            }
+                        }
+                    });
+                    basicBot.roomUtilities.logDebug("LIST COUNT: " + basicBot.room.newBlacklist.length);
+                }
+                catch(err) { console.log("ERROR:importBlackList: " + err.message); }
+            },
             importBlackList: function() { // banlistimport << command
                 try {
                     $.get(basicBot.blacklistLink, function (json) {
@@ -5651,6 +5672,33 @@ You're so fat, you could sell shade.
                     catch (err) { basicBot.roomUtilities.logException("userlistjson: " + err.message); }
                 }
             },
+            userlistimportCommand: {   //Added: 06/11/2015 Import ban list from last saved in Github
+                command: 'userlistimport',
+                rank: 'cohost',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return;
+                        if (!basicBot.commands.executable(this.rank, chat)) return;
+                        basicBot.roomUtilities.importUserList();
+						//basicBot.room.users = basicBot.room.usersImport;
+                        basicBot.roomUtilities.sendChat("I've got " + basicBot.room.usersImport.length + " users in the list.");
+						var DocZ = basicBot.userUtilities.lookupUserNameImport("Doc_Z");
+                        if (DocZ === false) return basicBot.roomUtilities.sendChat(subChat(basicBot.chat.invaliduserspecified, {name: chat.un}));
+                        var msg = subChat(basicBot.chat.mystats, {name: DocZ.username, 
+                                                                     songs: DocZ.votes.songs,
+                                                                     woot: DocZ.votes.woot, 
+                                                                     mehs: DocZ.votes.meh, 
+                                                                     grabs: DocZ.votes.curate, 
+                                                                     tasty: DocZ.votes.tasty});
+                        basicBot.userUtilities.resetDailyRolledStats(DocZ);
+                        msg += " Roll Stats: " + basicBot.userUtilities.getRolledStats(DocZ);
+                        basicBot.roomUtilities.sendChat(msg);
+                    }
+                    catch (err) { basicBot.roomUtilities.logException("userlistimport: " + err.message); }
+                }
+            },
+
             banlistconsoleCommand: {   //Added: 06/11/2015 List all banned songs
                 command: 'banlistconsole',
                 rank: 'cohost',
