@@ -1,9 +1,4 @@
-/** version: 2.1.4.00050.04
-
-SAINTS TODO LIST:
-.ugh You know your play sucks when the chat goes quiet
-.why Only getting woots cause we all have auto woot
-
+/** version: 2.1.4.00050.05
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -290,7 +285,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00050.04",
+        version: "2.1.4.00050.05",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -2605,13 +2600,14 @@ You're so fat, you could sell shade.
 
             importUserList: function() { // userlistimport << command
                 try {
+                    basicBot.room.usersImport = [];
                     $.get(basicBot.userlistLink, function (json) {
                         if (json !== null && typeof json !== "undefined") {
                             basicBot.roomUtilities.logObject(json, "USR");
                             for (var idx in json) {
                                 var newUser = json[idx];
-								//basicBot.room.usersImport.push(new basicBot.User(user.id, user.username));
-								basicBot.room.usersImport.push(newUser);
+                                //basicBot.room.usersImport.push(new basicBot.User(user.id, user.username));
+                                basicBot.room.usersImport.push(newUser);
                             }
                         }
                     });
@@ -5677,18 +5673,84 @@ You're so fat, you could sell shade.
                     catch (err) { basicBot.roomUtilities.logException("userlistjson: " + err.message); }
                 }
             },
-            userlistimportCommand: {   //Added: 06/11/2015 Import ban list from last saved in Github
+            userlistxferCommand: {   //Added: 08/28/2015
+                command: 'userlistxfer',
+                rank: 'manager',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return;
+                        if (!basicBot.commands.executable(this.rank, chat)) return;
+                        basicBot.room.users = basicBot.room.usersImport;
+                    }
+                    catch (err) { basicBot.roomUtilities.logException("userlistxfer: " + err.message); }
+                }
+            },
+            userliststatsCommand: {   //Added: 08/28/2015
+                command: 'userliststats',
+                rank: 'manager',
+                type: 'startsWith',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return;
+                        if (!basicBot.commands.executable(this.rank, chat)) return;
+                        if (msg.length === cmd.length) return basicBot.roomUtilities.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
+                        var name = msg.substr(cmd.length + 2);
+                        var user = basicBot.userUtilities.lookupUserName(name);
+                        var msg = "";
+                        if (user === false) {
+                            msg = "Could not old find user";
+                        }
+                        else {
+                            msg = subChat(basicBot.chat.mystats, {name: user.username, songs: user.votes.songs, woot: user.votes.woot, 
+                                                              mehs: user.votes.meh, grabs: user.votes.curate, tasty: user.votes.tasty});
+                            basicBot.userUtilities.resetDailyRolledStats(user);
+                            msg += " Roll Stats: " + basicBot.userUtilities.getRolledStats(user);
+                        }
+                        basicBot.roomUtilities.sendChat(msg);
+
+                        var newuser = basicBot.userUtilities.lookupUserNameImport(name);
+                        if (user === false) {
+                            msg = "Could not old find user";
+                        }
+                        else {
+                            msg = subChat(basicBot.chat.mystats, {name: newuser.username, songs: newuser.votes.songs,  woot: newuser.votes.woot, 
+                                                                  mehs: newuser.votes.meh, grabs: newuser.votes.curate, tasty: newuser.votes.tasty});
+                            basicBot.userUtilities.resetDailyRolledStats(newuser);
+                            msg += " Roll Stats: " + basicBot.userUtilities.getRolledStats(newuser);
+                        }
+                        setTimeout(function () { basicBot.roomUtilities.sendChat(msg); }, 1 * 1000);
+                    }
+                    catch (err) { basicBot.roomUtilities.logException("userliststats: " + err.message); }
+                }
+            },
+            userlistcountCommand: {   //Added: 08/28/2015
+                command: 'userlistcount',
+                rank: 'manager',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return;
+                        if (!basicBot.commands.executable(this.rank, chat)) return;
+                        basicBot.roomUtilities.sendChat("I've got " + basicBot.room.usersImport.length + " users in the list.");
+                        setTimeout(function () {
+                            basicBot.roomUtilities.sendChat("I've got " + basicBot.room.users.length + " users in the list.")
+                        }, 1 * 1000);
+                    }
+                    catch (err) { basicBot.roomUtilities.logException("userlistcount: " + err.message); }
+                }
+            },
+            userlistimportCommand: {   //Added: 08/23/2015 Import User list from last saved in Github
                 command: 'userlistimport',
-                rank: 'cohost',
+                rank: 'manager',
                 type: 'exact',
                 functionality: function (chat, cmd) {
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return;
                         if (!basicBot.commands.executable(this.rank, chat)) return;
                         basicBot.roomUtilities.importUserList();
-						//basicBot.room.users = basicBot.room.usersImport;
                         basicBot.roomUtilities.sendChat("I've got " + basicBot.room.usersImport.length + " users in the list.");
-						var DocZ = basicBot.userUtilities.lookupUserNameImport("Doc_Z");
+                        var DocZ = basicBot.userUtilities.lookupUserNameImport("Doc_Z");
                         if (DocZ === false) return basicBot.roomUtilities.sendChat(subChat(basicBot.chat.invaliduserspecified, {name: chat.un}));
                         var msg = subChat(basicBot.chat.mystats, {name: DocZ.username, 
                                                                      songs: DocZ.votes.songs,
