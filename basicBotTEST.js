@@ -1,4 +1,9 @@
-/** version: 2.1.4.00050.05
+/** version: 2.1.4.00050.06
+
+userlistimport
+userlistcount
+userliststats
+userlistxfer
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -285,7 +290,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00050.05",
+        version: "2.1.4.00050.06",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -5694,7 +5699,8 @@ You're so fat, you could sell shade.
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return;
                         if (!basicBot.commands.executable(this.rank, chat)) return;
-                        if (msg.length === cmd.length) return basicBot.roomUtilities.sendChat(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
+                        var msg = chat.message;
+                        if (msg.length === cmd.length) return basicBot.roomUtilities.logInfo(subChat(basicBot.chat.nouserspecified, {name: chat.un}));
                         var name = msg.substr(cmd.length + 2);
                         var user = basicBot.userUtilities.lookupUserName(name);
                         var msg = "";
@@ -5707,7 +5713,7 @@ You're so fat, you could sell shade.
                             basicBot.userUtilities.resetDailyRolledStats(user);
                             msg += " Roll Stats: " + basicBot.userUtilities.getRolledStats(user);
                         }
-                        basicBot.roomUtilities.sendChat(msg);
+                        basicBot.roomUtilities.logInfo(msg);
 
                         var newuser = basicBot.userUtilities.lookupUserNameImport(name);
                         if (user === false) {
@@ -5719,7 +5725,7 @@ You're so fat, you could sell shade.
                             basicBot.userUtilities.resetDailyRolledStats(newuser);
                             msg += " Roll Stats: " + basicBot.userUtilities.getRolledStats(newuser);
                         }
-                        setTimeout(function () { basicBot.roomUtilities.sendChat(msg); }, 1 * 1000);
+                        setTimeout(function () { basicBot.roomUtilities.logInfo(msg); }, 1 * 1000);
                     }
                     catch (err) { basicBot.roomUtilities.logException("userliststats: " + err.message); }
                 }
@@ -5732,9 +5738,9 @@ You're so fat, you could sell shade.
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return;
                         if (!basicBot.commands.executable(this.rank, chat)) return;
-                        basicBot.roomUtilities.sendChat("I've got " + basicBot.room.usersImport.length + " users in the list.");
+                        basicBot.roomUtilities.logInfo("I've got " + basicBot.room.usersImport.length + " users in the new list.");
                         setTimeout(function () {
-                            basicBot.roomUtilities.sendChat("I've got " + basicBot.room.users.length + " users in the list.")
+                            basicBot.roomUtilities.logInfo("I've got " + basicBot.room.users.length + " users in the old list.")
                         }, 1 * 1000);
                     }
                     catch (err) { basicBot.roomUtilities.logException("userlistcount: " + err.message); }
@@ -5749,9 +5755,9 @@ You're so fat, you could sell shade.
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return;
                         if (!basicBot.commands.executable(this.rank, chat)) return;
                         basicBot.roomUtilities.importUserList();
-                        basicBot.roomUtilities.sendChat("I've got " + basicBot.room.usersImport.length + " users in the list.");
+                        basicBot.roomUtilities.logInfo("I've got " + basicBot.room.usersImport.length + " users in the new list.");
                         var DocZ = basicBot.userUtilities.lookupUserNameImport("Doc_Z");
-                        if (DocZ === false) return basicBot.roomUtilities.sendChat(subChat(basicBot.chat.invaliduserspecified, {name: chat.un}));
+                        if (DocZ === false) return basicBot.roomUtilities.logInfo(subChat(basicBot.chat.invaliduserspecified, {name: chat.un}));
                         var msg = subChat(basicBot.chat.mystats, {name: DocZ.username, 
                                                                      songs: DocZ.votes.songs,
                                                                      woot: DocZ.votes.woot, 
@@ -5760,7 +5766,7 @@ You're so fat, you could sell shade.
                                                                      tasty: DocZ.votes.tasty});
                         basicBot.userUtilities.resetDailyRolledStats(DocZ);
                         msg += " Roll Stats: " + basicBot.userUtilities.getRolledStats(DocZ);
-                        basicBot.roomUtilities.sendChat(msg);
+                        basicBot.roomUtilities.logInfo(msg);
                     }
                     catch (err) { basicBot.roomUtilities.logException("userlistimport: " + err.message); }
                 }
