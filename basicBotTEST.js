@@ -1,4 +1,4 @@
-/** version: 2.1.4.00050.06
+/** version: 2.1.4.00050.07
 
 userlistimport
 userlistcount
@@ -290,7 +290,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00050.06",
+        version: "2.1.4.00050.07",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -5705,7 +5705,7 @@ You're so fat, you could sell shade.
                         var user = basicBot.userUtilities.lookupUserName(name);
                         var msg = "";
                         if (user === false) {
-                            msg = "Could not old find user";
+                            msg = "Could not find old user";
                         }
                         else {
                             msg = subChat(basicBot.chat.mystats, {name: user.username, songs: user.votes.songs, woot: user.votes.woot, 
@@ -5716,8 +5716,8 @@ You're so fat, you could sell shade.
                         basicBot.roomUtilities.logInfo(msg);
 
                         var newuser = basicBot.userUtilities.lookupUserNameImport(name);
-                        if (user === false) {
-                            msg = "Could not old find user";
+                        if (newuser === false) {
+                            msg = "Could not find new user";
                         }
                         else {
                             msg = subChat(basicBot.chat.mystats, {name: newuser.username, songs: newuser.votes.songs,  woot: newuser.votes.woot, 
