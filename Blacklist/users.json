@@ -1,55 +1,15 @@
-[  
-  {  
-    "id":5226916,
-    "username":"Levi Homer",
-    "jointime":1432937491018,
-    "lastActivity":1440510887790,
-    "votes":{  
-      "songs":374,
-      "tasty":1,
-      "woot":61,
-      "meh":9,
-      "curate":1
-    },
-    "tastyVote":false,
-    "rolled":false,
-    "lastEta":null,
-    "beerRun":false,
-    "inMeeting":false,
-    "atLunch":false,
-    "afkWarningCount":0,
-    "badSongCount":0,
-    "afkCountdown":null,
-    "inRoom":true,
-    "isMuted":false,
-    "rollStats":{  
-       "lifeWoot":5,
-       "lifeTotal":9,
-       "dayWoot":1,
-       "dayTotal":2,
-       "DOY":187
-    },
-    "lastDC":{  
-       "time":null,
-       "leftroom":null,
-       "resetReason":"",
-       "position":-1,
-    "songCount":0
-    },
-    "lastKnownPosition":0,
-    "lastSeenInLine":null
-  },
+[
   {
-    "id": 3419440,
-    "username": "Barstool Saints",
-    "jointime": 1440428072905,
-    "lastActivity": 1440536554712,
+    "id": 5226916,
+    "username": "Levi Homer",
+    "jointime": 1432937491018,
+    "lastActivity": 1440510887790,
     "votes": {
-      "songs": 885,
-      "tasty": 868,
-      "woot": 10723,
-      "meh": 0,
-      "curate": 259
+      "songs": 374,
+      "tasty": 1,
+      "woot": 61,
+      "meh": 9,
+      "curate": 1
     },
     "tastyVote": false,
     "rolled": false,
@@ -59,15 +19,55 @@
     "atLunch": false,
     "afkWarningCount": 0,
     "badSongCount": 0,
-    "afkCountdown": 1600,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 5,
+      "lifeTotal": 9,
+      "dayWoot": 1,
+      "dayTotal": 2,
+      "DOY": 187
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": 0,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 3419440,
+    "username": "Barstool Saints",
+    "jointime": 1441142604387,
+    "lastActivity": 1441142604387,
+    "votes": {
+      "songs": 900,
+      "tasty": 879,
+      "woot": 11757,
+      "meh": 0,
+      "curate": 261
+    },
+    "tastyVote": false,
+    "rolled": true,
+    "lastEta": null,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": 513,
     "inRoom": true,
     "isMuted": false,
     "rollStats": {
-      "lifeWoot": 427,
-      "lifeTotal": 840,
-      "dayWoot": 11,
-      "dayTotal": 16,
-      "DOY": 236
+      "lifeWoot": 433,
+      "lifeTotal": 853,
+      "dayWoot": 6,
+      "dayTotal": 13,
+      "DOY": 240
     },
     "lastDC": {
       "time": null,
@@ -82,14 +82,14 @@
   {
     "id": 3837756,
     "username": "Doc_Z",
-    "jointime": 1440421970198,
-    "lastActivity": 1440536751685,
+    "jointime": 1441200301389,
+    "lastActivity": 1441225213369,
     "votes": {
-      "songs": 634,
-      "tasty": 684,
-      "woot": 5643,
-      "meh": 13,
-      "curate": 87
+      "songs": 669,
+      "tasty": 723,
+      "woot": 6235,
+      "meh": 14,
+      "curate": 94
     },
     "tastyVote": false,
     "rolled": true,
@@ -99,15 +99,15 @@
     "atLunch": false,
     "afkWarningCount": 0,
     "badSongCount": 0,
-    "afkCountdown": 1720,
+    "afkCountdown": 27744,
     "inRoom": true,
     "isMuted": false,
     "rollStats": {
-      "lifeWoot": 276,
-      "lifeTotal": 535,
-      "dayWoot": 7,
-      "dayTotal": 15,
-      "DOY": 236
+      "lifeWoot": 291,
+      "lifeTotal": 567,
+      "dayWoot": 3,
+      "dayTotal": 8,
+      "DOY": 245
     },
     "lastDC": {
       "time": null,
@@ -116,23 +116,23 @@
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": 1,
-    "lastSeenInLine": 1440536718733
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
   },
   {
     "id": 4104504,
     "username": "ChrisHanson",
-    "jointime": 1440204682318,
-    "lastActivity": 1440204682318,
+    "jointime": 1440786793618,
+    "lastActivity": 1440792519484,
     "votes": {
-      "songs": 218,
-      "tasty": 175,
-      "woot": 1535,
+      "songs": 220,
+      "tasty": 177,
+      "woot": 1559,
       "meh": 2,
       "curate": 4
     },
     "tastyVote": false,
-    "rolled": true,
+    "rolled": false,
     "lastEta": null,
     "beerRun": false,
     "inMeeting": false,
@@ -143,11 +143,11 @@
     "inRoom": false,
     "isMuted": false,
     "rollStats": {
-      "lifeWoot": 81,
-      "lifeTotal": 168,
-      "dayWoot": 5,
-      "dayTotal": 11,
-      "DOY": 220
+      "lifeWoot": 82,
+      "lifeTotal": 169,
+      "dayWoot": 1,
+      "dayTotal": 1,
+      "DOY": 240
     },
     "lastDC": {
       "time": null,
@@ -202,32 +202,32 @@
   {
     "id": 3447628,
     "username": "DeezNutzzzz",
-    "jointime": 1440419458764,
-    "lastActivity": 1440450706814,
+    "jointime": 1441196581412,
+    "lastActivity": 1441225135359,
     "votes": {
-      "songs": 1018,
-      "tasty": 1037,
-      "woot": 9336,
+      "songs": 1056,
+      "tasty": 1074,
+      "woot": 9570,
       "meh": 13,
-      "curate": 358
+      "curate": 375
     },
     "tastyVote": false,
-    "rolled": false,
+    "rolled": true,
     "lastEta": null,
     "beerRun": false,
     "inMeeting": false,
     "atLunch": false,
     "afkWarningCount": 0,
     "badSongCount": 0,
-    "afkCountdown": 181,
-    "inRoom": false,
+    "afkCountdown": 27394,
+    "inRoom": true,
     "isMuted": false,
     "rollStats": {
-      "lifeWoot": 457,
-      "lifeTotal": 927,
-      "dayWoot": 11,
-      "dayTotal": 16,
-      "DOY": 236
+      "lifeWoot": 469,
+      "lifeTotal": 953,
+      "dayWoot": 6,
+      "dayTotal": 14,
+      "DOY": 245
     },
     "lastDC": {
       "time": null,
@@ -236,19 +236,19 @@
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": -1,
-    "lastSeenInLine": null
+    "lastKnownPosition": 3,
+    "lastSeenInLine": 1441225182357
   },
   {
     "id": 3864950,
     "username": "Larry the LAW",
     "jointime": 1432930450377,
-    "lastActivity": 1440536719688,
+    "lastActivity": 1441225214369,
     "votes": {
-      "songs": 8193,
-      "tasty": 44,
-      "woot": 3659,
-      "meh": 3699,
+      "songs": 9095,
+      "tasty": 50,
+      "woot": 3834,
+      "meh": 3843,
       "curate": 0
     },
     "tastyVote": false,
@@ -276,8 +276,8 @@
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": 0,
-    "lastSeenInLine": 1440458149282
+    "lastKnownPosition": 2,
+    "lastSeenInLine": 1441196676359
   },
   {
     "id": 3423129,
@@ -403,12 +403,12 @@
   {
     "id": 6404422,
     "username": "jxyzn",
-    "jointime": 1439221061308,
-    "lastActivity": 1440536708357,
+    "jointime": 1441211375395,
+    "lastActivity": 1441223112365,
     "votes": {
-      "songs": 489,
-      "tasty": 164,
-      "woot": 3930,
+      "songs": 522,
+      "tasty": 173,
+      "woot": 4134,
       "meh": 3,
       "curate": 36
     },
@@ -420,7 +420,7 @@
     "atLunch": false,
     "afkWarningCount": 0,
     "badSongCount": 0,
-    "afkCountdown": 1599,
+    "afkCountdown": 27223,
     "inRoom": true,
     "isMuted": false,
     "rollStats": {
@@ -437,20 +437,20 @@
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": 3,
-    "lastSeenInLine": 1440536718733
+    "lastKnownPosition": 1,
+    "lastSeenInLine": 1441225182357
   },
   {
     "id": 4784789,
     "username": "Cali Bagoda",
-    "jointime": 1440458257936,
-    "lastActivity": 1440458257936,
+    "jointime": 1441157908392,
+    "lastActivity": 1441158725360,
     "votes": {
-      "songs": 731,
-      "tasty": 477,
-      "woot": 4115,
-      "meh": 4,
-      "curate": 275
+      "songs": 773,
+      "tasty": 503,
+      "woot": 4836,
+      "meh": 5,
+      "curate": 292
     },
     "tastyVote": false,
     "rolled": true,
@@ -460,15 +460,15 @@
     "atLunch": false,
     "afkWarningCount": 0,
     "badSongCount": 0,
-    "afkCountdown": 1995,
+    "afkCountdown": 15868,
     "inRoom": false,
     "isMuted": false,
     "rollStats": {
-      "lifeWoot": 312,
-      "lifeTotal": 635,
-      "dayWoot": 8,
-      "dayTotal": 15,
-      "DOY": 236
+      "lifeWoot": 333,
+      "lifeTotal": 666,
+      "dayWoot": 4,
+      "dayTotal": 8,
+      "DOY": 244
     },
     "lastDC": {
       "time": null,
@@ -604,12 +604,12 @@
   {
     "id": 3963412,
     "username": "Lipshits",
-    "jointime": 1440168890155,
-    "lastActivity": 1440168890155,
+    "jointime": 1441145423414,
+    "lastActivity": 1441149774360,
     "votes": {
-      "songs": 133,
-      "tasty": 123,
-      "woot": 2307,
+      "songs": 152,
+      "tasty": 128,
+      "woot": 2474,
       "meh": 0,
       "curate": 19
     },
@@ -621,15 +621,15 @@
     "atLunch": false,
     "afkWarningCount": 0,
     "badSongCount": 0,
-    "afkCountdown": 19077,
+    "afkCountdown": 17815,
     "inRoom": false,
     "isMuted": false,
     "rollStats": {
-      "lifeWoot": 44,
-      "lifeTotal": 87,
-      "dayWoot": 2,
-      "dayTotal": 4,
-      "DOY": 226
+      "lifeWoot": 48,
+      "lifeTotal": 96,
+      "dayWoot": 4,
+      "dayTotal": 9,
+      "DOY": 243
     },
     "lastDC": {
       "time": null,
@@ -887,17 +887,17 @@
   {
     "id": 6186256,
     "username": "VaJack",
-    "jointime": 1440352943612,
-    "lastActivity": 1440353009356,
+    "jointime": 1441135528398,
+    "lastActivity": 1441135540382,
     "votes": {
-      "songs": 239,
-      "tasty": 75,
-      "woot": 590,
+      "songs": 240,
+      "tasty": 76,
+      "woot": 597,
       "meh": 6,
       "curate": 28
     },
     "tastyVote": false,
-    "rolled": false,
+    "rolled": true,
     "lastEta": null,
     "beerRun": false,
     "inMeeting": false,
@@ -908,11 +908,11 @@
     "inRoom": false,
     "isMuted": false,
     "rollStats": {
-      "lifeWoot": 46,
-      "lifeTotal": 81,
-      "dayWoot": 0,
-      "dayTotal": 2,
-      "DOY": 214
+      "lifeWoot": 47,
+      "lifeTotal": 82,
+      "dayWoot": 1,
+      "dayTotal": 1,
+      "DOY": 241
     },
     "lastDC": {
       "time": null,
@@ -968,17 +968,17 @@
   {
     "id": 4104098,
     "username": "BuckeyeChick",
-    "jointime": 1440445177319,
-    "lastActivity": 1440447069867,
+    "jointime": 1441112230421,
+    "lastActivity": 1441123553368,
     "votes": {
-      "songs": 87,
-      "tasty": 101,
-      "woot": 1177,
+      "songs": 93,
+      "tasty": 105,
+      "woot": 1247,
       "meh": 0,
-      "curate": 54
+      "curate": 55
     },
     "tastyVote": false,
-    "rolled": true,
+    "rolled": false,
     "lastEta": null,
     "beerRun": false,
     "inMeeting": false,
@@ -989,11 +989,11 @@
     "inRoom": false,
     "isMuted": false,
     "rollStats": {
-      "lifeWoot": 18,
-      "lifeTotal": 30,
+      "lifeWoot": 19,
+      "lifeTotal": 33,
       "dayWoot": 1,
-      "dayTotal": 1,
-      "DOY": 222
+      "dayTotal": 3,
+      "DOY": 244
     },
     "lastDC": {
       "time": null,
@@ -1008,12 +1008,12 @@
   {
     "id": 4737384,
     "username": "DJ-Knives",
-    "jointime": 1437858580137,
-    "lastActivity": 1437858695384,
+    "jointime": 1441051117513,
+    "lastActivity": 1441051593505,
     "votes": {
-      "songs": 9,
+      "songs": 11,
       "tasty": 0,
-      "woot": 49,
+      "woot": 53,
       "meh": 0,
       "curate": 0
     },
@@ -1128,12 +1128,12 @@
   {
     "id": 3676385,
     "username": "MisterFurious",
-    "jointime": 1437853048677,
-    "lastActivity": 1437859200862,
+    "jointime": 1441064010096,
+    "lastActivity": 1441064010096,
     "votes": {
-      "songs": 41,
+      "songs": 47,
       "tasty": 7,
-      "woot": 66,
+      "woot": 71,
       "meh": 1,
       "curate": 4
     },
@@ -1208,8 +1208,8 @@
   {
     "id": 3534892,
     "username": "Rob Usdin",
-    "jointime": 1439421705243,
-    "lastActivity": 1439421705243,
+    "jointime": 1440932638355,
+    "lastActivity": 1440932638355,
     "votes": {
       "songs": 63,
       "tasty": 39,
@@ -1369,12 +1369,12 @@
   {
     "id": 5241940,
     "username": "fork",
-    "jointime": 1440220828274,
-    "lastActivity": 1440220828274,
+    "jointime": 1441080429480,
+    "lastActivity": 1441080478462,
     "votes": {
-      "songs": 19,
+      "songs": 21,
       "tasty": 4,
-      "woot": 125,
+      "woot": 128,
       "meh": 0,
       "curate": 6
     },
@@ -1571,17 +1571,17 @@
   {
     "id": 3908747,
     "username": "DJ_Trekkie_Techie",
-    "jointime": 1440376929085,
-    "lastActivity": 1440383811689,
+    "jointime": 1441189901404,
+    "lastActivity": 1441190014369,
     "votes": {
-      "songs": 752,
+      "songs": 763,
       "tasty": 84,
-      "woot": 2328,
+      "woot": 2377,
       "meh": 12,
       "curate": 26
     },
     "tastyVote": false,
-    "rolled": true,
+    "rolled": false,
     "lastEta": null,
     "beerRun": false,
     "inMeeting": false,
@@ -1732,13 +1732,13 @@
   {
     "id": 3893193,
     "username": "Balloon Knot",
-    "jointime": 1440413523070,
-    "lastActivity": 1440427736368,
+    "jointime": 1441184939407,
+    "lastActivity": 1441186034371,
     "votes": {
-      "songs": 1328,
-      "tasty": 869,
-      "woot": 8100,
-      "meh": 15,
+      "songs": 1375,
+      "tasty": 905,
+      "woot": 8651,
+      "meh": 17,
       "curate": 106
     },
     "tastyVote": false,
@@ -1749,15 +1749,15 @@
     "atLunch": false,
     "afkWarningCount": 0,
     "badSongCount": 0,
-    "afkCountdown": 1270,
+    "afkCountdown": 7562,
     "inRoom": false,
     "isMuted": false,
     "rollStats": {
-      "lifeWoot": 639,
-      "lifeTotal": 1291,
-      "dayWoot": 3,
-      "dayTotal": 10,
-      "DOY": 236
+      "lifeWoot": 668,
+      "lifeTotal": 1336,
+      "dayWoot": 4,
+      "dayTotal": 5,
+      "DOY": 245
     },
     "lastDC": {
       "time": null,
@@ -2260,14 +2260,14 @@
   {
     "id": 4136638,
     "username": "House-Kat",
-    "jointime": 1440455474335,
-    "lastActivity": 1440455615139,
+    "jointime": 1441144004402,
+    "lastActivity": 1441169362356,
     "votes": {
-      "songs": 288,
-      "tasty": 63,
-      "woot": 5479,
-      "meh": 4,
-      "curate": 445
+      "songs": 326,
+      "tasty": 68,
+      "woot": 5750,
+      "meh": 6,
+      "curate": 459
     },
     "tastyVote": false,
     "rolled": false,
@@ -2277,15 +2277,15 @@
     "atLunch": false,
     "afkWarningCount": 0,
     "badSongCount": 0,
-    "afkCountdown": 11224,
+    "afkCountdown": 19807,
     "inRoom": false,
     "isMuted": false,
     "rollStats": {
-      "lifeWoot": 29,
-      "lifeTotal": 61,
-      "dayWoot": 2,
-      "dayTotal": 2,
-      "DOY": 234
+      "lifeWoot": 34,
+      "lifeTotal": 75,
+      "dayWoot": 5,
+      "dayTotal": 14,
+      "DOY": 242
     },
     "lastDC": {
       "time": null,
@@ -2340,12 +2340,12 @@
   {
     "id": 3908329,
     "username": "_Brandon_",
-    "jointime": 1434238017913,
-    "lastActivity": 1434238017913,
+    "jointime": 1441154753409,
+    "lastActivity": 1441154753409,
     "votes": {
-      "songs": 3,
+      "songs": 4,
       "tasty": 0,
-      "woot": 7,
+      "woot": 10,
       "meh": 0,
       "curate": 0
     },
@@ -2744,14 +2744,14 @@
   {
     "id": 3899722,
     "username": "Abaddon666",
-    "jointime": 1440417737607,
-    "lastActivity": 1440452033406,
+    "jointime": 1441204368393,
+    "lastActivity": 1441223429363,
     "votes": {
-      "songs": 753,
-      "tasty": 396,
-      "woot": 6529,
+      "songs": 797,
+      "tasty": 410,
+      "woot": 6862,
       "meh": 1,
-      "curate": 250
+      "curate": 257
     },
     "tastyVote": false,
     "rolled": false,
@@ -2761,7 +2761,7 @@
     "atLunch": false,
     "afkWarningCount": 0,
     "badSongCount": 0,
-    "afkCountdown": 8143,
+    "afkCountdown": 16468,
     "inRoom": true,
     "isMuted": false,
     "rollStats": {
@@ -2778,18 +2778,18 @@
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": 0,
-    "lastSeenInLine": null
+    "lastKnownPosition": 4,
+    "lastSeenInLine": 1441225182357
   },
   {
     "id": 6315531,
     "username": "- Jay -",
-    "jointime": 1436735311898,
-    "lastActivity": 1436735311898,
+    "jointime": 1440968035056,
+    "lastActivity": 1440968320031,
     "votes": {
-      "songs": 8,
+      "songs": 14,
       "tasty": 3,
-      "woot": 12,
+      "woot": 27,
       "meh": 0,
       "curate": 0
     },
@@ -2946,14 +2946,14 @@
   {
     "id": 3441524,
     "username": "SKINNYmatt",
-    "jointime": 1440419297781,
-    "lastActivity": 1440444265643,
+    "jointime": 1441201992394,
+    "lastActivity": 1441224049355,
     "votes": {
-      "songs": 81,
-      "tasty": 85,
-      "woot": 644,
-      "meh": 2,
-      "curate": 89
+      "songs": 105,
+      "tasty": 106,
+      "woot": 841,
+      "meh": 4,
+      "curate": 116
     },
     "tastyVote": false,
     "rolled": true,
@@ -2967,11 +2967,11 @@
     "inRoom": false,
     "isMuted": false,
     "rollStats": {
-      "lifeWoot": 23,
-      "lifeTotal": 38,
-      "dayWoot": 5,
-      "dayTotal": 9,
-      "DOY": 236
+      "lifeWoot": 37,
+      "lifeTotal": 58,
+      "dayWoot": 8,
+      "dayTotal": 12,
+      "DOY": 245
     },
     "lastDC": {
       "time": null,
@@ -2986,32 +2986,32 @@
   {
     "id": 3648800,
     "username": "MkayMeow",
-    "jointime": 1440135483768,
-    "lastActivity": 1440422034595,
+    "jointime": 1441124501401,
+    "lastActivity": 1441176803373,
     "votes": {
-      "songs": 406,
-      "tasty": 181,
-      "woot": 19753,
+      "songs": 454,
+      "tasty": 194,
+      "woot": 21339,
       "meh": 0,
-      "curate": 64
+      "curate": 66
     },
     "tastyVote": false,
-    "rolled": false,
+    "rolled": true,
     "lastEta": null,
     "beerRun": false,
     "inMeeting": false,
     "atLunch": false,
     "afkWarningCount": 0,
     "badSongCount": 0,
-    "afkCountdown": 13295,
+    "afkCountdown": 17686,
     "inRoom": true,
     "isMuted": false,
     "rollStats": {
-      "lifeWoot": 86,
-      "lifeTotal": 180,
-      "dayWoot": 2,
-      "dayTotal": 2,
-      "DOY": 226
+      "lifeWoot": 96,
+      "lifeTotal": 204,
+      "dayWoot": 7,
+      "dayTotal": 15,
+      "DOY": 245
     },
     "lastDC": {
       "time": null,
@@ -3020,7 +3020,7 @@
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": 0,
+    "lastKnownPosition": -1,
     "lastSeenInLine": null
   },
   {
@@ -3107,77 +3107,77 @@
   {
     "id": 3605697,
     "username": "Given2Fly",
-    "jointime": 1440437887793,
-    "lastActivity": 1440447662583,
+    "jointime": 1441212003418,
+    "lastActivity": 1441221328359,
     "votes": {
-      "songs": 616,
-      "tasty": 623,
-      "woot": 3580,
+      "songs": 659,
+      "tasty": 666,
+      "woot": 3861,
       "meh": 0,
-      "curate": 110
+      "curate": 115
     },
     "tastyVote": false,
-    "rolled": true,
+    "rolled": false,
     "lastEta": null,
     "beerRun": false,
     "inMeeting": false,
     "atLunch": false,
     "afkWarningCount": 0,
     "badSongCount": 0,
-    "afkCountdown": 2917,
-    "inRoom": false,
+    "afkCountdown": 29062,
+    "inRoom": true,
     "isMuted": false,
     "rollStats": {
-      "lifeWoot": 197,
-      "lifeTotal": 435,
-      "dayWoot": 7,
-      "dayTotal": 15,
-      "DOY": 236
+      "lifeWoot": 218,
+      "lifeTotal": 469,
+      "dayWoot": 8,
+      "dayTotal": 17,
+      "DOY": 245
     },
     "lastDC": {
       "time": null,
       "leftroom": null,
-      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
+      "resetReason": "Disconnect status was reset. Reason: You were removed from line due to afk.",
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": -1,
-    "lastSeenInLine": null
+    "lastKnownPosition": 4,
+    "lastSeenInLine": 1441225055366
   },
   {
     "id": 3749041,
     "username": "sundragon",
-    "jointime": 1440176827083,
-    "lastActivity": 1440191514094,
+    "jointime": 1441208623382,
+    "lastActivity": 1441221161355,
     "votes": {
-      "songs": 46,
-      "tasty": 34,
-      "woot": 341,
+      "songs": 70,
+      "tasty": 53,
+      "woot": 545,
       "meh": 0,
       "curate": 2
     },
     "tastyVote": false,
-    "rolled": true,
+    "rolled": false,
     "lastEta": null,
     "beerRun": false,
     "inMeeting": false,
     "atLunch": false,
     "afkWarningCount": 0,
     "badSongCount": 0,
-    "afkCountdown": 404,
-    "inRoom": false,
+    "afkCountdown": 27905,
+    "inRoom": true,
     "isMuted": false,
     "rollStats": {
-      "lifeWoot": 9,
-      "lifeTotal": 20,
-      "dayWoot": 1,
-      "dayTotal": 4,
-      "DOY": 233
+      "lifeWoot": 15,
+      "lifeTotal": 30,
+      "dayWoot": 3,
+      "dayTotal": 6,
+      "DOY": 244
     },
     "lastDC": {
       "time": null,
       "leftroom": null,
-      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
+      "resetReason": "Disconnect status was reset. Reason: You were removed from line due to afk.",
       "position": -1,
       "songCount": 0
     },
@@ -3187,14 +3187,14 @@
   {
     "id": 4126466,
     "username": "DJWhiteWidow",
-    "jointime": 1440424588016,
-    "lastActivity": 1440451507979,
+    "jointime": 1441199765387,
+    "lastActivity": 1441224963361,
     "votes": {
-      "songs": 546,
-      "tasty": 634,
-      "woot": 4124,
+      "songs": 569,
+      "tasty": 660,
+      "woot": 4324,
       "meh": 1,
-      "curate": 152
+      "curate": 171
     },
     "tastyVote": false,
     "rolled": true,
@@ -3204,15 +3204,15 @@
     "atLunch": false,
     "afkWarningCount": 0,
     "badSongCount": 0,
-    "afkCountdown": 13093,
-    "inRoom": false,
+    "afkCountdown": 12574,
+    "inRoom": true,
     "isMuted": false,
     "rollStats": {
-      "lifeWoot": 187,
-      "lifeTotal": 358,
-      "dayWoot": 1,
-      "dayTotal": 7,
-      "DOY": 236
+      "lifeWoot": 197,
+      "lifeTotal": 376,
+      "dayWoot": 7,
+      "dayTotal": 12,
+      "DOY": 245
     },
     "lastDC": {
       "time": null,
@@ -3221,8 +3221,8 @@
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": -1,
-    "lastSeenInLine": null
+    "lastKnownPosition": 2,
+    "lastSeenInLine": 1441225182357
   },
   {
     "id": 3335039,
@@ -3307,13 +3307,13 @@
   {
     "id": 3632591,
     "username": "TheLoneDeranger",
-    "jointime": 1440422513653,
-    "lastActivity": 1440449012603,
+    "jointime": 1440953050620,
+    "lastActivity": 1441117135388,
     "votes": {
-      "songs": 452,
-      "tasty": 335,
-      "woot": 4353,
-      "meh": 3,
+      "songs": 462,
+      "tasty": 340,
+      "woot": 4524,
+      "meh": 4,
       "curate": 42
     },
     "tastyVote": false,
@@ -3324,7 +3324,7 @@
     "atLunch": false,
     "afkWarningCount": 0,
     "badSongCount": 0,
-    "afkCountdown": 1737,
+    "afkCountdown": 9999,
     "inRoom": false,
     "isMuted": false,
     "rollStats": {
@@ -3348,13 +3348,13 @@
     "id": 4106723,
     "username": "_Guffy_",
     "jointime": 1438955320786,
-    "lastActivity": 1440021431000,
+    "lastActivity": 1440794355283,
     "votes": {
-      "songs": 80,
-      "tasty": 67,
-      "woot": 650,
+      "songs": 91,
+      "tasty": 77,
+      "woot": 726,
       "meh": 0,
-      "curate": 22
+      "curate": 24
     },
     "tastyVote": false,
     "rolled": false,
@@ -3364,7 +3364,7 @@
     "atLunch": false,
     "afkWarningCount": 0,
     "badSongCount": 0,
-    "afkCountdown": 696,
+    "afkCountdown": 746,
     "inRoom": false,
     "isMuted": false,
     "rollStats": {
@@ -4323,24 +4323,24 @@
   {
     "id": 3562548,
     "username": "Gringo Starr",
-    "jointime": 1440183877796,
-    "lastActivity": 1440183901790,
+    "jointime": 1440863890050,
+    "lastActivity": 1440863890050,
     "votes": {
-      "songs": 167,
+      "songs": 186,
       "tasty": 81,
-      "woot": 490,
+      "woot": 491,
       "meh": 1,
       "curate": 1
     },
     "tastyVote": false,
-    "rolled": true,
+    "rolled": false,
     "lastEta": null,
     "beerRun": false,
     "inMeeting": false,
     "atLunch": false,
-    "afkWarningCount": 0,
+    "afkWarningCount": 1,
     "badSongCount": 0,
-    "afkCountdown": 34107,
+    "afkCountdown": 14117,
     "inRoom": false,
     "isMuted": false,
     "rollStats": {
@@ -4353,7 +4353,7 @@
     "lastDC": {
       "time": null,
       "leftroom": null,
-      "resetReason": "Disconnect status was reset. Reason: You were removed from line due to afk.",
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
       "position": -1,
       "songCount": 0
     },
@@ -4363,12 +4363,12 @@
   {
     "id": 3952712,
     "username": "luminousbeam",
-    "jointime": 1439258762255,
-    "lastActivity": 1439258762255,
+    "jointime": 1440928395345,
+    "lastActivity": 1440928395345,
     "votes": {
       "songs": 29,
       "tasty": 9,
-      "woot": 192,
+      "woot": 193,
       "meh": 0,
       "curate": 23
     },
@@ -4649,12 +4649,12 @@
   {
     "id": 3774695,
     "username": "Adespade",
-    "jointime": 1440330836738,
-    "lastActivity": 1440331538932,
+    "jointime": 1441150412404,
+    "lastActivity": 1441150438368,
     "votes": {
-      "songs": 150,
+      "songs": 154,
       "tasty": 35,
-      "woot": 519,
+      "woot": 524,
       "meh": 2,
       "curate": 25
     },
@@ -4683,8 +4683,8 @@
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": 2,
-    "lastSeenInLine": 1440333131928
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
   },
   {
     "id": 6607414,
@@ -4893,12 +4893,12 @@
   {
     "id": 3852948,
     "username": "GatoBlanco",
-    "jointime": 1440442064305,
-    "lastActivity": 1440442064305,
+    "jointime": 1441122092409,
+    "lastActivity": 1441127649370,
     "votes": {
-      "songs": 115,
-      "tasty": 46,
-      "woot": 637,
+      "songs": 117,
+      "tasty": 48,
+      "woot": 683,
       "meh": 0,
       "curate": 34
     },
@@ -5543,8 +5543,8 @@
   {
     "id": 5028559,
     "username": "Dr. Dankenstein",
-    "jointime": 1439603535868,
-    "lastActivity": 1439603535868,
+    "jointime": 1441152139402,
+    "lastActivity": 1441152139402,
     "votes": {
       "songs": 0,
       "tasty": 0,
@@ -5624,12 +5624,12 @@
   {
     "id": 4126227,
     "username": "RedNeck",
-    "jointime": 1439383199922,
-    "lastActivity": 1439385318666,
+    "jointime": 1441119655398,
+    "lastActivity": 1441119655398,
     "votes": {
       "songs": 59,
       "tasty": 55,
-      "woot": 653,
+      "woot": 655,
       "meh": 0,
       "curate": 61
     },
@@ -6274,19 +6274,18 @@
   {
     "id": 5191364,
     "username": "dloc",
-    "jointime": 1435868690912,
-    "lastActivity": 1435868690912,
+    "jointime": 1441049701412,
+    "lastActivity": 1441053982533,
     "votes": {
-      "songs": 0,
+      "songs": 2,
       "tasty": 0,
-      "woot": 7,
+      "woot": 25,
       "meh": 0,
       "curate": 0
     },
     "tastyVote": false,
     "rolled": false,
     "lastEta": null,
-    "bootable": false,
     "beerRun": false,
     "inMeeting": false,
     "atLunch": false,
@@ -6436,8 +6435,8 @@
   {
     "id": 3483605,
     "username": "Soosun",
-    "jointime": 1433398127341,
-    "lastActivity": 1433398127341,
+    "jointime": 1441090639457,
+    "lastActivity": 1441090639457,
     "votes": {
       "songs": 0,
       "tasty": 0,
@@ -6801,12 +6800,12 @@
   {
     "id": 3956821,
     "username": "GabrielP9",
-    "jointime": 1440430435545,
-    "lastActivity": 1440430435545,
+    "jointime": 1441078456479,
+    "lastActivity": 1441081783475,
     "votes": {
-      "songs": 187,
-      "tasty": 15,
-      "woot": 385,
+      "songs": 194,
+      "tasty": 16,
+      "woot": 386,
       "meh": 0,
       "curate": 38
     },
@@ -7209,12 +7208,12 @@
   {
     "id": 3578806,
     "username": "BeatBoogie",
-    "jointime": 1440352981524,
-    "lastActivity": 1440353015813,
+    "jointime": 1440900934364,
+    "lastActivity": 1440900934364,
     "votes": {
       "songs": 4,
       "tasty": 1,
-      "woot": 19,
+      "woot": 22,
       "meh": 0,
       "curate": 0
     },
@@ -7778,12 +7777,12 @@
   {
     "id": 6012469,
     "username": "JustJoeee",
-    "jointime": 1439701032777,
-    "lastActivity": 1439701032777,
+    "jointime": 1440816835086,
+    "lastActivity": 1440816864048,
     "votes": {
       "songs": 35,
       "tasty": 9,
-      "woot": 56,
+      "woot": 57,
       "meh": 0,
       "curate": 3
     },
@@ -7899,8 +7898,8 @@
   {
     "id": 3674385,
     "username": "Doc Sonic",
-    "jointime": 1438999116301,
-    "lastActivity": 1439004640476,
+    "jointime": 1440990635825,
+    "lastActivity": 1440990635825,
     "votes": {
       "songs": 54,
       "tasty": 2,
@@ -9884,8 +9883,8 @@
   {
     "id": 5217796,
     "username": "Ripoffmonroe ",
-    "jointime": 1440269217154,
-    "lastActivity": 1440269217154,
+    "jointime": 1440896039359,
+    "lastActivity": 1440896039359,
     "votes": {
       "songs": 9,
       "tasty": 5,
@@ -11059,17 +11058,17 @@
   {
     "id": 6427502,
     "username": "Styckman",
-    "jointime": 1440436680776,
-    "lastActivity": 1440451526104,
+    "jointime": 1441169496385,
+    "lastActivity": 1441171925364,
     "votes": {
-      "songs": 283,
-      "tasty": 128,
-      "woot": 410,
+      "songs": 320,
+      "tasty": 142,
+      "woot": 426,
       "meh": 3,
-      "curate": 111
+      "curate": 118
     },
     "tastyVote": false,
-    "rolled": false,
+    "rolled": true,
     "lastEta": 1434928215089,
     "beerRun": false,
     "inMeeting": false,
@@ -11080,11 +11079,11 @@
     "inRoom": false,
     "isMuted": false,
     "rollStats": {
-      "lifeWoot": 72,
-      "lifeTotal": 142,
-      "dayWoot": 2,
-      "dayTotal": 4,
-      "DOY": 236
+      "lifeWoot": 81,
+      "lifeTotal": 161,
+      "dayWoot": 1,
+      "dayTotal": 3,
+      "DOY": 245
     },
     "lastDC": {
       "time": null,
@@ -11099,12 +11098,12 @@
   {
     "id": 4089716,
     "username": "oh_bill",
-    "jointime": 1440419239009,
-    "lastActivity": 1440422262182,
+    "jointime": 1441200279358,
+    "lastActivity": 1441200289358,
     "votes": {
-      "songs": 13,
-      "tasty": 11,
-      "woot": 1269,
+      "songs": 17,
+      "tasty": 12,
+      "woot": 1463,
       "meh": 0,
       "curate": 6
     },
@@ -11117,14 +11116,14 @@
     "afkWarningCount": 0,
     "badSongCount": 0,
     "afkCountdown": 42675,
-    "inRoom": false,
+    "inRoom": true,
     "isMuted": false,
     "rollStats": {
-      "lifeWoot": 1,
-      "lifeTotal": 1,
+      "lifeWoot": 2,
+      "lifeTotal": 3,
       "dayWoot": 1,
-      "dayTotal": 1,
-      "DOY": 198
+      "dayTotal": 2,
+      "DOY": 240
     },
     "lastDC": {
       "time": null,
@@ -11750,12 +11749,12 @@
   {
     "id": 5698027,
     "username": "Edwin0257",
-    "jointime": 1438302997552,
-    "lastActivity": 1438302997552,
+    "jointime": 1440812210961,
+    "lastActivity": 1440812435922,
     "votes": {
       "songs": 2,
       "tasty": 0,
-      "woot": 18,
+      "woot": 21,
       "meh": 0,
       "curate": 1
     },
@@ -13741,14 +13740,14 @@
   {
     "id": 3863785,
     "username": "twizted_smilee",
-    "jointime": 1440455931512,
-    "lastActivity": 1440456926088,
+    "jointime": 1440889644651,
+    "lastActivity": 1440893029687,
     "votes": {
-      "songs": 107,
-      "tasty": 21,
-      "woot": 316,
+      "songs": 113,
+      "tasty": 23,
+      "woot": 323,
       "meh": 0,
-      "curate": 40
+      "curate": 41
     },
     "tastyVote": false,
     "rolled": false,
@@ -13762,11 +13761,11 @@
     "inRoom": false,
     "isMuted": false,
     "rollStats": {
-      "lifeWoot": 3,
-      "lifeTotal": 14,
-      "dayWoot": 0,
-      "dayTotal": 1,
-      "DOY": 233
+      "lifeWoot": 5,
+      "lifeTotal": 18,
+      "dayWoot": 2,
+      "dayTotal": 4,
+      "DOY": 241
     },
     "lastDC": {
       "time": null,
@@ -13781,12 +13780,12 @@
   {
     "id": 3419628,
     "username": "electric eek",
-    "jointime": 1434833689449,
-    "lastActivity": 1434833732355,
+    "jointime": 1441116968429,
+    "lastActivity": 1441120203392,
     "votes": {
-      "songs": 13,
+      "songs": 14,
       "tasty": 1,
-      "woot": 36,
+      "woot": 52,
       "meh": 0,
       "curate": 0
     },
@@ -14386,13 +14385,13 @@
   {
     "id": 4133459,
     "username": "ElluolenjaaXD",
-    "jointime": 1434311439036,
-    "lastActivity": 1434311462939,
+    "jointime": 1440855515754,
+    "lastActivity": 1440855515754,
     "votes": {
-      "songs": 12,
+      "songs": 14,
       "tasty": 0,
-      "woot": 10,
-      "meh": 0,
+      "woot": 11,
+      "meh": 1,
       "curate": 0
     },
     "tastyVote": false,
@@ -14416,7 +14415,7 @@
     "lastDC": {
       "time": null,
       "leftroom": null,
-      "resetReason": "",
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
       "position": -1,
       "songCount": 0
     },
@@ -15119,14 +15118,14 @@
   {
     "id": 3684352,
     "username": "ScooterS64",
-    "jointime": 1436898231685,
-    "lastActivity": 1436898231685,
+    "jointime": 1441120371424,
+    "lastActivity": 1441120621389,
     "votes": {
-      "songs": 17,
-      "tasty": 16,
-      "woot": 210,
+      "songs": 23,
+      "tasty": 18,
+      "woot": 253,
       "meh": 1,
-      "curate": 5
+      "curate": 6
     },
     "tastyVote": false,
     "rolled": false,
@@ -16823,12 +16822,12 @@
   {
     "id": 4107277,
     "username": "Dobby",
-    "jointime": 1440312560884,
-    "lastActivity": 1440312627502,
+    "jointime": 1440915352994,
+    "lastActivity": 1440915421995,
     "votes": {
-      "songs": 12,
+      "songs": 13,
       "tasty": 2,
-      "woot": 30,
+      "woot": 31,
       "meh": 0,
       "curate": 0
     },
@@ -18410,19 +18409,18 @@
   {
     "id": 5019250,
     "username": "Musico",
-    "jointime": 1435047415138,
-    "lastActivity": 1435047415137,
+    "jointime": 1441163338400,
+    "lastActivity": 1441168878359,
     "votes": {
-      "songs": 0,
-      "tasty": 0,
-      "woot": 0,
+      "songs": 12,
+      "tasty": 2,
+      "woot": 12,
       "meh": 0,
       "curate": 0
     },
     "tastyVote": false,
-    "rolled": false,
+    "rolled": true,
     "lastEta": null,
-    "bootable": false,
     "beerRun": false,
     "inMeeting": false,
     "atLunch": false,
@@ -18432,16 +18430,16 @@
     "inRoom": false,
     "isMuted": false,
     "rollStats": {
-      "lifeWoot": 0,
-      "lifeTotal": 0,
-      "dayWoot": 0,
-      "dayTotal": 0,
-      "DOY": -1
+      "lifeWoot": 1,
+      "lifeTotal": 1,
+      "dayWoot": 1,
+      "dayTotal": 1,
+      "DOY": 244
     },
     "lastDC": {
       "time": null,
       "leftroom": null,
-      "resetReason": "",
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
       "position": -1,
       "songCount": 0
     },
@@ -19219,14 +19217,14 @@
   {
     "id": 3484651,
     "username": "hogchoker",
-    "jointime": 1438901086869,
-    "lastActivity": 1438901126345,
+    "jointime": 1440888683658,
+    "lastActivity": 1440888706707,
     "votes": {
       "songs": 7,
       "tasty": 2,
-      "woot": 31,
+      "woot": 34,
       "meh": 0,
-      "curate": 1
+      "curate": 2
     },
     "tastyVote": false,
     "rolled": false,
@@ -20439,8 +20437,8 @@
   {
     "id": 4341002,
     "username": "Squabity",
-    "jointime": 1437216869334,
-    "lastActivity": 1437216869334,
+    "jointime": 1440845880743,
+    "lastActivity": 1440845880743,
     "votes": {
       "songs": 1,
       "tasty": 0,
@@ -23331,7 +23329,7 @@
     "votes": {
       "songs": 41,
       "tasty": 3,
-      "woot": 342,
+      "woot": 344,
       "meh": 4,
       "curate": 15
     },
@@ -24339,12 +24337,12 @@
   {
     "id": 7713965,
     "username": "godisfractal",
-    "jointime": 1440204022486,
-    "lastActivity": 1440206468472,
+    "jointime": 1441222105391,
+    "lastActivity": 1441222105391,
     "votes": {
       "songs": 147,
       "tasty": 20,
-      "woot": 207,
+      "woot": 208,
       "meh": 29,
       "curate": 36
     },
@@ -24357,7 +24355,7 @@
     "afkWarningCount": 0,
     "badSongCount": 0,
     "afkCountdown": 42136,
-    "inRoom": false,
+    "inRoom": true,
     "isMuted": false,
     "rollStats": {
       "lifeWoot": 7,
@@ -24825,19 +24823,18 @@
   {
     "id": 3598404,
     "username": "atsem",
-    "jointime": 1439673525650,
-    "lastActivity": 1439673525650,
+    "jointime": 1440981048464,
+    "lastActivity": 1440981048464,
     "votes": {
-      "songs": 0,
+      "songs": 7,
       "tasty": 0,
-      "woot": 8,
+      "woot": 23,
       "meh": 0,
       "curate": 0
     },
     "tastyVote": false,
     "rolled": false,
     "lastEta": null,
-    "bootable": false,
     "beerRun": false,
     "inMeeting": false,
     "atLunch": false,
@@ -24856,7 +24853,7 @@
     "lastDC": {
       "time": null,
       "leftroom": null,
-      "resetReason": "",
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
       "position": -1,
       "songCount": 0
     },
@@ -26616,12 +26613,12 @@
   {
     "id": 3817280,
     "username": "-00-",
-    "jointime": 1440429994507,
-    "lastActivity": 1440536541471,
+    "jointime": 1441223231392,
+    "lastActivity": 1441223231392,
     "votes": {
-      "songs": 706,
-      "tasty": 150,
-      "woot": 2704,
+      "songs": 794,
+      "tasty": 166,
+      "woot": 3094,
       "meh": 0,
       "curate": 14
     },
@@ -26633,7 +26630,7 @@
     "atLunch": false,
     "afkWarningCount": 0,
     "badSongCount": 0,
-    "afkCountdown": 1688,
+    "afkCountdown": 904,
     "inRoom": true,
     "isMuted": false,
     "rollStats": {
@@ -26646,12 +26643,12 @@
     "lastDC": {
       "time": null,
       "leftroom": null,
-      "resetReason": "Disconnect status was reset. Reason: You were removed from line due to afk.",
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": 2,
-    "lastSeenInLine": 1440536718733
+    "lastKnownPosition": 5,
+    "lastSeenInLine": 1441225182357
   },
   {
     "id": 7132429,
@@ -26859,12 +26856,12 @@
   {
     "id": 3454918,
     "username": "Tapochki",
-    "jointime": 1440443927718,
-    "lastActivity": 1440443949669,
+    "jointime": 1441087671471,
+    "lastActivity": 1441087671471,
     "votes": {
       "songs": 0,
       "tasty": 0,
-      "woot": 20,
+      "woot": 22,
       "meh": 0,
       "curate": 0
     },
@@ -27063,12 +27060,12 @@
   {
     "id": 3481351,
     "username": "phatdawg",
-    "jointime": 1439386206641,
-    "lastActivity": 1439386285565,
+    "jointime": 1441072980479,
+    "lastActivity": 1441072980479,
     "votes": {
       "songs": 0,
       "tasty": 0,
-      "woot": 16,
+      "woot": 47,
       "meh": 0,
       "curate": 0
     },
@@ -28729,17 +28726,17 @@
   {
     "id": 6514173,
     "username": "Naomid",
-    "jointime": 1440301307553,
-    "lastActivity": 1440301683012,
+    "jointime": 1441068678095,
+    "lastActivity": 1441069700093,
     "votes": {
-      "songs": 16,
-      "tasty": 4,
-      "woot": 36,
+      "songs": 23,
+      "tasty": 7,
+      "woot": 42,
       "meh": 1,
       "curate": 6
     },
     "tastyVote": false,
-    "rolled": false,
+    "rolled": true,
     "lastEta": null,
     "beerRun": false,
     "inMeeting": false,
@@ -28750,11 +28747,11 @@
     "inRoom": false,
     "isMuted": false,
     "rollStats": {
-      "lifeWoot": 3,
-      "lifeTotal": 5,
-      "dayWoot": 3,
-      "dayTotal": 5,
-      "DOY": 215
+      "lifeWoot": 6,
+      "lifeTotal": 10,
+      "dayWoot": 1,
+      "dayTotal": 2,
+      "DOY": 243
     },
     "lastDC": {
       "time": null,
@@ -30805,32 +30802,32 @@
   {
     "id": 4813022,
     "username": "Counther",
-    "jointime": 1437691526933,
-    "lastActivity": 1437694781867,
+    "jointime": 1440878074595,
+    "lastActivity": 1440890352619,
     "votes": {
-      "songs": 26,
-      "tasty": 7,
-      "woot": 92,
+      "songs": 49,
+      "tasty": 11,
+      "woot": 137,
       "meh": 0,
       "curate": 11
     },
     "tastyVote": false,
-    "rolled": true,
+    "rolled": false,
     "lastEta": null,
     "beerRun": false,
     "inMeeting": false,
     "atLunch": false,
     "afkWarningCount": 0,
     "badSongCount": 0,
-    "afkCountdown": null,
+    "afkCountdown": 15719,
     "inRoom": false,
     "isMuted": false,
     "rollStats": {
-      "lifeWoot": 2,
-      "lifeTotal": 8,
-      "dayWoot": 2,
-      "dayTotal": 8,
-      "DOY": 204
+      "lifeWoot": 5,
+      "lifeTotal": 15,
+      "dayWoot": 3,
+      "dayTotal": 7,
+      "DOY": 241
     },
     "lastDC": {
       "time": null,
@@ -34104,12 +34101,12 @@
   {
     "id": 4008282,
     "username": "-Professor-",
-    "jointime": 1440458296122,
-    "lastActivity": 1440458296122,
+    "jointime": 1441149719398,
+    "lastActivity": 1441149719398,
     "votes": {
       "songs": 0,
       "tasty": 0,
-      "woot": 2405,
+      "woot": 2702,
       "meh": 0,
       "curate": 0
     },
@@ -34123,7 +34120,7 @@
     "afkWarningCount": 0,
     "badSongCount": 0,
     "afkCountdown": null,
-    "inRoom": true,
+    "inRoom": false,
     "isMuted": false,
     "rollStats": {
       "lifeWoot": 0,
@@ -34139,7 +34136,7 @@
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": 0,
+    "lastKnownPosition": -1,
     "lastSeenInLine": null
   },
   {
@@ -35078,12 +35075,12 @@
   {
     "id": 9538319,
     "username": "Tccc!",
-    "jointime": 1440214422918,
-    "lastActivity": 1440214422918,
+    "jointime": 1440818276123,
+    "lastActivity": 1440818351053,
     "votes": {
       "songs": 1,
       "tasty": 0,
-      "woot": 43,
+      "woot": 48,
       "meh": 0,
       "curate": 8
     },
@@ -35280,14 +35277,14 @@
   {
     "id": 8765841,
     "username": "findyrcity",
-    "jointime": 1438693336545,
-    "lastActivity": 1438693336545,
+    "jointime": 1441219860415,
+    "lastActivity": 1441220769361,
     "votes": {
       "songs": 0,
       "tasty": 0,
-      "woot": 7,
+      "woot": 13,
       "meh": 0,
-      "curate": 0
+      "curate": 1
     },
     "tastyVote": false,
     "rolled": false,
@@ -35730,12 +35727,12 @@
   {
     "id": 3472904,
     "username": "LadyLilly",
-    "jointime": 1438734633614,
-    "lastActivity": 1438735746266,
+    "jointime": 1441122741856,
+    "lastActivity": 1441122897519,
     "votes": {
       "songs": 0,
       "tasty": 0,
-      "woot": 6,
+      "woot": 10,
       "meh": 0,
       "curate": 0
     },
@@ -36906,12 +36903,12 @@
   {
     "id": 5055776,
     "username": "Wangcano",
-    "jointime": 1440085557588,
-    "lastActivity": 1440085557588,
+    "jointime": 1440952317618,
+    "lastActivity": 1440952317618,
     "votes": {
       "songs": 0,
       "tasty": 0,
-      "woot": 1348,
+      "woot": 2645,
       "meh": 0,
       "curate": 0
     },
@@ -36925,7 +36922,7 @@
     "afkWarningCount": 0,
     "badSongCount": 0,
     "afkCountdown": null,
-    "inRoom": true,
+    "inRoom": false,
     "isMuted": false,
     "rollStats": {
       "lifeWoot": 0,
@@ -36941,7 +36938,7 @@
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": 0,
+    "lastKnownPosition": -1,
     "lastSeenInLine": null
   },
   {
@@ -37395,12 +37392,12 @@
   {
     "id": 4653735,
     "username": "SARAN",
-    "jointime": 1439295793028,
-    "lastActivity": 1439298748079,
+    "jointime": 1440875113262,
+    "lastActivity": 1440875132218,
     "votes": {
       "songs": 4,
       "tasty": 4,
-      "woot": 25,
+      "woot": 26,
       "meh": 0,
       "curate": 1
     },
@@ -38487,14 +38484,14 @@
   {
     "id": 3831543,
     "username": "doctorjos",
-    "jointime": 1440440324044,
-    "lastActivity": 1440442916514,
+    "jointime": 1441046706180,
+    "lastActivity": 1441046706180,
     "votes": {
-      "songs": 12,
-      "tasty": 6,
-      "woot": 82,
+      "songs": 18,
+      "tasty": 8,
+      "woot": 113,
       "meh": 0,
-      "curate": 6
+      "curate": 7
     },
     "tastyVote": false,
     "rolled": false,
@@ -39097,12 +39094,12 @@
   {
     "id": 4493948,
     "username": "Etylan",
-    "jointime": 1440167584267,
-    "lastActivity": 1440167645104,
+    "jointime": 1440886253652,
+    "lastActivity": 1440886253652,
     "votes": {
       "songs": 0,
       "tasty": 0,
-      "woot": 2,
+      "woot": 4,
       "meh": 0,
       "curate": 1
     },
@@ -40392,6 +40389,1836 @@
       "time": null,
       "leftroom": null,
       "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 3737070,
+    "username": "Danegerous45",
+    "jointime": 1440790194157,
+    "lastActivity": 1440790415176,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 4,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 6535194,
+    "username": "jsm7",
+    "jointime": 1440793207297,
+    "lastActivity": 1440793243514,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 0,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 11165365,
+    "username": "parapelli",
+    "jointime": 1440793540812,
+    "lastActivity": 1440793540812,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 0,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 11455453,
+    "username": "Kit Carr",
+    "jointime": 1440796100890,
+    "lastActivity": 1440796100890,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 0,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 6346826,
+    "username": "Neveira",
+    "jointime": 1440818464081,
+    "lastActivity": 1440828026706,
+    "votes": {
+      "songs": 17,
+      "tasty": 0,
+      "woot": 21,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": 9483,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 5701977,
+    "username": "grimzau",
+    "jointime": 1440850215732,
+    "lastActivity": 1440850215732,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 1,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 9809151,
+    "username": "dsp kayaz",
+    "jointime": 1440850420744,
+    "lastActivity": 1440854372705,
+    "votes": {
+      "songs": 10,
+      "tasty": 0,
+      "woot": 3,
+      "meh": 8,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 1,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 3823189,
+    "username": "HungryLikeTheWolf",
+    "jointime": 1440911337863,
+    "lastActivity": 1440911337863,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 3,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 8435760,
+    "username": "Den0x",
+    "jointime": 1441046942187,
+    "lastActivity": 1441047376190,
+    "votes": {
+      "songs": 1,
+      "tasty": 0,
+      "woot": 1,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 6477156,
+    "username": "Pyravid",
+    "jointime": 1440862456908,
+    "lastActivity": 1440862456908,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 0,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 11367355,
+    "username": "Spageteach",
+    "jointime": 1440862847963,
+    "lastActivity": 1440863084937,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 2,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 3488543,
+    "username": "ArtificialDreamer",
+    "jointime": 1440868252263,
+    "lastActivity": 1440868252263,
+    "votes": {
+      "songs": 4,
+      "tasty": 0,
+      "woot": 4,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 6418748,
+    "username": "RedTigero",
+    "jointime": 1440884760586,
+    "lastActivity": 1440885380616,
+    "votes": {
+      "songs": 5,
+      "tasty": 0,
+      "woot": 4,
+      "meh": 11,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 1,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 6420813,
+    "username": "DJ-8Bit",
+    "jointime": 1440884910599,
+    "lastActivity": 1440885760627,
+    "votes": {
+      "songs": 4,
+      "tasty": 0,
+      "woot": 5,
+      "meh": 11,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 6421444,
+    "username": "chicken kool aids ",
+    "jointime": 1440885017645,
+    "lastActivity": 1440885779616,
+    "votes": {
+      "songs": 6,
+      "tasty": 0,
+      "woot": 6,
+      "meh": 10,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 11538873,
+    "username": "ShrekScape",
+    "jointime": 1440885379655,
+    "lastActivity": 1440885379655,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 7,
+      "meh": 11,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 11527268,
+    "username": "Y0 B35T FR13ND",
+    "jointime": 1440896312370,
+    "lastActivity": 1440897395321,
+    "votes": {
+      "songs": 4,
+      "tasty": 0,
+      "woot": 0,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 2,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 4470865,
+    "username": "Jermeh",
+    "jointime": 1440906978718,
+    "lastActivity": 1440906978718,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 0,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 6603452,
+    "username": "darkking367",
+    "jointime": 1440920725339,
+    "lastActivity": 1440920725339,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 0,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 7305102,
+    "username": "Octagonprime",
+    "jointime": 1440954809610,
+    "lastActivity": 1440954809610,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 0,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 3605687,
+    "username": "DejaVU",
+    "jointime": 1440973335171,
+    "lastActivity": 1440973335171,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 0,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 8046300,
+    "username": "gayekayali",
+    "jointime": 1440975920317,
+    "lastActivity": 1440975920317,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 0,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 11210092,
+    "username": "Quaphri",
+    "jointime": 1440987186867,
+    "lastActivity": 1440987316821,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 2,
+      "meh": 0,
+      "curate": 1
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 11532089,
+    "username": "VanReignard",
+    "jointime": 1441003760982,
+    "lastActivity": 1441003760982,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 0,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 11543002,
+    "username": "EpicBman",
+    "jointime": 1441212359387,
+    "lastActivity": 1441213928368,
+    "votes": {
+      "songs": 19,
+      "tasty": 5,
+      "woot": 94,
+      "meh": 2,
+      "curate": 6
+    },
+    "tastyVote": false,
+    "rolled": true,
+    "lastEta": null,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": 16062,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 3,
+      "lifeTotal": 8,
+      "dayWoot": 1,
+      "dayTotal": 2,
+      "DOY": 245
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 2980570,
+    "username": "Eybola",
+    "jointime": 1441052807507,
+    "lastActivity": 1441056923918,
+    "votes": {
+      "songs": 6,
+      "tasty": 1,
+      "woot": 9,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 1,
+    "badSongCount": 0,
+    "afkCountdown": 2708,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 3784491,
+    "username": "undowear",
+    "jointime": 1441053632541,
+    "lastActivity": 1441053876533,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 2,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 11568286,
+    "username": "ACuteCookie",
+    "jointime": 1441070908084,
+    "lastActivity": 1441070908084,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 0,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 10369810,
+    "username": "vicdtl",
+    "jointime": 1441073465482,
+    "lastActivity": 1441073492478,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 0,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 11659863,
+    "username": "Kings of Old",
+    "jointime": 1441081285466,
+    "lastActivity": 1441082873468,
+    "votes": {
+      "songs": 3,
+      "tasty": 0,
+      "woot": 0,
+      "meh": 2,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 4140666,
+    "username": "JA|_A",
+    "jointime": 1441082256474,
+    "lastActivity": 1441082256474,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 0,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 5087725,
+    "username": "tripSeven",
+    "jointime": 1441090968461,
+    "lastActivity": 1441090968461,
+    "votes": {
+      "songs": 1,
+      "tasty": 0,
+      "woot": 2,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 6452691,
+    "username": "b17",
+    "jointime": 1441135917394,
+    "lastActivity": 1441135917394,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 0,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 5198743,
+    "username": "Shotato",
+    "jointime": 1441137394416,
+    "lastActivity": 1441137512356,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 1,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 11671967,
+    "username": "benisonchoi",
+    "jointime": 1441140930421,
+    "lastActivity": 1441140930421,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 0,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 11681961,
+    "username": "travimages",
+    "jointime": 1441153960360,
+    "lastActivity": 1441153960360,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 4,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 6680040,
+    "username": "ByNekies",
+    "jointime": 1441154234403,
+    "lastActivity": 1441154234403,
+    "votes": {
+      "songs": 1,
+      "tasty": 0,
+      "woot": 2,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 1,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 7941457,
+    "username": "OxyGeN72",
+    "jointime": 1441154137364,
+    "lastActivity": 1441154276359,
+    "votes": {
+      "songs": 1,
+      "tasty": 0,
+      "woot": 1,
+      "meh": 2,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 1,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 7333083,
+    "username": "jirka666",
+    "jointime": 1441177783356,
+    "lastActivity": 1441177783356,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 0,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 9441935,
+    "username": "martin-bbml",
+    "jointime": 1441196014397,
+    "lastActivity": 1441196014397,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 2,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 11692185,
+    "username": "Pizda332",
+    "jointime": 1441205696424,
+    "lastActivity": 1441205868354,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 0,
+      "meh": 1,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 10572077,
+    "username": "dydya",
+    "jointime": 1441205722384,
+    "lastActivity": 1441205858354,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 0,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 11705948,
+    "username": "DizzySpins",
+    "jointime": 1441217743416,
+    "lastActivity": 1441222602376,
+    "votes": {
+      "songs": 3,
+      "tasty": 1,
+      "woot": 20,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "Disconnect status was reset. Reason: You left the room for more than 10 minutes.",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 11319796,
+    "username": "Szafirka",
+    "jointime": 1441220524399,
+    "lastActivity": 1441220524399,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 1,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
+      "position": -1,
+      "songCount": 0
+    },
+    "lastKnownPosition": -1,
+    "lastSeenInLine": null
+  },
+  {
+    "id": 5963156,
+    "username": "Connor Largey ",
+    "jointime": 1441224336379,
+    "lastActivity": 1441224336379,
+    "votes": {
+      "songs": 0,
+      "tasty": 0,
+      "woot": 0,
+      "meh": 0,
+      "curate": 0
+    },
+    "tastyVote": false,
+    "rolled": false,
+    "lastEta": null,
+    "bootable": false,
+    "beerRun": false,
+    "inMeeting": false,
+    "atLunch": false,
+    "afkWarningCount": 0,
+    "badSongCount": 0,
+    "afkCountdown": null,
+    "inRoom": false,
+    "isMuted": false,
+    "rollStats": {
+      "lifeWoot": 0,
+      "lifeTotal": 0,
+      "dayWoot": 0,
+      "dayTotal": 0,
+      "DOY": -1
+    },
+    "lastDC": {
+      "time": null,
+      "leftroom": null,
+      "resetReason": "",
       "position": -1,
       "songCount": 0
     },
