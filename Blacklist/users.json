@@ -47,7 +47,7 @@
     "votes": {
       "songs": 900,
       "tasty": 879,
-      "woot": 11757,
+      "woot": 11759,
       "meh": 0,
       "curate": 261
     },
@@ -76,7 +76,7 @@
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": -1,
+    "lastKnownPosition": 0,
     "lastSeenInLine": null
   },
   {
@@ -87,7 +87,7 @@
     "votes": {
       "songs": 669,
       "tasty": 723,
-      "woot": 6235,
+      "woot": 6237,
       "meh": 14,
       "curate": 94
     },
@@ -116,8 +116,8 @@
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": -1,
-    "lastSeenInLine": null
+    "lastKnownPosition": 3,
+    "lastSeenInLine": 1441225849991
   },
   {
     "id": 4104504,
@@ -205,14 +205,14 @@
     "jointime": 1441196581412,
     "lastActivity": 1441225135359,
     "votes": {
-      "songs": 1056,
+      "songs": 1057,
       "tasty": 1074,
-      "woot": 9570,
+      "woot": 9572,
       "meh": 13,
       "curate": 375
     },
     "tastyVote": false,
-    "rolled": true,
+    "rolled": false,
     "lastEta": null,
     "beerRun": false,
     "inMeeting": false,
@@ -236,18 +236,18 @@
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": 3,
-    "lastSeenInLine": 1441225182357
+    "lastKnownPosition": 0,
+    "lastSeenInLine": null
   },
   {
     "id": 3864950,
     "username": "Larry the LAW",
     "jointime": 1432930450377,
-    "lastActivity": 1441225214369,
+    "lastActivity": 1441225850296,
     "votes": {
       "songs": 9095,
       "tasty": 50,
-      "woot": 3834,
+      "woot": 3835,
       "meh": 3843,
       "curate": 0
     },
@@ -276,7 +276,7 @@
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": 2,
+    "lastKnownPosition": 0,
     "lastSeenInLine": 1441196676359
   },
   {
@@ -404,11 +404,11 @@
     "id": 6404422,
     "username": "jxyzn",
     "jointime": 1441211375395,
-    "lastActivity": 1441223112365,
+    "lastActivity": 1441225454368,
     "votes": {
-      "songs": 522,
+      "songs": 523,
       "tasty": 173,
-      "woot": 4134,
+      "woot": 4135,
       "meh": 3,
       "curate": 36
     },
@@ -437,8 +437,8 @@
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": 1,
-    "lastSeenInLine": 1441225182357
+    "lastKnownPosition": 4,
+    "lastSeenInLine": 1441225849991
   },
   {
     "id": 4784789,
@@ -2749,7 +2749,7 @@
     "votes": {
       "songs": 797,
       "tasty": 410,
-      "woot": 6862,
+      "woot": 6864,
       "meh": 1,
       "curate": 257
     },
@@ -2778,8 +2778,8 @@
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": 4,
-    "lastSeenInLine": 1441225182357
+    "lastKnownPosition": 1,
+    "lastSeenInLine": 1441225849991
   },
   {
     "id": 6315531,
@@ -2991,7 +2991,7 @@
     "votes": {
       "songs": 454,
       "tasty": 194,
-      "woot": 21339,
+      "woot": 21341,
       "meh": 0,
       "curate": 66
     },
@@ -3020,7 +3020,7 @@
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": -1,
+    "lastKnownPosition": 0,
     "lastSeenInLine": null
   },
   {
@@ -3112,7 +3112,7 @@
     "votes": {
       "songs": 659,
       "tasty": 666,
-      "woot": 3861,
+      "woot": 3862,
       "meh": 0,
       "curate": 115
     },
@@ -3125,7 +3125,7 @@
     "afkWarningCount": 0,
     "badSongCount": 0,
     "afkCountdown": 29062,
-    "inRoom": true,
+    "inRoom": false,
     "isMuted": false,
     "rollStats": {
       "lifeWoot": 218,
@@ -3135,11 +3135,11 @@
       "DOY": 245
     },
     "lastDC": {
-      "time": null,
-      "leftroom": null,
+      "time": 1441225621366,
+      "leftroom": 1441225621366,
       "resetReason": "Disconnect status was reset. Reason: You were removed from line due to afk.",
-      "position": -1,
-      "songCount": 0
+      "position": 4,
+      "songCount": 758
     },
     "lastKnownPosition": 4,
     "lastSeenInLine": 1441225055366
@@ -3148,11 +3148,11 @@
     "id": 3749041,
     "username": "sundragon",
     "jointime": 1441208623382,
-    "lastActivity": 1441221161355,
+    "lastActivity": 1441225598364,
     "votes": {
       "songs": 70,
       "tasty": 53,
-      "woot": 545,
+      "woot": 546,
       "meh": 0,
       "curate": 2
     },
@@ -3165,7 +3165,7 @@
     "afkWarningCount": 0,
     "badSongCount": 0,
     "afkCountdown": 27905,
-    "inRoom": true,
+    "inRoom": false,
     "isMuted": false,
     "rollStats": {
       "lifeWoot": 15,
@@ -3188,11 +3188,11 @@
     "id": 4126466,
     "username": "DJWhiteWidow",
     "jointime": 1441199765387,
-    "lastActivity": 1441224963361,
+    "lastActivity": 1441225668356,
     "votes": {
-      "songs": 569,
-      "tasty": 660,
-      "woot": 4324,
+      "songs": 570,
+      "tasty": 661,
+      "woot": 4325,
       "meh": 1,
       "curate": 171
     },
@@ -3208,10 +3208,10 @@
     "inRoom": true,
     "isMuted": false,
     "rollStats": {
-      "lifeWoot": 197,
-      "lifeTotal": 376,
-      "dayWoot": 7,
-      "dayTotal": 12,
+      "lifeWoot": 198,
+      "lifeTotal": 377,
+      "dayWoot": 8,
+      "dayTotal": 13,
       "DOY": 245
     },
     "lastDC": {
@@ -3221,8 +3221,8 @@
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": 2,
-    "lastSeenInLine": 1441225182357
+    "lastKnownPosition": 5,
+    "lastSeenInLine": 1441225849991
   },
   {
     "id": 3335039,
@@ -11103,7 +11103,7 @@
     "votes": {
       "songs": 17,
       "tasty": 12,
-      "woot": 1463,
+      "woot": 1465,
       "meh": 0,
       "curate": 6
     },
@@ -11132,7 +11132,7 @@
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": -1,
+    "lastKnownPosition": 0,
     "lastSeenInLine": null
   },
   {
@@ -24371,7 +24371,7 @@
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": -1,
+    "lastKnownPosition": 0,
     "lastSeenInLine": null
   },
   {
@@ -26618,7 +26618,7 @@
     "votes": {
       "songs": 794,
       "tasty": 166,
-      "woot": 3094,
+      "woot": 3096,
       "meh": 0,
       "curate": 14
     },
@@ -26647,8 +26647,8 @@
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": 5,
-    "lastSeenInLine": 1441225182357
+    "lastKnownPosition": 2,
+    "lastSeenInLine": 1441225849991
   },
   {
     "id": 7132429,
@@ -34101,12 +34101,12 @@
   {
     "id": 4008282,
     "username": "-Professor-",
-    "jointime": 1441149719398,
-    "lastActivity": 1441149719398,
+    "jointime": 1441225492399,
+    "lastActivity": 1441225492399,
     "votes": {
       "songs": 0,
       "tasty": 0,
-      "woot": 2702,
+      "woot": 2704,
       "meh": 0,
       "curate": 0
     },
@@ -34120,7 +34120,7 @@
     "afkWarningCount": 0,
     "badSongCount": 0,
     "afkCountdown": null,
-    "inRoom": false,
+    "inRoom": true,
     "isMuted": false,
     "rollStats": {
       "lifeWoot": 0,
@@ -34136,7 +34136,7 @@
       "position": -1,
       "songCount": 0
     },
-    "lastKnownPosition": -1,
+    "lastKnownPosition": 0,
     "lastSeenInLine": null
   },
   {
