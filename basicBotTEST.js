@@ -1,4 +1,4 @@
-/** version: 2.1.4.00051.01
+/** version: 2.1.4.00051.02
 /userlistjson
 /userlistimport
 /userlistcount
@@ -290,7 +290,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00051.01",
+        version: "2.1.4.00051.02",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -1461,6 +1461,7 @@ $.ajax({
                     leaderBoard = [];
                     for (var leaderIdx = 0; leaderIdx < 10; leaderIdx++) {
                         var rollCount = 0;
+                        if (loadingTop === false) rollCount = 10000;
                         var addUserIdx = -1;
                         for (var userIdx = 0; userIdx < basicBot.room.users.length; userIdx++) {
                             var skipUser = false;
@@ -1468,7 +1469,7 @@ $.ajax({
                             //basicBot.roomUtilities.logDebug("Scanning User: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
                             if (userIDs.indexOf(roomUser.id) > -1) skipUser = true;  // Already in the leader list
                             if (roomUser.rollStats.lifeTotal < 50) skipUser = true;  // Require 50 rolls to get on the leader board
-							// Skip user if higher or lower than the current high/low score:
+                            // Skip user if higher or lower than the current high/low score:
                             if (roomUser.rollStats.lifeTotal < rollCount && loadingTop === true) skipUser = true;
                             if (roomUser.rollStats.lifeTotal > rollCount && loadingTop === false) skipUser = true;
                             if (!skipUser) {
@@ -1508,6 +1509,7 @@ $.ajax({
                     for (var leaderIdx = 0; leaderIdx < 10; leaderIdx++) {
                         addUserIdx = -1;
                         var rollPct = 0.0;
+                        if (loadingTop === false) rollPct = 101.00;
                         for (var userIdx = 0; userIdx < basicBot.room.users.length; userIdx++) {
                             var skipUser = false;
                             var roomUser = basicBot.room.users[userIdx];
@@ -1516,7 +1518,7 @@ $.ajax({
                             if (roomUser.rollStats.lifeTotal < 50) skipUser = true;  // Require 50 rolls to get on the leader board
                             if (!skipUser) {
                               var UserPct = roomUser.rollStats.lifeWoot / roomUser.rollStats.lifeTotal;
-							// Skip user if higher or lower than the current high/low score:
+                            // Skip user if higher or lower than the current high/low score:
                               if (UserPct < rollPct && loadingTop === true) skipUser = true;
                               if (UserPct > rollPct && loadingTop === false) skipUser = true;
                             }
@@ -6627,7 +6629,7 @@ You're so fat, you could sell shade.
                         basicBot.userUtilities.setRolled(chat.un, true);
                         var resultsMsg = "";
                         var wooting = true;
-                        if (rollResults > (dicesides * 0.5)) {
+                        if (rollResults >= (dicesides * 0.5)) {
                             //Pick a random word for the tasty command
                             setTimeout(function () { basicBot.userUtilities.tastyVote(basicBot.userUtilities.getCurrentPlugUser().id,basicBot.roomUtilities.bopCommand("")); }, 1000);
                             setTimeout(function () { basicBot.roomUtilities.wootThisSong(); }, 1500);
