@@ -1,4 +1,4 @@
-/** version: 2.1.4.00051.03
+/** version: 2.1.4.00051.04
 /userlistjson
 /userlistimport
 /userlistcount
@@ -290,7 +290,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00051.03",
+        version: "2.1.4.00051.04",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -1466,17 +1466,12 @@ $.ajax({
                         for (var userIdx = 0; userIdx < basicBot.room.users.length; userIdx++) {
                             var skipUser = false;
                             var roomUser = basicBot.room.users[userIdx];
-                              basicBot.roomUtilities.logInfo("Total Rolls: " + roomUser.rollStats.lifeTotal)
                             //basicBot.roomUtilities.logDebug("Scanning User: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
-                            if (userIDs.indexOf(roomUser.id) > -1) { skipUser = true;  // Already in the leader list
-                                                          basicBot.roomUtilities.logInfo("Skip 1"); }
-                            if (roomUser.rollStats.lifeTotal < 50) { skipUser = true;  // Require 50 rolls to get on the leader board
-                                                          basicBot.roomUtilities.logInfo("Skip 2"); }
+                            if (userIDs.indexOf(roomUser.id) > -1) skipUser = true;  // Already in the leader list
+                            if (roomUser.rollStats.lifeTotal < 50) skipUser = true;  // Require 50 rolls to get on the leader board
                             // Skip user if higher or lower than the current high/low score:
-                            if (roomUser.rollStats.lifeTotal < rollCount && loadingTop === true) { skipUser = true;
-                                                          basicBot.roomUtilities.logInfo("Skip 3"); }
-                            if (roomUser.rollStats.lifeTotal > rollCount && loadingTop === false) { skipUser = true;
-                                                          basicBot.roomUtilities.logInfo("Skip 4"); }
+                            if (roomUser.rollStats.lifeTotal < rollCount && loadingTop === true) skipUser = true;
+                            if (roomUser.rollStats.lifeTotal > rollCount && loadingTop === false) skipUser = true;
                             if (!skipUser) {
                                 addUserIdx = userIdx;
                                 //basicBot.roomUtilities.logDebug("New Leader: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
@@ -1518,19 +1513,14 @@ $.ajax({
                         for (var userIdx = 0; userIdx < basicBot.room.users.length; userIdx++) {
                             var skipUser = false;
                             var roomUser = basicBot.room.users[userIdx];
-                            if (userIDs.indexOf(roomUser.id) > -1) { skipUser = true;  // Already in the leader list
-                            basicBot.roomUtilities.logInfo("Skip 1"); }
+                            if (userIDs.indexOf(roomUser.id) > -1) skipUser = true;  // Already in the leader list
                             //basicBot.roomUtilities.logDebug("Scanning User: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
-                            if (roomUser.rollStats.lifeTotal < 50) { skipUser = true;  // Require 50 rolls to get on the leader board
-                            basicBot.roomUtilities.logInfo("Skip 2"); }
+                            if (roomUser.rollStats.lifeTotal < 50) skipUser = true;  // Require 50 rolls to get on the leader board
                             if (!skipUser) {
                               var UserPct = roomUser.rollStats.lifeWoot / roomUser.rollStats.lifeTotal;
-                              basicBot.roomUtilities.logInfo("UserPct: " + UserPct)
                             // Skip user if higher or lower than the current high/low score:
-                              if (UserPct < rollPct && loadingTop === true) { skipUser = true;
-                              basicBot.roomUtilities.logInfo("Skip 3"); }
-                              if (UserPct > rollPct && loadingTop === false) { skipUser = true;
-                              basicBot.roomUtilities.logInfo("Skip 4"); }
+                              if (UserPct < rollPct && loadingTop === true) skipUser = true;
+                              if (UserPct > rollPct && loadingTop === false) skipUser = true;
                             }
                             if (!skipUser) {
                                 //basicBot.roomUtilities.logDebug("New Leader: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal + "-" + UserPct);
