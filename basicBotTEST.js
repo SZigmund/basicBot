@@ -1,9 +1,9 @@
-/** version: 2.1.4.00050.07
-
-userlistimport
-userlistcount
-userliststats
-userlistxfer
+/** version: 2.1.4.00051.01
+/userlistjson
+/userlistimport
+/userlistcount
+/userliststats
+/userlistxfer
 
 (UPDATED -> Commits on Feb 10, 2015)
  Creator: Yemasthui
@@ -290,7 +290,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var botMaintainer = "Benzi (Quoona)";
     var basicBot = {
         /*ZZZ: Updated Version*/
-        version: "2.1.4.00050.07",
+        version: "2.1.4.00051.01",
         status: false,
         botMuted: false,
         name: "basicBot",
@@ -815,7 +815,56 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
             "Fishing relaxes me. It's like yoga, except I still get to kill something.",
             "All is well, the PBR is in the fridge",
             "Quick somebody pull my finger!!",
+            "Random Fact: Mammoths were alive when the Great Pyramid was being built.",
+            "Random Fact: Betty White is older than sliced bread.",
+            "Random Fact: From the time it was discovered to the time it was stripped of its status as a planet, Pluto hadn’t made a full trip around the Sun.",
+            "Random Fact: The lighter was invented before the match.",
+            "Random Fact: Anne Frank and Martin Luther King Jr. were born in the same year.",
+            "Random Fact: France last used a guillotine to execute someone after Star Wars premiered.",
+            "Random Fact: Harvard University was founded before Calculus existed.",
+            "Random Fact: If you have 23 people in a room, there is a 50% chance that 2 of them have the same birthday.",
+            "Random Fact: It’s never said that Humpty Dumpty was an egg in the nursery rhyme.",
+            "Random Fact: The water in Lake Superior could cover all of North and South America in a foot of water.",
+            "Random Fact: North Korea and Finland both border the same country; Russia.",
+            "Random Fact: When you get a kidney transplant, they usually just leave your original kidneys in your body and put the 3rd kidney in your pelvis.",
+            "Random Fact: Oxford University is older than the Aztec Empire.",
+            "Random Fact: National animal of Scotland is a Unicorn.",
+            "Random Fact: The Ottoman Empire still existed the last time the Chicago Cubs won the World Series.",
+            "Random Fact: The lighter the roast of coffee, the more caffeine it has.",
+            "Random Fact: A speck of dust is halfway in size between a subatomic particle and the Earth.",
+            "Random Fact: If the timeline of earth was compressed into one year, humans wouldn’t show up until December 31 at 11:58 p.m.",
+            "Random Fact: If you were able to dig a hole to the center of the earth, and drop something down it, it would take 42 minutes for the object to get there.",
+            "Random Fact: We went to the moon before we thought to put wheels on suitcases.",
+            "Random Fact: A human could swim through the arteries of a blue whale.",
+            "Random Fact: If you could fold a piece of paper in half 42 times, the combined thickness would reach the moon.",
+            "Random Fact: On both Saturn and Jupiter, it rains diamonds.",
+            "Random Fact: Saudi Arabia imports camels from Australia.",
+            "Random Fact: You can line up all 8 planets in our solar system directly next to each other and it would fit in the space between Earth and the Moon.",
+            "Random Fact: The youngest known mother was 5 years old.",
+            "Random Fact: The Earth is smoother than a billiard ball, if both were of the same size.",
+            "Random Fact: Nintendo was founded in 1889.",
+            "Random Fact: If you take all the molecules in a teaspoon of water and lined them up end to end in a single file line, they would stretch ~30 billion miles.",
+            "Random Fact: In Australia, there was a war called the emu war. The emus won.",
             "Women, can't live with them....pass the beer nuts!",
+            "The object of golf is to play the least amount of golf.",
+            "The sinking of the Titanic must have been a miracle to the lobsters in the kitchen.",
+            "Instead of all the prequel and sequel movies coming out, they should start making 'equels' - films shot in the same time period as the original film, but from an entirely different perspective.",
+            "X88B88 looks like the word 'voodoo' reflecting off of itself.",
+            "April Fools Day is the one day of the year that people critically evaluate news articles before accepting them as true.",
+            "Websites should post their password requirements on their login pages so I can remember WTF I needed to do to my normal password to make it work on their site.",
+            "Now that cellphones are becoming more and more waterproof, pretty soon it will be okay to push people into pools again.",
+            "Maybe 'Are You Smarter Than a 5th Grader?' isn't a show that displays how stupid grown adults can be, but rather, a show that depicts how much useless information we teach grade schoolers that won't be retained or applicable later in life.",
+            "Last night my friend asked to use a USB port to charge his cigarette, but I was using it to charge my book. The future is stupid.",
+            "When Sweden is playing Denmark, it is SWE-DEN. The remaining letters, not used, is DEN-MARK.",
+            "'Go to bed, you'll feel better in the morning' is the human version of 'Did you turn it off and turn it back on again?'",
+            "In the future, imagine how many Go-Pros will be found in snow mountains containing the last moments of people's lives.",
+            "We should have a holiday called Space Day, where lights are to be shut off for at least an hour at night to reduce light pollution, so we can see the galaxy.",
+            "Your shadow is a confirmation that light has traveled nearly 93 million miles unobstructed, only to be deprived of reaching the ground in the final few feet thanks to you.",
+            "Senior citizen discounts should just round dollar amounts down so we don't have to wait in line behind them while they dig for change.",
+            "I have never once hit the space bar while watching a YouTube video with the intention of scrolling halfway down the page",
+            "Since smart watches can now read your pulse, there should be a feature that erases your browser history if your heart stops beating.",
+            "Waterboarding at Guantanamo Bay sounds super rad if you don’t know what either of those things are.",
+            "The person who would proof read Hitler's speeches was literally a grammar Nazi.",
             "The older I get, the more people can kiss my a$$",
             "I can't tell if you are on too many drugs or not enough.",
             "My doctor told me to start killing people... Well not in those exact words.  He said I had to reduce stress in my life, which is pretty much the same thing.",
@@ -1406,7 +1455,7 @@ $.ajax({
                   basicBot.roomUtilities.logException("displayLeaderBoard: " + err.message);
                 }
             },
-            loadTopPoints: function() {
+            loadRollPoints: function(loadingTop) {
                 try {
                     userIDs = [];
                     leaderBoard = [];
@@ -1419,7 +1468,9 @@ $.ajax({
                             //basicBot.roomUtilities.logDebug("Scanning User: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
                             if (userIDs.indexOf(roomUser.id) > -1) skipUser = true;  // Already in the leader list
                             if (roomUser.rollStats.lifeTotal < 50) skipUser = true;  // Require 50 rolls to get on the leader board
-                            if (roomUser.rollStats.lifeTotal < rollCount) skipUser = true;
+							// Skip user if higher or lower than the current high/low score:
+                            if (roomUser.rollStats.lifeTotal < rollCount && loadingTop === true) skipUser = true;
+                            if (roomUser.rollStats.lifeTotal > rollCount && loadingTop === false) skipUser = true;
                             if (!skipUser) {
                                 addUserIdx = userIdx;
                                 //basicBot.roomUtilities.logDebug("New Leader: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
@@ -1446,10 +1497,10 @@ $.ajax({
                     return leaderBoard;
                 }
                 catch(err) {
-                  basicBot.roomUtilities.logException("loadTopPoints: " + err.message);
+                  basicBot.roomUtilities.logException("loadRollPoints: " + err.message);
                 }
             },
-            loadTopPct: function(username) {
+            loadRollPct: function(loadingTop) {
                 try {
                     userIDs = [];
                     leaderBoard = [];
@@ -1465,7 +1516,9 @@ $.ajax({
                             if (roomUser.rollStats.lifeTotal < 50) skipUser = true;  // Require 50 rolls to get on the leader board
                             if (!skipUser) {
                               var UserPct = roomUser.rollStats.lifeWoot / roomUser.rollStats.lifeTotal;
-                              if (UserPct < rollPct) skipUser = true;
+							// Skip user if higher or lower than the current high/low score:
+                              if (UserPct < rollPct && loadingTop === true) skipUser = true;
+                              if (UserPct > rollPct && loadingTop === false) skipUser = true;
                             }
                             if (!skipUser) {
                                 //basicBot.roomUtilities.logDebug("New Leader: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal + "-" + UserPct);
@@ -1492,7 +1545,7 @@ $.ajax({
                     return leaderBoard;
                 }
                 catch(err) {
-                  basicBot.roomUtilities.logException("loadTopPct: " + err.message);
+                  basicBot.roomUtilities.logException("loadRollPct: " + err.message);
                 }
             },
             englishMessage: function(lang, username) {
@@ -2559,7 +2612,8 @@ You're so fat, you could sell shade.
                               'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin','star','rockstar',':metal:',
                               '10s','00s','90s','80s','70s','60s','50s','40s','30s','20s','insane','clever',':heart:',':heart_decoration:',':heart_eyes:',':heart_eyes_cat:',':heartbeat:',
                               ':heartpulse:',':hearts:',':yellow_heart:',':green_heart:',':two_hearts:',':revolving_hearts:',':sparkling_heart:',':blue_heart:','giddyup','rockabilly',
-                              'nicefollow',':beer:',':beers:','niceplay','11','oldies','oldie','pj','slayer','kinky'];
+                              'nicefollow',':beer:',':beers:','niceplay','11','oldies','oldie','pj','slayer','kinky',':smoking:','jewharp','talkbox','oogachakaoogaooga','oogachaka',
+                              'ooga-chaka'];
                     // If a command if passed in validate it and return true if it is a Tasty command:
                     if (cmd.length > 0) {
                         if (commandList.indexOf(cmd) < 0) return true;
@@ -6686,7 +6740,8 @@ You're so fat, you could sell shade.
                           'whizzbang','a1','aok','asskicking','bombass','fanfuckingtastic','primetime','rocksolid','instrumental','rockin','star','rockstar',':metal:',
                           '10s','00s','90s','80s','70s','60s','50s','40s','30s','20s','insane','clever',':heart:',':heart_decoration:',':heart_eyes:',':heart_eyes_cat:',':heartbeat:',
                           ':heartpulse:',':hearts:',':yellow_heart:',':green_heart:',':two_hearts:',':revolving_hearts:',':sparkling_heart:',':blue_heart:','giddyup','rockabilly',
-                          'nicefollow',':beer:',':beers:','niceplay','11','oldies','oldie','pj','slayer','kinky'],
+                          'nicefollow',':beer:',':beers:','niceplay','11','oldies','oldie','pj','slayer','kinky',':smoking:','jewharp','talkbox','oogachakaoogaooga','oogachaka',
+                          'ooga-chaka'],
                 rank: 'manager',
                 type: 'startsWith',
                 functionality: function (chat, cmd) {
@@ -6894,6 +6949,38 @@ You're so fat, you could sell shade.
                     catch(err) { basicBot.roomUtilities.logException("loguserCommand: " + err.message); }
                 }
             },
+            lowrollpctCommand: {   //Added 07/03/2015 Zig
+                command: 'lowrollpct',
+                rank: 'residentdj',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        var leaderBoard = basicBot.userUtilities.loadRollPct(false);
+                        basicBot.userUtilities.displayLeaderBoard(leaderBoard, chat.un, true, "Low Roll Percentages: ");
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("lowrollpct: " + err.message);
+                    }
+                }
+            },
+            lowrollptsCommand: {   //Added 07/03/2015 Zig
+                command: 'lowrollpts',
+                rank: 'residentdj',
+                type: 'exact',
+                functionality: function (chat, cmd) {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!basicBot.commands.executable(this.rank, chat)) return void (0);
+                        var leaderBoard = basicBot.userUtilities.loadRollPoints(false);
+                        basicBot.userUtilities.displayLeaderBoard(leaderBoard, chat.un, false, "Low Roll Points: ");
+                    }
+                    catch(err) {
+                        basicBot.roomUtilities.logException("lowrollpts: " + err.message);
+                    }
+                }
+            },
             rollpctCommand: {   //Added 07/03/2015 Zig
                 command: 'rollpct',
                 rank: 'residentdj',
@@ -6902,7 +6989,7 @@ You're so fat, you could sell shade.
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                        var leaderBoard = basicBot.userUtilities.loadTopPct();
+                        var leaderBoard = basicBot.userUtilities.loadRollPct(true);
                         basicBot.userUtilities.displayLeaderBoard(leaderBoard, chat.un, true, "Top Roll Percentages: ");
                     }
                     catch(err) {
@@ -6918,7 +7005,7 @@ You're so fat, you could sell shade.
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!basicBot.commands.executable(this.rank, chat)) return void (0);
-                        var leaderBoard = basicBot.userUtilities.loadTopPoints();
+                        var leaderBoard = basicBot.userUtilities.loadRollPoints(true);
                         basicBot.userUtilities.displayLeaderBoard(leaderBoard, chat.un, false, "Top Roll Points: ");
                     }
                     catch(err) {
