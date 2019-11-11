@@ -139,7 +139,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     var loadChat = function (cb) {
         if (!cb) cb = function () {
         };
-        $.get("https://cdn.jsdelivr.net/gh/SZigmund/basicBot@master/lang/langIndex.json", function (json) {
+        $.get("https://rawcdn.githack.com/SZigmund/basicBot/f4b1a9d30a7e9f022ef600dd41cae07a91797bad/lang/langIndex.json", function (json) {
             var link = basicBot.chatLink;
             if (json !== null && typeof json !== "undefined") {
                 langIndex = json;
@@ -299,10 +299,10 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
         scriptLink: "https://cdn.jsdelivr.net/gh/SZigmund/basicBot@master/basicBot.js",
         scriptTestLink: "https://cdn.jsdelivr.net/gh/SZigmund/basicBot@master/basicBotTEST.js",
         cmdLink: "http://bit.ly/1DbtUV7",
-        chatLink: "https://cdn.jsdelivr.net/gh/SZigmund/basicBot@master/lang/en.json",
-        blacklistLink: "https://cdn.jsdelivr.net/gh/SZigmund/basicBot@master/Blacklist/list.json",
-        userlistLink: "https://cdn.jsdelivr.net/gh/SZigmund/basicBot@master/Blacklist/users.json",
-        blacklistIdLink: "https://cdn.jsdelivr.net/gh/SZigmund/basicBot@master/Blacklist/ids.json",
+        chatLink: "https://rawcdn.githack.com/SZigmund/basicBot/f4b1a9d30a7e9f022ef600dd41cae07a91797bad/lang/en.json",
+        blacklistLink: "https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/list.json",
+        userlistLink: "https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/users.json",
+        blacklistIdLink: "https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ids.json",
         chat: null,
         loadChat: loadChat,
         retrieveSettings: retrieveSettings,
@@ -334,7 +334,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
             hoppingDownNow: false,
             botName: "Larry the LAW",
             language: "english",
-            chatLink: "https://cdn.jsdelivr.net/gh/SZigmund/basicBot@master/lang/en.json",
+            chatLink: "https://rawcdn.githack.com/SZigmund/basicBot/f4b1a9d30a7e9f022ef600dd41cae07a91797bad/lang/en.json",
             maximumAfk: 60,
             afkRemoval: true,
             afk5Days: true,
@@ -1215,9 +1215,9 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
             suppressSongStats: false,
             commandLiteral: ".",
             blacklistsOBS: {
-                BAN: "https://cdn.jsdelivr.net/gh/SZigmund/basicBot-customization@master/blacklists/Banned.json",
-                NSFW: "https://cdn.jsdelivr.net/gh/SZigmund/basicBot-customization@master/blacklists/ExampleNSFWlist.json",
-                OP: "https://cdn.jsdelivr.net/gh/SZigmund/basicBot-customization@master/blacklists/ExampleOPlist.json"
+                BAN: "https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/Banned.json",
+                NSFW: "https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ExampleNSFWlist.json",
+                OP: "https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ExampleOPlist.json"
             }
         },
         room: {
@@ -1280,7 +1280,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
                 localStorage.setItem( 'memoriesdata', JSON.stringify(bl) );
                 basicBot.roomUtilities.logDebug("data2send: " + data2send);
                 for (var bl in basicBot.room.blacklistsOBS) {
-                    $.post("https://cdn.jsdelivr.net/gh/SZigmund/basicBot-customization@master/blacklists/ExampleNSFWlist.json",{
+                    $.post("https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ExampleNSFWlist.json",{
                      data: data2send
                      });
                 }
@@ -1295,14 +1295,14 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
                 data2send = JSON.stringify(bl);
                 basicBot.roomUtilities.logDebug("data2send: " + data2send);
                 for (var bl in basicBot.room.blacklistsOBS) {
-                    $.post("https://cdn.jsdelivr.net/gh/SZigmund/basicBot-customization@master/blacklists/ExampleNSFWlist.json",{
+                    $.post("https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ExampleNSFWlist.json",{
                      data: data2send
                      });
                 }
 /*                
 $.ajax({
     type : 'POST',
-    url : 'https://cdn.jsdelivr.net/gh/SZigmund/basicBot@master/blacklists/ExampleNSFWlist.json',
+    url : 'https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ExampleNSFWlist.json',
     data: {my_array:basicBot.room.blacklists[list]},
     success : function(basicBot.room.blacklists[list]){
        //alert(data);
@@ -1312,7 +1312,7 @@ $.ajax({
     }
 });
 
-                    $.post("https://cdn.jsdelivr.net/gh/SZigmund/basicBot@master/blacklists/ExampleNSFWlist.json",{
+                    $.post("https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ExampleNSFWlist.json",{
                      JSON.stringify( basicBot.room.blacklists[list] )    
                     })
 
