@@ -1,5 +1,5 @@
 {
-    "english": "https://rawgit.com/SZigmund/basicBot/master/lang/en.json",
-    "portuguese": "https://rawgit.com/SZigmund/basicBot/master/lang/pt.json",
-    "french": "https://rawgit.com/SZigmund/basicBot/master/lang/fr.json"
+    "english": "https://cdn.jsdelivr.net/gh/SZigmund/basicBot@master/lang/en.json",
+    "portuguese": "https://cdn.jsdelivr.net/gh/SZigmund/basicBot@master/lang/pt.json",
+    "french": "https://cdn.jsdelivr.net/gh/SZigmund/basicBot@master/lang/fr.json"
 }
