@@ -1,4 +1,4 @@
-/** version: 2.1.4.00061
+/** version: 2.1.4.00062
 //SECTION 
 // GIFS
 // TASTY COmmands
@@ -5366,7 +5366,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
 
   var basicBot = {
     /*ZZZ: Updated Version*/
-    version: "2.1.4.00061",
+    version: "2.1.4.00062",
     status: false,
     botMuted: false,
     name: "basicBot",
@@ -6312,7 +6312,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
       autoskip: false,
       autoskipTimer: null,
       autodisableInterval: null,
-      autodisableFunc = function() {
+      autodisableFunc: function() {
         if (basicBot.status && basicBot.settings.autodisable) {
           UTIL.sendChat('.afkdisable');
           UTIL.sendChat('.joindisable');
@@ -6347,7 +6347,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
       newBlacklist: [],
       newBlacklistIDs: [],
       blacklistLoaded: false,
-      newBlacklistedSongFunction1 = function(track, list) {
+      newBlacklistedSongFunction1: function(track, list) {
         try {
           UTIL.logDebug("ADDING Track: " + track.mid + " List: " + list);
           var data2send = "";
@@ -6364,7 +6364,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
         }
       },
 
-      newBlacklistedSongFunction2 = function(track, list) {
+      newBlacklistedSongFunction2: function(track, list) {
         try {
           UTIL.logDebug("ADDING Track: " + track.mid + " List: " + list);
           var data2send = "";
