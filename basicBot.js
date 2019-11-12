@@ -7680,7 +7680,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
         'nigger', 'faggot', 'nigga', 'niqqa', 'motherfucker', 'modafocka'
       ]
     },
-    connectAPI = function() {
+    connectAPI: function() {
       this.proxy = {
         eventChat: $.proxy(this.eventChat, this),
         eventUserskip: $.proxy(this.eventUserskip, this),
@@ -7715,7 +7715,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
       API.on(API.CHAT_COMMAND, this.proxy.eventChatcommand);
       API.on(API.HISTORY_UPDATE, this.proxy.eventHistoryupdate);
     },
-    disconnectAPI = function() {
+    disconnectAPI: function() {
       API.off(API.CHAT, this.proxy.eventChat);
       API.off(API.USER_SKIP, this.proxy.eventUserskip);
       API.off(API.USER_JOIN, this.proxy.eventUserjoin);
@@ -7730,7 +7730,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
       API.off(API.CHAT_COMMAND, this.proxy.eventChatcommand);
       API.off(API.HISTORY_UPDATE, this.proxy.eventHistoryupdate);
     },
-    startup = function() {
+    startup: function() {
       Function.prototype.toString = function() {
         return 'Function.'
       };
