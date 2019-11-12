@@ -1,4 +1,4 @@
-/** version: 2.1.4.00058
+/** version: 2.1.4.00060
 //SECTION 
 // GIFS
 // TASTY COmmands
@@ -5149,13 +5149,13 @@ var BOTCOMMANDS = {
 //SECTION MAIN:
 (function() {
 
-  var kill: function() {
+  var kill = function() {
     clearInterval(basicBot.room.autodisableInterval);
     clearInterval(basicBot.room.afkInterval);
     basicBot.status = false;
   };
 
-  var storeToStorage: function() {
+  var storeToStorage = function() {
     try {
       UTIL.logDebug("START: storeToStorage");
       localStorage.setItem("basicBotsettings", JSON.stringify(basicBot.settings));
@@ -5199,7 +5199,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     }
   };
 
-  var subChat: function(chat, obj) {
+  var subChat = function(chat, obj) {
     try {
       if (typeof chat === "undefined") {
         UTIL.chatLog("There is a chat text missing.");
@@ -5216,7 +5216,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     }
   };
 
-  var loadChat: function(cb) {
+  var loadChat = function(cb) {
     if (!cb) cb = function() {};
     $.get("https://rawcdn.githack.com/SZigmund/basicBot/f4b1a9d30a7e9f022ef600dd41cae07a91797bad/lang/langIndex.json", function(json) {
       var link = basicBot.chatLink;
@@ -5249,7 +5249,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     });
   };
 
-  var retrieveSettings: function() {
+  var retrieveSettings = function() {
     var settings = JSON.parse(localStorage.getItem("basicBotsettings"));
     if (settings !== null) {
       for (var prop in settings) {
@@ -5258,7 +5258,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     }
   };
 
-  var retrieveFromStorage: function() {
+  var retrieveFromStorage = function() {
     try {
       var info = localStorage.getItem("basicBotStorageInfo");
       if (info === null) UTIL.chatLog(basicBot.chat.nodatafound);
@@ -5344,7 +5344,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
     return arr;
   };
 
-  var linkFixer: function(msg) {
+  var linkFixer = function(msg) {
     var parts = msg.splitBetween('<a href="', '<\/a>');
     for (var i = 1; i < parts.length; i = i + 2) {
       var link = parts[i].split('"')[0];
@@ -5366,7 +5366,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
 
   var basicBot = {
     /*ZZZ: Updated Version*/
-    version: "2.1.4.00058",
+    version: "2.1.4.00060",
     status: false,
     botMuted: false,
     name: "basicBot",
