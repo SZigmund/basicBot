@@ -6632,7 +6632,7 @@ You're so fat, you could sell shade.
                         var resultsMsg = "";
                         var wooting = true;
                         //rollResults = 6;
-                        if (rollResults >= (dicesides * 0.5)) {
+                        if (rollResults > (dicesides * 0.5)) {
                             //Pick a random word for the tasty command
                             setTimeout(function () { basicBot.userUtilities.tastyVote(basicBot.userUtilities.getCurrentPlugUser().id,basicBot.roomUtilities.bopCommand("")); }, 1000);
                             setTimeout(function () { basicBot.roomUtilities.wootThisSong(); }, 1500);
