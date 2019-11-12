@@ -1,4 +1,4 @@
-/** version: 2.1.4.00060
+/** version: 2.1.4.00061
 //SECTION 
 // GIFS
 // TASTY COmmands
@@ -5327,7 +5327,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
 
   };
 
-  String.prototype.splitBetween: function(a, b) {
+  String.prototype.splitBetween = function(a, b) {
     var self = this;
     self = this.split(a);
     for (var i = 0; i < self.length; i++) {
@@ -5366,7 +5366,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
 
   var basicBot = {
     /*ZZZ: Updated Version*/
-    version: "2.1.4.00060",
+    version: "2.1.4.00061",
     status: false,
     botMuted: false,
     name: "basicBot",
@@ -6312,7 +6312,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
       autoskip: false,
       autoskipTimer: null,
       autodisableInterval: null,
-      autodisableFunc: function() {
+      autodisableFunc = function() {
         if (basicBot.status && basicBot.settings.autodisable) {
           UTIL.sendChat('.afkdisable');
           UTIL.sendChat('.joindisable');
@@ -6347,7 +6347,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
       newBlacklist: [],
       newBlacklistIDs: [],
       blacklistLoaded: false,
-      newBlacklistedSongFunction1: function(track, list) {
+      newBlacklistedSongFunction1 = function(track, list) {
         try {
           UTIL.logDebug("ADDING Track: " + track.mid + " List: " + list);
           var data2send = "";
@@ -6364,7 +6364,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
         }
       },
 
-      newBlacklistedSongFunction2: function(track, list) {
+      newBlacklistedSongFunction2 = function(track, list) {
         try {
           UTIL.logDebug("ADDING Track: " + track.mid + " List: " + list);
           var data2send = "";
@@ -6405,7 +6405,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
         nextRandomRoulette: null,
         participants: [],
         countdown: null,
-        startRoulette: function() {
+        startRoulette = function() {
           try {
             if (basicBot.room.roulette.rouletteStatus) return;
             basicBot.room.roulette.rouletteStatus = true;
@@ -6417,7 +6417,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
             UTIL.logException("startRoulette: " + err.message);
           }
         },
-        randomRouletteCheck: function() {
+        randomRouletteCheck = function() {
           try {
             if (basicBot.room.roulette.nextRandomRoulette <= Date.now()) {
               basicBot.room.roulette.randomRouletteSetTimer();
@@ -6428,7 +6428,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
             UTIL.logException("randomRouletteCheck: " + err.message);
           }
         },
-        randomRouletteSetTimer: function() {
+        randomRouletteSetTimer = function() {
           try {
             var randomRange = (basicBot.room.roulette.randomRouletteMax - basicBot.room.roulette.randomRouletteMin)
             var randomMins = Math.floor(Math.random() * randomRange);
@@ -6447,7 +6447,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
             UTIL.logException("randomRouletteSetTimer: " + err.message);
           }
         },
-        endRoulette: function() {
+        endRoulette = function() {
           try {
             basicBot.room.roulette.rouletteStatus = false;
             if (basicBot.room.roulette.participants.length === 0) {
@@ -7680,7 +7680,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
         'nigger', 'faggot', 'nigga', 'niqqa', 'motherfucker', 'modafocka'
       ]
     },
-    connectAPI: function() {
+    connectAPI = function() {
       this.proxy = {
         eventChat: $.proxy(this.eventChat, this),
         eventUserskip: $.proxy(this.eventUserskip, this),
@@ -7715,7 +7715,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
       API.on(API.CHAT_COMMAND, this.proxy.eventChatcommand);
       API.on(API.HISTORY_UPDATE, this.proxy.eventHistoryupdate);
     },
-    disconnectAPI: function() {
+    disconnectAPI = function() {
       API.off(API.CHAT, this.proxy.eventChat);
       API.off(API.USER_SKIP, this.proxy.eventUserskip);
       API.off(API.USER_JOIN, this.proxy.eventUserjoin);
@@ -7730,8 +7730,8 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
       API.off(API.CHAT_COMMAND, this.proxy.eventChatcommand);
       API.off(API.HISTORY_UPDATE, this.proxy.eventHistoryupdate);
     },
-    startup: function() {
-      Function.prototype.toString: function() {
+    startup = function() {
+      Function.prototype.toString = function() {
         return 'Function.'
       };
       runningBot = false;
@@ -7749,7 +7749,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
       // ==========================================================
       /*
       var Check;
-      var detect: function(){
+      var detect = function(){
           if(basicBot.settings.botRoomUrl != window.location.pathname){
               clearInterval(Check)
               UTIL.logInfo("Killing bot after room change.");
