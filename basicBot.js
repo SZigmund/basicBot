@@ -1,4 +1,4 @@
-/** version: 2.1.4.00055
+/** version: 2.1.4.00056
 //SECTION `
 // GIFS
 // TASTY COmmands
@@ -5340,7 +5340,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
 
   var basicBot = {
     /*ZZZ: Updated Version*/
-    version: "2.1.4.00055",
+    version: "2.1.4.00056",
     status: false,
     botMuted: false,
     name: "basicBot",
@@ -7600,14 +7600,14 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
           //UTIL.logDebug("commandCheck5: " + cmd);
           var executed = false;
 
-          for (var comm in basicBot.commands) {
-            var cmdCall = basicBot.commands[comm].command;
+          for (var comm in BOTCOMMANDS) {
+            var cmdCall = BOTCOMMANDS[comm].command;
             if (!Array.isArray(cmdCall)) {
               cmdCall = [cmdCall]
             }
             for (var i = 0; i < cmdCall.length; i++) {
               if (basicBot.settings.commandLiteral + cmdCall[i] === cmd) {
-                basicBot.commands[comm].functionality(chat, basicBot.settings.commandLiteral + cmdCall[i]);
+                BOTCOMMANDS[comm].functionality(chat, basicBot.settings.commandLiteral + cmdCall[i]);
                 executed = true;
                 break;
               }
@@ -7834,7 +7834,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
       //  botname: basicBot.loggedInName,
       //  version: basicBot.version
       //})));
-      loadChat(UTIL.logInfo(subChat(basicBot.chat.online, {
+      loadChat(UTIL.chatLog(subChat(basicBot.chat.online, {
         botname: basicBot.loggedInName,
         version: basicBot.version
       })));
