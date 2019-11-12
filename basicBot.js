@@ -1,4 +1,4 @@
-/** version: 2.1.4.00062
+/** version: 2.1.4.00060
 //SECTION 
 // GIFS
 // TASTY COmmands
@@ -5366,7 +5366,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
 
   var basicBot = {
     /*ZZZ: Updated Version*/
-    version: "2.1.4.00062",
+    version: "2.1.4.00060",
     status: false,
     botMuted: false,
     name: "basicBot",
@@ -6405,7 +6405,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
         nextRandomRoulette: null,
         participants: [],
         countdown: null,
-        startRoulette = function() {
+        startRoulette: function() {
           try {
             if (basicBot.room.roulette.rouletteStatus) return;
             basicBot.room.roulette.rouletteStatus = true;
@@ -6417,7 +6417,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
             UTIL.logException("startRoulette: " + err.message);
           }
         },
-        randomRouletteCheck = function() {
+        randomRouletteCheck: function() {
           try {
             if (basicBot.room.roulette.nextRandomRoulette <= Date.now()) {
               basicBot.room.roulette.randomRouletteSetTimer();
@@ -6428,7 +6428,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
             UTIL.logException("randomRouletteCheck: " + err.message);
           }
         },
-        randomRouletteSetTimer = function() {
+        randomRouletteSetTimer: function() {
           try {
             var randomRange = (basicBot.room.roulette.randomRouletteMax - basicBot.room.roulette.randomRouletteMin)
             var randomMins = Math.floor(Math.random() * randomRange);
@@ -6447,7 +6447,7 @@ votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
             UTIL.logException("randomRouletteSetTimer: " + err.message);
           }
         },
-        endRoulette = function() {
+        endRoulette: function() {
           try {
             basicBot.room.roulette.rouletteStatus = false;
             if (basicBot.room.roulette.participants.length === 0) {
