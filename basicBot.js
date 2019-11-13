@@ -1,9 +1,10 @@
 // version: 2.1.4.00060
 //SECTION 
-// basicBot.
-// 326 40
-// GIFS
-// TASTY COmmands
+// GIFS DMB MUFFORD
+// Imout
+// DONE: Roulette Join/In
+// DONE: basicBot.
+// DONE TASTY COmmands
 //userlistjson
 //userlistimport
 //userlistcount
@@ -3815,7 +3816,7 @@ var BOTCOMMANDS = {
   },
 
   joinCommand: {
-    command: 'join',
+    command: ['join','in'],
     rank: 'user',
     type: 'exact',
     functionality: function(chat, cmd) {
@@ -3933,7 +3934,7 @@ var BOTCOMMANDS = {
   },
 
   leaveCommand: {
-    command: 'leave',
+    command: ['leave','out'],
     rank: 'user',
     type: 'exact',
     functionality: function(chat, cmd) {
@@ -7428,7 +7429,7 @@ var CHAT = {
       //UTIL.logDebug("commandCheck cmd: " + cmd);
       //UTIL.logDebug("commandCheck chat.uid: " + chat.uid);
       var userPerm = USERS.getPermission(chat.uid);
-      if (chat.message.toLowerCase() !== ".join" && chat.message.toLowerCase() !== ".leave" && (!UTIL.bopCommand(cmd))) {
+      if (chat.message.toLowerCase() !== ".join" && chat.message.toLowerCase() !== ".in" && chat.message.toLowerCase() !== ".out" && chat.message.toLowerCase() !== ".leave" && (!UTIL.bopCommand(cmd))) {
         //UTIL.logDebug("commandCheck1: " + cmd);
         if (userPerm === 0 && !MyROOM.usercommand) return void(0);
         //UTIL.logDebug("commandCheck2: " + cmd);
