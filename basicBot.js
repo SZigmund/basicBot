@@ -7521,8 +7521,9 @@ var CHAT = {
       }
       return false;
     },
-  loadChat: function(cb) {
-    if (!cb) cb = function() {};
+  // loadChat: function(cb) {
+  loadChat: function() {
+    // if (!cb) cb = function() {};
     $.get("https://rawcdn.githack.com/SZigmund/basicBot/f4b1a9d30a7e9f022ef600dd41cae07a91797bad/lang/langIndex.json", function(json) {
       var link = CHAT.chatLink;
       if (json !== null && typeof json !== "undefined") {
@@ -7539,7 +7540,7 @@ var CHAT = {
           if (json !== null && typeof json !== "undefined") {
             if (typeof json === "string") json = JSON.parse(json);
             CHAT.chatMapping = json;
-            cb();
+            // cb();
           }
         });
       } else {
@@ -7547,7 +7548,7 @@ var CHAT = {
           if (json !== null && typeof json !== "undefined") {
             if (typeof json === "string") json = JSON.parse(json);
             CHAT.chatMapping = json;
-            cb();
+            // cb();
           }
         });
       }
@@ -7658,15 +7659,20 @@ var STARTUP = {
 
       //UTIL.logDebug("TODO - STARTUP 9");
       if (SETTINGS.autoWootBot === true) setTimeout(UTIL.wootThisSong, 3000);
+	  CHAT.loadChat();
       //loadChat(UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.online, {
       //  botname: SETTINGS.loggedInName,
       //  version: SETTINGS.version
       //})));
-      CHAT.loadChat(UTIL.chatLog(CHAT.subChat(CHAT.chatMapping.online, {
-        botname: SETTINGS.loggedInName,
-        version: SETTINGS.version
-      })));
-      //UTIL.logDebug(SETTINGS.botName + SETTINGS.version);
+      // CHAT.loadChat(UTIL.chatLog(CHAT.subChat(CHAT.chatMapping.online, {
+      //   botname: SETTINGS.loggedInName,
+      //   version: SETTINGS.version
+      // })));
+      UTIL.chatLog(CHAT.subChat(CHAT.chatMapping.online, {
+         botname: SETTINGS.loggedInName,
+         version: SETTINGS.version
+      }))
+	  //UTIL.logDebug(SETTINGS.botName + SETTINGS.version);
       //UTIL.logDebug("TODO - STARTUP 10");
       MyROOM.roulette.randomRouletteSetTimer();
       MyROOM.randomInterval = setInterval(function() {
