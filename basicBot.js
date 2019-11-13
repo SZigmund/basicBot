@@ -1411,8 +1411,8 @@ var MyAPI = {
   },
 
   moderateDeleteChat: function(cid) {
-    UTIL.ajax("chat/" + cid, "GET", void 0, function(e, t) {
-                    UTIL.logDebug("CHAT DATA: " + t.toString());
+    UTIL.ajax:("chat/" + cid, "GET", void 0, function(e, t) {
+                    UTIL.logDebug("CHAT DATA: E: " + e + " T: " + t);
                 });
     UTIL.ajax("chat/" + cid, "DELETE");
     // $.ajax({
