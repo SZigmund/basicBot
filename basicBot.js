@@ -989,7 +989,7 @@ var MyEVENTS = {
         USERS.setUserName(chat.uid, chat.un);
         if (CHAT.chatFilter(chat)) return void(0);
         if (!CHAT.commandCheck(chat))
-          CHAT..action(chat);
+          CHAT.action(chat);
       } catch (err) {
         UTIL.logException("eventChat: " + err.message);
       }
@@ -7510,8 +7510,8 @@ var CHAT = {
         }));
         return true;
       }
-      for (var j = 0; j < CHAT..spam.length; j++) {
-        if (msg === CHAT..spam[j]) {
+      for (var j = 0; j < CHAT.spam.length; j++) {
+        if (msg === CHAT.spam[j]) {
           UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.spam, {
             name: chat.un
           }));
