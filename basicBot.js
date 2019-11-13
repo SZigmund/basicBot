@@ -987,8 +987,8 @@ var MyEVENTS = {
         chat.message = chat.message.trim();
         USERS.setLastActivityID(chat.uid, true);
         USERS.setUserName(chat.uid, chat.un);
-        if (CHAT..chatFilter(chat)) return void(0);
-        if (!CHAT..commandCheck(chat))
+        if (CHAT.chatFilter(chat)) return void(0);
+        if (!CHAT.commandCheck(chat))
           CHAT..action(chat);
       } catch (err) {
         UTIL.logException("eventChat: " + err.message);
@@ -1014,7 +1014,7 @@ var MyEVENTS = {
         CHAT.commandChat.type = "message";
         CHAT.commandChat.timestamp = Date.now();
         CHAT.commandChat.sound = "mention";
-        CHAT..commandCheck(CHAT.commandChat);
+        CHAT.commandCheck(CHAT.commandChat);
       } catch (err) {
         UTIL.logException("eventChatcommand: " + err.message);
       }
