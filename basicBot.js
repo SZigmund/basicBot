@@ -4,11 +4,11 @@
 // 326 40
 // GIFS
 // TASTY COmmands
-/userlistjson
-/userlistimport
-/userlistcount
-/userliststats
-/userlistxfer
+//userlistjson
+//userlistimport
+//userlistcount
+//userliststats
+//userlistxfer
 
 //SECTION SETTINGS: All local settings:
 //SECTION MyEVENTS: Events call from host:
