@@ -1404,7 +1404,7 @@ var MyEVENTS = {
 
 //SECTION MyAPI: Site specific code: API.
 var MyAPI = {
-  var killBot: function() {
+  killBot: function() {
     clearInterval(MyROOM.autodisableInterval);
     clearInterval(MyROOM.afkInterval);
     SETTINGS.status = false;
