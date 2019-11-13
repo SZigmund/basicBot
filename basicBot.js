@@ -4,6 +4,7 @@
 // Roulette - Display my position in the queue
 //
 // DONE: Imout
+// DONE: wootthissong MehThisSong
 //
 // DONE: GIFS DMB MUFFORD
 // DONE: 430
@@ -1229,7 +1230,7 @@ var MyEVENTS = {
       USERS.setRolled(obj.dj.username, false);
 
       // UTIL.logDebug("eventDjadvance:4a");
-      if (SETTINGS.autoWootBot === true) setTimeout(UTIL.wootThisSong, 3000);
+      if (SETTINGS.autoWootBot === true) setTimeout(MyAPI.wootThisSong, 3000);
 
       // UTIL.logDebug("eventDjadvance:5");
       // todo FOREACH LOOP
@@ -1491,6 +1492,22 @@ var MyAPI = {
       // setTimeout(function () { $("#dialog-confirm > div:nth-child(3) > div.button.submit > span").click(); }, 1 * 1000);
     } catch (err) {
       UTIL.logException("botHopDown: " + err.message);
+    }
+  },
+  mehThisSong: function() { //Added 02/18/2015 Zig
+    try {
+      document.querySelector('[title="Meh"]').click();
+      //$("#meh").click();
+    } catch (err) {
+      UTIL.logException("mehThisSong: " + err.message);
+    }
+  },
+  wootThisSong: function() { //Added 02/18/2015 Zig
+    try {
+      document.querySelector('[title="Woot!"]').click();
+      // $("#woot").click();
+    } catch (err) {
+      UTIL.logException("wootThisSong: " + err.message);
     }
   }
 };
@@ -2008,22 +2025,6 @@ var UTIL = {
       return false;
     } catch (err) {
       UTIL.logException("canSkip: " + err.message);
-    }
-  },
-  mehThisSong: function() { //Added 02/18/2015 Zig
-    try {
-      document.querySelector('[title="Meh"]').click();
-      //$("#meh").click();
-    } catch (err) {
-      UTIL.logException("mehThisSong: " + err.message);
-    }
-  },
-  wootThisSong: function() { //Added 02/18/2015 Zig
-    try {
-      document.querySelector('[title="Woot!"]').click();
-      // $("#woot").click();
-    } catch (err) {
-      UTIL.logException("wootThisSong: " + err.message);
     }
   },
   afkRemovalNow: function() {
@@ -5753,7 +5754,7 @@ var BOTCOMMANDS = {
   //        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
   //        if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
   //        else {
-  //            UTIL.wootThisSong();
+  //            MyAPI.wootThisSong();
   //        }
   //    }
   //},
@@ -5775,7 +5776,7 @@ var BOTCOMMANDS = {
     type: 'exact',
     functionality: function(chat, cmd) {
       try {
-        UTIL.mehThisSong();
+        MyAPI.mehThisSong();
       } catch (err) {
         UTIL.logException("mehCommand: " + err.message);
       }
@@ -5910,7 +5911,7 @@ var BOTCOMMANDS = {
             USERS.tastyVote(USERS.getCurrentPlugUser().id, UTIL.bopCommand(""));
           }, 1000);
           setTimeout(function() {
-            UTIL.wootThisSong();
+            MyAPI.wootThisSong();
           }, 1500);
           resultsMsg = CHAT.subChat(CHAT.chatMapping.rollresultsgood, {
             name: chat.un,
@@ -5918,7 +5919,7 @@ var BOTCOMMANDS = {
           });
         } else {
           setTimeout(function() {
-            UTIL.mehThisSong();
+            MyAPI.mehThisSong();
           }, 1000);
           resultsMsg = CHAT.subChat(CHAT.chatMapping.rollresultsbad, {
             name: chat.un,
@@ -5930,7 +5931,7 @@ var BOTCOMMANDS = {
         // if (rollResults >= (dicesides * 0.8))
         //     setTimeout(function () { USERS.tastyVote(USERS.getCurrentPlugUser().id, "winner"); }, 1000);
         // else if (rollResults <= (dicesides * 0.2))
-        //     setTimeout(function () { UTIL.mehThisSong(); }, 1000);
+        //     setTimeout(function () { MyAPI.mehThisSong(); }, 1000);
       } catch (err) {
         UTIL.logException("rollCommand: " + err.message);
       }
@@ -7852,7 +7853,7 @@ var STARTUP = {
     // }
 
     //UTIL.logDebug("TODO - STARTUP 9");
-    if (SETTINGS.autoWootBot === true) setTimeout(UTIL.wootThisSong, 3000);
+    if (SETTINGS.autoWootBot === true) setTimeout(MyAPI.wootThisSong, 3000);
     UTIL.logDebug("LOADING CHAT");
     CHAT.loadChat();
     UTIL.logDebug("CHAT LOADED");
