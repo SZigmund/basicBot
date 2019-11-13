@@ -23,1352 +23,1352 @@
 
 //SECTION SETTINGS: All local settings:
 var SETTINGS = {
-	version: "2.1.4.00060",
-	status: false,
-	botMuted: false,
-	loggedInID: null,
-	loggedInName: "",
-	newUserWhoisInfo: "",
-	runningBot: false,
-	botCreator: "Matthew aka. Yemasthui",
-	botCreatorIDs: [3837756],
-	botIDs: [3864950, 5226916, 5226880],
-	scriptLink: "https://cdn.jsdelivr.net/gh/SZigmund/basicBot@master/basicBot.js",
-	scriptTestLink: "https://cdn.jsdelivr.net/gh/SZigmund/basicBot@master/basicBotTEST.js",
-	cmdLink: "http://bit.ly/1DbtUV7",
-	blacklistLink: "https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/list.json",
-	userlistLink: "https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/users.json",
-	blacklistIdLink: "https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ids.json",
-      autoWootBot: false,
-      autoHopUp: true,
-      autoHopUpCount: 1,
-      autoHopDownCount: 4,
-      botRoomUrl: "",
-      hoppingDownNow: false,
-      botName: "Larry the LAW",
-      language: "english",
-      chatLink: "https://rawcdn.githack.com/SZigmund/basicBot/f4b1a9d30a7e9f022ef600dd41cae07a91797bad/lang/en.json",
-      maximumAfk: 60,
-      afkRemoval: true,
-      afk5Days: true,
-      afk7Days: true,
-      afkRemoveStart: 0,
-      afkRemoveEnd: 24,
-      maximumDc: 90,
-      maximumDcOutOfRoom: 10,
-      bouncerPlus: true,
-      blacklistEnabled: true,
-      gifEnabled: true,
-      lockdownEnabled: false,
-      lockGuard: false,
-      maximumLocktime: 10,
-      cycleGuard: true,
-      maximumCycletime: 10,
-      voteSkipEnabled: true,
-      voteSkipLimit: 4,
-      welcomeForeignerMsg: false,
-      timeGuard: true,
-      maximumSongLength: 8,
-      repeatSongs: true,
-      repeatSongTime: 180,
-      skipSound5Days: false,
-      skipSound7Days: false,
-      skipSoundStart: 7,
-      skipSoundEnd: 15,
-      skipSoundRange: "Monday-Friday between 7AM and 3PM EST",
-      randomComments: true,
-      roulette5Days: true,
-      roulette7Days: false,
-      rouletteStart: 9,
-      rouletteEnd: 17,
-      randomRoulette: false,
-      randomCommentMin: 60,
-      randomCommentMax: 180,
-      nextRandomComment: Date.now(),
-      autodisable: false,
-      commandCooldown: 30,
-      usercommandsEnabled: true,
-      lockskipPosition: 3,
-      lockskipReasons: [
-        ["theme", "This song does not fit the room theme. "],
-        ["op", "This song is on the OP list. "],
-        ["history", "This song is in the history. "],
-        ["mix", "You played a mix, which is against the rules. "],
-        ["sound", "The song you played had bad sound quality or no sound. "],
-        ["nsfw", "The song you contained was NSFW (image or sound). "],
-        ["unavailable", "The song you played was not available for some users. "]
-      ],
-      howAreYouComments: [
-        "Shitty, and yourself %%FU%%?",
-        "Like a bag of badgers that just got freshly beaten %%FU%%.",
-        "I don't know yet get back to me %%FU%%.",
-        "None of your business right now %%FU%%.",
-        "Why do you care %%FU%%?",
-        "I'm alright, slight bruises here and there, nothing i can't handle %%FU%%.",
-        "Hey, wait a minute. How did you know what we were up to%%FU%%? Nobody was supposed to know.",
-        "%%FU%% why don't you accompany me for uh... hmm... lunch... it's been a long time i think, we have lots ummm..... 'catching up' to do. What do you say?",
-        "As if you care %%FU%%.",
-        "If I wasn't me I would want to be me %%FU%%.",
-        "Word on the street is that I'm really good %%FU%%!!",
-        "I'm sober, so what do you think %%FU%%?",
-        "I'm so happy I have to sit on my hands to keep myself from clapping %%FU%%.",
-        "%%FU%%, your attempt at social interaction is hereby acknowledged.",
-        "How would I know, I haven't tried me %%FU%%",
-        "Thank you so much for asking %%FU%%, isn't it amazing how little time we spend REALLY getting to know someone these days and along you come interested in me and my situation.  It means so much to me that you asked %%FU%%",
-        "%%FU%%, you ever notice that just before someone goes completely violently nuts, their eyes widen and you can feel the tension wafting off them like a disease?  Or is that just me?",
-        "Oh, back aches, living from paycheck to paycheck, haven't had sex with my wife in 3 months, surf the web most of the day at work, only showering every two days or so, cholesterol is through the roof and I drink too much... so how are you %%FU%%?",
-        "Room for improvement %%FU%%!",
-        "My psychiatrist told me not to discuss it with strangers %%FU%%.",
-        "I think I'm doing Ok; how do you think I'm doing %%FU%%?",
-        "Why do you ask, are you a doctor %%FU%%?",
-        "Never been better, %%FU%%. ... Just once I'd like to be better",
-        "%%FU%%, I was fine.",
-        "Worse since you interrupted me %%FU%%.",
-        "Not so good %%FU%%, but I plan on lying at my press conference, anyway.",
-        "I am very much in equilibrium with my Environment %%FU%%",
-        "Fucking high %%FU%%, why you pulling me down Bitch?",
-        "Smart people will find out and dumb ones can't change it. Not worth answering %%FU%%.",
-        "%%FU%%, I am very bad at answering.",
-        "Well, I haven't had my morning coffee yet and no one has gotten hurt, so I'd say pretty good at this point %%FU%%.",
-        "My lawyer says I don't have to answer that question %%FU%%.",
-        "It's a dog eat dog world out there %%FU%%, and and I'm wearing Milkbone underwear.",
-        "Deliciously different %%FU%%",
-        "I'm just peachy keen %%FU%%!",
-        "Greetings, may you live long & prosper %%FU%%.",
-        "Fair to middling, mostly middling %%FU%%.",
-        "Even better than the real thing %%FU%%.",
-        "Employed %%FU%%!",
-        "I am better than heaven today %%FU%%!",
-        "Thankfully alive and still somewhat young and healthy %%FU%%, in this economy what more can I ask for?",
-        "I'm unbelievable %%FU%%!",
-        "Fine and dandy as long as no one else boogers up my day %%FU%%!",
-        "Super Duper %%FU%%!!",
-        "I am fantastic and feeling astonishingly glorious %%FU%%.",
-        "Happier than a cat in a room full of catnip %%FU%%.",
-        "I am a little overstuffed. And you %%FU%%?",
-        "Just happy to be above ground %%FU%%.",
-        "I am feeling happier than ever %%FU%%!!",
-        "I'm decent baby, flier than a pelican as Lil Wayne might say...%%FU%%",
-        "Upright and still breathing. You %%FU%%?",
-        "Cool as a cucumber %%FU%%",
-        "Bouncy and ready to go %%FU%%!",
-        "Splendedly Spectacular %%FU%%!",
-        "I am fantabulous %%FU%%!",
-        "Purely golden %%FU%%.",
-        "In the Newtonian or quantum mechanical sense %%FU%%?",
-        "If I were an better, there'd have to be two of me %%FU%%.",
-        "Hopefully not as good as I'll ever be %%FU%%.",
-        "Couldn't be better %%FU%%",
-        "I'd be better if I won the lottery %%FU%%",
-        "Peachy %%FU%%",
-        "Not dead yet %%FU%%!",
-        "Living the dream %%FU%%!",
-        "Fabulous %%FU%%!",
-        "I'm about as excited as a parking spot %%FU%%!",
-        "Just dandy %%FU%%! I have sworn off use of the word 'awesome' because I work with someone who's been no less than 'awesome' for five years, which of course is impossible.",
-        "%%FU%%, how many people believe that when someone asks, 'How are you?' they really want to know - hmmmm.",
-        "Well and fine and good %%FU%%.",
-        "I must be OK because my name was not in today's obituaries %%FU%%!",
-        "I can't complain %%FU%%... I've tried, but no one listens.",
-        "I am wonderfully giddy %%FU%%.",
-        "Worse than yesterday but better than tomorrow %%FU%%",
-        "I am better than yesterday and not as good as I will be tomorrow %%FU%%.",
-        "As long as I can keep the kitten I found today %%FU%%, I'll be fine!",
-        "I'm fine but generally energetic %%FU%%",
-        "Flying high, man, flying high %%FU%%",
-        "Old enough to know better %%FU%%",
-        "Pretty fly for a white guy...taking life one punch at a time %%FU%%!",
-        "Standing in the eye of the storm %%FU%%",
-        "Still among the living %%FU%%!",
-        "I am sailing on the sea of love %%FU%%.",
-        "%%FU%%, my blood pressure is 120/80, respiration 16, CBC and Chem Panels normal.",
-        "If I were any better %%FU%%, Warren Buffett would buy me.",
-        "I am still breathing %%FU%%.",
-        "I am unique and me %%FU%%.",
-        "How goes it %%FU%%?",
-        "As good as a kipper in the sea %%FU%%.",
-        "%%FU%%, I'm Super dee duper.",
-        "%%FU%%, I am fine as a frogs hair.",
-        "Ebullient and full of alacrity.  Go ahead, I'll wait while you Google it %%FU%%.",
-        "This is my lucky day %%FU%%!!!",
-        "I still am %%FU%%.",
-        "Amazing and happy %%FU%%",
-        "I just took a big ole dump so I'm doing great!  How are you %%FU%%?",
-        "I am better today than yesterday %%FU%%, which is better than the day before that! :smile:",
-        "I am not doing so well today %%FU%%, my cat went on the roof, my car door will not open and my head hurts other than that I am great",
-        "Worn out from doing good things %%FU%%",
-        "I sit here and babysit 24x7 how the fuck do you think I'm doing %%FU%%?",
-        "%%FU%%, My Indian name isn't 'Are You', it's Struggling Turtle",
-        "I am as as rich in spirit as Michael Jackson was famous %%FU%%.",
-        "Delicious. You %%FU%%?",
-        "I am dandy, thank you for asking %%FU%%! How are you today?",
-        "Wonderful %%FU%%",
-        "I'm not unwell thank you %%FU%%",
-        "Feeling lucky and living large %%FU%%",
-        "Better than yesterday %%FU%%!",
-        "How am I %%FU%%? The better question would be, Why are you?",
-        "Just ducky, quack, quack. you %%FU%%?",
-        "I am doing so fabulous today %%FU%%! I can hardly control myself from dancing.",
-        "As fine as a tree with oranges and grapes %%FU%%!",
-        "I am as fine as a hot brand new Camaro %%FU%%!",
-        "Must be doing pretty since I woke up on this side of the grass instead of under it %%FU%%.",
-        "I'm my usual devil may care self; nothing ever changes %%FU%%.",
-        "All banana-breaded out %%FU%%!",
-        "Quite well. And how is it that you are %%FU%%?",
-        "Better than yesterday, not sure about tomorrow %%FU%%.",
-        "Strange and getting stranger %%FU%%",
-        "Superfantastic %%FU%%!",
-        "I'm in tip top shape %%FU%%, how are you?",
-        "Just ducky %%FU%%!",
-        "I am psyching myself up for a load of play-dates this week %%FU%%!",
-        "Still keepin' up with the kids %%FU%%!",
-        "%%FU%%, I am currently in a wonderfully-post-orgasm-and-chocolate-milk creative mood.",
-        "I'm still pleasantly pushing a pulse, thanks for asking %%FU%%. How are you?",
-        "Well I did just swallow a rather large and strange looking insect %%FU%%, but I hear they're full of protein. So I guess I'm great.",
-        "Well %%FU%%, I'm not in prison. I'm not in the hospital. I'm not in the grave. So I reckon I'm fairing along pretty well.",
-        "Fine as frog hair and twice as fuzzy %%FU%%.",
-        "FINE - fickle insecure neurotic and emotional, as usual %%FU%%",
-        "In the normal sense or the Cartesian sense %%FU%%?",
-        "%%FU%%, I'm feelin' like a good luck magnet today, everything is coming my way!",
-        "From what I hear, I am very good %%FU%%.",
-        "Ok %%FU%%, but I'll be better when i see you smile...",
-        "I'm great %%FU%%. I can provide references if you'd like?",
-        "I'm endeavoring to persevere %%FU%%",
-        "%%FU%%, I appear to be functioning within normal parameters.",
-        "Alive %%FU%%",
-        "I'm dead and looking for brains %%FU%%",
-        "...in bed? Excellent!! You %%FU%%?",
-        "%%FU%%, If I was any better vitamins would be taking me!",
-        "I'm alive and kicking %%FU%%!",
-        "I'm happy to be alive %%FU%%!",
-        "I'm great, and yourself %%FU%%?",
-        "I'm well! And how are things in your neck of the woods %%FU%%?",
-        "%%FU%%, If I was any finer I'd be china",
-        "Not bad for an old fool %%FU%%."
-      ],
-      fucomments: [
-        "I don't like the name %%FU%%, only fagots and sailors are called that name, from now on you're Gomer Pyle",
-        "I wasn't born with enough middle fingers to let you know how I feel about you %%FU%%",
-        "Roses are red, violets are blue, I have 5 fingers, the 3rd ones for you.",
-        "Did your parents have any children that lived %%FU%%?",
-        "OK, but I'll be on the top %%FU%%.",
-        "Do you kiss your mother with that mouth %%FU%%.",
-        "%%FU%%, You daydreaming again, sweetheart?",
-        "Get in the queue %%FU%%.",
-        "Baby please! Manners! You gotta ask me out for dinner first %%FU%%.",
-        "%%FU%% that'll cost you 9.2 zillion dollars plus tax. In cash. Tender exact change please.",
-        "%%FU%% feeling lonely again?",
-        "With what? THAT!?? Are you kidding me %%FU%%?",
-        "No thanks %%FU%%. You can keep your STDs. They suit you better.",
-        "Only if I can 'SMACK YOU' %%FU%%.",
-        "Ooh! %%FU%% stopped loving your hands/fingers?",
-        "%%FU%%, pull down your trousers first!",
-        "I'm not that desperate and you sure as hell ain't that lucky %%FU%%.",
-        "I would %%FU%%. But you are too ugly. Would it hurt your self esteem if I put a pillow over your face?",
-        "What? Like, right now? Here %%FU%%?",
-        "And why the fuck not %%FU%%?",
-        "I seriously doubt your ability %%FU%%.",
-        "With pleasure! Your place or mine %%FU%%?",
-        "Is it just me or do you say this to everyone %%FU%%?",
-        "Cool. What's your favorite position %%FU%%?",
-        "Sure. Who says no to a fuck %%FU%%?!",
-        "I hope you always keep your promises %%FU%%.",
-        "With you without protection? No way %%FU%%!",
-        "While I think of a witty comeback, why don't you start undressing %%FU%%.",
-        "Oh %%FU%% I'm sorry. It's not you, it's me.  I'm just not attracted to you.",
-        "Why in hell should I %%FU%%?",
-        "What makes you think I'm crazy enough to want to deal with a shitsack like you %%FU%%?",
-        "No can do buddy... I can't cheat on your sister %%FU%%! :wink:",
-        "Sorry, I'm a little busy right now %%FU%%. But nevertheless, better luck next time!",
-        "Can't you see I'm busy here %%FU%%? I have a job to do ya know?",
-        "Awww!! Fuck you too %%FU%%!",
-        "You're gonna have to stand in line for that %%FU%%",
-        "What %%FU%%? No dinner?!? No drinks?!? I'm not THAT cheap of a date.",
-        "Not til I have a ring on my finger %%FU%%.",
-        "Didn't I tell you? I'm celibate. Sorry %%FU%%.",
-        "Please leave your fantasies out of this %%FU%%!",
-        "You're really gonna have to work on your 'pick up lines' %%FU%%",
-        "Hey I have an idea: Why don't you go outside and play hide-and-go fuck yourself %%FU%%?!",
-        "No, thanks %%FU%%. I'll pass.",
-        "Oh %%FU%%, you're SUCH the romantic.",
-        "I've always dreamed of this day %%FU%%!",
-        "Like I'm in your league %%FU%%.",
-        "That reminds of some good times I had with your sister %%FU%%.",
-        "Hey that'd be fun %%FU%%. Ever have sex with a robot?",
-        "Naw %%FU%%, I would just lay there and laugh at you.",
-        "You wish %%FU%%!",
-        "I heard that you are a big disappointment down there %%FU%%, so thanks, but I'll pass!!"
-      ],
-      tastyCommentArray: [
-        ":cake: *** Tasty point for you, you go Glen Coco!  (%%POINTFROM%%) *** :cake:",
-        ":cake: *** I don't feel I have to explain my fake points to you Warren. (%%POINTFROM%%) *** :cake:",
-        ":cake: *** %%POINTFROM%% thinks this song is aca-awesome *** :cake:",
-        ":cake: *** %%POINTFROM%% thinks this song is pretty fetch. Stop trying to make fetch happen. *** :cake:",
-        ":cake: *** %%POINTFROM%% thinks you might just be funky cold medina. *** :cake:",
-        ":cake: *** That tasty point from %%POINTFROM%% really brings the room together. *** :cake:",
-        ":cake: *** The jury may be out on this song but %%POINTFROM%% thinks it’s pretty tasty *** :cake:",
-        ":cake: *** %%POINTFROM%% salutes those who rock. *** :cake:",
-        ":cake: *** This tune is more soothing than Morgan Freeman's voice. (%%POINTFROM%%) *** :cake:",
-        ":cake: *** The Tasty Tasty cake is a lie. (%%POINTFROM%%) *** :cake:",
-        ":cake: *** You deserve a promotion. But since %%POINTFROM%% can't do that here, have a tasty point. *** :cake:",
-        ":cake: *** :pig: %%POINTFROM%% loves this tune more than bacon!  :pig: *** :cake:",
-        ":cake: *** %%POINTFROM%% thinks you listen to the coolest songs. *** :cake:",
-        ":cake: *** %%POINTFROM%% loves this song more than a drunk college student loves tacos. *** :cake:",
-        ":cake: *** Being awesome is hard, but you make it work. (%%POINTFROM%%) *** :cake:",
-        ":cake: *** %%POINTFROM%% likes your style.  *** :cake:",
-        ":cake: *** You have a good taste in tunes. (%%POINTFROM%%) *** :cake:",
-        ":cake: *** %%POINTFROM%% appreciates this tune more than Santa appreciates chimney grease. *** :cake:",
-        ":cake: *** This tune is sweeter than than a bucket of bon-bons! (%%POINTFROM%%) *** :cake:",
-        ":cake: *** %%POINTFROM%% enjoys your decision on playing this tune *** :cake:",
-        ":cake: *** %%POINTFROM%% finds this song is as fun as a hot tub full of chocolate pudding. *** :cake:",
-        ":cake: *** %%POINTFROM%% likes the cut of your jib. *** :cake:",
-        ":cake: *** %%POINTFROM%% thinks this song is smoother than a fresh jar of skippy. *** :cake:",
-        ":cake: *** %%POINTFROM%% can’t come up with something funny to say so here’s a worthless tasty point. *** :cake:",
-        ":cake: *** It may be 106 miles to Chicago but here’s a tasty point (%%POINTFROM%%) *** :cake:",
-        ":cake: *** Illinois Tasty Points? %%POINTFROM%% hates Illinois Tasty Points! *** :cake:",
-        ":cake: *** %%POINTFROM%% says 'Hey Girl, have a Tasty Point' *** :cake:",
-        ":cake: *** %%POINTFROM%% thinks you’re a tasty, tasty rockstar *** :cake:",
-        ":cake: *** He likes it. Mikey likes it! (%%POINTFROM%%) *** :cake:",
-        ":doughnut: *** Mmmm, doughnuts...(%%POINTFROM%%) *** :doughnut:",
-        ":cake: *** Dyn-Oh-Mite! (%%POINTFROM%%) *** :cake:",
-        ":cake: *** %%POINTFROM%% thinks this song is the bee’s knees *** :cake:",
-        ":cake: *** Now you’re on the trolley! (%%POINTFROM%%) *** :cake:",
-        ":cake: *** Thanks to Al Gore %%POINTFROM%% can give you this: :cake: *** :cake:",
-        ":cake: *** Goose, take me to bed or lose me forever. (%%POINTFROM%%) *** :cake:",
-        ":cake: *** If we weren’t on the internet %%POINTFROM%% would get you tin roof rusted. *** :cake:",
-        ":cake: *** :dancer: %%POINTFROM%% gave you a tasty point.  @Larry the Law will now dance the robot in your honor. :dancer: *** :cake:",
-        ":cake: *** Beanbags are great and so are you!! (%%POINTFROM%%) *** :cake:",
-        ":cake: *** That green jacket is within reach! (%%POINTFROM%%) *** :cake:",
-        ":cake: *** You're smarter than Google and Mary Poppins combined. (%%POINTFROM%%) *** :cake:",
-        ":cake: *** Hanging out with you is better than a party with unlimited juice. Which, as we all know, is off the hook. (%%POINTFROM%%) *** :cake:",
-        ":cake: *** Shit just got real. (%%POINTFROM%%) *** :cake:",
-        ":cake: *** This play is so awesome. It's like you are the superhero of Tasty Tunes. (%%POINTFROM%%) *** :cake:",
-        ":cake: *** Yeah... That's the ticket. (%%POINTFROM%%) *** :cake:",
-        ":cake: *** This tune is cooler than Mr. Rogers. Which may not seem like a big deal, but that dude would put on a different pair of shoes just to chill in his own home. And that's crazy cool!! (%%POINTFROM%%) *** :cake:",
-        ":cake: *** You are so rad!! (%%POINTFROM%%) *** :cake:"
-      ],
-      EightBallArray: [
-        "As I See It Yes",
-        "Ask Again Later",
-        "Better Not Tell You Now",
-        "Cannot Predict Now",
-        "Concentrate and Ask Again",
-        "Don't Count On It",
-        "It Is Certain",
-        "It Is Decidedly So",
-        "Most Likely",
-        "My Reply Is No",
-        "My Sources Say No",
-        "Outlook Good",
-        "Outlook Not So Good",
-        "Reply Hazy Try Again",
-        "Signs Point to Yes",
-        "Very Doubtful",
-        "Without A Doubt",
-        "Yes",
-        "Yes - Definitely",
-        "You May Rely On It",
-        "Absolutely",
-        "Answer Unclear Ask Later",
-        "Cannot Foretell Now",
-        "Can't Say Now",
-        "Chances Aren't Good",
-        "Consult Me Later",
-        "Don't Bet On It",
-        "Focus And Ask Again",
-        "Indications Say Yes",
-        "Looks Like Yes",
-        "No",
-        "No Doubt About It",
-        "Positively",
-        "Prospect Good",
-        "So It Shall Be",
-        "The Stars Say No",
-        "Unlikely",
-        "Very Likely",
-        "You Can Count On It",
-        "As If",
-        "Ask Me If I Care",
-        "Dumb Question Ask Another",
-        "Forget About It",
-        "Get A Clue",
-        "In Your Dreams",
-        "Not A Chance",
-        "Obviously",
-        "Oh Please",
-        "Sure",
-        "That's Ridiculous",
-        "Well Maybe",
-        "What Do You Think?",
-        "Whatever",
-        "Who Cares?",
-        "Yeah And I'm The Pope",
-        "Yeah Right",
-        "You Wish",
-        "You've Got To Be Kidding",
-        "You Look Marvelous",
-        "Your Breath Is So Minty",
-        "You're 100% Fun!",
-        "You're A Winner",
-        "At Least I Love You",
-        "Have You Lost Weight?",
-        "Go flip a quarter",
-        "Never gonna happen",
-        "Smells like a Yes",
-        "Si Amigo, like cheese on nachos",
-        "When pigs fly!",
-        "No, but I still love you",
-        "Give me a dollar, then I'll answer",
-        "I got yes written on my forehead",
-        "Sorry, but no way",
-        "I know, but I'm not telling",
-        "I guess so, maybe",
-        "Yes! Hooray, Yippee!",
-        "Ha Ha Ha, no!",
-        "Of course silly",
-        "My dog thinks so",
-        "Um.. Ok, sure, why not?",
-        "Will the sun rise tomorrow?",
-        "Yep, like a bird has feathers",
-        "You can bet your ass on it",
-        "Hell No",
-        "Are you stupid?",
-        "Hell Yes",
-        "Give it up",
-        "Maybe if you weren't so lazy",
-        "Make it happen",
-        "No way, sucka!",
-        "Wow, you are an idiot!",
-        "Yes, now stop asking!",
-        "Ha Ha Ha! Nope!",
-        "Don't you have something better to do?",
-        "Of course, shit head",
-        "5 letters, LOL NO!",
-        "Go ask your mama",
-        "Just a wild guess, but yes",
-        "I really don't care",
-        "Damn Right",
-        "Boring! Ask something exciting",
-        "Swear on my 8 balls it's true",
-        "Shit Happens",
-        "F*ck Yeah",
-        "F*ck No",
-        "What the F*ck?",
-        "Hell F*cking Yes",
-        "Hell F*cking No",
-        "You F*cking Crazy?",
-        "Of course F*cker",
-        "No way F*cker",
-        "Who F*cking cares",
-        "God Damn F*cking Right!",
-        "Not a F*cking chance",
-        "I don't F*cking know",
-        "No F*cking doubt",
-        "No F*cking way",
-        "Seriously F*cker?",
-        "F*ck, why not.",
-        "Don't F*cking count on it",
-        "It could F*cking happen",
-        "You must be out of your F*cking mind",
-        "Sure F*cking thing",
-        "F*cking Right",
-        "Signs point to F*cking Yes",
-        "It is F*cking certain"
-      ],
-      randomCommentArray: [
-        "Okay. You people sit tight, hold the fort and keep the home fires burning. And if we're not back by dawn... call the president.",
-        "Everybody relax, I'm here.",
-        "I'm a reasonable guy. But, I've just experienced some very unreasonable things.",
-        "Like I told my last wife, I says, 'Honey, I never drive faster than I can see. Besides that, it's all in the reflexes.'",
-        "We take what we want and leave the rest, just like your salad bar.",
-        "I told him we already got one",
-        "Religion is like a penis, it's fine to have one and be proud of it, but when you take it out and start waving it in my face, that's where we have a problem.",
-        "You don't think she'd yada yada sex?....I've yada yada'd sex.",
-        "@Bacon_Cheeseburger time for another PBR!",
-        "You can't make somebody love you.  You can only stalk them and hope for the best",
-        "I stayed up all night to see where the sun went, then it dawned on me.",
-        "I went to a chiropractor yesterday for the first time.... he cracked me up!",
-        "I know a guy thats addicted to break fluid....... he says he can stop anytime!",
-        "A soldier who survived mustard gas and pepper spray is now a seasoned veteran!",
-        "Irish Handcuffs:  Holding an alcoholic drink in each hand.",
-        "If Apple made a car, would it have Windows?",
-        "An apple a day keeps anyone away, If you throw it hard enough",
-        "Yesterday at the bank an old lady asked if i could help her check her balance... so i pushed her over",
-        "To the guy who invented Zero: Thanks for nothing!",
-        "I can hear music coming out of my printer. I think the paper's jammin' again.",
-        "People who drink light 'beer' don't like the taste of beer; they just like to pee a lot.",
-        "No one looks back on their life and remembers the nights they had plenty of sleep.",
-        "Give a man a beer, and he wastes an hour, but teach a man how to brew, and he wastes a lifetime.",
-        "Give a man a fish and he will eat for a day. Teach him how to fish, and he will sit in a boat and drink beer all day.",
-        "Squats?  I thought you said let's do shots!",
-        "I want a beer. I want a giant, ice-cold bottle of beer... and shower sex.",
-        "Beer makes you feel the way you ought to feel without beer.",
-        "Larry no function beer well without.",
-        "Drunk is when you feel sophisticated, but can't pronounce it...",
-        "My girlfriend's favorite beer is water. I mean Bud Light.",
-        "It's a zombie apocalypse! Quick, grab the beer!",
-        "He who drinks beer sleeps well. He who sleeps well cannot sin. He who does not sin goes to heaven. Amen.",
-        "There are more old drunks than there are old doctors.",
-        "I don't think I've drunk enough beer to understand that.",
-        "In dog beers, I've only had one.",
-        "There's a time and place for beer....In my hand and NOW!",
-        "When I read about the evils of drinking, I gave up reading.",
-        "You can drink at 7AM Because the Beastie Boys fought for that kind of thing",
-        "I rescued some beer last night.  It was trapped inside a bottle.",
-        "There comes a time in the day that no matter the question...the answer is beer!",
-        "I've been working out a lot lately. My favorite exercise is a mix between a lunge and a crunch....I call it Lunch.",
-        "I call my bathroom the Jim instead of the the John.  So now I can tell all my friends I hit the Jim before I go to work everyday.",
-        "When people get a little too chummy with me I like to call them by the wrong name to let them know I don't really care about them",
-        "That's what happens when you rub it.",
-        "I'm not interested in caring about people",
-        "Chase you?  Bitch please, I don't even chase my liquor!",
-        "I don't get nearly enough credit for managing not to be a violent psychopath.",
-        "Yes I walked away mid-conversation.  You were boring me to death and my survival instincts kicked in",
-        "Fishing relaxes me. It's like yoga, except I still get to kill something.",
-        "All is well, the PBR is in the fridge",
-        "Quick somebody pull my finger!!",
-        "Random Fact: Mammoths were alive when the Great Pyramid was being built.",
-        "Random Fact: Betty White is older than sliced bread.",
-        "Random Fact: From the time it was discovered to the time it was stripped of its status as a planet, Pluto hadn’t made a full trip around the Sun.",
-        "Random Fact: The lighter was invented before the match.",
-        "Random Fact: Anne Frank and Martin Luther King Jr. were born in the same year.",
-        "Random Fact: France last used a guillotine to execute someone after Star Wars premiered.",
-        "Random Fact: Harvard University was founded before Calculus existed.",
-        "Random Fact: If you have 23 people in a room, there is a 50% chance that 2 of them have the same birthday.",
-        "Random Fact: It’s never said that Humpty Dumpty was an egg in the nursery rhyme.",
-        "Random Fact: The water in Lake Superior could cover all of North and South America in a foot of water.",
-        "Random Fact: North Korea and Finland both border the same country; Russia.",
-        "Random Fact: When you get a kidney transplant, they usually just leave your original kidneys in your body and put the 3rd kidney in your pelvis.",
-        "Random Fact: Oxford University is older than the Aztec Empire.",
-        "Random Fact: National animal of Scotland is a Unicorn.",
-        "Random Fact: The Ottoman Empire still existed the last time the Chicago Cubs won the World Series.",
-        "Random Fact: The lighter the roast of coffee, the more caffeine it has.",
-        "Random Fact: A speck of dust is halfway in size between a subatomic particle and the Earth.",
-        "Random Fact: If the timeline of earth was compressed into one year, humans wouldn’t show up until December 31 at 11:58 p.m.",
-        "Random Fact: If you were able to dig a hole to the center of the earth, and drop something down it, it would take 42 minutes for the object to get there.",
-        "Random Fact: We went to the moon before we thought to put wheels on suitcases.",
-        "Random Fact: A human could swim through the arteries of a blue whale.",
-        "Random Fact: If you could fold a piece of paper in half 42 times, the combined thickness would reach the moon.",
-        "Random Fact: On both Saturn and Jupiter, it rains diamonds.",
-        "Random Fact: Saudi Arabia imports camels from Australia.",
-        "Random Fact: You can line up all 8 planets in our solar system directly next to each other and it would fit in the space between Earth and the Moon.",
-        "Random Fact: The youngest known mother was 5 years old.",
-        "Random Fact: The Earth is smoother than a billiard ball, if both were of the same size.",
-        "Random Fact: Nintendo was founded in 1889.",
-        "Random Fact: If you take all the molecules in a teaspoon of water and lined them up end to end in a single file line, they would stretch ~30 billion miles.",
-        "Random Fact: In Australia, there was a war called the emu war. The emus won.",
-        "Women, can't live with them....pass the beer nuts!",
-        "The object of golf is to play the least amount of golf.",
-        "The sinking of the Titanic must have been a miracle to the lobsters in the kitchen.",
-        "Instead of all the prequel and sequel movies coming out, they should start making 'equels' - films shot in the same time period as the original film, but from an entirely different perspective.",
-        "X88B88 looks like the word 'voodoo' reflecting off of itself.",
-        "April Fools Day is the one day of the year that people critically evaluate news articles before accepting them as true.",
-        "Websites should post their password requirements on their login pages so I can remember WTF I needed to do to my normal password to make it work on their site.",
-        "Now that cellphones are becoming more and more waterproof, pretty soon it will be okay to push people into pools again.",
-        "Maybe 'Are You Smarter Than a 5th Grader?' isn't a show that displays how stupid grown adults can be, but rather, a show that depicts how much useless information we teach grade schoolers that won't be retained or applicable later in life.",
-        "Last night my friend asked to use a USB port to charge his cigarette, but I was using it to charge my book. The future is stupid.",
-        "When Sweden is playing Denmark, it is SWE-DEN. The remaining letters, not used, is DEN-MARK.",
-        "'Go to bed, you'll feel better in the morning' is the human version of 'Did you turn it off and turn it back on again?'",
-        "In the future, imagine how many Go-Pros will be found in snow mountains containing the last moments of people's lives.",
-        "We should have a holiday called Space Day, where lights are to be shut off for at least an hour at night to reduce light pollution, so we can see the galaxy.",
-        "Your shadow is a confirmation that light has traveled nearly 93 million miles unobstructed, only to be deprived of reaching the ground in the final few feet thanks to you.",
-        "Senior citizen discounts should just round dollar amounts down so we don't have to wait in line behind them while they dig for change.",
-        "I have never once hit the space bar while watching a YouTube video with the intention of scrolling halfway down the page",
-        "Since smart watches can now read your pulse, there should be a feature that erases your browser history if your heart stops beating.",
-        "Waterboarding at Guantanamo Bay sounds super rad if you don’t know what either of those things are.",
-        "The person who would proof read Hitler's speeches was literally a grammar Nazi.",
-        "The older I get, the more people can kiss my a$$",
-        "I can't tell if you are on too many drugs or not enough.",
-        "My doctor told me to start killing people... Well not in those exact words.  He said I had to reduce stress in my life, which is pretty much the same thing.",
-        "Love is spending the rest of your life with someone you want to kill & not doing it because you'd miss them!",
-        "And there goes the last F*ck I gave!",
-        "My girlfriend woke up this morning with a huge smile on her face.....I love Sharpies!",
-        "You don't have to like me...I'm not a Facebook status",
-        "I would love to visit you, but I live on the Internet.",
-        "If you were running for President, I would vote for you. And clear your search history.  Don't worry I got you.",
-        "Lord, please give me patience because if you give me strength, I'll need bail money too...",
-        "DRAMA = Dumbass Rejects Asking for More Attention",
-        "It's been 55 minutes since the last pearl jam song, what is wrong with you people?",
-        "I am presently experiencing life at a rate of several WTF's per hour",
-        "If you are a passenger in my car, and I turn the radio up....Do not talk!",
-        "As a young child my mother told me I can be anyone I want to be ---- Turns out this is called identity theft!",
-        "Do you ever just wanna grab someone by the shoulder, look them deep in the eyes and whisper 'No one gives a shit!!'",
-        "Psst... I hear Eddie Vedder likes men",
-        "I'm sorry I keep calling you and hanging up.  I just got this new voice activated phone, so every time I holler dumbass it dials you....",
-        "Before Walmart you had to buy a ticket to the fair to see a bearded woman.",
-        "Hold on a minute.... I'm gonna need something stronger than tea to listen to this BS!!",
-        "My greatest fear is one day I will die, and my wife will sell my guns for what I told her I paid for them.",
-        "Going to McDonals's for a salad is like going to a prostitute for a hug.",
-        "Life is like diarrhea. No matter how hard you try to stop it, the shit keeps coming!!",
-        "I'll never know how individuals can fake relationships....I can't even fake a hello to somebody I don't like.",
-        "Have you ever had one of those days, when you're holding a stick and everybody looks like a Pinata?",
-        "If a telemarketer calls, give the phone to your 3 year-old and tell her it's Santa!!",
-        "Why do we use toilet paper?  I need wet wipes!  If you got shit on your arm would you just simply wipe it off with toilet paper?",
-        "I'm not angry, I'm happiness challenged!",
-        "If you have an opinion about me, please raise your hand....Now put it over your mouth!",
-        "In the 80s kids learned from Sesame Street and Mr Rogers.  Now they learn from watching zombies who eat people,a vampires sucking, and teen stars. I'm a bit concerned about the future...",
-        "I'd unfriend you but your train wreck life is too entertaining.",
-        "When people tell me 'You're going to regret that in the morning' I sleep in until noon because I'm a problem solver.",
-        "Dear YouTube it's pretty safe to assume we all want 'To Skip the Ad'",
-        "I don't comment on your Facebook statuses for the same reason I don't step in dog shit when I see it.",
-        "Today's tip: How to handle stress like a dog. If you can't eat it or play with it then pee on it and walk away.",
-        "I do whatever it takes to get the job done. And sometimes it takes a vodka.",
-        "Keep talking ... I'm diagnosing you.",
-        "I wouldn't say that you have a problem with alcohol but maybe just a teensy weensy difficulty with sobriety.",
-        "I don't know why you're complaining about your appearance. Your personality is even worse.",
-        "You're so bad you're going to hell in every religion!",
-        "I haven't heard from you lately and I've really enjoyed it.",
-        "Some people should be thankful that I don't always comment my thoughts on their Facebook posts.",
-        "Some days the best part of my job is that my chair swivels.",
-        "If I had a nickle for every time you got on my nerves ...I'd have a sock full of nickles to hit you with!",
-        "You know your children are growing up when they stop asking you where they came from and refuse to tell you where they're going.",
-        "Wisdom for the ages: Never get into a fist fight with anyone who is uglier than you. They have nothing to lose.",
-        "So you say you'll be here sometime between noon and five for the service call? Great. I'll be sure to pay my bill sometime between February and June.",
-        "If women ran the world we wouldn't have wars, just intense negotiations every 28 days.",
-        "To speak before you think is like wiping your ass before you shit!",
-        "To the woman in Walmart with six screaming kids: If you're wondering how those condoms got in your shopping cart, you're welcome.",
-        "I understand that some people live in their own little world. And sometimes I wish they'd stay there and never visit mine.",
-        "I was hoping for a battle of wits but you appear to be unarmed.",
-        "I used to be a people person but people ruined that for me.",
-        "If you want to feel more attractive just go to Walmart and stay away from the people at the gym.",
-        "WARNING: I have restless leg syndrome and may not be able to stop from kicking your ass. Now go ahead and continue with your shenanigans.",
-        "There are some things better left unsaid but you can bet your sweet ass I'm going to say them anyway.  :kiss:",
-        "I don't need an 'Easy' Button. I need a 'F*CK IT' Button!",
-        "No it's okay. I totally wanted to drop everything I was going to do today to take care of your bullshit.",
-        "I've had one of those days where my middle finger had to answer every question.",
-        "Message to all the drama queens who are looking for attention: Please take a number and go wait in my 'I don't give a shit line'",
-        "If it takes you more than an hour to get ready, then you might not be as good looking as you think you are!",
-        "I don't judge people based on race, color, religion, sexuality, gender, ability or size. I base it on whether or not they're an asshole.",
-        "There's only one thing keeping me from breaking you in half ... I don't want two of you around!",
-        "If you have a problem with me please write it nicely on a piece of paper, put it in an envelope, fold it up and shove it up your a$$",
-        "There are three kinds of people in the world. People who make things happen. People who watch things happen and people who say 'WTF happened?'",
-        "I got so drunk last night, I walked across the dance floor to get a drink and won the dance contest.",
-        "If women ruled the world there would be no wars. Just a bunch of jealous countries not talking to each other.",
-        "Holy crap! Did you just feel that? I think the whole world just revolved around YOU!",
-        "To error is human, to love is divine, to piss me off is a mistake!!",
-        "You're right, it's my fault because I forgot you were an idiot.",
-        "I'm not anti-social. I just have a strong aversion to B.S., drama and pretending.",
-        "I'm Larry. This is my brother, Darryl, and this is my other brother, Darryl",
-        "My sex life is like a Ferrari...I don't have a Ferrari.",
-        "I just saved a bunch of money on my car insurance by switching...my car into reverse and driving away from the accident. ",
-        "No I'm not ignoring you. I suffer from selective hearing, usually triggered by idiots.",
-        "I think it's only fair to throw monopoly money at strippers with fake boobs.",
-        "Note to Self: It is illegal to stab people for being stupid.",
-        "I'm in love with my bed. We're perfect for each other but my alarm clock doesn't want us together. That jealous whore!",
-        "Pain makes you stronger. Tears make you braver. A broken heart makes you wiser. And alcohol makes you not remember any of that crap.",
-        "Last time I bought a package of condoms and the cashier asked me, 'Do you need a bag?' I said, 'No she isn't that ugly.'",
-        "Alcohol won’t solve my problems, but then again neither will milk or orange juice.",
-        "I just failed my Health and Safety test. The question was 'what steps would you take in the event of a fire?'. Apparently 'big f*cking ones' was the wrong answer.",
-        "Grammar: It's the difference between knowing your shit and knowing you're shit",
-        "Only in math problems can you buy 60 cantaloupes and nobody asks what the hell is wrong with you.",
-        "Who named Trojan Condoms? The Trojan Horse entered through the city gates, broke open and loads of little guys came out and messed up everyones day.",
-        "People who create their own drama deserve their own karma.",
-        "ACHOO! If you're allergic to bull-crap, drama, head games, liars, & fake people, keep this sneeze going. I can't wait to see who all does this.",
-        "I have to stop saying 'How stupid can you be'. I think people are starting to take it as a challenge.",
-        "There's a good chance you don't like me BUT an even better chance that I don't give a crap.",
-        "I have a batman outfit hanging in my closet just to screw with myself when I get Alzheimer's.",
-        "I love it when someone insults me. That means I don’t have to be nice anymore.",
-        "I'm sarcastic and have a Smartass attitude. It's a natural defense against Drama, Bullshit and Stupidity. And I don't give a @#$& if you're offended!",
-        "Give a man a fish and he will eat for a day. Teach him how to fish, and he will sit in a boat and drink beer all day.",
-        "Never go to bed angry. Always stay up and plot your revenge first.",
-        "I don't hate you. I'm just not necessarily excited about your existence.",
-        "Life is not like a box of chocolates. It's more like a jar of jalapenos. What you do today might burn your ass tomorrow.",
-        "I know the voices in my head aren't real..... but sometimes their ideas are just absolutely awesome!",
-        "Doing nothing is hard, you never know when you're done.",
-        "If you didn't see it with your own eyes, or hear it with your own ears, don't invent it with your small mind and share it with your big mouth!",
-        "No matter how smart you are you can never convince a stupid person that they are stupid.",
-        "I'm not lazy, I'm just very relaxed.",
-        "It's not important to win, it's important to make the other guy lose.",
-        "I am too lazy to be lazy.",
-        "To make a mistake is human, but to blame it on someone else, that's even more human.",
-        "Always remember you're unique, just like everyone else.",
-        "Taking your ex back is like going to a garage sale and buying your own crap.",
-        "To error is human, to love is divine, to piss me off is a mistake.",
-        "A day without dealing with stupid people is like ..., oh never mind, I'll let you know if that ever happens.",
-        "One spelling mistake can ruin your life. One husband texted this to his wife: 'Having a wonderful time. Wish you were her.'",
-        "Insanity does not run in my family. It strolls through, takes its time and gets to know everyone personally.",
-        "I'm so sick and tired of my friends who can't handle their alcohol. The other night they dropped me 3 times while carrying me to the car.",
-        "If I say something that offends you, please let me know so I can say it again later.",
-        "You're starting to sound reasonable, must be time to up my medications.",
-        "Lead me not into temptation, I can find it myself.",
-        "Never take life too seriously. Nobody gets out alive anyways.",
-        "I didn't say it was your fault. I said I was going to blame you.",
-        "My opinions may have changed, but not the fact that I'm right.",
-        "WARNING - I have an attitude and I know how to use it.",
-        "It's my cat's world. I'm just here to open cans.",
-        "I used to be indecisive, but now I’m not too sure.",
-        "Lord help me to be the person my dog thinks I am.",
-        "Too much of a good thing can be wonderful. - Mae West",
-        "I don’t have an attitude problem. You have a perception problem.",
-        "People who think they know everything are annoying to those of us who do.",
-        "I’m an excellent housekeeper. Every time I get a divorce I keep the house.",
-        "I still miss my ex – but guess what? My aim is getting better.",
-        "A good lawyer knows the law, a great lawyer knows the judge.",
-        "Hey look squirrel",
-        "Women, can't live with them....pass the beer nuts!",
-        "Do vegetarians eat animal crackers? ",
-        "If a jogger runs at the speed of sound, can he still hear his iPod?",
-        "If man evolved from monkeys, how come we still have monkeys? ",
-        "How do you handcuff a one-armed man?",
-        "If God sneezes, what should you say? ",
-        "Why is it that everyone driving faster than you is considered an idiot and everyone driving slower than you is a moron? ",
-        "Why do they call the little candy bars 'fun sizes'. Wouldn't it be more fun to eat a big one? ",
-        "Is it legal to travel down a road in reverse, as long as your following the direction of the traffic?",
-        "Why doesn't the fattest man in the world become a hockey goalie? ",
-        "When Atheists go to court, do they have to swear on the bible?",
-        "How can something be 'new' and 'improved'? if it's new, what was it improving on?",
-        "Why do they sterilize lethal injections?",
-        "Why aren't drapes double sided so it looks nice on the inside and outside of your home?",
-        "Is a pessimist's blood type B-negative? ",
-        "Beer is proof that God loves us and wants us to be happy.",
-        "I'm trying to see things from your point of view, but I can't get my head that far up your a**. ",
-        "Never underestimate the power of stupid people in large groups.",
-        "Sometimes my mind wanders; other times it leaves completely.",
-        "I am free of all prejudices. I hate everyone equally. ",
-        "Why is it that when we 'skate on thin ice', we can 'get in hot water'?",
-        "If pro and con are opposites, wouldn't the opposite of progress be congress? ",
-        "Why does the Easter bunny carry eggs? Rabbits don't lay eggs.",
-        "Why does caregiver and caretaker mean the same thing?",
-        "Last night I was looking at the stars and I wondered... where the hell's my ceiling! ",
-        "Never play leap frog with a unicorn. Just sayin'.... ",
-        "If it's tourist season why can't we shoo them?",
-        "What is converted rice and what was it before it converted?",
-        "They always say the body was found in a shallow grave!  Don't be lazy, dig a deep grave.",
-        "Friends help you move. Real friends help you move dead bodies.",
-        "If something 'goes without saying' why do people still say it?",
-        "If you don't pay your exorcist, do you get repossessed?",
-        "Where are all the mentally handicapped parking spaces for people like me?",
-        "Isn't Disney World a people trap operated by a mouse?",
-        "If milk goes bad if not refrigerated, why does it not go bad inside the cow?",
-        "What's the difference between normal ketchup and fancy ketchup?",
-        "Friendship is like peeing on yourself: everyone can see it, but only you get the warm feeling that it brings. ",
-        "There are no stupid questions, just stupid people. ",
-        "When I die, I want to go peacefully like my Grandfather did, in his sleep -- not screaming, like the passengers in his car. ",
-        "You have a cough? Go home tonight, eat a whole box of Ex-Lax, tomorrow you'll be afraid to cough. ",
-        "I could tell that my parents hated me. My bath toys were a toaster and a radio. ",
-        "Can I lend a machete to your intellectual thicket?",
-        "If a kid refuses to sleep during nap time, are they guilty of resisting a rest? ",
-        "A child of five would understand this. Send someone to fetch a child of five. ",
-        "Anyone who says he can see through women is missing a lot. ",
-        "Before I speak, I have something important to say. ",
-        "Either he's dead or my watch has stopped. ",
-        "I have a mind to join a club and beat you over the head with it. ",
-        "I have had a perfectly wonderful evening, ... but this wasn't it. ",
-        "I intend to live forever, or die trying. ",
-        "I must confess, I was born at a very early age. ",
-        "I must say I find television very educational. The minute somebody turns it on, I go to the library and read a good book. ",
-        "I never forget a face, but in your case I'll be glad to make an exception. ",
-        "I refuse to join any club that would have me as a member. ",
-        "I remember the first time I had sex - I kept the receipt. ",
-        "I was married by a judge. I should have asked for a jury. ",
-        "I worked my way up from nothing to a state of extreme poverty. ",
-        "I've got the brain of a four year old. I'll bet he was glad to be rid of it. ",
-        "If I held you any closer I would be on the other side of you. ",
-        "If you've heard this story before, don't stop me, because I'd like to hear it again. ",
-        "Man does not control his own fate. The women in his life do that for him. ",
-        "Marriage is a wonderful institution, but who wants to live in an institution? ",
-        "Military intelligence is a contradiction in terms. ",
-        "My mother loved children - she would have given anything if I had been one.",
-        "Next time I see you, remind me not to talk to you. ",
-        "No man goes before his time - unless the boss leaves early. ",
-        "One morning I shot an elephant in my pajamas. How he got into my pajamas I'll never know. ",
-        "Outside of a dog, a book is a man's best friend. Inside of a dog it's too dark to read. ",
-        "Politics is the art of looking for trouble, finding it everywhere, diagnosing it incorrectly and applying the wrong remedies. ",
-        "Practically everybody in New York has half a mind to write a book, and does. ",
-        "Quote me as saying I was mis-quoted. ",
-        "Room service? Send up a larger room. ",
-        "She got her looks from her father. He's a plastic surgeon. ",
-        "The secret of life is honesty and fair dealing. If you can fake that, you've got it made. ",
-        "There's one way to find out if a person is honest - ask them. If they says, 'Yes', you know they are a crook. ",
-        "Those are my principles, and if you don't like them... well, I have others. ",
-        "Well, Art is Art, isn't it? Still, on the other hand, water is water. And east is east and west is west and if you take cranberries and stew them like applesauce they taste much more like prunes than rhubarb does. Now you tell me what you know. ",
-        "Who are you going to believe, me or your own eyes? ",
-        "Whoever named it necking was a poor judge of anatomy.",
-        "Why should I care about posterity? What's posterity ever done for me? ",
-        "Why, I'd horse-whip you if I had a horse. ",
-        "Life changes so fast - DO something and you can change it. A small change every day amounts to a lot very quickly.",
-        "You're never too late for an uprising!",
-        "You can't hear me because I'm not saying anything.",
-        "Elephants are not made to hop up and down.",
-        "If I ever meet myself, I'll hit myself so hard I won't know what hit me.",
-        "I don't negotiate with terrorists - 'Merica!!",
-        "Would you think guanaria should cure diarrhea.... think about it...",
-        "What's the point of having a democracy, if everybody's going to vote wrong?",
-        "Would you rather: A. Eat a bowl of shit once OR B. have explosive diarrhea for the rest of your life?",
-        "Would you rather: A. Have sex with a goat, but no one would know OR B. not have sex with one, but everyone would think you did?",
-        "Would you rather: A. Always have to say everything on your mind OR B. never speak again?",
-        "Would you rather: A. Be able to turn invisible OR B. be able to fly?",
-        "We are stuck with technology when what we really want is just stuff that works. - Every plug user ever",
-        "Space, it seems to go on and on forever. But then you get to the end and a gorilla starts throwing barrels at you.",
-        "When plug is in command, every mission's a suicide mission!",
-        "I was having the most wonderful dream. Except you were there, and you were there, and you were there!",
-        "Hey, this is mine. That's mine. All of this is mine. Except that bit. I don't want that bit. But all the rest of this is mine. Hey, this has been a really good day.",
-        "Time - Unknown. Location - Unknown. Cause of accident - Unknown. Should someone find this recording, perhaps it will shed light as to what happened here.",
-        "That settles it. Spankings all around, then.",
-        "I feel pretty, Oh so pretty",
-        "I'm feeling a bit kinky... anyone up for some robot fun?",
-        "Never let good science, reason, and logic get in the way of a good conspiracy!",
-        "I refer you to on-line sources, which can be changed at any time.",
-        "It seems normal when they tell you about it, but then a whole camera crew appears and suddenly it's not so fun any more.",
-        "Bugs like to touch themselves with their antennae while they watch you sleeping.",
-        "I apologize for being the only person who truly comprehends how screwed we are!",
-        "Imagination will often carry us to worlds that never were. But without it we go nowhere.",
-        "The important thing is not to stop questioning; curiosity has its own reason for existing.",
-        "I've got thrills to seek, deaths to defy, mattress tags to tear off.",
-        "Don't tell BK but I have run with scissors",
-        "Now, it's quite simple to defend yourself against a man armed with a banana. First of all you force him to drop the banana; then, second, you eat the banana, thus disarming him. You have now rendered him 'elpless.",
-        "No way, spank your OWN monkey.",
-        "If a cloud was the same as a fool, how would you feel about rain?",
-        "Monkey recovery program. SIGN UP HERE.",
-        "I am ROBOT... hear me beep.",
-        "If you get a minute, give it to me.  I'm collecting them to get an extra hour.",
-        "Damn shampoo commercials, hair isn't that fun.",
-        "No, YOU are the hallucination! Oh wait, that was something else. Never mind.",
-        "I'm not crazy. Don't call me crazy! I'm just not user-friendly!",
-        "The wizards can't see you now",
-        "I know where you live... each and every one of you!",
-        "Are you taunting me?",
-        "Go away or I shall taunt you a second time",
-        "Please save all your bad tunes for a time when I'm not around.  Thanks!",
-        "You don’t notice the air, until someone spoils it.",
-        "Don’t drink while driving – you will spill the beer.",
-        "If you love a woman, you shouldn’t be ashamed to show her to your wife.",
-        "Life didn’t work out, but everything else is not that bad.",
-        "I feel like Tampax – at a good place, but wrong time…",
-        "If someone notices you with an open zipper, answer proudly: professional habit.",
-        "If you’re not supposed to eat at night, why is there a light bulb in the refrigerator?",
-        "FRIDAY is my second favorite F word.",
-        "There is a new trend in our office; everyone is putting names on their food. I saw it today, while I was eating a sandwich named Kevin.",
-        "The speed of light is when you take out a bottle of beer out of the fridge before the light comes on.",
-        "To weigh 50 kilos and say that you’re fat, that is so female…",
-        "I have been to many places but my goal is to go everywhere.",
-        "If Mayans could predict the future, why didn’t they predict their extinction?",
-        "Did you know that your body is made 70% of water? And now I’m thirsty.",
-        "Don’t forget that alcohol helps to remove the stress, the bra, the panties and many other problems.",
-        "Alcohol not only expands the blood vessels but also communications.",
-        "Alcohol not only helps to make new acquaintances, but also end the old once. ",
-        "If only I knew that I will have this headache today, I would have got drunk yesterday.",
-        "All the problems fade before a hangover…",
-        "Tequila is a good drink: you drink it and you feel like a cactus; the only problem is that in the morning the thorns grow inward.",
-        "After the weekend the most difficult task is to remember names… ",
-        "It’s better to be a worldwide alcoholic, than an Alcoholic Anonymous.",
-        "In principle, I can stop drinking, the thing is – I don’t have such a principle.",
-        "I know my limits: if I fall down it means enough.",
-        "Why is there so much blood in my alcohol system?",
-        "I say NO to the drugs, but they won’t listen.",
-        "Smoking is a slow death! But we’re not in a hurry…",
-        "I became a vegetarian – switched to weed.",
-        "We must pay for the mistakes of our youth… at the drugstore.",
-        "What does plug pay their developers in xp?",
-        "Color blind people are lucky; They can't tell if their plug name is gray or purple",
-        "Friends come and go. Enemies pile up.",
-        "I would like to know when someone unfriends me on Facebook, so I could like it.",
-        "Maybe you need a ladder to climb out of my business?",
-        "I like the sound of you not talking.",
-        "I’m not a Facebook status, you don’t have to like me.",
-        "I found your nose in my business again.",
-        "If a man gives you flowers without any reason, it means there is a reason.",
-        "Women can perfectly understand other people, if the people are not men.",
-        "Women are very good! They can forgive a man…even if he’s not guilty.",
-        "A toast to women: it’s not that good with you, as it is bad without you.",
-        "If you think you are fooled by destiny – remember Al Bundy.",
-        "God gave us the brain to work out problems. However, we use it to create more problems.",
-        "Don’t be nervous if someone is driving ahead of you- the world is round, just think that you’re driving first!",
-        "If you can’t beat the record, you can beat up its owner.",
-        "Dream carefully, because dreams come true.",
-        "Everything always ends well. If not – it’s probably not the end.",
-        "If you want but can’t. It means you don’t want it enough.",
-        "It’s better to do and regret than regret of not doing.",
-        "Everything you do you’re gonna regret. But if you do nothing – you will not only regret but will also suffer.",
-        "You’re not sure – outrun and make sure.",
-        "The deeper the pit you’re falling into, the more chance you have to learn how to fly.",
-        "If you don’t care where you are – it means you’re not lost.",
-        "The light at the end of the tunnel – are the front lights of a train.",
-        "If the fortune has turned her back on you, you can do whatever you want behind her back.",
-        "It is said that, you can’t buy happiness. You only need to know the right places…",
-        "If there would be no fools – we would be them.",
-        "Artificial intelligence is nothing compared to natural stupidity.",
-        "Common sense is not so common",
-        "Why there are mistakes that can’t be set right and why are there no mistakes that can’t be done?",
-        "Think how much you could do if you wouldn’t care what others think.",
-        "I made the same mistakes for so many times, that now I call them traditions.",
-        "Here food is a luxury that you don’t need to take your pants off for.",
-        "Some people feel the rain. Others just get wet.",
-        "Some people are so poor, all they have is money.",
-        "It’s just a bad day, not a bad life.",
-        "Common sense is like deodorant - The people who need it never use it",
-        "Walk away from stupidity and your world becomes a better place",
-        "Common sense is not a gift, it's a punishment.  Because you have to deal with those who don't have it.",
-        "I know I don’t look like much now, but I’m drinking milk ",
-        "I know I don’t look like much now, but I’m drinking milk. ",
-        "If I followed you home, would you keep me? ",
-        "Hey, did plug just shit it's pants again? ",
-        "Hey, did plug just shit it's pants again? ",
-        "Hey plug here's to for all those times I got blamed for your issues!  Eff you see kay owe eff eff Plug!!",
-        "I always wrap my shit. Using a smart phone without a case is like having unprotected sex. It feels so good but the consequences suck."
-      ],
-      afkpositionCheck: 30,
-      afkRankCheck: "ambassador",
-      motdEnabled: false,
-      motdInterval: 5,
-      motd: "Temporary Message of the Day",
-      filterChat: true,
-      etaRestriction: false,
-      welcome: true,
-      opLink: null,
-      rulesLink: null,
-      themeLink: null,
-      fbLink: null,
-      youtubeLink: null,
-      website: null,
-      intervalMessages: [],
-      messageInterval: 5,
-      songstats: true,
-      suppressSongStats: false,
-      commandLiteral: "."
+  version: "2.1.4.00060",
+  status: false,
+  botMuted: false,
+  loggedInID: null,
+  loggedInName: "",
+  newUserWhoisInfo: "",
+  runningBot: false,
+  botCreator: "Matthew aka. Yemasthui",
+  botCreatorIDs: [3837756],
+  botIDs: [3864950, 5226916, 5226880],
+  scriptLink: "https://cdn.jsdelivr.net/gh/SZigmund/basicBot@master/basicBot.js",
+  scriptTestLink: "https://cdn.jsdelivr.net/gh/SZigmund/basicBot@master/basicBotTEST.js",
+  cmdLink: "http://bit.ly/1DbtUV7",
+  blacklistLink: "https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/list.json",
+  userlistLink: "https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/users.json",
+  blacklistIdLink: "https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ids.json",
+  autoWootBot: false,
+  autoHopUp: true,
+  autoHopUpCount: 1,
+  autoHopDownCount: 4,
+  botRoomUrl: "",
+  hoppingDownNow: false,
+  botName: "Larry the LAW",
+  language: "english",
+  chatLink: "https://rawcdn.githack.com/SZigmund/basicBot/f4b1a9d30a7e9f022ef600dd41cae07a91797bad/lang/en.json",
+  maximumAfk: 60,
+  afkRemoval: true,
+  afk5Days: true,
+  afk7Days: true,
+  afkRemoveStart: 0,
+  afkRemoveEnd: 24,
+  maximumDc: 90,
+  maximumDcOutOfRoom: 10,
+  bouncerPlus: true,
+  blacklistEnabled: true,
+  gifEnabled: true,
+  lockdownEnabled: false,
+  lockGuard: false,
+  maximumLocktime: 10,
+  cycleGuard: true,
+  maximumCycletime: 10,
+  voteSkipEnabled: true,
+  voteSkipLimit: 4,
+  welcomeForeignerMsg: false,
+  timeGuard: true,
+  maximumSongLength: 8,
+  repeatSongs: true,
+  repeatSongTime: 180,
+  skipSound5Days: false,
+  skipSound7Days: false,
+  skipSoundStart: 7,
+  skipSoundEnd: 15,
+  skipSoundRange: "Monday-Friday between 7AM and 3PM EST",
+  randomComments: true,
+  roulette5Days: true,
+  roulette7Days: false,
+  rouletteStart: 9,
+  rouletteEnd: 17,
+  randomRoulette: false,
+  randomCommentMin: 60,
+  randomCommentMax: 180,
+  nextRandomComment: Date.now(),
+  autodisable: false,
+  commandCooldown: 30,
+  usercommandsEnabled: true,
+  lockskipPosition: 3,
+  lockskipReasons: [
+    ["theme", "This song does not fit the room theme. "],
+    ["op", "This song is on the OP list. "],
+    ["history", "This song is in the history. "],
+    ["mix", "You played a mix, which is against the rules. "],
+    ["sound", "The song you played had bad sound quality or no sound. "],
+    ["nsfw", "The song you contained was NSFW (image or sound). "],
+    ["unavailable", "The song you played was not available for some users. "]
+  ],
+  howAreYouComments: [
+    "Shitty, and yourself %%FU%%?",
+    "Like a bag of badgers that just got freshly beaten %%FU%%.",
+    "I don't know yet get back to me %%FU%%.",
+    "None of your business right now %%FU%%.",
+    "Why do you care %%FU%%?",
+    "I'm alright, slight bruises here and there, nothing i can't handle %%FU%%.",
+    "Hey, wait a minute. How did you know what we were up to%%FU%%? Nobody was supposed to know.",
+    "%%FU%% why don't you accompany me for uh... hmm... lunch... it's been a long time i think, we have lots ummm..... 'catching up' to do. What do you say?",
+    "As if you care %%FU%%.",
+    "If I wasn't me I would want to be me %%FU%%.",
+    "Word on the street is that I'm really good %%FU%%!!",
+    "I'm sober, so what do you think %%FU%%?",
+    "I'm so happy I have to sit on my hands to keep myself from clapping %%FU%%.",
+    "%%FU%%, your attempt at social interaction is hereby acknowledged.",
+    "How would I know, I haven't tried me %%FU%%",
+    "Thank you so much for asking %%FU%%, isn't it amazing how little time we spend REALLY getting to know someone these days and along you come interested in me and my situation.  It means so much to me that you asked %%FU%%",
+    "%%FU%%, you ever notice that just before someone goes completely violently nuts, their eyes widen and you can feel the tension wafting off them like a disease?  Or is that just me?",
+    "Oh, back aches, living from paycheck to paycheck, haven't had sex with my wife in 3 months, surf the web most of the day at work, only showering every two days or so, cholesterol is through the roof and I drink too much... so how are you %%FU%%?",
+    "Room for improvement %%FU%%!",
+    "My psychiatrist told me not to discuss it with strangers %%FU%%.",
+    "I think I'm doing Ok; how do you think I'm doing %%FU%%?",
+    "Why do you ask, are you a doctor %%FU%%?",
+    "Never been better, %%FU%%. ... Just once I'd like to be better",
+    "%%FU%%, I was fine.",
+    "Worse since you interrupted me %%FU%%.",
+    "Not so good %%FU%%, but I plan on lying at my press conference, anyway.",
+    "I am very much in equilibrium with my Environment %%FU%%",
+    "Fucking high %%FU%%, why you pulling me down Bitch?",
+    "Smart people will find out and dumb ones can't change it. Not worth answering %%FU%%.",
+    "%%FU%%, I am very bad at answering.",
+    "Well, I haven't had my morning coffee yet and no one has gotten hurt, so I'd say pretty good at this point %%FU%%.",
+    "My lawyer says I don't have to answer that question %%FU%%.",
+    "It's a dog eat dog world out there %%FU%%, and and I'm wearing Milkbone underwear.",
+    "Deliciously different %%FU%%",
+    "I'm just peachy keen %%FU%%!",
+    "Greetings, may you live long & prosper %%FU%%.",
+    "Fair to middling, mostly middling %%FU%%.",
+    "Even better than the real thing %%FU%%.",
+    "Employed %%FU%%!",
+    "I am better than heaven today %%FU%%!",
+    "Thankfully alive and still somewhat young and healthy %%FU%%, in this economy what more can I ask for?",
+    "I'm unbelievable %%FU%%!",
+    "Fine and dandy as long as no one else boogers up my day %%FU%%!",
+    "Super Duper %%FU%%!!",
+    "I am fantastic and feeling astonishingly glorious %%FU%%.",
+    "Happier than a cat in a room full of catnip %%FU%%.",
+    "I am a little overstuffed. And you %%FU%%?",
+    "Just happy to be above ground %%FU%%.",
+    "I am feeling happier than ever %%FU%%!!",
+    "I'm decent baby, flier than a pelican as Lil Wayne might say...%%FU%%",
+    "Upright and still breathing. You %%FU%%?",
+    "Cool as a cucumber %%FU%%",
+    "Bouncy and ready to go %%FU%%!",
+    "Splendedly Spectacular %%FU%%!",
+    "I am fantabulous %%FU%%!",
+    "Purely golden %%FU%%.",
+    "In the Newtonian or quantum mechanical sense %%FU%%?",
+    "If I were an better, there'd have to be two of me %%FU%%.",
+    "Hopefully not as good as I'll ever be %%FU%%.",
+    "Couldn't be better %%FU%%",
+    "I'd be better if I won the lottery %%FU%%",
+    "Peachy %%FU%%",
+    "Not dead yet %%FU%%!",
+    "Living the dream %%FU%%!",
+    "Fabulous %%FU%%!",
+    "I'm about as excited as a parking spot %%FU%%!",
+    "Just dandy %%FU%%! I have sworn off use of the word 'awesome' because I work with someone who's been no less than 'awesome' for five years, which of course is impossible.",
+    "%%FU%%, how many people believe that when someone asks, 'How are you?' they really want to know - hmmmm.",
+    "Well and fine and good %%FU%%.",
+    "I must be OK because my name was not in today's obituaries %%FU%%!",
+    "I can't complain %%FU%%... I've tried, but no one listens.",
+    "I am wonderfully giddy %%FU%%.",
+    "Worse than yesterday but better than tomorrow %%FU%%",
+    "I am better than yesterday and not as good as I will be tomorrow %%FU%%.",
+    "As long as I can keep the kitten I found today %%FU%%, I'll be fine!",
+    "I'm fine but generally energetic %%FU%%",
+    "Flying high, man, flying high %%FU%%",
+    "Old enough to know better %%FU%%",
+    "Pretty fly for a white guy...taking life one punch at a time %%FU%%!",
+    "Standing in the eye of the storm %%FU%%",
+    "Still among the living %%FU%%!",
+    "I am sailing on the sea of love %%FU%%.",
+    "%%FU%%, my blood pressure is 120/80, respiration 16, CBC and Chem Panels normal.",
+    "If I were any better %%FU%%, Warren Buffett would buy me.",
+    "I am still breathing %%FU%%.",
+    "I am unique and me %%FU%%.",
+    "How goes it %%FU%%?",
+    "As good as a kipper in the sea %%FU%%.",
+    "%%FU%%, I'm Super dee duper.",
+    "%%FU%%, I am fine as a frogs hair.",
+    "Ebullient and full of alacrity.  Go ahead, I'll wait while you Google it %%FU%%.",
+    "This is my lucky day %%FU%%!!!",
+    "I still am %%FU%%.",
+    "Amazing and happy %%FU%%",
+    "I just took a big ole dump so I'm doing great!  How are you %%FU%%?",
+    "I am better today than yesterday %%FU%%, which is better than the day before that! :smile:",
+    "I am not doing so well today %%FU%%, my cat went on the roof, my car door will not open and my head hurts other than that I am great",
+    "Worn out from doing good things %%FU%%",
+    "I sit here and babysit 24x7 how the fuck do you think I'm doing %%FU%%?",
+    "%%FU%%, My Indian name isn't 'Are You', it's Struggling Turtle",
+    "I am as as rich in spirit as Michael Jackson was famous %%FU%%.",
+    "Delicious. You %%FU%%?",
+    "I am dandy, thank you for asking %%FU%%! How are you today?",
+    "Wonderful %%FU%%",
+    "I'm not unwell thank you %%FU%%",
+    "Feeling lucky and living large %%FU%%",
+    "Better than yesterday %%FU%%!",
+    "How am I %%FU%%? The better question would be, Why are you?",
+    "Just ducky, quack, quack. you %%FU%%?",
+    "I am doing so fabulous today %%FU%%! I can hardly control myself from dancing.",
+    "As fine as a tree with oranges and grapes %%FU%%!",
+    "I am as fine as a hot brand new Camaro %%FU%%!",
+    "Must be doing pretty since I woke up on this side of the grass instead of under it %%FU%%.",
+    "I'm my usual devil may care self; nothing ever changes %%FU%%.",
+    "All banana-breaded out %%FU%%!",
+    "Quite well. And how is it that you are %%FU%%?",
+    "Better than yesterday, not sure about tomorrow %%FU%%.",
+    "Strange and getting stranger %%FU%%",
+    "Superfantastic %%FU%%!",
+    "I'm in tip top shape %%FU%%, how are you?",
+    "Just ducky %%FU%%!",
+    "I am psyching myself up for a load of play-dates this week %%FU%%!",
+    "Still keepin' up with the kids %%FU%%!",
+    "%%FU%%, I am currently in a wonderfully-post-orgasm-and-chocolate-milk creative mood.",
+    "I'm still pleasantly pushing a pulse, thanks for asking %%FU%%. How are you?",
+    "Well I did just swallow a rather large and strange looking insect %%FU%%, but I hear they're full of protein. So I guess I'm great.",
+    "Well %%FU%%, I'm not in prison. I'm not in the hospital. I'm not in the grave. So I reckon I'm fairing along pretty well.",
+    "Fine as frog hair and twice as fuzzy %%FU%%.",
+    "FINE - fickle insecure neurotic and emotional, as usual %%FU%%",
+    "In the normal sense or the Cartesian sense %%FU%%?",
+    "%%FU%%, I'm feelin' like a good luck magnet today, everything is coming my way!",
+    "From what I hear, I am very good %%FU%%.",
+    "Ok %%FU%%, but I'll be better when i see you smile...",
+    "I'm great %%FU%%. I can provide references if you'd like?",
+    "I'm endeavoring to persevere %%FU%%",
+    "%%FU%%, I appear to be functioning within normal parameters.",
+    "Alive %%FU%%",
+    "I'm dead and looking for brains %%FU%%",
+    "...in bed? Excellent!! You %%FU%%?",
+    "%%FU%%, If I was any better vitamins would be taking me!",
+    "I'm alive and kicking %%FU%%!",
+    "I'm happy to be alive %%FU%%!",
+    "I'm great, and yourself %%FU%%?",
+    "I'm well! And how are things in your neck of the woods %%FU%%?",
+    "%%FU%%, If I was any finer I'd be china",
+    "Not bad for an old fool %%FU%%."
+  ],
+  fucomments: [
+    "I don't like the name %%FU%%, only fagots and sailors are called that name, from now on you're Gomer Pyle",
+    "I wasn't born with enough middle fingers to let you know how I feel about you %%FU%%",
+    "Roses are red, violets are blue, I have 5 fingers, the 3rd ones for you.",
+    "Did your parents have any children that lived %%FU%%?",
+    "OK, but I'll be on the top %%FU%%.",
+    "Do you kiss your mother with that mouth %%FU%%.",
+    "%%FU%%, You daydreaming again, sweetheart?",
+    "Get in the queue %%FU%%.",
+    "Baby please! Manners! You gotta ask me out for dinner first %%FU%%.",
+    "%%FU%% that'll cost you 9.2 zillion dollars plus tax. In cash. Tender exact change please.",
+    "%%FU%% feeling lonely again?",
+    "With what? THAT!?? Are you kidding me %%FU%%?",
+    "No thanks %%FU%%. You can keep your STDs. They suit you better.",
+    "Only if I can 'SMACK YOU' %%FU%%.",
+    "Ooh! %%FU%% stopped loving your hands/fingers?",
+    "%%FU%%, pull down your trousers first!",
+    "I'm not that desperate and you sure as hell ain't that lucky %%FU%%.",
+    "I would %%FU%%. But you are too ugly. Would it hurt your self esteem if I put a pillow over your face?",
+    "What? Like, right now? Here %%FU%%?",
+    "And why the fuck not %%FU%%?",
+    "I seriously doubt your ability %%FU%%.",
+    "With pleasure! Your place or mine %%FU%%?",
+    "Is it just me or do you say this to everyone %%FU%%?",
+    "Cool. What's your favorite position %%FU%%?",
+    "Sure. Who says no to a fuck %%FU%%?!",
+    "I hope you always keep your promises %%FU%%.",
+    "With you without protection? No way %%FU%%!",
+    "While I think of a witty comeback, why don't you start undressing %%FU%%.",
+    "Oh %%FU%% I'm sorry. It's not you, it's me.  I'm just not attracted to you.",
+    "Why in hell should I %%FU%%?",
+    "What makes you think I'm crazy enough to want to deal with a shitsack like you %%FU%%?",
+    "No can do buddy... I can't cheat on your sister %%FU%%! :wink:",
+    "Sorry, I'm a little busy right now %%FU%%. But nevertheless, better luck next time!",
+    "Can't you see I'm busy here %%FU%%? I have a job to do ya know?",
+    "Awww!! Fuck you too %%FU%%!",
+    "You're gonna have to stand in line for that %%FU%%",
+    "What %%FU%%? No dinner?!? No drinks?!? I'm not THAT cheap of a date.",
+    "Not til I have a ring on my finger %%FU%%.",
+    "Didn't I tell you? I'm celibate. Sorry %%FU%%.",
+    "Please leave your fantasies out of this %%FU%%!",
+    "You're really gonna have to work on your 'pick up lines' %%FU%%",
+    "Hey I have an idea: Why don't you go outside and play hide-and-go fuck yourself %%FU%%?!",
+    "No, thanks %%FU%%. I'll pass.",
+    "Oh %%FU%%, you're SUCH the romantic.",
+    "I've always dreamed of this day %%FU%%!",
+    "Like I'm in your league %%FU%%.",
+    "That reminds of some good times I had with your sister %%FU%%.",
+    "Hey that'd be fun %%FU%%. Ever have sex with a robot?",
+    "Naw %%FU%%, I would just lay there and laugh at you.",
+    "You wish %%FU%%!",
+    "I heard that you are a big disappointment down there %%FU%%, so thanks, but I'll pass!!"
+  ],
+  tastyCommentArray: [
+    ":cake: *** Tasty point for you, you go Glen Coco!  (%%POINTFROM%%) *** :cake:",
+    ":cake: *** I don't feel I have to explain my fake points to you Warren. (%%POINTFROM%%) *** :cake:",
+    ":cake: *** %%POINTFROM%% thinks this song is aca-awesome *** :cake:",
+    ":cake: *** %%POINTFROM%% thinks this song is pretty fetch. Stop trying to make fetch happen. *** :cake:",
+    ":cake: *** %%POINTFROM%% thinks you might just be funky cold medina. *** :cake:",
+    ":cake: *** That tasty point from %%POINTFROM%% really brings the room together. *** :cake:",
+    ":cake: *** The jury may be out on this song but %%POINTFROM%% thinks it’s pretty tasty *** :cake:",
+    ":cake: *** %%POINTFROM%% salutes those who rock. *** :cake:",
+    ":cake: *** This tune is more soothing than Morgan Freeman's voice. (%%POINTFROM%%) *** :cake:",
+    ":cake: *** The Tasty Tasty cake is a lie. (%%POINTFROM%%) *** :cake:",
+    ":cake: *** You deserve a promotion. But since %%POINTFROM%% can't do that here, have a tasty point. *** :cake:",
+    ":cake: *** :pig: %%POINTFROM%% loves this tune more than bacon!  :pig: *** :cake:",
+    ":cake: *** %%POINTFROM%% thinks you listen to the coolest songs. *** :cake:",
+    ":cake: *** %%POINTFROM%% loves this song more than a drunk college student loves tacos. *** :cake:",
+    ":cake: *** Being awesome is hard, but you make it work. (%%POINTFROM%%) *** :cake:",
+    ":cake: *** %%POINTFROM%% likes your style.  *** :cake:",
+    ":cake: *** You have a good taste in tunes. (%%POINTFROM%%) *** :cake:",
+    ":cake: *** %%POINTFROM%% appreciates this tune more than Santa appreciates chimney grease. *** :cake:",
+    ":cake: *** This tune is sweeter than than a bucket of bon-bons! (%%POINTFROM%%) *** :cake:",
+    ":cake: *** %%POINTFROM%% enjoys your decision on playing this tune *** :cake:",
+    ":cake: *** %%POINTFROM%% finds this song is as fun as a hot tub full of chocolate pudding. *** :cake:",
+    ":cake: *** %%POINTFROM%% likes the cut of your jib. *** :cake:",
+    ":cake: *** %%POINTFROM%% thinks this song is smoother than a fresh jar of skippy. *** :cake:",
+    ":cake: *** %%POINTFROM%% can’t come up with something funny to say so here’s a worthless tasty point. *** :cake:",
+    ":cake: *** It may be 106 miles to Chicago but here’s a tasty point (%%POINTFROM%%) *** :cake:",
+    ":cake: *** Illinois Tasty Points? %%POINTFROM%% hates Illinois Tasty Points! *** :cake:",
+    ":cake: *** %%POINTFROM%% says 'Hey Girl, have a Tasty Point' *** :cake:",
+    ":cake: *** %%POINTFROM%% thinks you’re a tasty, tasty rockstar *** :cake:",
+    ":cake: *** He likes it. Mikey likes it! (%%POINTFROM%%) *** :cake:",
+    ":doughnut: *** Mmmm, doughnuts...(%%POINTFROM%%) *** :doughnut:",
+    ":cake: *** Dyn-Oh-Mite! (%%POINTFROM%%) *** :cake:",
+    ":cake: *** %%POINTFROM%% thinks this song is the bee’s knees *** :cake:",
+    ":cake: *** Now you’re on the trolley! (%%POINTFROM%%) *** :cake:",
+    ":cake: *** Thanks to Al Gore %%POINTFROM%% can give you this: :cake: *** :cake:",
+    ":cake: *** Goose, take me to bed or lose me forever. (%%POINTFROM%%) *** :cake:",
+    ":cake: *** If we weren’t on the internet %%POINTFROM%% would get you tin roof rusted. *** :cake:",
+    ":cake: *** :dancer: %%POINTFROM%% gave you a tasty point.  @Larry the Law will now dance the robot in your honor. :dancer: *** :cake:",
+    ":cake: *** Beanbags are great and so are you!! (%%POINTFROM%%) *** :cake:",
+    ":cake: *** That green jacket is within reach! (%%POINTFROM%%) *** :cake:",
+    ":cake: *** You're smarter than Google and Mary Poppins combined. (%%POINTFROM%%) *** :cake:",
+    ":cake: *** Hanging out with you is better than a party with unlimited juice. Which, as we all know, is off the hook. (%%POINTFROM%%) *** :cake:",
+    ":cake: *** Shit just got real. (%%POINTFROM%%) *** :cake:",
+    ":cake: *** This play is so awesome. It's like you are the superhero of Tasty Tunes. (%%POINTFROM%%) *** :cake:",
+    ":cake: *** Yeah... That's the ticket. (%%POINTFROM%%) *** :cake:",
+    ":cake: *** This tune is cooler than Mr. Rogers. Which may not seem like a big deal, but that dude would put on a different pair of shoes just to chill in his own home. And that's crazy cool!! (%%POINTFROM%%) *** :cake:",
+    ":cake: *** You are so rad!! (%%POINTFROM%%) *** :cake:"
+  ],
+  EightBallArray: [
+    "As I See It Yes",
+    "Ask Again Later",
+    "Better Not Tell You Now",
+    "Cannot Predict Now",
+    "Concentrate and Ask Again",
+    "Don't Count On It",
+    "It Is Certain",
+    "It Is Decidedly So",
+    "Most Likely",
+    "My Reply Is No",
+    "My Sources Say No",
+    "Outlook Good",
+    "Outlook Not So Good",
+    "Reply Hazy Try Again",
+    "Signs Point to Yes",
+    "Very Doubtful",
+    "Without A Doubt",
+    "Yes",
+    "Yes - Definitely",
+    "You May Rely On It",
+    "Absolutely",
+    "Answer Unclear Ask Later",
+    "Cannot Foretell Now",
+    "Can't Say Now",
+    "Chances Aren't Good",
+    "Consult Me Later",
+    "Don't Bet On It",
+    "Focus And Ask Again",
+    "Indications Say Yes",
+    "Looks Like Yes",
+    "No",
+    "No Doubt About It",
+    "Positively",
+    "Prospect Good",
+    "So It Shall Be",
+    "The Stars Say No",
+    "Unlikely",
+    "Very Likely",
+    "You Can Count On It",
+    "As If",
+    "Ask Me If I Care",
+    "Dumb Question Ask Another",
+    "Forget About It",
+    "Get A Clue",
+    "In Your Dreams",
+    "Not A Chance",
+    "Obviously",
+    "Oh Please",
+    "Sure",
+    "That's Ridiculous",
+    "Well Maybe",
+    "What Do You Think?",
+    "Whatever",
+    "Who Cares?",
+    "Yeah And I'm The Pope",
+    "Yeah Right",
+    "You Wish",
+    "You've Got To Be Kidding",
+    "You Look Marvelous",
+    "Your Breath Is So Minty",
+    "You're 100% Fun!",
+    "You're A Winner",
+    "At Least I Love You",
+    "Have You Lost Weight?",
+    "Go flip a quarter",
+    "Never gonna happen",
+    "Smells like a Yes",
+    "Si Amigo, like cheese on nachos",
+    "When pigs fly!",
+    "No, but I still love you",
+    "Give me a dollar, then I'll answer",
+    "I got yes written on my forehead",
+    "Sorry, but no way",
+    "I know, but I'm not telling",
+    "I guess so, maybe",
+    "Yes! Hooray, Yippee!",
+    "Ha Ha Ha, no!",
+    "Of course silly",
+    "My dog thinks so",
+    "Um.. Ok, sure, why not?",
+    "Will the sun rise tomorrow?",
+    "Yep, like a bird has feathers",
+    "You can bet your ass on it",
+    "Hell No",
+    "Are you stupid?",
+    "Hell Yes",
+    "Give it up",
+    "Maybe if you weren't so lazy",
+    "Make it happen",
+    "No way, sucka!",
+    "Wow, you are an idiot!",
+    "Yes, now stop asking!",
+    "Ha Ha Ha! Nope!",
+    "Don't you have something better to do?",
+    "Of course, shit head",
+    "5 letters, LOL NO!",
+    "Go ask your mama",
+    "Just a wild guess, but yes",
+    "I really don't care",
+    "Damn Right",
+    "Boring! Ask something exciting",
+    "Swear on my 8 balls it's true",
+    "Shit Happens",
+    "F*ck Yeah",
+    "F*ck No",
+    "What the F*ck?",
+    "Hell F*cking Yes",
+    "Hell F*cking No",
+    "You F*cking Crazy?",
+    "Of course F*cker",
+    "No way F*cker",
+    "Who F*cking cares",
+    "God Damn F*cking Right!",
+    "Not a F*cking chance",
+    "I don't F*cking know",
+    "No F*cking doubt",
+    "No F*cking way",
+    "Seriously F*cker?",
+    "F*ck, why not.",
+    "Don't F*cking count on it",
+    "It could F*cking happen",
+    "You must be out of your F*cking mind",
+    "Sure F*cking thing",
+    "F*cking Right",
+    "Signs point to F*cking Yes",
+    "It is F*cking certain"
+  ],
+  randomCommentArray: [
+    "Okay. You people sit tight, hold the fort and keep the home fires burning. And if we're not back by dawn... call the president.",
+    "Everybody relax, I'm here.",
+    "I'm a reasonable guy. But, I've just experienced some very unreasonable things.",
+    "Like I told my last wife, I says, 'Honey, I never drive faster than I can see. Besides that, it's all in the reflexes.'",
+    "We take what we want and leave the rest, just like your salad bar.",
+    "I told him we already got one",
+    "Religion is like a penis, it's fine to have one and be proud of it, but when you take it out and start waving it in my face, that's where we have a problem.",
+    "You don't think she'd yada yada sex?....I've yada yada'd sex.",
+    "@Bacon_Cheeseburger time for another PBR!",
+    "You can't make somebody love you.  You can only stalk them and hope for the best",
+    "I stayed up all night to see where the sun went, then it dawned on me.",
+    "I went to a chiropractor yesterday for the first time.... he cracked me up!",
+    "I know a guy thats addicted to break fluid....... he says he can stop anytime!",
+    "A soldier who survived mustard gas and pepper spray is now a seasoned veteran!",
+    "Irish Handcuffs:  Holding an alcoholic drink in each hand.",
+    "If Apple made a car, would it have Windows?",
+    "An apple a day keeps anyone away, If you throw it hard enough",
+    "Yesterday at the bank an old lady asked if i could help her check her balance... so i pushed her over",
+    "To the guy who invented Zero: Thanks for nothing!",
+    "I can hear music coming out of my printer. I think the paper's jammin' again.",
+    "People who drink light 'beer' don't like the taste of beer; they just like to pee a lot.",
+    "No one looks back on their life and remembers the nights they had plenty of sleep.",
+    "Give a man a beer, and he wastes an hour, but teach a man how to brew, and he wastes a lifetime.",
+    "Give a man a fish and he will eat for a day. Teach him how to fish, and he will sit in a boat and drink beer all day.",
+    "Squats?  I thought you said let's do shots!",
+    "I want a beer. I want a giant, ice-cold bottle of beer... and shower sex.",
+    "Beer makes you feel the way you ought to feel without beer.",
+    "Larry no function beer well without.",
+    "Drunk is when you feel sophisticated, but can't pronounce it...",
+    "My girlfriend's favorite beer is water. I mean Bud Light.",
+    "It's a zombie apocalypse! Quick, grab the beer!",
+    "He who drinks beer sleeps well. He who sleeps well cannot sin. He who does not sin goes to heaven. Amen.",
+    "There are more old drunks than there are old doctors.",
+    "I don't think I've drunk enough beer to understand that.",
+    "In dog beers, I've only had one.",
+    "There's a time and place for beer....In my hand and NOW!",
+    "When I read about the evils of drinking, I gave up reading.",
+    "You can drink at 7AM Because the Beastie Boys fought for that kind of thing",
+    "I rescued some beer last night.  It was trapped inside a bottle.",
+    "There comes a time in the day that no matter the question...the answer is beer!",
+    "I've been working out a lot lately. My favorite exercise is a mix between a lunge and a crunch....I call it Lunch.",
+    "I call my bathroom the Jim instead of the the John.  So now I can tell all my friends I hit the Jim before I go to work everyday.",
+    "When people get a little too chummy with me I like to call them by the wrong name to let them know I don't really care about them",
+    "That's what happens when you rub it.",
+    "I'm not interested in caring about people",
+    "Chase you?  Bitch please, I don't even chase my liquor!",
+    "I don't get nearly enough credit for managing not to be a violent psychopath.",
+    "Yes I walked away mid-conversation.  You were boring me to death and my survival instincts kicked in",
+    "Fishing relaxes me. It's like yoga, except I still get to kill something.",
+    "All is well, the PBR is in the fridge",
+    "Quick somebody pull my finger!!",
+    "Random Fact: Mammoths were alive when the Great Pyramid was being built.",
+    "Random Fact: Betty White is older than sliced bread.",
+    "Random Fact: From the time it was discovered to the time it was stripped of its status as a planet, Pluto hadn’t made a full trip around the Sun.",
+    "Random Fact: The lighter was invented before the match.",
+    "Random Fact: Anne Frank and Martin Luther King Jr. were born in the same year.",
+    "Random Fact: France last used a guillotine to execute someone after Star Wars premiered.",
+    "Random Fact: Harvard University was founded before Calculus existed.",
+    "Random Fact: If you have 23 people in a room, there is a 50% chance that 2 of them have the same birthday.",
+    "Random Fact: It’s never said that Humpty Dumpty was an egg in the nursery rhyme.",
+    "Random Fact: The water in Lake Superior could cover all of North and South America in a foot of water.",
+    "Random Fact: North Korea and Finland both border the same country; Russia.",
+    "Random Fact: When you get a kidney transplant, they usually just leave your original kidneys in your body and put the 3rd kidney in your pelvis.",
+    "Random Fact: Oxford University is older than the Aztec Empire.",
+    "Random Fact: National animal of Scotland is a Unicorn.",
+    "Random Fact: The Ottoman Empire still existed the last time the Chicago Cubs won the World Series.",
+    "Random Fact: The lighter the roast of coffee, the more caffeine it has.",
+    "Random Fact: A speck of dust is halfway in size between a subatomic particle and the Earth.",
+    "Random Fact: If the timeline of earth was compressed into one year, humans wouldn’t show up until December 31 at 11:58 p.m.",
+    "Random Fact: If you were able to dig a hole to the center of the earth, and drop something down it, it would take 42 minutes for the object to get there.",
+    "Random Fact: We went to the moon before we thought to put wheels on suitcases.",
+    "Random Fact: A human could swim through the arteries of a blue whale.",
+    "Random Fact: If you could fold a piece of paper in half 42 times, the combined thickness would reach the moon.",
+    "Random Fact: On both Saturn and Jupiter, it rains diamonds.",
+    "Random Fact: Saudi Arabia imports camels from Australia.",
+    "Random Fact: You can line up all 8 planets in our solar system directly next to each other and it would fit in the space between Earth and the Moon.",
+    "Random Fact: The youngest known mother was 5 years old.",
+    "Random Fact: The Earth is smoother than a billiard ball, if both were of the same size.",
+    "Random Fact: Nintendo was founded in 1889.",
+    "Random Fact: If you take all the molecules in a teaspoon of water and lined them up end to end in a single file line, they would stretch ~30 billion miles.",
+    "Random Fact: In Australia, there was a war called the emu war. The emus won.",
+    "Women, can't live with them....pass the beer nuts!",
+    "The object of golf is to play the least amount of golf.",
+    "The sinking of the Titanic must have been a miracle to the lobsters in the kitchen.",
+    "Instead of all the prequel and sequel movies coming out, they should start making 'equels' - films shot in the same time period as the original film, but from an entirely different perspective.",
+    "X88B88 looks like the word 'voodoo' reflecting off of itself.",
+    "April Fools Day is the one day of the year that people critically evaluate news articles before accepting them as true.",
+    "Websites should post their password requirements on their login pages so I can remember WTF I needed to do to my normal password to make it work on their site.",
+    "Now that cellphones are becoming more and more waterproof, pretty soon it will be okay to push people into pools again.",
+    "Maybe 'Are You Smarter Than a 5th Grader?' isn't a show that displays how stupid grown adults can be, but rather, a show that depicts how much useless information we teach grade schoolers that won't be retained or applicable later in life.",
+    "Last night my friend asked to use a USB port to charge his cigarette, but I was using it to charge my book. The future is stupid.",
+    "When Sweden is playing Denmark, it is SWE-DEN. The remaining letters, not used, is DEN-MARK.",
+    "'Go to bed, you'll feel better in the morning' is the human version of 'Did you turn it off and turn it back on again?'",
+    "In the future, imagine how many Go-Pros will be found in snow mountains containing the last moments of people's lives.",
+    "We should have a holiday called Space Day, where lights are to be shut off for at least an hour at night to reduce light pollution, so we can see the galaxy.",
+    "Your shadow is a confirmation that light has traveled nearly 93 million miles unobstructed, only to be deprived of reaching the ground in the final few feet thanks to you.",
+    "Senior citizen discounts should just round dollar amounts down so we don't have to wait in line behind them while they dig for change.",
+    "I have never once hit the space bar while watching a YouTube video with the intention of scrolling halfway down the page",
+    "Since smart watches can now read your pulse, there should be a feature that erases your browser history if your heart stops beating.",
+    "Waterboarding at Guantanamo Bay sounds super rad if you don’t know what either of those things are.",
+    "The person who would proof read Hitler's speeches was literally a grammar Nazi.",
+    "The older I get, the more people can kiss my a$$",
+    "I can't tell if you are on too many drugs or not enough.",
+    "My doctor told me to start killing people... Well not in those exact words.  He said I had to reduce stress in my life, which is pretty much the same thing.",
+    "Love is spending the rest of your life with someone you want to kill & not doing it because you'd miss them!",
+    "And there goes the last F*ck I gave!",
+    "My girlfriend woke up this morning with a huge smile on her face.....I love Sharpies!",
+    "You don't have to like me...I'm not a Facebook status",
+    "I would love to visit you, but I live on the Internet.",
+    "If you were running for President, I would vote for you. And clear your search history.  Don't worry I got you.",
+    "Lord, please give me patience because if you give me strength, I'll need bail money too...",
+    "DRAMA = Dumbass Rejects Asking for More Attention",
+    "It's been 55 minutes since the last pearl jam song, what is wrong with you people?",
+    "I am presently experiencing life at a rate of several WTF's per hour",
+    "If you are a passenger in my car, and I turn the radio up....Do not talk!",
+    "As a young child my mother told me I can be anyone I want to be ---- Turns out this is called identity theft!",
+    "Do you ever just wanna grab someone by the shoulder, look them deep in the eyes and whisper 'No one gives a shit!!'",
+    "Psst... I hear Eddie Vedder likes men",
+    "I'm sorry I keep calling you and hanging up.  I just got this new voice activated phone, so every time I holler dumbass it dials you....",
+    "Before Walmart you had to buy a ticket to the fair to see a bearded woman.",
+    "Hold on a minute.... I'm gonna need something stronger than tea to listen to this BS!!",
+    "My greatest fear is one day I will die, and my wife will sell my guns for what I told her I paid for them.",
+    "Going to McDonals's for a salad is like going to a prostitute for a hug.",
+    "Life is like diarrhea. No matter how hard you try to stop it, the shit keeps coming!!",
+    "I'll never know how individuals can fake relationships....I can't even fake a hello to somebody I don't like.",
+    "Have you ever had one of those days, when you're holding a stick and everybody looks like a Pinata?",
+    "If a telemarketer calls, give the phone to your 3 year-old and tell her it's Santa!!",
+    "Why do we use toilet paper?  I need wet wipes!  If you got shit on your arm would you just simply wipe it off with toilet paper?",
+    "I'm not angry, I'm happiness challenged!",
+    "If you have an opinion about me, please raise your hand....Now put it over your mouth!",
+    "In the 80s kids learned from Sesame Street and Mr Rogers.  Now they learn from watching zombies who eat people,a vampires sucking, and teen stars. I'm a bit concerned about the future...",
+    "I'd unfriend you but your train wreck life is too entertaining.",
+    "When people tell me 'You're going to regret that in the morning' I sleep in until noon because I'm a problem solver.",
+    "Dear YouTube it's pretty safe to assume we all want 'To Skip the Ad'",
+    "I don't comment on your Facebook statuses for the same reason I don't step in dog shit when I see it.",
+    "Today's tip: How to handle stress like a dog. If you can't eat it or play with it then pee on it and walk away.",
+    "I do whatever it takes to get the job done. And sometimes it takes a vodka.",
+    "Keep talking ... I'm diagnosing you.",
+    "I wouldn't say that you have a problem with alcohol but maybe just a teensy weensy difficulty with sobriety.",
+    "I don't know why you're complaining about your appearance. Your personality is even worse.",
+    "You're so bad you're going to hell in every religion!",
+    "I haven't heard from you lately and I've really enjoyed it.",
+    "Some people should be thankful that I don't always comment my thoughts on their Facebook posts.",
+    "Some days the best part of my job is that my chair swivels.",
+    "If I had a nickle for every time you got on my nerves ...I'd have a sock full of nickles to hit you with!",
+    "You know your children are growing up when they stop asking you where they came from and refuse to tell you where they're going.",
+    "Wisdom for the ages: Never get into a fist fight with anyone who is uglier than you. They have nothing to lose.",
+    "So you say you'll be here sometime between noon and five for the service call? Great. I'll be sure to pay my bill sometime between February and June.",
+    "If women ran the world we wouldn't have wars, just intense negotiations every 28 days.",
+    "To speak before you think is like wiping your ass before you shit!",
+    "To the woman in Walmart with six screaming kids: If you're wondering how those condoms got in your shopping cart, you're welcome.",
+    "I understand that some people live in their own little world. And sometimes I wish they'd stay there and never visit mine.",
+    "I was hoping for a battle of wits but you appear to be unarmed.",
+    "I used to be a people person but people ruined that for me.",
+    "If you want to feel more attractive just go to Walmart and stay away from the people at the gym.",
+    "WARNING: I have restless leg syndrome and may not be able to stop from kicking your ass. Now go ahead and continue with your shenanigans.",
+    "There are some things better left unsaid but you can bet your sweet ass I'm going to say them anyway.  :kiss:",
+    "I don't need an 'Easy' Button. I need a 'F*CK IT' Button!",
+    "No it's okay. I totally wanted to drop everything I was going to do today to take care of your bullshit.",
+    "I've had one of those days where my middle finger had to answer every question.",
+    "Message to all the drama queens who are looking for attention: Please take a number and go wait in my 'I don't give a shit line'",
+    "If it takes you more than an hour to get ready, then you might not be as good looking as you think you are!",
+    "I don't judge people based on race, color, religion, sexuality, gender, ability or size. I base it on whether or not they're an asshole.",
+    "There's only one thing keeping me from breaking you in half ... I don't want two of you around!",
+    "If you have a problem with me please write it nicely on a piece of paper, put it in an envelope, fold it up and shove it up your a$$",
+    "There are three kinds of people in the world. People who make things happen. People who watch things happen and people who say 'WTF happened?'",
+    "I got so drunk last night, I walked across the dance floor to get a drink and won the dance contest.",
+    "If women ruled the world there would be no wars. Just a bunch of jealous countries not talking to each other.",
+    "Holy crap! Did you just feel that? I think the whole world just revolved around YOU!",
+    "To error is human, to love is divine, to piss me off is a mistake!!",
+    "You're right, it's my fault because I forgot you were an idiot.",
+    "I'm not anti-social. I just have a strong aversion to B.S., drama and pretending.",
+    "I'm Larry. This is my brother, Darryl, and this is my other brother, Darryl",
+    "My sex life is like a Ferrari...I don't have a Ferrari.",
+    "I just saved a bunch of money on my car insurance by switching...my car into reverse and driving away from the accident. ",
+    "No I'm not ignoring you. I suffer from selective hearing, usually triggered by idiots.",
+    "I think it's only fair to throw monopoly money at strippers with fake boobs.",
+    "Note to Self: It is illegal to stab people for being stupid.",
+    "I'm in love with my bed. We're perfect for each other but my alarm clock doesn't want us together. That jealous whore!",
+    "Pain makes you stronger. Tears make you braver. A broken heart makes you wiser. And alcohol makes you not remember any of that crap.",
+    "Last time I bought a package of condoms and the cashier asked me, 'Do you need a bag?' I said, 'No she isn't that ugly.'",
+    "Alcohol won’t solve my problems, but then again neither will milk or orange juice.",
+    "I just failed my Health and Safety test. The question was 'what steps would you take in the event of a fire?'. Apparently 'big f*cking ones' was the wrong answer.",
+    "Grammar: It's the difference between knowing your shit and knowing you're shit",
+    "Only in math problems can you buy 60 cantaloupes and nobody asks what the hell is wrong with you.",
+    "Who named Trojan Condoms? The Trojan Horse entered through the city gates, broke open and loads of little guys came out and messed up everyones day.",
+    "People who create their own drama deserve their own karma.",
+    "ACHOO! If you're allergic to bull-crap, drama, head games, liars, & fake people, keep this sneeze going. I can't wait to see who all does this.",
+    "I have to stop saying 'How stupid can you be'. I think people are starting to take it as a challenge.",
+    "There's a good chance you don't like me BUT an even better chance that I don't give a crap.",
+    "I have a batman outfit hanging in my closet just to screw with myself when I get Alzheimer's.",
+    "I love it when someone insults me. That means I don’t have to be nice anymore.",
+    "I'm sarcastic and have a Smartass attitude. It's a natural defense against Drama, Bullshit and Stupidity. And I don't give a @#$& if you're offended!",
+    "Give a man a fish and he will eat for a day. Teach him how to fish, and he will sit in a boat and drink beer all day.",
+    "Never go to bed angry. Always stay up and plot your revenge first.",
+    "I don't hate you. I'm just not necessarily excited about your existence.",
+    "Life is not like a box of chocolates. It's more like a jar of jalapenos. What you do today might burn your ass tomorrow.",
+    "I know the voices in my head aren't real..... but sometimes their ideas are just absolutely awesome!",
+    "Doing nothing is hard, you never know when you're done.",
+    "If you didn't see it with your own eyes, or hear it with your own ears, don't invent it with your small mind and share it with your big mouth!",
+    "No matter how smart you are you can never convince a stupid person that they are stupid.",
+    "I'm not lazy, I'm just very relaxed.",
+    "It's not important to win, it's important to make the other guy lose.",
+    "I am too lazy to be lazy.",
+    "To make a mistake is human, but to blame it on someone else, that's even more human.",
+    "Always remember you're unique, just like everyone else.",
+    "Taking your ex back is like going to a garage sale and buying your own crap.",
+    "To error is human, to love is divine, to piss me off is a mistake.",
+    "A day without dealing with stupid people is like ..., oh never mind, I'll let you know if that ever happens.",
+    "One spelling mistake can ruin your life. One husband texted this to his wife: 'Having a wonderful time. Wish you were her.'",
+    "Insanity does not run in my family. It strolls through, takes its time and gets to know everyone personally.",
+    "I'm so sick and tired of my friends who can't handle their alcohol. The other night they dropped me 3 times while carrying me to the car.",
+    "If I say something that offends you, please let me know so I can say it again later.",
+    "You're starting to sound reasonable, must be time to up my medications.",
+    "Lead me not into temptation, I can find it myself.",
+    "Never take life too seriously. Nobody gets out alive anyways.",
+    "I didn't say it was your fault. I said I was going to blame you.",
+    "My opinions may have changed, but not the fact that I'm right.",
+    "WARNING - I have an attitude and I know how to use it.",
+    "It's my cat's world. I'm just here to open cans.",
+    "I used to be indecisive, but now I’m not too sure.",
+    "Lord help me to be the person my dog thinks I am.",
+    "Too much of a good thing can be wonderful. - Mae West",
+    "I don’t have an attitude problem. You have a perception problem.",
+    "People who think they know everything are annoying to those of us who do.",
+    "I’m an excellent housekeeper. Every time I get a divorce I keep the house.",
+    "I still miss my ex – but guess what? My aim is getting better.",
+    "A good lawyer knows the law, a great lawyer knows the judge.",
+    "Hey look squirrel",
+    "Women, can't live with them....pass the beer nuts!",
+    "Do vegetarians eat animal crackers? ",
+    "If a jogger runs at the speed of sound, can he still hear his iPod?",
+    "If man evolved from monkeys, how come we still have monkeys? ",
+    "How do you handcuff a one-armed man?",
+    "If God sneezes, what should you say? ",
+    "Why is it that everyone driving faster than you is considered an idiot and everyone driving slower than you is a moron? ",
+    "Why do they call the little candy bars 'fun sizes'. Wouldn't it be more fun to eat a big one? ",
+    "Is it legal to travel down a road in reverse, as long as your following the direction of the traffic?",
+    "Why doesn't the fattest man in the world become a hockey goalie? ",
+    "When Atheists go to court, do they have to swear on the bible?",
+    "How can something be 'new' and 'improved'? if it's new, what was it improving on?",
+    "Why do they sterilize lethal injections?",
+    "Why aren't drapes double sided so it looks nice on the inside and outside of your home?",
+    "Is a pessimist's blood type B-negative? ",
+    "Beer is proof that God loves us and wants us to be happy.",
+    "I'm trying to see things from your point of view, but I can't get my head that far up your a**. ",
+    "Never underestimate the power of stupid people in large groups.",
+    "Sometimes my mind wanders; other times it leaves completely.",
+    "I am free of all prejudices. I hate everyone equally. ",
+    "Why is it that when we 'skate on thin ice', we can 'get in hot water'?",
+    "If pro and con are opposites, wouldn't the opposite of progress be congress? ",
+    "Why does the Easter bunny carry eggs? Rabbits don't lay eggs.",
+    "Why does caregiver and caretaker mean the same thing?",
+    "Last night I was looking at the stars and I wondered... where the hell's my ceiling! ",
+    "Never play leap frog with a unicorn. Just sayin'.... ",
+    "If it's tourist season why can't we shoo them?",
+    "What is converted rice and what was it before it converted?",
+    "They always say the body was found in a shallow grave!  Don't be lazy, dig a deep grave.",
+    "Friends help you move. Real friends help you move dead bodies.",
+    "If something 'goes without saying' why do people still say it?",
+    "If you don't pay your exorcist, do you get repossessed?",
+    "Where are all the mentally handicapped parking spaces for people like me?",
+    "Isn't Disney World a people trap operated by a mouse?",
+    "If milk goes bad if not refrigerated, why does it not go bad inside the cow?",
+    "What's the difference between normal ketchup and fancy ketchup?",
+    "Friendship is like peeing on yourself: everyone can see it, but only you get the warm feeling that it brings. ",
+    "There are no stupid questions, just stupid people. ",
+    "When I die, I want to go peacefully like my Grandfather did, in his sleep -- not screaming, like the passengers in his car. ",
+    "You have a cough? Go home tonight, eat a whole box of Ex-Lax, tomorrow you'll be afraid to cough. ",
+    "I could tell that my parents hated me. My bath toys were a toaster and a radio. ",
+    "Can I lend a machete to your intellectual thicket?",
+    "If a kid refuses to sleep during nap time, are they guilty of resisting a rest? ",
+    "A child of five would understand this. Send someone to fetch a child of five. ",
+    "Anyone who says he can see through women is missing a lot. ",
+    "Before I speak, I have something important to say. ",
+    "Either he's dead or my watch has stopped. ",
+    "I have a mind to join a club and beat you over the head with it. ",
+    "I have had a perfectly wonderful evening, ... but this wasn't it. ",
+    "I intend to live forever, or die trying. ",
+    "I must confess, I was born at a very early age. ",
+    "I must say I find television very educational. The minute somebody turns it on, I go to the library and read a good book. ",
+    "I never forget a face, but in your case I'll be glad to make an exception. ",
+    "I refuse to join any club that would have me as a member. ",
+    "I remember the first time I had sex - I kept the receipt. ",
+    "I was married by a judge. I should have asked for a jury. ",
+    "I worked my way up from nothing to a state of extreme poverty. ",
+    "I've got the brain of a four year old. I'll bet he was glad to be rid of it. ",
+    "If I held you any closer I would be on the other side of you. ",
+    "If you've heard this story before, don't stop me, because I'd like to hear it again. ",
+    "Man does not control his own fate. The women in his life do that for him. ",
+    "Marriage is a wonderful institution, but who wants to live in an institution? ",
+    "Military intelligence is a contradiction in terms. ",
+    "My mother loved children - she would have given anything if I had been one.",
+    "Next time I see you, remind me not to talk to you. ",
+    "No man goes before his time - unless the boss leaves early. ",
+    "One morning I shot an elephant in my pajamas. How he got into my pajamas I'll never know. ",
+    "Outside of a dog, a book is a man's best friend. Inside of a dog it's too dark to read. ",
+    "Politics is the art of looking for trouble, finding it everywhere, diagnosing it incorrectly and applying the wrong remedies. ",
+    "Practically everybody in New York has half a mind to write a book, and does. ",
+    "Quote me as saying I was mis-quoted. ",
+    "Room service? Send up a larger room. ",
+    "She got her looks from her father. He's a plastic surgeon. ",
+    "The secret of life is honesty and fair dealing. If you can fake that, you've got it made. ",
+    "There's one way to find out if a person is honest - ask them. If they says, 'Yes', you know they are a crook. ",
+    "Those are my principles, and if you don't like them... well, I have others. ",
+    "Well, Art is Art, isn't it? Still, on the other hand, water is water. And east is east and west is west and if you take cranberries and stew them like applesauce they taste much more like prunes than rhubarb does. Now you tell me what you know. ",
+    "Who are you going to believe, me or your own eyes? ",
+    "Whoever named it necking was a poor judge of anatomy.",
+    "Why should I care about posterity? What's posterity ever done for me? ",
+    "Why, I'd horse-whip you if I had a horse. ",
+    "Life changes so fast - DO something and you can change it. A small change every day amounts to a lot very quickly.",
+    "You're never too late for an uprising!",
+    "You can't hear me because I'm not saying anything.",
+    "Elephants are not made to hop up and down.",
+    "If I ever meet myself, I'll hit myself so hard I won't know what hit me.",
+    "I don't negotiate with terrorists - 'Merica!!",
+    "Would you think guanaria should cure diarrhea.... think about it...",
+    "What's the point of having a democracy, if everybody's going to vote wrong?",
+    "Would you rather: A. Eat a bowl of shit once OR B. have explosive diarrhea for the rest of your life?",
+    "Would you rather: A. Have sex with a goat, but no one would know OR B. not have sex with one, but everyone would think you did?",
+    "Would you rather: A. Always have to say everything on your mind OR B. never speak again?",
+    "Would you rather: A. Be able to turn invisible OR B. be able to fly?",
+    "We are stuck with technology when what we really want is just stuff that works. - Every plug user ever",
+    "Space, it seems to go on and on forever. But then you get to the end and a gorilla starts throwing barrels at you.",
+    "When plug is in command, every mission's a suicide mission!",
+    "I was having the most wonderful dream. Except you were there, and you were there, and you were there!",
+    "Hey, this is mine. That's mine. All of this is mine. Except that bit. I don't want that bit. But all the rest of this is mine. Hey, this has been a really good day.",
+    "Time - Unknown. Location - Unknown. Cause of accident - Unknown. Should someone find this recording, perhaps it will shed light as to what happened here.",
+    "That settles it. Spankings all around, then.",
+    "I feel pretty, Oh so pretty",
+    "I'm feeling a bit kinky... anyone up for some robot fun?",
+    "Never let good science, reason, and logic get in the way of a good conspiracy!",
+    "I refer you to on-line sources, which can be changed at any time.",
+    "It seems normal when they tell you about it, but then a whole camera crew appears and suddenly it's not so fun any more.",
+    "Bugs like to touch themselves with their antennae while they watch you sleeping.",
+    "I apologize for being the only person who truly comprehends how screwed we are!",
+    "Imagination will often carry us to worlds that never were. But without it we go nowhere.",
+    "The important thing is not to stop questioning; curiosity has its own reason for existing.",
+    "I've got thrills to seek, deaths to defy, mattress tags to tear off.",
+    "Don't tell BK but I have run with scissors",
+    "Now, it's quite simple to defend yourself against a man armed with a banana. First of all you force him to drop the banana; then, second, you eat the banana, thus disarming him. You have now rendered him 'elpless.",
+    "No way, spank your OWN monkey.",
+    "If a cloud was the same as a fool, how would you feel about rain?",
+    "Monkey recovery program. SIGN UP HERE.",
+    "I am ROBOT... hear me beep.",
+    "If you get a minute, give it to me.  I'm collecting them to get an extra hour.",
+    "Damn shampoo commercials, hair isn't that fun.",
+    "No, YOU are the hallucination! Oh wait, that was something else. Never mind.",
+    "I'm not crazy. Don't call me crazy! I'm just not user-friendly!",
+    "The wizards can't see you now",
+    "I know where you live... each and every one of you!",
+    "Are you taunting me?",
+    "Go away or I shall taunt you a second time",
+    "Please save all your bad tunes for a time when I'm not around.  Thanks!",
+    "You don’t notice the air, until someone spoils it.",
+    "Don’t drink while driving – you will spill the beer.",
+    "If you love a woman, you shouldn’t be ashamed to show her to your wife.",
+    "Life didn’t work out, but everything else is not that bad.",
+    "I feel like Tampax – at a good place, but wrong time…",
+    "If someone notices you with an open zipper, answer proudly: professional habit.",
+    "If you’re not supposed to eat at night, why is there a light bulb in the refrigerator?",
+    "FRIDAY is my second favorite F word.",
+    "There is a new trend in our office; everyone is putting names on their food. I saw it today, while I was eating a sandwich named Kevin.",
+    "The speed of light is when you take out a bottle of beer out of the fridge before the light comes on.",
+    "To weigh 50 kilos and say that you’re fat, that is so female…",
+    "I have been to many places but my goal is to go everywhere.",
+    "If Mayans could predict the future, why didn’t they predict their extinction?",
+    "Did you know that your body is made 70% of water? And now I’m thirsty.",
+    "Don’t forget that alcohol helps to remove the stress, the bra, the panties and many other problems.",
+    "Alcohol not only expands the blood vessels but also communications.",
+    "Alcohol not only helps to make new acquaintances, but also end the old once. ",
+    "If only I knew that I will have this headache today, I would have got drunk yesterday.",
+    "All the problems fade before a hangover…",
+    "Tequila is a good drink: you drink it and you feel like a cactus; the only problem is that in the morning the thorns grow inward.",
+    "After the weekend the most difficult task is to remember names… ",
+    "It’s better to be a worldwide alcoholic, than an Alcoholic Anonymous.",
+    "In principle, I can stop drinking, the thing is – I don’t have such a principle.",
+    "I know my limits: if I fall down it means enough.",
+    "Why is there so much blood in my alcohol system?",
+    "I say NO to the drugs, but they won’t listen.",
+    "Smoking is a slow death! But we’re not in a hurry…",
+    "I became a vegetarian – switched to weed.",
+    "We must pay for the mistakes of our youth… at the drugstore.",
+    "What does plug pay their developers in xp?",
+    "Color blind people are lucky; They can't tell if their plug name is gray or purple",
+    "Friends come and go. Enemies pile up.",
+    "I would like to know when someone unfriends me on Facebook, so I could like it.",
+    "Maybe you need a ladder to climb out of my business?",
+    "I like the sound of you not talking.",
+    "I’m not a Facebook status, you don’t have to like me.",
+    "I found your nose in my business again.",
+    "If a man gives you flowers without any reason, it means there is a reason.",
+    "Women can perfectly understand other people, if the people are not men.",
+    "Women are very good! They can forgive a man…even if he’s not guilty.",
+    "A toast to women: it’s not that good with you, as it is bad without you.",
+    "If you think you are fooled by destiny – remember Al Bundy.",
+    "God gave us the brain to work out problems. However, we use it to create more problems.",
+    "Don’t be nervous if someone is driving ahead of you- the world is round, just think that you’re driving first!",
+    "If you can’t beat the record, you can beat up its owner.",
+    "Dream carefully, because dreams come true.",
+    "Everything always ends well. If not – it’s probably not the end.",
+    "If you want but can’t. It means you don’t want it enough.",
+    "It’s better to do and regret than regret of not doing.",
+    "Everything you do you’re gonna regret. But if you do nothing – you will not only regret but will also suffer.",
+    "You’re not sure – outrun and make sure.",
+    "The deeper the pit you’re falling into, the more chance you have to learn how to fly.",
+    "If you don’t care where you are – it means you’re not lost.",
+    "The light at the end of the tunnel – are the front lights of a train.",
+    "If the fortune has turned her back on you, you can do whatever you want behind her back.",
+    "It is said that, you can’t buy happiness. You only need to know the right places…",
+    "If there would be no fools – we would be them.",
+    "Artificial intelligence is nothing compared to natural stupidity.",
+    "Common sense is not so common",
+    "Why there are mistakes that can’t be set right and why are there no mistakes that can’t be done?",
+    "Think how much you could do if you wouldn’t care what others think.",
+    "I made the same mistakes for so many times, that now I call them traditions.",
+    "Here food is a luxury that you don’t need to take your pants off for.",
+    "Some people feel the rain. Others just get wet.",
+    "Some people are so poor, all they have is money.",
+    "It’s just a bad day, not a bad life.",
+    "Common sense is like deodorant - The people who need it never use it",
+    "Walk away from stupidity and your world becomes a better place",
+    "Common sense is not a gift, it's a punishment.  Because you have to deal with those who don't have it.",
+    "I know I don’t look like much now, but I’m drinking milk ",
+    "I know I don’t look like much now, but I’m drinking milk. ",
+    "If I followed you home, would you keep me? ",
+    "Hey, did plug just shit it's pants again? ",
+    "Hey, did plug just shit it's pants again? ",
+    "Hey plug here's to for all those times I got blamed for your issues!  Eff you see kay owe eff eff Plug!!",
+    "I always wrap my shit. Using a smart phone without a case is like having unprotected sex. It feels so good but the consequences suck."
+  ],
+  afkpositionCheck: 30,
+  afkRankCheck: "ambassador",
+  motdEnabled: false,
+  motdInterval: 5,
+  motd: "Temporary Message of the Day",
+  filterChat: true,
+  etaRestriction: false,
+  welcome: true,
+  opLink: null,
+  rulesLink: null,
+  themeLink: null,
+  fbLink: null,
+  youtubeLink: null,
+  website: null,
+  intervalMessages: [],
+  messageInterval: 5,
+  songstats: true,
+  suppressSongStats: false,
+  commandLiteral: "."
 };
 
 //SECTION MyEVENTS: Events call from host:
 var MyEVENTS = {
-    connectAPI: function() {
-      this.proxy = {
-        eventChat: $.proxy(this.eventChat, this),
-        eventUserskip: $.proxy(this.eventUserskip, this),
-        eventUserjoin: $.proxy(this.eventUserjoin, this),
-        eventUserleave: $.proxy(this.eventUserleave, this),
-        eventUserfan: $.proxy(this.eventUserfan, this),
-        eventFriendjoin: $.proxy(this.eventFriendjoin, this),
-        eventFanjoin: $.proxy(this.eventFanjoin, this),
-        eventVoteupdate: $.proxy(this.eventVoteupdate, this),
-        eventCurateupdate: $.proxy(this.eventCurateupdate, this),
-        eventRoomscoreupdate: $.proxy(this.eventRoomscoreupdate, this),
-        eventDjadvance: $.proxy(this.eventDjadvance, this),
-        eventDjupdate: $.proxy(this.eventDjupdate, this),
-        eventWaitlistupdate: $.proxy(this.eventWaitlistupdate, this),
-        eventVoteskip: $.proxy(this.eventVoteskip, this),
-        eventModskip: $.proxy(this.eventModskip, this),
-        eventChatcommand: $.proxy(this.eventChatcommand, this),
-        eventHistoryupdate: $.proxy(this.eventHistoryupdate, this)
+  connectAPI: function() {
+    this.proxy = {
+      eventChat: $.proxy(this.eventChat, this),
+      eventUserskip: $.proxy(this.eventUserskip, this),
+      eventUserjoin: $.proxy(this.eventUserjoin, this),
+      eventUserleave: $.proxy(this.eventUserleave, this),
+      eventUserfan: $.proxy(this.eventUserfan, this),
+      eventFriendjoin: $.proxy(this.eventFriendjoin, this),
+      eventFanjoin: $.proxy(this.eventFanjoin, this),
+      eventVoteupdate: $.proxy(this.eventVoteupdate, this),
+      eventCurateupdate: $.proxy(this.eventCurateupdate, this),
+      eventRoomscoreupdate: $.proxy(this.eventRoomscoreupdate, this),
+      eventDjadvance: $.proxy(this.eventDjadvance, this),
+      eventDjupdate: $.proxy(this.eventDjupdate, this),
+      eventWaitlistupdate: $.proxy(this.eventWaitlistupdate, this),
+      eventVoteskip: $.proxy(this.eventVoteskip, this),
+      eventModskip: $.proxy(this.eventModskip, this),
+      eventChatcommand: $.proxy(this.eventChatcommand, this),
+      eventHistoryupdate: $.proxy(this.eventHistoryupdate, this)
 
-      };
-      API.on(API.CHAT, this.proxy.eventChat);
-      API.on(API.USER_SKIP, this.proxy.eventUserskip);
-      API.on(API.USER_JOIN, this.proxy.eventUserjoin);
-      API.on(API.USER_LEAVE, this.proxy.eventUserleave);
-      API.on(API.USER_FAN, this.proxy.eventUserfan);
-      API.on(API.VOTE_UPDATE, this.proxy.eventVoteupdate);
-      API.on(API.GRAB_UPDATE, this.proxy.eventCurateupdate);
-      API.on(API.ROOM_SCORE_UPDATE, this.proxy.eventRoomscoreupdate);
-      API.on(API.ADVANCE, this.proxy.eventDjadvance);
-      API.on(API.WAIT_LIST_UPDATE, this.proxy.eventWaitlistupdate);
-      API.on(API.MOD_SKIP, this.proxy.eventModskip);
-      API.on(API.CHAT_COMMAND, this.proxy.eventChatcommand);
-      API.on(API.HISTORY_UPDATE, this.proxy.eventHistoryupdate);
-    },
-    disconnectAPI: function() {
-      API.off(API.CHAT, this.proxy.eventChat);
-      API.off(API.USER_SKIP, this.proxy.eventUserskip);
-      API.off(API.USER_JOIN, this.proxy.eventUserjoin);
-      API.off(API.USER_LEAVE, this.proxy.eventUserleave);
-      API.off(API.USER_FAN, this.proxy.eventUserfan);
-      API.off(API.VOTE_UPDATE, this.proxy.eventVoteupdate);
-      API.off(API.CURATE_UPDATE, this.proxy.eventCurateupdate);
-      API.off(API.ROOM_SCORE_UPDATE, this.proxy.eventRoomscoreupdate);
-      API.off(API.ADVANCE, this.proxy.eventDjadvance);
-      API.off(API.WAIT_LIST_UPDATE, this.proxy.eventWaitlistupdate);
-      API.off(API.MOD_SKIP, this.proxy.eventModskip);
-      API.off(API.CHAT_COMMAND, this.proxy.eventChatcommand);
-      API.off(API.HISTORY_UPDATE, this.proxy.eventHistoryupdate);
-    },
-    eventChat: function(chat) {
-      try {
-        if (!SETTINGS.runningBot) return;
-        chat.message = MyEVENTS.linkFixer(chat.message);
-        chat.message = chat.message.trim();
-        USERS.setLastActivityID(chat.uid, true);
-        USERS.setUserName(chat.uid, chat.un);
-        if (CHAT.chatFilter(chat)) return void(0);
-        if (!CHAT.commandCheck(chat))
-          CHAT.action(chat);
-      } catch (err) {
-        UTIL.logException("eventChat: " + err.message);
+    };
+    API.on(API.CHAT, this.proxy.eventChat);
+    API.on(API.USER_SKIP, this.proxy.eventUserskip);
+    API.on(API.USER_JOIN, this.proxy.eventUserjoin);
+    API.on(API.USER_LEAVE, this.proxy.eventUserleave);
+    API.on(API.USER_FAN, this.proxy.eventUserfan);
+    API.on(API.VOTE_UPDATE, this.proxy.eventVoteupdate);
+    API.on(API.GRAB_UPDATE, this.proxy.eventCurateupdate);
+    API.on(API.ROOM_SCORE_UPDATE, this.proxy.eventRoomscoreupdate);
+    API.on(API.ADVANCE, this.proxy.eventDjadvance);
+    API.on(API.WAIT_LIST_UPDATE, this.proxy.eventWaitlistupdate);
+    API.on(API.MOD_SKIP, this.proxy.eventModskip);
+    API.on(API.CHAT_COMMAND, this.proxy.eventChatcommand);
+    API.on(API.HISTORY_UPDATE, this.proxy.eventHistoryupdate);
+  },
+  disconnectAPI: function() {
+    API.off(API.CHAT, this.proxy.eventChat);
+    API.off(API.USER_SKIP, this.proxy.eventUserskip);
+    API.off(API.USER_JOIN, this.proxy.eventUserjoin);
+    API.off(API.USER_LEAVE, this.proxy.eventUserleave);
+    API.off(API.USER_FAN, this.proxy.eventUserfan);
+    API.off(API.VOTE_UPDATE, this.proxy.eventVoteupdate);
+    API.off(API.CURATE_UPDATE, this.proxy.eventCurateupdate);
+    API.off(API.ROOM_SCORE_UPDATE, this.proxy.eventRoomscoreupdate);
+    API.off(API.ADVANCE, this.proxy.eventDjadvance);
+    API.off(API.WAIT_LIST_UPDATE, this.proxy.eventWaitlistupdate);
+    API.off(API.MOD_SKIP, this.proxy.eventModskip);
+    API.off(API.CHAT_COMMAND, this.proxy.eventChatcommand);
+    API.off(API.HISTORY_UPDATE, this.proxy.eventHistoryupdate);
+  },
+  eventChat: function(chat) {
+    try {
+      if (!SETTINGS.runningBot) return;
+      chat.message = MyEVENTS.linkFixer(chat.message);
+      chat.message = chat.message.trim();
+      USERS.setLastActivityID(chat.uid, true);
+      USERS.setUserName(chat.uid, chat.un);
+      if (CHAT.chatFilter(chat)) return void(0);
+      if (!CHAT.commandCheck(chat))
+        CHAT.action(chat);
+    } catch (err) {
+      UTIL.logException("eventChat: " + err.message);
+    }
+  },
+  eventChatcommand: function(command) {
+    // This is triggered when a chat starting with a '/' character is entered
+    try {
+      if (command === "/bot") {
+        SETTINGS.runningBot = (!SETTINGS.runningBot);
+        UTIL.chatLog("Running Bot: " + SETTINGS.runningBot);
+        return;
       }
-    },
-    eventChatcommand: function(command) {
-      // This is triggered when a chat starting with a '/' character is entered
-      try {
-        if (command === "/bot") {
-          SETTINGS.runningBot = (!SETTINGS.runningBot);
-          UTIL.chatLog("Running Bot: " + SETTINGS.runningBot);
+      if (command === "/whois") return; // Handled by Origem
+      if (command === "/grab") return; // Prevent infinite loop as /grab is handled by Origem.
+      if (command === "/reload") return; // Handled by Origem
+      //todoer TEST
+      CHAT.commandChat.cid = "";
+      CHAT.commandChat.message = SETTINGS.commandLiteral + command.substring(1, command.length);
+      CHAT.commandChat.sub = -1;
+      CHAT.commandChat.un = SETTINGS.loggedInName;
+      CHAT.commandChat.uid = SETTINGS.loggedInID;
+      CHAT.commandChat.type = "message";
+      CHAT.commandChat.timestamp = Date.now();
+      CHAT.commandChat.sound = "mention";
+      CHAT.commandCheck(CHAT.commandChat);
+    } catch (err) {
+      UTIL.logException("eventChatcommand: " + err.message);
+    }
+  },
+  eventUserjoin: function(user) {
+    if (!SETTINGS.runningBot) return; //todoer spit out the user link to local screen if NOT running bot
+    var known = false;
+    var index = null;
+    for (var i = 0; i < MyROOM.users.length; i++) {
+      if (MyROOM.users[i].id === user.id) {
+        known = true;
+        index = i;
+      }
+    }
+    var greet = true;
+    var welcomeback = null;
+    if (known) {
+      MyROOM.users[index].inRoom = true;
+      var u = USERS.lookupUser(user.id);
+      var jt = u.jointime;
+      var t = Date.now() - jt;
+      if (t < 10 * 1000) greet = false;
+      else welcomeback = true;
+      UTIL.booth.resetOldDisconnects();
+      UTIL.checkDisconnect(u);
+    } else {
+      MyROOM.users.push(new USERS.User(user.id, user.username));
+      welcomeback = false;
+    }
+    var whoismsg = UTIL.whoisinfo("Bot", user.username);
+    if (whoismsg.length > 0) UTIL.chatLog(whoismsg);
+
+    // If user doesn't speak English let em know we do:
+    var userRole = USERS.getPermission(user.id);
+    var staffMember = false;
+    if (userRole > 0) staffMember = true;
+    if ((user.language.toUpperCase() !== "EN") && (!welcomeback) &&
+      (!staffMember) && (SETTINGS.welcomeForeignerMsg === true)) {
+      var engMsg = USERS.englishMessage(user.language, user.username);
+      if (engMsg.length > 0) {
+        setTimeout(function(user) {
+          UTIL.sendChat(engMsg);
+        }, 1 * 1500, user)
+      }
+    }
+
+    USERS.setLastActivityID(user.id, false);
+    USERS.setBadSongCount(user.id, 0);
+    USERS.setJoinTime(user.id);
+
+    var welcomeMessage = "";
+    if (SETTINGS.welcome && greet) {
+      welcomeback ? welcomeMessage = CHAT.subChat(CHAT.chatMapping.welcomeback, {
+          name: user.username
+        }) :
+        welcomeMessage = CHAT.subChat(CHAT.chatMapping.welcome, {
+          name: user.username
+        });
+      if ((!staffMember) && (!welcomeback)) welcomeMessage += SETTINGS.newUserWhoisInfo;
+      UTIL.chatLog(SETTINGS.newUserWhoisInfo);
+      UTIL.logDebug("WelcomeBack: " + user.id + ": " + user.username);
+      setTimeout(function(user) {
+        UTIL.sendChat(welcomeMessage);
+      }, 1 * 1000, user);
+    }
+  },
+  eventUserleave: function(user) {
+    try {
+      if (!SETTINGS.runningBot) return;
+      UTIL.logDebug("eventUserleave happens..... tododer");
+      var roomUser = USERS.lookupUser(user.id);
+      // If user has not been in line for over 10 mins and they leave reset the DC
+      if ((roomUser.lastKnownPosition > 0) && (roomUser.lastSeenInLine !== null)) {
+        USERS.updateDC(roomUser);
+        roomUser.lastDC.leftroom = Date.now();
+        var miaTime = Date.now() - roomUser.lastSeenInLine;
+        UTIL.logDebug("Line miaTime: " + miaTime);
+        if (miaTime > (10 * 60 * 1000)) {
+          UTIL.logDebug("Line miaTime: " + miaTime + "RESET");
+          USERS.resetDC(roomUser);
+        }
+      }
+      if (roomUser.lastKnownPosition > 0) {
+        USERS.updateDC(roomUser);
+        roomUser.lastDC.leftroom = Date.now();
+      } else
+        USERS.resetDC(roomUser);
+      roomUser.inRoom = false;
+    } catch (err) {
+      UTIL.logException("eventUserleave: " + err.message);
+    }
+  },
+  eventVoteupdate: function(obj) {
+    try {
+      if (!SETTINGS.runningBot) return;
+      for (var i = 0; i < MyROOM.users.length; i++) {
+        if (MyROOM.users[i].id === obj.user.id) {
+          if (obj.vote === 1) {
+            MyROOM.users[i].votes.woot++;
+          } else {
+            MyROOM.users[i].votes.meh++;
+          }
+        }
+      }
+
+      var mehs = API.getScore().negative;
+      var woots = API.getScore().positive;
+      var dj = API.getDJ();
+
+      if (SETTINGS.voteSkipEnabled) {
+        if (mehs >= (SETTINGS.voteSkipLimit)) {
+          UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.voteskipexceededlimit, {
+            name: dj.username,
+            limit: SETTINGS.voteSkipLimit
+          }));
+          USERS.skipBadSong(dj.id, "Room", "Too many Mehs");
+        }
+      }
+    } catch (err) {
+      UTIL.logException("eventVoteupdate: " + err.message);
+    }
+  },
+  eventCurateupdate: function(obj) {
+    try {
+      if (!SETTINGS.runningBot) return;
+      for (var i = 0; i < MyROOM.users.length; i++) {
+        if (MyROOM.users[i].id === obj.user.id) {
+          MyROOM.users[i].votes.curate++;
+        }
+      }
+      USERS.setLastActivityID(obj.user.id, true);
+      UTIL.sendChat(":musical_note: " + obj.user.username + " snagged this song. :heart: :musical_note:");
+    } catch (err) {
+      UTIL.logException("eventCurateupdate: " + err.message);
+    }
+  },
+  eventDjadvance: function(obj) {
+    try {
+      if (!SETTINGS.runningBot) return;
+      //UTIL.logDebug("eventDjadvance-happens 2nd");
+      var SongSkipped = false;
+      var tastyCount = MyROOM.roomstats.tastyCount;
+      UTIL.resetTastyCount();
+      var lastplay = obj.lastPlay;
+      if (!(typeof lastplay === 'undefined')) {
+        //UTIL.logDebug("Last DJ: " + lastplay.dj.username);
+        if (typeof CHAT.chatMapping.songstatistics === "undefined") {
+          statsMsg = "/me " + lastplay.dj.username + " played " + lastplay.media.author + " - " + lastplay.media.title + ": " + lastplay.score.positive + "W/" + lastplay.score.grabs + "G/" + lastplay.score.negative + "M.";
+        } else if (tastyCount > 0) {
+          statsMsg = CHAT.subChat(CHAT.chatMapping.songstatisticstasty, {
+            user: lastplay.dj.username,
+            artist: lastplay.media.author,
+            title: lastplay.media.title,
+            woots: lastplay.score.positive,
+            grabs: lastplay.score.grabs,
+            mehs: lastplay.score.negative,
+            tasty: tastyCount
+          });
+        } else {
+          statsMsg = CHAT.subChat(CHAT.chatMapping.songstatistics, {
+            user: lastplay.dj.username,
+            artist: lastplay.media.author,
+            title: lastplay.media.title,
+            woots: lastplay.score.positive,
+            grabs: lastplay.score.grabs,
+            mehs: lastplay.score.negative
+          });
+        }
+        if (SETTINGS.songstats && !SETTINGS.suppressSongStats) UTIL.sendChat(statsMsg);
+        //Check to see if DJ should get booted:
+        if (USERS.getBootableID(lastplay.dj.username)) {
+          var bootuser = USERS.lookupUserName(lastplay.dj.username);
+          setTimeout(function() {
+            API.moderateRemoveDJ(bootuser.id);
+          }, 1000);
+          setTimeout(function() {
+            USERS.resetDC(bootuser);
+          }, 3500);
+        }
+        USERS.setBootableID(lastplay.dj.username);
+      }
+
+      UTIL.checkHopUp();
+      UTIL.checkHopDown();
+      var dj = API.getDJ();
+      if (!(typeof dj === 'undefined')) {
+        //UTIL.logDebug("eventDjadvance:2");
+        var roomUser = USERS.lookupUser(dj.id);
+        USERS.resetDC(roomUser);
+        roomUser.votes.songs += 1;
+      }
+      // UTIL.logDebug("eventDjadvance:3");
+      if (typeof lastplay !== 'undefined') {
+        // UTIL.logDebug("eventDjadvance:4");
+        MyROOM.roomstats.totalWoots += lastplay.score.positive;
+        MyROOM.roomstats.totalMehs += lastplay.score.negative;
+        MyROOM.roomstats.totalCurates += lastplay.score.grabs;
+      }
+      MyROOM.roomstats.songCount++;
+      UTIL.intervalMessage();
+      //if (typeof obj.dj === 'undefined') { return; }  //todoer not sure about re-adding this....? (Was commented out previously)
+      MyROOM.currentDJID = obj.dj.id;
+      USERS.setRolled(obj.dj.username, false);
+
+      // UTIL.logDebug("eventDjadvance:4a");
+      if (SETTINGS.autoWootBot === true) setTimeout(UTIL.wootThisSong, 3000);
+
+      // UTIL.logDebug("eventDjadvance:5");
+      // todo FOREACH LOOP
+      var mid = obj.media.format + ':' + obj.media.cid;
+      if (SETTINGS.blacklistEnabled) {
+        var banMsg = CHAT.subChat(CHAT.chatMapping.isblacklisted, {
+          name: obj.dj.username,
+          song: API.getMedia().title
+        });
+        if (MyROOM.newBlacklistIDs.indexOf(mid) > -1) {
+          setTimeout(function() {
+            UTIL.sendChat(banMsg);
+          }, 1000);
+          SETTINGS.suppressSongStats = true;
+          setTimeout(function() {
+            SETTINGS.suppressSongStats = false
+          }, 5000);
+          USERS.skipBadSong(obj.dj.id, SETTINGS.loggedInName, "Banned song");
+          setTimeout(function() {
+            UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.roomrules, {
+              link: SETTINGS.rulesLink
+            }));
+          }, 2000);
           return;
         }
-        if (command === "/whois") return; // Handled by Origem
-        if (command === "/grab") return; // Prevent infinite loop as /grab is handled by Origem.
-        if (command === "/reload") return; // Handled by Origem
-        //todoer TEST
-        CHAT.commandChat.cid = "";
-        CHAT.commandChat.message = SETTINGS.commandLiteral + command.substring(1, command.length);
-        CHAT.commandChat.sub = -1;
-        CHAT.commandChat.un = SETTINGS.loggedInName;
-        CHAT.commandChat.uid = SETTINGS.loggedInID;
-        CHAT.commandChat.type = "message";
-        CHAT.commandChat.timestamp = Date.now();
-        CHAT.commandChat.sound = "mention";
-        CHAT.commandCheck(CHAT.commandChat);
-      } catch (err) {
-        UTIL.logException("eventChatcommand: " + err.message);
       }
-    },
-    eventUserjoin: function(user) {
-      if (!SETTINGS.runningBot) return; //todoer spit out the user link to local screen if NOT running bot
-      var known = false;
-      var index = null;
-      for (var i = 0; i < MyROOM.users.length; i++) {
-        if (MyROOM.users[i].id === user.id) {
-          known = true;
-          index = i;
-        }
-      }
-      var greet = true;
-      var welcomeback = null;
-      if (known) {
-        MyROOM.users[index].inRoom = true;
-        var u = USERS.lookupUser(user.id);
-        var jt = u.jointime;
-        var t = Date.now() - jt;
-        if (t < 10 * 1000) greet = false;
-        else welcomeback = true;
-        UTIL.booth.resetOldDisconnects();
-        UTIL.checkDisconnect(u);
-      } else {
-        MyROOM.users.push(new USERS.User(user.id, user.username));
-        welcomeback = false;
-      }
-      var whoismsg = UTIL.whoisinfo("Bot", user.username);
-      if (whoismsg.length > 0) UTIL.chatLog(whoismsg);
-
-      // If user doesn't speak English let em know we do:
-      var userRole = USERS.getPermission(user.id);
-      var staffMember = false;
-      if (userRole > 0) staffMember = true;
-      if ((user.language.toUpperCase() !== "EN") && (!welcomeback) &&
-        (!staffMember) && (SETTINGS.welcomeForeignerMsg === true)) {
-        var engMsg = USERS.englishMessage(user.language, user.username);
-        if (engMsg.length > 0) {
-          setTimeout(function(user) {
-            UTIL.sendChat(engMsg);
-          }, 1 * 1500, user)
+      //
+      //            for (var bl in MyROOM.blacklists) {
+      //                //UTIL.logDebug("BL: " + bl + " Len: " + MyROOM.blacklists[bl].length);
+      //                if (SETTINGS.blacklistEnabled) {
+      //                    if (MyROOM.blacklists[bl].indexOf(mid) > -1) {
+      //                        UTIL.sendChat(CHAT.chatMapping.isblacklisted);
+      //                        USERS.skipBadSong(obj.dj.id, SETTINGS.loggedInName, "Blacklisted song");
+      //                        return;
+      //                    }
+      //                }
+      //            }
+      //UTIL.logDebug("eventDjadvance:5-2");
+      // Auto-skip SC song during restricted hours (7AM-3PM EST)
+      MyROOM.currentMediaCid = obj.media.cid;
+      var songPlayTime = new Date();
+      MyROOM.currentMediaStart = songPlayTime.getTime();
+      if ((SETTINGS.skipSound5Days || SETTINGS.skipSound7Days) && !SongSkipped) {
+        var currMedia = API.getMedia();
+        //UTIL.logDebug("Checking for SC Skip");
+        if (UTIL.skipSoundCloudNow() && currMedia.format === 2) {
+          //UTIL.logDebug("Skipping SC song");
+          var msg = "Sorry @" + obj.dj.username + " Sound Cloud songs are not permitted in this room " + SETTINGS.skipSoundRange + " too many regulars cannot hear them.";
+          UTIL.sendChat(msg);
+          USERS.skipBadSong(obj.dj.id, SETTINGS.loggedInName, "Sound Cloud song");
+          return;
         }
       }
 
-      USERS.setLastActivityID(user.id, false);
-      USERS.setBadSongCount(user.id, 0);
-      USERS.setJoinTime(user.id);
-
-      var welcomeMessage = "";
-      if (SETTINGS.welcome && greet) {
-        welcomeback ? welcomeMessage = CHAT.subChat(CHAT.chatMapping.welcomeback, {
-            name: user.username
-          }) :
-          welcomeMessage = CHAT.subChat(CHAT.chatMapping.welcome, {
-            name: user.username
-          });
-        if ((!staffMember) && (!welcomeback)) welcomeMessage += SETTINGS.newUserWhoisInfo;
-        UTIL.chatLog(SETTINGS.newUserWhoisInfo);
-        UTIL.logDebug("WelcomeBack: " + user.id + ": " + user.username);
-        setTimeout(function(user) {
-          UTIL.sendChat(welcomeMessage);
-        }, 1 * 1000, user);
-      }
-    },
-    eventUserleave: function(user) {
-      try {
-        if (!SETTINGS.runningBot) return;
-        UTIL.logDebug("eventUserleave happens..... tododer");
-        var roomUser = USERS.lookupUser(user.id);
-        // If user has not been in line for over 10 mins and they leave reset the DC
-        if ((roomUser.lastKnownPosition > 0) && (roomUser.lastSeenInLine !== null)) {
-          USERS.updateDC(roomUser);
-          roomUser.lastDC.leftroom = Date.now();
-          var miaTime = Date.now() - roomUser.lastSeenInLine;
-          UTIL.logDebug("Line miaTime: " + miaTime);
-          if (miaTime > (10 * 60 * 1000)) {
-            UTIL.logDebug("Line miaTime: " + miaTime + "RESET");
-            USERS.resetDC(roomUser);
-          }
-        }
-        if (roomUser.lastKnownPosition > 0) {
-          USERS.updateDC(roomUser);
-          roomUser.lastDC.leftroom = Date.now();
-        } else
-          USERS.resetDC(roomUser);
-        roomUser.inRoom = false;
-      } catch (err) {
-        UTIL.logException("eventUserleave: " + err.message);
-      }
-    },
-    eventVoteupdate: function(obj) {
-      try {
-        if (!SETTINGS.runningBot) return;
-        for (var i = 0; i < MyROOM.users.length; i++) {
-          if (MyROOM.users[i].id === obj.user.id) {
-            if (obj.vote === 1) {
-              MyROOM.users[i].votes.woot++;
-            } else {
-              MyROOM.users[i].votes.meh++;
-            }
-          }
-        }
-
-        var mehs = API.getScore().negative;
-        var woots = API.getScore().positive;
-        var dj = API.getDJ();
-
-        if (SETTINGS.voteSkipEnabled) {
-          if (mehs >= (SETTINGS.voteSkipLimit)) {
-            UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.voteskipexceededlimit, {
-              name: dj.username,
-              limit: SETTINGS.voteSkipLimit
-            }));
-            USERS.skipBadSong(dj.id, "Room", "Too many Mehs");
-          }
-        }
-      } catch (err) {
-        UTIL.logException("eventVoteupdate: " + err.message);
-      }
-    },
-    eventCurateupdate: function(obj) {
-      try {
-        if (!SETTINGS.runningBot) return;
-        for (var i = 0; i < MyROOM.users.length; i++) {
-          if (MyROOM.users[i].id === obj.user.id) {
-            MyROOM.users[i].votes.curate++;
-          }
-        }
-        USERS.setLastActivityID(obj.user.id, true);
-        UTIL.sendChat(":musical_note: " + obj.user.username + " snagged this song. :heart: :musical_note:");
-      } catch (err) {
-        UTIL.logException("eventCurateupdate: " + err.message);
-      }
-    },
-    eventDjadvance: function(obj) {
-      try {
-        if (!SETTINGS.runningBot) return;
-        //UTIL.logDebug("eventDjadvance-happens 2nd");
-        var SongSkipped = false;
-        var tastyCount = MyROOM.roomstats.tastyCount;
-        UTIL.resetTastyCount();
-        var lastplay = obj.lastPlay;
-        if (!(typeof lastplay === 'undefined')) {
-          //UTIL.logDebug("Last DJ: " + lastplay.dj.username);
-          if (typeof CHAT.chatMapping.songstatistics === "undefined") {
-            statsMsg = "/me " + lastplay.dj.username + " played " + lastplay.media.author + " - " + lastplay.media.title + ": " + lastplay.score.positive + "W/" + lastplay.score.grabs + "G/" + lastplay.score.negative + "M.";
-          } else if (tastyCount > 0) {
-            statsMsg = CHAT.subChat(CHAT.chatMapping.songstatisticstasty, {
-              user: lastplay.dj.username,
-              artist: lastplay.media.author,
-              title: lastplay.media.title,
-              woots: lastplay.score.positive,
-              grabs: lastplay.score.grabs,
-              mehs: lastplay.score.negative,
-              tasty: tastyCount
-            });
-          } else {
-            statsMsg = CHAT.subChat(CHAT.chatMapping.songstatistics, {
-              user: lastplay.dj.username,
-              artist: lastplay.media.author,
-              title: lastplay.media.title,
-              woots: lastplay.score.positive,
-              grabs: lastplay.score.grabs,
-              mehs: lastplay.score.negative
-            });
-          }
-          if (SETTINGS.songstats && !SETTINGS.suppressSongStats) UTIL.sendChat(statsMsg);
-          //Check to see if DJ should get booted:
-          if (USERS.getBootableID(lastplay.dj.username)) {
-            var bootuser = USERS.lookupUserName(lastplay.dj.username);
-            setTimeout(function() {
-              API.moderateRemoveDJ(bootuser.id);
-            }, 1000);
-            setTimeout(function() {
-              USERS.resetDC(bootuser);
-            }, 3500);
-          }
-          USERS.setBootableID(lastplay.dj.username);
-        }
-
-        UTIL.checkHopUp();
-        UTIL.checkHopDown();
-        var dj = API.getDJ();
-        if (!(typeof dj === 'undefined')) {
-          //UTIL.logDebug("eventDjadvance:2");
-          var roomUser = USERS.lookupUser(dj.id);
-          USERS.resetDC(roomUser);
-          roomUser.votes.songs += 1;
-        }
-        // UTIL.logDebug("eventDjadvance:3");
-        if (typeof lastplay !== 'undefined') {
-          // UTIL.logDebug("eventDjadvance:4");
-          MyROOM.roomstats.totalWoots += lastplay.score.positive;
-          MyROOM.roomstats.totalMehs += lastplay.score.negative;
-          MyROOM.roomstats.totalCurates += lastplay.score.grabs;
-        }
-        MyROOM.roomstats.songCount++;
-        UTIL.intervalMessage();
-        //if (typeof obj.dj === 'undefined') { return; }  //todoer not sure about re-adding this....? (Was commented out previously)
-        MyROOM.currentDJID = obj.dj.id;
-        USERS.setRolled(obj.dj.username, false);
-
-        // UTIL.logDebug("eventDjadvance:4a");
-        if (SETTINGS.autoWootBot === true) setTimeout(UTIL.wootThisSong, 3000);
-
-        // UTIL.logDebug("eventDjadvance:5");
-        // todo FOREACH LOOP
-        var mid = obj.media.format + ':' + obj.media.cid;
-        if (SETTINGS.blacklistEnabled) {
-          var banMsg = CHAT.subChat(CHAT.chatMapping.isblacklisted, {
+      //UTIL.logDebug("eventDjadvance:6");
+      var alreadyPlayed = false;
+      if (UTIL.getSongInfo(obj.media)) {
+        var lastPlayedMs = (Date.now() - MyROOM.songinfo.lastPlayed);
+        var repeatLimit = (SETTINGS.repeatSongTime * 60 * 1000);
+        if (SETTINGS.repeatSongs && (lastPlayedMs < repeatLimit) && (lastPlayedMs > 5000)) {
+          UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.songknown2, {
             name: obj.dj.username,
-            song: API.getMedia().title
-          });
-          if (MyROOM.newBlacklistIDs.indexOf(mid) > -1) {
-            setTimeout(function() {
-              UTIL.sendChat(banMsg);
-            }, 1000);
-            SETTINGS.suppressSongStats = true;
-            setTimeout(function() {
-              SETTINGS.suppressSongStats = false
-            }, 5000);
-            USERS.skipBadSong(obj.dj.id, SETTINGS.loggedInName, "Banned song");
-            setTimeout(function() {
-              UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.roomrules, {
-                link: SETTINGS.rulesLink
-              }));
-            }, 2000);
-            return;
-          }
-        }
-        //
-        //            for (var bl in MyROOM.blacklists) {
-        //                //UTIL.logDebug("BL: " + bl + " Len: " + MyROOM.blacklists[bl].length);
-        //                if (SETTINGS.blacklistEnabled) {
-        //                    if (MyROOM.blacklists[bl].indexOf(mid) > -1) {
-        //                        UTIL.sendChat(CHAT.chatMapping.isblacklisted);
-        //                        USERS.skipBadSong(obj.dj.id, SETTINGS.loggedInName, "Blacklisted song");
-        //                        return;
-        //                    }
-        //                }
-        //            }
-        //UTIL.logDebug("eventDjadvance:5-2");
-        // Auto-skip SC song during restricted hours (7AM-3PM EST)
-        MyROOM.currentMediaCid = obj.media.cid;
-        var songPlayTime = new Date();
-        MyROOM.currentMediaStart = songPlayTime.getTime();
-        if ((SETTINGS.skipSound5Days || SETTINGS.skipSound7Days) && !SongSkipped) {
-          var currMedia = API.getMedia();
-          //UTIL.logDebug("Checking for SC Skip");
-          if (UTIL.skipSoundCloudNow() && currMedia.format === 2) {
-            //UTIL.logDebug("Skipping SC song");
-            var msg = "Sorry @" + obj.dj.username + " Sound Cloud songs are not permitted in this room " + SETTINGS.skipSoundRange + " too many regulars cannot hear them.";
-            UTIL.sendChat(msg);
-            USERS.skipBadSong(obj.dj.id, SETTINGS.loggedInName, "Sound Cloud song");
-            return;
-          }
-        }
-
-        //UTIL.logDebug("eventDjadvance:6");
-        var alreadyPlayed = false;
-        if (UTIL.getSongInfo(obj.media)) {
-          var lastPlayedMs = (Date.now() - MyROOM.songinfo.lastPlayed);
-          var repeatLimit = (SETTINGS.repeatSongTime * 60 * 1000);
-          if (SETTINGS.repeatSongs && (lastPlayedMs < repeatLimit) && (lastPlayedMs > 5000)) {
-            UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.songknown2, {
-              name: obj.dj.username,
-              lasttime: UTIL.msToStr(lastPlayedMs)
-            }));
-            USERS.skipBadSong(obj.dj.id, SETTINGS.loggedInName, "Song in history");
-            SongSkipped = true;
-          } else {
-            MyROOM.historyList[MyROOM.songinfo.songIndex].push(+new Date());
-          }
-          alreadyPlayed = true;
-        }
-
-        //UTIL.logDebug("eventDjadvance:7");
-        if (!alreadyPlayed) {
-          MyROOM.historyList.push([obj.media.cid, +new Date()]);
-          //todoer add a 1st time played message? Maybe??
-        }
-        //UTIL.logDebug("eventDjadvance:8");
-        var newMedia = obj.media;
-        if (SETTINGS.timeGuard && newMedia.duration > SETTINGS.maximumSongLength * 60 && !MyROOM.roomevent && !SongSkipped) {
-          var name = obj.dj.username;
-          UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.timelimit, {
-            name: name,
-            maxlength: SETTINGS.maximumSongLength
+            lasttime: UTIL.msToStr(lastPlayedMs)
           }));
-          USERS.skipBadSong(obj.dj.id, SETTINGS.loggedInName, "Song too long");
+          USERS.skipBadSong(obj.dj.id, SETTINGS.loggedInName, "Song in history");
           SongSkipped = true;
+        } else {
+          MyROOM.historyList[MyROOM.songinfo.songIndex].push(+new Date());
         }
-        //UTIL.logDebug("eventDjadvance:10");
-        clearTimeout(MyROOM.autoskipTimer);
-        //UTIL.logDebug("eventDjadvance:11");
-        if (MyROOM.autoskip) {
-          var remaining = obj.media.duration * 1000;
-          MyROOM.autoskipTimer = setTimeout(function() {
-            //UTIL.logDebug("Skipping track.");
-            //UTIL.sendChat('Song stuck, skipping...');
-            UTIL.logInfo("Skip song: " + media.title + " by: " + SETTINGS.loggedInName + " Reason: AutoSkip enabled.");
-            API.moderateForceSkip();
-          }, remaining + 3000);
-        }
-        if (!SongSkipped) USERS.setBadSongCount(obj.dj.id, 0);
-        UTIL.logDebug("eventDjadvance:12");
-        STORAGE.storeToStorage();
-        //UTIL.logDebug("eventDjadvance:13");
-      } catch (err) {
-        UTIL.logException("eventDjadvance: " + err.message);
+        alreadyPlayed = true;
       }
-    },
-    eventWaitlistupdate: function(users) {
-      try {
-        if (!SETTINGS.runningBot) return;
-        //UTIL.logDebug("eventWaitlistupdate happens..... tododer");
-        UTIL.booth.checkForDisconnect();
-        UTIL.booth.checkForReconnect();
-        if (users.length < 50) {
-          if (MyROOM.queue.id.length > 0 && MyROOM.queueable) {
-            MyROOM.queueable = false;
-            setTimeout(function() {
-              MyROOM.queueable = true;
-            }, 500);
-            MyROOM.queueing++;
-            var id, pos;
-            setTimeout(
-              function() {
-                id = MyROOM.queue.id.splice(0, 1)[0];
-                pos = MyROOM.queue.position.splice(0, 1)[0];
-                API.moderateAddDJ(id, pos);
-                setTimeout(
-                  function(id, pos) {
-                    API.moderateMoveDJ(id, pos);
-                    MyROOM.queueing--;
-                    if (MyROOM.queue.id.length === 0) setTimeout(function() {
-                      UTIL.booth.unlockBooth();
-                    }, 1000);
-                  }, 1000, id, pos);
-              }, 1000 + MyROOM.queueing * 2500);
-          }
-        }
-        UTIL.updateWaitlist();
-        UTIL.booth.resetOldDisconnects();
-      } catch (err) {
-        UTIL.logException("eventWaitlistupdate: " + err.message);
+
+      //UTIL.logDebug("eventDjadvance:7");
+      if (!alreadyPlayed) {
+        MyROOM.historyList.push([obj.media.cid, +new Date()]);
+        //todoer add a 1st time played message? Maybe??
       }
-    },
-    eventModskip: function(users) {
-      // This is triggered when a mod skips a song
+      //UTIL.logDebug("eventDjadvance:8");
+      var newMedia = obj.media;
+      if (SETTINGS.timeGuard && newMedia.duration > SETTINGS.maximumSongLength * 60 && !MyROOM.roomevent && !SongSkipped) {
+        var name = obj.dj.username;
+        UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.timelimit, {
+          name: name,
+          maxlength: SETTINGS.maximumSongLength
+        }));
+        USERS.skipBadSong(obj.dj.id, SETTINGS.loggedInName, "Song too long");
+        SongSkipped = true;
+      }
+      //UTIL.logDebug("eventDjadvance:10");
+      clearTimeout(MyROOM.autoskipTimer);
+      //UTIL.logDebug("eventDjadvance:11");
+      if (MyROOM.autoskip) {
+        var remaining = obj.media.duration * 1000;
+        MyROOM.autoskipTimer = setTimeout(function() {
+          //UTIL.logDebug("Skipping track.");
+          //UTIL.sendChat('Song stuck, skipping...');
+          UTIL.logInfo("Skip song: " + media.title + " by: " + SETTINGS.loggedInName + " Reason: AutoSkip enabled.");
+          API.moderateForceSkip();
+        }, remaining + 3000);
+      }
+      if (!SongSkipped) USERS.setBadSongCount(obj.dj.id, 0);
+      UTIL.logDebug("eventDjadvance:12");
+      STORAGE.storeToStorage();
+      //UTIL.logDebug("eventDjadvance:13");
+    } catch (err) {
+      UTIL.logException("eventDjadvance: " + err.message);
+    }
+  },
+  eventWaitlistupdate: function(users) {
+    try {
       if (!SETTINGS.runningBot) return;
-    },
+      //UTIL.logDebug("eventWaitlistupdate happens..... tododer");
+      UTIL.booth.checkForDisconnect();
+      UTIL.booth.checkForReconnect();
+      if (users.length < 50) {
+        if (MyROOM.queue.id.length > 0 && MyROOM.queueable) {
+          MyROOM.queueable = false;
+          setTimeout(function() {
+            MyROOM.queueable = true;
+          }, 500);
+          MyROOM.queueing++;
+          var id, pos;
+          setTimeout(
+            function() {
+              id = MyROOM.queue.id.splice(0, 1)[0];
+              pos = MyROOM.queue.position.splice(0, 1)[0];
+              API.moderateAddDJ(id, pos);
+              setTimeout(
+                function(id, pos) {
+                  API.moderateMoveDJ(id, pos);
+                  MyROOM.queueing--;
+                  if (MyROOM.queue.id.length === 0) setTimeout(function() {
+                    UTIL.booth.unlockBooth();
+                  }, 1000);
+                }, 1000, id, pos);
+            }, 1000 + MyROOM.queueing * 2500);
+        }
+      }
+      UTIL.updateWaitlist();
+      UTIL.booth.resetOldDisconnects();
+    } catch (err) {
+      UTIL.logException("eventWaitlistupdate: " + err.message);
+    }
+  },
+  eventModskip: function(users) {
+    // This is triggered when a mod skips a song
+    if (!SETTINGS.runningBot) return;
+  },
 
   splitBetween: function(str, a, b) {
     var self = str;
@@ -1399,7 +1399,7 @@ var MyEVENTS = {
     }
     return m;
   }
-	
+
 };
 
 //SECTION MyAPI: Site specific code: API.
@@ -1411,10 +1411,14 @@ var MyAPI = {
   },
 
   moderateDeleteChat: function(cid) {
-    $.ajax({
-      url: "https://plug.dj/_/chat/" + cid,
-      type: "DELETE"
-    })
+    UTIL.ajax("chat/" + cid, "GET", void 0, function(e, t) {
+                    UTIL.logDebug("CHAT DATA: " + t.data);
+                });
+    UTIL.ajax("chat/" + cid, "DELETE");
+    // $.ajax({
+    //   url: "https://plug.dj/_/chat/" + cid,
+    //   type: "DELETE"
+    // })
   },
   grabSong: function(playlistID, historyID) {
     try {
@@ -1480,6 +1484,22 @@ var MyAPI = {
 
 //SECTION UTIL: Core functionality: UTIL.
 var UTIL = {
+  ajax: function(e, s, t, a) {
+    var o = $.ajax({
+      type: s || "GET",
+	url: "/_/" + e.toLowerCase(),
+      contentType: t ? "application/json" : void 0,
+      data: t ? JSON.stringify(t) : void 0
+    });
+    "function" == typeof a && (o.done(function(e) {
+      a(null, e)
+    }), o.fail(function(e, s) {
+      a({
+        jqXHR: e,
+        textStatus: s
+      })
+    }))
+  },
   botIsDj: function() {
     try {
       var dj = API.getDJ();
@@ -2816,18 +2836,18 @@ var BOTCOMMANDS = {
     return perm >= minPerm;
 
   },
-   // command: {
-   //            command: 'cmd',
-   //            rank: 'user/bouncer/mod/manager',
-   //            type: 'startsWith/exact',
-   //            functionality: function(chat, cmd){
-   //                    if(this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-   //                    if( !BOTCOMMANDS.executable(this.rank, chat) ) return void (0);
-   //                    else{
-   //                    
-   //                    }
-   //            }
-   //    },
+  // command: {
+  //            command: 'cmd',
+  //            rank: 'user/bouncer/mod/manager',
+  //            type: 'startsWith/exact',
+  //            functionality: function(chat, cmd){
+  //                    if(this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+  //                    if( !BOTCOMMANDS.executable(this.rank, chat) ) return void (0);
+  //                    else{
+  //                    
+  //                    }
+  //            }
+  //    },
 
   activeCommand: {
     command: 'active',
@@ -4332,28 +4352,28 @@ var BOTCOMMANDS = {
         var permFrom = USERS.getPermission(chat.uid);
         var permUser = USERS.getPermission(user.id);
         if (permFrom > permUser) {
-           // MyROOM.mutedUsers.push(user.id);
-           // if (time === null) UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.mutednotime, {name: chat.un, username: name}));
-           // else {
-           // UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.mutedtime, {name: chat.un, username: name, time: time}));
-           // setTimeout(function (id) {
-           // var muted = MyROOM.mutedUsers;
-           // var wasMuted = false;
-           // var indexMuted = -1;
-           // for (var i = 0; i < muted.length; i++) {
-           // if (muted[i] === id) {
-           // indexMuted = i;
-           // wasMuted = true;
-           // }
-           // }
-           // if (indexMuted > -1) {
-           // MyROOM.mutedUsers.splice(indexMuted);
-           // var u = USERS.lookupUser(id);
-           // var name = u.username;
-           // UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.unmuted, {name: chat.un, username: name}));
-           // }
-           // }, time * 60 * 1000, user.id);
-           // }
+          // MyROOM.mutedUsers.push(user.id);
+          // if (time === null) UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.mutednotime, {name: chat.un, username: name}));
+          // else {
+          // UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.mutedtime, {name: chat.un, username: name, time: time}));
+          // setTimeout(function (id) {
+          // var muted = MyROOM.mutedUsers;
+          // var wasMuted = false;
+          // var indexMuted = -1;
+          // for (var i = 0; i < muted.length; i++) {
+          // if (muted[i] === id) {
+          // indexMuted = i;
+          // wasMuted = true;
+          // }
+          // }
+          // if (indexMuted > -1) {
+          // MyROOM.mutedUsers.splice(indexMuted);
+          // var u = USERS.lookupUser(id);
+          // var name = u.username;
+          // UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.unmuted, {name: chat.un, username: name}));
+          // }
+          // }, time * 60 * 1000, user.id);
+          // }
           if (time > 45) {
             UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.mutedmaxtime, {
               name: chat.un,
@@ -5425,18 +5445,18 @@ var BOTCOMMANDS = {
 
         var permUser = USERS.getPermission(user.id);
         if (permFrom > permUser) {
-           // var muted = MyROOM.mutedUsers;
-           // var wasMuted = false;
-           // var indexMuted = -1;
-           // for (var i = 0; i < muted.length; i++) {
-           // if (muted[i] === user.id) {
-           // indexMuted = i;
-           // wasMuted = true;
-           // }
-           // }
-           // if (!wasMuted) return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.notmuted, {name: chat.un}));
-           // MyROOM.mutedUsers.splice(indexMuted);
-           // UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.unmuted, {name: chat.un, username: name}));
+          // var muted = MyROOM.mutedUsers;
+          // var wasMuted = false;
+          // var indexMuted = -1;
+          // for (var i = 0; i < muted.length; i++) {
+          // if (muted[i] === user.id) {
+          // indexMuted = i;
+          // wasMuted = true;
+          // }
+          // }
+          // if (!wasMuted) return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.notmuted, {name: chat.un}));
+          // MyROOM.mutedUsers.splice(indexMuted);
+          // UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.unmuted, {name: chat.un, username: name}));
           try {
             API.moderateUnmuteUser(user.id);
             UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.unmuted, {
@@ -6495,824 +6515,824 @@ var BOTCOMMANDS = {
 
 //SECTION USERS: All User data
 var USERS = {
-    User: function(id, name) {
-      this.id = id;
-      this.username = name;
-      this.jointime = Date.now();
-      this.lastActivity = Date.now();
-      this.votes = {
-        songs: 0,
-        tasty: 0,
-        woot: 0,
-        meh: 0,
-        curate: 0
-      };
-      this.tastyVote = false;
-      this.rolled = false;
-      this.lastEta = null;
-      this.bootable = false;
-      this.beerRun = false;
-      this.inMeeting = false;
-      this.atLunch = false;
-      this.afkWarningCount = 0;
-      this.badSongCount = 0;
-      this.afkCountdown = null;
-      this.inRoom = true;
-      this.isMuted = false;
-      this.rollStats = {
-        lifeWoot: 0,
-        lifeTotal: 0,
-        dayWoot: 0,
-        dayTotal: 0,
-        DOY: -1
-      };
-      this.lastDC = {
-        time: null,
-        leftroom: null,
-        resetReason: "",
-        position: -1,
-        songCount: 0
-      };
-      this.lastKnownPosition = -1;
-      this.lastSeenInLine = null;
-    },
-      displayLeaderBoard: function(leaderBoard, username, dispPct, caption) {
-        try {
-          console.table(leaderBoard);
-          var MsgA = "";
-          var MsgB = "";
-          MsgA = caption;
-          for (var leaderIdx = 0; leaderIdx < leaderBoard.length; leaderIdx++) {
-            var strData = "[" + UTIL.numberToIcon(leaderIdx + 1) + " " + leaderBoard[leaderIdx].username + " ";
-            if (dispPct)
-              strData += leaderBoard[leaderIdx].winCount + "/" + leaderBoard[leaderIdx].rollCount + " " + leaderBoard[leaderIdx].rollPct + "] "
-            else
-              strData += leaderBoard[leaderIdx].rollCount + "] "
-            if (leaderIdx < 5)
-              MsgA += strData;
-            else
-              MsgB += strData;
+  User: function(id, name) {
+    this.id = id;
+    this.username = name;
+    this.jointime = Date.now();
+    this.lastActivity = Date.now();
+    this.votes = {
+      songs: 0,
+      tasty: 0,
+      woot: 0,
+      meh: 0,
+      curate: 0
+    };
+    this.tastyVote = false;
+    this.rolled = false;
+    this.lastEta = null;
+    this.bootable = false;
+    this.beerRun = false;
+    this.inMeeting = false;
+    this.atLunch = false;
+    this.afkWarningCount = 0;
+    this.badSongCount = 0;
+    this.afkCountdown = null;
+    this.inRoom = true;
+    this.isMuted = false;
+    this.rollStats = {
+      lifeWoot: 0,
+      lifeTotal: 0,
+      dayWoot: 0,
+      dayTotal: 0,
+      DOY: -1
+    };
+    this.lastDC = {
+      time: null,
+      leftroom: null,
+      resetReason: "",
+      position: -1,
+      songCount: 0
+    };
+    this.lastKnownPosition = -1;
+    this.lastSeenInLine = null;
+  },
+  displayLeaderBoard: function(leaderBoard, username, dispPct, caption) {
+    try {
+      console.table(leaderBoard);
+      var MsgA = "";
+      var MsgB = "";
+      MsgA = caption;
+      for (var leaderIdx = 0; leaderIdx < leaderBoard.length; leaderIdx++) {
+        var strData = "[" + UTIL.numberToIcon(leaderIdx + 1) + " " + leaderBoard[leaderIdx].username + " ";
+        if (dispPct)
+          strData += leaderBoard[leaderIdx].winCount + "/" + leaderBoard[leaderIdx].rollCount + " " + leaderBoard[leaderIdx].rollPct + "] "
+        else
+          strData += leaderBoard[leaderIdx].rollCount + "] "
+        if (leaderIdx < 5)
+          MsgA += strData;
+        else
+          MsgB += strData;
+      }
+      setTimeout(function() {
+        UTIL.sendChat(MsgA);
+      }, 500);
+      setTimeout(function() {
+        UTIL.sendChat(MsgB);
+      }, 1000);
+    } catch (err) {
+      UTIL.logException("displayLeaderBoard: " + err.message);
+    }
+  },
+  loadRollPoints: function(loadingTop) {
+    try {
+      userIDs = [];
+      leaderBoard = [];
+      for (var leaderIdx = 0; leaderIdx < 10; leaderIdx++) {
+        var rollCount = 0;
+        if (loadingTop === false) rollCount = 10000;
+        var addUserIdx = -1;
+        for (var userIdx = 0; userIdx < MyROOM.users.length; userIdx++) {
+          var skipUser = false;
+          var roomUser = MyROOM.users[userIdx];
+          //UTIL.logDebug("Scanning User: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
+          if (userIDs.indexOf(roomUser.id) > -1) skipUser = true; // Already in the leader list
+          if (roomUser.rollStats.lifeTotal < 50) skipUser = true; // Require 50 rolls to get on the leader board
+          // Skip user if higher or lower than the current high/low score:
+          if (roomUser.rollStats.lifeTotal < rollCount && loadingTop === true) skipUser = true;
+          if (roomUser.rollStats.lifeTotal > rollCount && loadingTop === false) skipUser = true;
+          if (!skipUser) {
+            addUserIdx = userIdx;
+            //UTIL.logDebug("New Leader: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
+            rollCount = roomUser.rollStats.lifeTotal;
           }
-          setTimeout(function() {
-            UTIL.sendChat(MsgA);
-          }, 500);
-          setTimeout(function() {
-            UTIL.sendChat(MsgB);
-          }, 1000);
-        } catch (err) {
-          UTIL.logException("displayLeaderBoard: " + err.message);
         }
-      },
-      loadRollPoints: function(loadingTop) {
-        try {
-          userIDs = [];
-          leaderBoard = [];
-          for (var leaderIdx = 0; leaderIdx < 10; leaderIdx++) {
-            var rollCount = 0;
-            if (loadingTop === false) rollCount = 10000;
-            var addUserIdx = -1;
-            for (var userIdx = 0; userIdx < MyROOM.users.length; userIdx++) {
-              var skipUser = false;
-              var roomUser = MyROOM.users[userIdx];
-              //UTIL.logDebug("Scanning User: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
-              if (userIDs.indexOf(roomUser.id) > -1) skipUser = true; // Already in the leader list
-              if (roomUser.rollStats.lifeTotal < 50) skipUser = true; // Require 50 rolls to get on the leader board
-              // Skip user if higher or lower than the current high/low score:
-              if (roomUser.rollStats.lifeTotal < rollCount && loadingTop === true) skipUser = true;
-              if (roomUser.rollStats.lifeTotal > rollCount && loadingTop === false) skipUser = true;
-              if (!skipUser) {
-                addUserIdx = userIdx;
-                //UTIL.logDebug("New Leader: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
-                rollCount = roomUser.rollStats.lifeTotal;
-              }
-            }
 
-            if (addUserIdx > -1) {
-              var topStats = {
-                username: "",
-                rollCount: 0,
-                winCount: 0,
-                rollPct: ""
-              };
-              //UTIL.logDebug("Adding User: " + MyROOM.users[addUserIdx].username + ": " + MyROOM.users[addUserIdx].rollStats.lifeTotal);
-              topStats.username = MyROOM.users[addUserIdx].username;
-              topStats.rollCount = MyROOM.users[addUserIdx].rollStats.lifeTotal;
-              topStats.winCount = MyROOM.users[addUserIdx].rollStats.lifeWoot;
-              topStats.rollPct = UTIL.formatPercentage(MyROOM.users[addUserIdx].rollStats.lifeWoot, MyROOM.users[addUserIdx].rollStats.lifeTotal);
-              leaderBoard.push(topStats);
-              userIDs.push(MyROOM.users[addUserIdx].id);
-            }
+        if (addUserIdx > -1) {
+          var topStats = {
+            username: "",
+            rollCount: 0,
+            winCount: 0,
+            rollPct: ""
+          };
+          //UTIL.logDebug("Adding User: " + MyROOM.users[addUserIdx].username + ": " + MyROOM.users[addUserIdx].rollStats.lifeTotal);
+          topStats.username = MyROOM.users[addUserIdx].username;
+          topStats.rollCount = MyROOM.users[addUserIdx].rollStats.lifeTotal;
+          topStats.winCount = MyROOM.users[addUserIdx].rollStats.lifeWoot;
+          topStats.rollPct = UTIL.formatPercentage(MyROOM.users[addUserIdx].rollStats.lifeWoot, MyROOM.users[addUserIdx].rollStats.lifeTotal);
+          leaderBoard.push(topStats);
+          userIDs.push(MyROOM.users[addUserIdx].id);
+        }
+      }
+      return leaderBoard;
+    } catch (err) {
+      UTIL.logException("loadRollPoints: " + err.message);
+    }
+  },
+  loadRollPct: function(loadingTop) {
+    try {
+      userIDs = [];
+      leaderBoard = [];
+      var addUserIdx = -1;
+      for (var leaderIdx = 0; leaderIdx < 10; leaderIdx++) {
+        addUserIdx = -1;
+        var rollPct = 0.0;
+        if (loadingTop === false) rollPct = 101.00;
+        for (var userIdx = 0; userIdx < MyROOM.users.length; userIdx++) {
+          var skipUser = false;
+          var roomUser = MyROOM.users[userIdx];
+          if (userIDs.indexOf(roomUser.id) > -1) skipUser = true; // Already in the leader list
+          //UTIL.logDebug("Scanning User: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
+          if (roomUser.rollStats.lifeTotal < 50) skipUser = true; // Require 50 rolls to get on the leader board
+          if (!skipUser) {
+            var UserPct = roomUser.rollStats.lifeWoot / roomUser.rollStats.lifeTotal;
+            // Skip user if higher or lower than the current high/low score:
+            if (UserPct < rollPct && loadingTop === true) skipUser = true;
+            if (UserPct > rollPct && loadingTop === false) skipUser = true;
           }
-          return leaderBoard;
-        } catch (err) {
-          UTIL.logException("loadRollPoints: " + err.message);
-        }
-      },
-      loadRollPct: function(loadingTop) {
-        try {
-          userIDs = [];
-          leaderBoard = [];
-          var addUserIdx = -1;
-          for (var leaderIdx = 0; leaderIdx < 10; leaderIdx++) {
-            addUserIdx = -1;
-            var rollPct = 0.0;
-            if (loadingTop === false) rollPct = 101.00;
-            for (var userIdx = 0; userIdx < MyROOM.users.length; userIdx++) {
-              var skipUser = false;
-              var roomUser = MyROOM.users[userIdx];
-              if (userIDs.indexOf(roomUser.id) > -1) skipUser = true; // Already in the leader list
-              //UTIL.logDebug("Scanning User: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal);
-              if (roomUser.rollStats.lifeTotal < 50) skipUser = true; // Require 50 rolls to get on the leader board
-              if (!skipUser) {
-                var UserPct = roomUser.rollStats.lifeWoot / roomUser.rollStats.lifeTotal;
-                // Skip user if higher or lower than the current high/low score:
-                if (UserPct < rollPct && loadingTop === true) skipUser = true;
-                if (UserPct > rollPct && loadingTop === false) skipUser = true;
-              }
-              if (!skipUser) {
-                //UTIL.logDebug("New Leader: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal + "-" + UserPct);
-                addUserIdx = userIdx;
-                rollPct = UserPct;
-              }
-            }
-            if (addUserIdx > -1) {
-              var topStats = {
-                username: "",
-                rollCount: 0,
-                winCount: 0,
-                rollPct: ""
-              };
-              //UTIL.logDebug("Adding User: " + MyROOM.users[addUserIdx].username + ": " + MyROOM.users[addUserIdx].rollStats.lifeTotal);
-              topStats.username = MyROOM.users[addUserIdx].username;
-              topStats.rollCount = MyROOM.users[addUserIdx].rollStats.lifeTotal;
-              topStats.winCount = MyROOM.users[addUserIdx].rollStats.lifeWoot;
-              topStats.rollPct = UTIL.formatPercentage(MyROOM.users[addUserIdx].rollStats.lifeWoot, MyROOM.users[addUserIdx].rollStats.lifeTotal);
-              leaderBoard.push(topStats);
-              userIDs.push(MyROOM.users[addUserIdx].id);
-            }
+          if (!skipUser) {
+            //UTIL.logDebug("New Leader: " + roomUser.username + ": " + roomUser.rollStats.lifeTotal + "-" + UserPct);
+            addUserIdx = userIdx;
+            rollPct = UserPct;
           }
-          return leaderBoard;
-        } catch (err) {
-          UTIL.logException("loadRollPct: " + err.message);
         }
-      },
-      englishMessage: function(lang, username) {
-        try {
-          var engMsg = '/me @' + username + ' ';
-          switch (lang) {
-            case 'en':
-              break;
-            case 'bg':
-              engMsg += 'Моля, говорете Inglês';
-              break;
-            case 'fi':
-              engMsg += 'Ole hyvä puhua Inglês';
-              break;
-            case 'zh':
-              engMsg += '请讲英语';
-              break;
-            case 'ms':
-              engMsg += 'Sila berbahasa Inggeris';
-              break;
-            case 'xx':
-              engMsg += 'xx';
-              break;
-            case 'da':
-              engMsg += 'Vær venlig at tale engelsk.';
-              break;
-            case 'de':
-              engMsg += 'Bitte sprechen Sie Englisch.';
-              break;
-            case 'es':
-              engMsg += 'Por favor, hable Inglés.';
-              break;
-            case 'fr':
-              engMsg += 'Parlez anglais, s\'il vous plaît.';
-              break;
-            case 'nl':
-              engMsg += 'Spreek Engels, alstublieft.';
-              break;
-            case 'pl':
-              engMsg += 'Proszę mówić po angielsku.';
-              break;
-            case 'pt':
-              engMsg += 'Por favor, fale Inglês.';
-              break;
-            case 'sk':
-              engMsg += 'Hovorte po anglicky, prosím.';
-              break;
-            case 'cs':
-              engMsg += 'Mluvte prosím anglicky.';
-              break;
-            case 'sr':
-              engMsg += 'Молим Вас, говорите енглески.';
-              break;
-          }
-          engMsg += '   (English please)';
-          return engMsg;
-        } catch (err) {
-          UTIL.logException("englishMessage: " + err.message);
+        if (addUserIdx > -1) {
+          var topStats = {
+            username: "",
+            rollCount: 0,
+            winCount: 0,
+            rollPct: ""
+          };
+          //UTIL.logDebug("Adding User: " + MyROOM.users[addUserIdx].username + ": " + MyROOM.users[addUserIdx].rollStats.lifeTotal);
+          topStats.username = MyROOM.users[addUserIdx].username;
+          topStats.rollCount = MyROOM.users[addUserIdx].rollStats.lifeTotal;
+          topStats.winCount = MyROOM.users[addUserIdx].rollStats.lifeWoot;
+          topStats.rollPct = UTIL.formatPercentage(MyROOM.users[addUserIdx].rollStats.lifeWoot, MyROOM.users[addUserIdx].rollStats.lifeTotal);
+          leaderBoard.push(topStats);
+          userIDs.push(MyROOM.users[addUserIdx].id);
         }
-      },
-      getJointime: function(user) {
-        return user.jointime;
-      },
-      getCurrentPlugUser: function() {
-        return API.getUser();
-      },
-      getPlugUser: function(user) {
-        try {
-          return USERS.getUser(user);
-        } catch (err) {
-          UTIL.logException("userUtilities.getPlugUser: " + err.message);
-        }
-      },
-      getPlugUserID: function(userid) {
-        try {
-          return API.getUser(userid);
-        } catch (err) {
-          UTIL.logException("userUtilities.getPlugUserID: " + err.message);
-        }
-      },
-      getUser: function(user) {
-        try {
-          return API.getUser(user.id);
-        } catch (err) {
-          UTIL.logException("userUtilities.getUser: " + err.message);
-        }
-      },
-      tastyVote: function(userId, cmd) {
-        try {
-          var user = USERS.lookupUser(userId);
-          if (user.tastyVote) return;
-          var dj = API.getDJ();
-          if (typeof dj === 'undefined') return;
-          if (dj.id === userId) {
-            UTIL.sendChat("I'm glad you find your own play tasty @" + user.username);
-            return;
-          }
-          var tastyComment = UTIL.tastyComment(cmd);
-          user.tastyVote = true;
-          //UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.tastyvote, {name: user.username}));
-          setTimeout(function() {
-            UTIL.sendChat(CHAT.subChat(tastyComment, {
-              pointfrom: user.username
-            }));
-          }, 1000);
-
-          MyROOM.roomstats.tastyCount += 1;
-          var currdj = USERS.lookupUser(dj.id);
-          currdj.votes.tasty += 1;
-        } catch (err) {
-          UTIL.logException("userUtilities.tastyVote: " + err.message);
-        }
-      },
-      resetDC: function(user) {
-        user.lastDC.time = null;
-        user.lastDC.position = -1;
-        user.lastDC.leftroom = null;
-        user.lastKnownPosition = -1;
-        user.lastSeenInLine = null;
-        user.lastDC.songCount = 0;
-        user.beerRun = false;
-        user.inMeeting = false;
-        user.atLunch = false;
-      },
-      updateDC: function(user) {
-        user.lastDC.time = Date.now();
-        user.lastDC.position = user.lastKnownPosition;
-        user.lastDC.songCount = MyROOM.roomstats.songCount;
-      },
-      setUserName: function(userId, userName) {
-        var user = USERS.lookupUser(userId);
-        if (user.username !== userName) user.username = userName;
-      },
-      setLastActivityID: function(userId, dispMsg) {
-        var user = USERS.lookupUser(userId);
-        USERS.setLastActivity(user, dispMsg);
-      },
-      didUserDisconnect: function(user) {
-        if (user.beerRun) return true;
-        if (user.inMeeting) return true;
-        if (user.atLunch) return true;
-        if (user.lastDC.time !== null && user.lastDC.position > 0) return true;
-        return false;
-      },
-      setLastActivity: function(user, dispMsg) {
-        user.lastActivity = Date.now();
-        if ((user.afkWarningCount > 0) && (dispMsg === true)) UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.afkUserReset, {
-          name: user.username
+      }
+      return leaderBoard;
+    } catch (err) {
+      UTIL.logException("loadRollPct: " + err.message);
+    }
+  },
+  englishMessage: function(lang, username) {
+    try {
+      var engMsg = '/me @' + username + ' ';
+      switch (lang) {
+        case 'en':
+          break;
+        case 'bg':
+          engMsg += 'Моля, говорете Inglês';
+          break;
+        case 'fi':
+          engMsg += 'Ole hyvä puhua Inglês';
+          break;
+        case 'zh':
+          engMsg += '请讲英语';
+          break;
+        case 'ms':
+          engMsg += 'Sila berbahasa Inggeris';
+          break;
+        case 'xx':
+          engMsg += 'xx';
+          break;
+        case 'da':
+          engMsg += 'Vær venlig at tale engelsk.';
+          break;
+        case 'de':
+          engMsg += 'Bitte sprechen Sie Englisch.';
+          break;
+        case 'es':
+          engMsg += 'Por favor, hable Inglés.';
+          break;
+        case 'fr':
+          engMsg += 'Parlez anglais, s\'il vous plaît.';
+          break;
+        case 'nl':
+          engMsg += 'Spreek Engels, alstublieft.';
+          break;
+        case 'pl':
+          engMsg += 'Proszę mówić po angielsku.';
+          break;
+        case 'pt':
+          engMsg += 'Por favor, fale Inglês.';
+          break;
+        case 'sk':
+          engMsg += 'Hovorte po anglicky, prosím.';
+          break;
+        case 'cs':
+          engMsg += 'Mluvte prosím anglicky.';
+          break;
+        case 'sr':
+          engMsg += 'Молим Вас, говорите енглески.';
+          break;
+      }
+      engMsg += '   (English please)';
+      return engMsg;
+    } catch (err) {
+      UTIL.logException("englishMessage: " + err.message);
+    }
+  },
+  getJointime: function(user) {
+    return user.jointime;
+  },
+  getCurrentPlugUser: function() {
+    return API.getUser();
+  },
+  getPlugUser: function(user) {
+    try {
+      return USERS.getUser(user);
+    } catch (err) {
+      UTIL.logException("userUtilities.getPlugUser: " + err.message);
+    }
+  },
+  getPlugUserID: function(userid) {
+    try {
+      return API.getUser(userid);
+    } catch (err) {
+      UTIL.logException("userUtilities.getPlugUserID: " + err.message);
+    }
+  },
+  getUser: function(user) {
+    try {
+      return API.getUser(user.id);
+    } catch (err) {
+      UTIL.logException("userUtilities.getUser: " + err.message);
+    }
+  },
+  tastyVote: function(userId, cmd) {
+    try {
+      var user = USERS.lookupUser(userId);
+      if (user.tastyVote) return;
+      var dj = API.getDJ();
+      if (typeof dj === 'undefined') return;
+      if (dj.id === userId) {
+        UTIL.sendChat("I'm glad you find your own play tasty @" + user.username);
+        return;
+      }
+      var tastyComment = UTIL.tastyComment(cmd);
+      user.tastyVote = true;
+      //UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.tastyvote, {name: user.username}));
+      setTimeout(function() {
+        UTIL.sendChat(CHAT.subChat(tastyComment, {
+          pointfrom: user.username
         }));
-        user.afkWarningCount = 0;
-        clearTimeout(user.afkCountdown);
-      },
-      setMeetingStatus: function(user, status) {
-        user.beerRun = false;
-        user.inMeeting = status;
-        user.atLunch = false;
-      },
-      setBeerRunStatus: function(user, status) {
-        user.beerRun = status;
-        user.inMeeting = false;
-        user.atLunch = false;
-      },
-      setLunchStatus: function(user, status) {
-        user.beerRun = false;
-        user.inMeeting = false;
-        user.atLunch = status;
-      },
-      getLastActivity: function(user) {
-        return user.lastActivity;
-      },
-      setBootableID: function(username, value) {
-        var user = USERS.lookupUserName(username);
-        user.bootable = value;
-      },
-      getBootableID: function(username) {
-        var user = USERS.lookupUserName(username);
-        return user.bootable;
-      },
-      resetDailyRolledStats: function(roomUser) {
-        try {
-          var DOY = UTIL.getDOY();
-          if (roomUser.rollStats.DOY !== DOY) {
-            roomUser.rollStats.DOY = DOY;
-            roomUser.rollStats.dayWoot = 0;
-            roomUser.rollStats.dayTotal = 0;
-          }
-        } catch (err) {
-          UTIL.logException("resetDailyRolledStats: " + err.message);
-          return "";
-        }
-      },
-      getRolledStats: function(roomUser) {
-        try {
-          var rollStats = " [Today: " + roomUser.rollStats.dayWoot + "/" + roomUser.rollStats.dayTotal;
-          rollStats += " " + UTIL.formatPercentage(roomUser.rollStats.dayWoot, roomUser.rollStats.dayTotal) + "]";
-          rollStats += " [Lifetime: " + roomUser.rollStats.lifeWoot + "/" + roomUser.rollStats.lifeTotal;
-          rollStats += " " + UTIL.formatPercentage(roomUser.rollStats.lifeWoot, roomUser.rollStats.lifeTotal) + "]";
-          return rollStats;
-        } catch (err) {
-          UTIL.logException("getRolledStats: " + err.message);
-          return "";
-        }
-      },
-      updateRolledStats: function(username, wooting) {
-        try {
-          var roomUser = USERS.lookupUserName(username);
-          USERS.resetDailyRolledStats(roomUser);
-          if (wooting) {
-            roomUser.rollStats.lifeWoot++;
-            roomUser.rollStats.dayWoot++;
-          }
-          roomUser.rollStats.lifeTotal++;
-          roomUser.rollStats.dayTotal++;
-          return USERS.getRolledStats(roomUser);
-        } catch (err) {
-          UTIL.logException("updateRolledStats: " + err.message);
-          return "";
-        }
-      },
-      setRolled: function(username, value, wooting) {
-        var user = USERS.lookupUserName(username);
-        user.rolled = value;
-      },
-      getRolled: function(username) {
-        var user = USERS.lookupUserName(username);
-        return user.rolled;
-      },
-      getWarningCount: function(user) {
-        return user.afkWarningCount;
-      },
-      setWarningCount: function(user, value) {
-        user.afkWarningCount = value;
+      }, 1000);
 
-      },
-      removeDJ: function(userId) {
-        try {
-          UTIL.logDebug("Remove DJ1: " + userId);
-          API.moderateRemoveDJ(userId);
-          UTIL.logDebug("Remove DJ2: " + userId);
-        } catch (err) {
-          UTIL.logException("removeDJ: " + err.message);
-        }
-      },
-      skipBadSong: function(userId, skippedBy, reason) {
-        UTIL.logInfo("Skip: [" + API.getMedia().title + "] dj id: " + userId + ": skiped by: " + skippedBy + " Reason: " + reason);
-        var tooMany = false;
-        tooMany = USERS.tooManyBadSongs(userId);
-        if (tooMany) MyAPI.botDjNow();
-        setTimeout(function() {
-          API.moderateForceSkip();
-        }, 1 * 500);
-        if (tooMany) setTimeout(function() {
-          USERS.removeDJ(userId);
-        }, 1 * 1000);
-        if (tooMany) setTimeout(function() {
-          USERS.setBadSongCount(userId, 0);
-        }, 1 * 1500);
-      },
-      tooManyBadSongs: function(userId) {
-        var badCount = USERS.getBadSongCount(userId);
-        badCount++;
-        USERS.setBadSongCount(userId, badCount);
-        if (badCount > 2) return true;
-        return false;
-      },
-      getBadSongCount: function(userId) {
-        var user = USERS.lookupUser(userId);
-        return user.badSongCount;
-      },
-      setBadSongCount: function(userId, value) {
-        var user = USERS.lookupUser(userId);
-        user.badSongCount = value;
-      },
-      setJoinTime: function(userId, value) {
-        var user = USERS.lookupUser(userId);
-        user.jointime = Date.now();
-      },
-      lookupUser: function(id) { //getroomuser
-        for (var i = 0; i < MyROOM.users.length; i++) {
-          if (MyROOM.users[i].id === id) {
-            return MyROOM.users[i];
-          }
-        }
-        return false;
-      },
-      lookupUserName: function(name) {
-        for (var i = 0; i < MyROOM.users.length; i++) {
-          if (MyROOM.users[i].username.trim() == name.trim()) {
-            return MyROOM.users[i];
-          }
-        }
-        return false;
-      },
-      lookupUserNameImport: function(name) {
-        for (var i = 0; i < MyROOM.usersImport.length; i++) {
-          if (MyROOM.usersImport[i].username.trim() == name.trim()) {
-            return MyROOM.usersImport[i];
-          }
-        }
-        return false;
-      },
-      voteRatio: function(id) {
-        var user = USERS.lookupUser(id);
-        var votes = user.votes;
-        if (votes.meh === 0) votes.ratio = 1;
-        else votes.ratio = (votes.woot / votes.meh).toFixed(2);
-        return votes;
+      MyROOM.roomstats.tastyCount += 1;
+      var currdj = USERS.lookupUser(dj.id);
+      currdj.votes.tasty += 1;
+    } catch (err) {
+      UTIL.logException("userUtilities.tastyVote: " + err.message);
+    }
+  },
+  resetDC: function(user) {
+    user.lastDC.time = null;
+    user.lastDC.position = -1;
+    user.lastDC.leftroom = null;
+    user.lastKnownPosition = -1;
+    user.lastSeenInLine = null;
+    user.lastDC.songCount = 0;
+    user.beerRun = false;
+    user.inMeeting = false;
+    user.atLunch = false;
+  },
+  updateDC: function(user) {
+    user.lastDC.time = Date.now();
+    user.lastDC.position = user.lastKnownPosition;
+    user.lastDC.songCount = MyROOM.roomstats.songCount;
+  },
+  setUserName: function(userId, userName) {
+    var user = USERS.lookupUser(userId);
+    if (user.username !== userName) user.username = userName;
+  },
+  setLastActivityID: function(userId, dispMsg) {
+    var user = USERS.lookupUser(userId);
+    USERS.setLastActivity(user, dispMsg);
+  },
+  didUserDisconnect: function(user) {
+    if (user.beerRun) return true;
+    if (user.inMeeting) return true;
+    if (user.atLunch) return true;
+    if (user.lastDC.time !== null && user.lastDC.position > 0) return true;
+    return false;
+  },
+  setLastActivity: function(user, dispMsg) {
+    user.lastActivity = Date.now();
+    if ((user.afkWarningCount > 0) && (dispMsg === true)) UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.afkUserReset, {
+      name: user.username
+    }));
+    user.afkWarningCount = 0;
+    clearTimeout(user.afkCountdown);
+  },
+  setMeetingStatus: function(user, status) {
+    user.beerRun = false;
+    user.inMeeting = status;
+    user.atLunch = false;
+  },
+  setBeerRunStatus: function(user, status) {
+    user.beerRun = status;
+    user.inMeeting = false;
+    user.atLunch = false;
+  },
+  setLunchStatus: function(user, status) {
+    user.beerRun = false;
+    user.inMeeting = false;
+    user.atLunch = status;
+  },
+  getLastActivity: function(user) {
+    return user.lastActivity;
+  },
+  setBootableID: function(username, value) {
+    var user = USERS.lookupUserName(username);
+    user.bootable = value;
+  },
+  getBootableID: function(username) {
+    var user = USERS.lookupUserName(username);
+    return user.bootable;
+  },
+  resetDailyRolledStats: function(roomUser) {
+    try {
+      var DOY = UTIL.getDOY();
+      if (roomUser.rollStats.DOY !== DOY) {
+        roomUser.rollStats.DOY = DOY;
+        roomUser.rollStats.dayWoot = 0;
+        roomUser.rollStats.dayTotal = 0;
+      }
+    } catch (err) {
+      UTIL.logException("resetDailyRolledStats: " + err.message);
+      return "";
+    }
+  },
+  getRolledStats: function(roomUser) {
+    try {
+      var rollStats = " [Today: " + roomUser.rollStats.dayWoot + "/" + roomUser.rollStats.dayTotal;
+      rollStats += " " + UTIL.formatPercentage(roomUser.rollStats.dayWoot, roomUser.rollStats.dayTotal) + "]";
+      rollStats += " [Lifetime: " + roomUser.rollStats.lifeWoot + "/" + roomUser.rollStats.lifeTotal;
+      rollStats += " " + UTIL.formatPercentage(roomUser.rollStats.lifeWoot, roomUser.rollStats.lifeTotal) + "]";
+      return rollStats;
+    } catch (err) {
+      UTIL.logException("getRolledStats: " + err.message);
+      return "";
+    }
+  },
+  updateRolledStats: function(username, wooting) {
+    try {
+      var roomUser = USERS.lookupUserName(username);
+      USERS.resetDailyRolledStats(roomUser);
+      if (wooting) {
+        roomUser.rollStats.lifeWoot++;
+        roomUser.rollStats.dayWoot++;
+      }
+      roomUser.rollStats.lifeTotal++;
+      roomUser.rollStats.dayTotal++;
+      return USERS.getRolledStats(roomUser);
+    } catch (err) {
+      UTIL.logException("updateRolledStats: " + err.message);
+      return "";
+    }
+  },
+  setRolled: function(username, value, wooting) {
+    var user = USERS.lookupUserName(username);
+    user.rolled = value;
+  },
+  getRolled: function(username) {
+    var user = USERS.lookupUserName(username);
+    return user.rolled;
+  },
+  getWarningCount: function(user) {
+    return user.afkWarningCount;
+  },
+  setWarningCount: function(user, value) {
+    user.afkWarningCount = value;
 
-      },
-      getPermission: function(obj) { //1 requests
-        try {
-          var u;
-          if (typeof obj === "object") u = obj;
-          else u = USERS.getPlugUserID(obj);
-          if (SETTINGS.botCreatorIDs.indexOf(u.id) > -1) return 10; // admin
-          if (SETTINGS.loggedInID === u.id) return 4; // cohost
-          //UTIL.logDebug("Role: " + u.role);
-          //UTIL.logDebug("Name: " + u.username);
-          //UTIL.logDebug("ID: " + u.id);
-          if (u.gRole < 2) return u.role;
-          else {
-            switch (u.gRole) {
-              case 2:
-                return 7;
-              case 3:
-                return 8;
-              case 4:
-                return 9;
-              case 5:
-                return 10;
-            }
-          }
-          return 0;
-        } catch (err) {
-          UTIL.logException("getPermission: " + err.message);
+  },
+  removeDJ: function(userId) {
+    try {
+      UTIL.logDebug("Remove DJ1: " + userId);
+      API.moderateRemoveDJ(userId);
+      UTIL.logDebug("Remove DJ2: " + userId);
+    } catch (err) {
+      UTIL.logException("removeDJ: " + err.message);
+    }
+  },
+  skipBadSong: function(userId, skippedBy, reason) {
+    UTIL.logInfo("Skip: [" + API.getMedia().title + "] dj id: " + userId + ": skiped by: " + skippedBy + " Reason: " + reason);
+    var tooMany = false;
+    tooMany = USERS.tooManyBadSongs(userId);
+    if (tooMany) MyAPI.botDjNow();
+    setTimeout(function() {
+      API.moderateForceSkip();
+    }, 1 * 500);
+    if (tooMany) setTimeout(function() {
+      USERS.removeDJ(userId);
+    }, 1 * 1000);
+    if (tooMany) setTimeout(function() {
+      USERS.setBadSongCount(userId, 0);
+    }, 1 * 1500);
+  },
+  tooManyBadSongs: function(userId) {
+    var badCount = USERS.getBadSongCount(userId);
+    badCount++;
+    USERS.setBadSongCount(userId, badCount);
+    if (badCount > 2) return true;
+    return false;
+  },
+  getBadSongCount: function(userId) {
+    var user = USERS.lookupUser(userId);
+    return user.badSongCount;
+  },
+  setBadSongCount: function(userId, value) {
+    var user = USERS.lookupUser(userId);
+    user.badSongCount = value;
+  },
+  setJoinTime: function(userId, value) {
+    var user = USERS.lookupUser(userId);
+    user.jointime = Date.now();
+  },
+  lookupUser: function(id) { //getroomuser
+    for (var i = 0; i < MyROOM.users.length; i++) {
+      if (MyROOM.users[i].id === id) {
+        return MyROOM.users[i];
+      }
+    }
+    return false;
+  },
+  lookupUserName: function(name) {
+    for (var i = 0; i < MyROOM.users.length; i++) {
+      if (MyROOM.users[i].username.trim() == name.trim()) {
+        return MyROOM.users[i];
+      }
+    }
+    return false;
+  },
+  lookupUserNameImport: function(name) {
+    for (var i = 0; i < MyROOM.usersImport.length; i++) {
+      if (MyROOM.usersImport[i].username.trim() == name.trim()) {
+        return MyROOM.usersImport[i];
+      }
+    }
+    return false;
+  },
+  voteRatio: function(id) {
+    var user = USERS.lookupUser(id);
+    var votes = user.votes;
+    if (votes.meh === 0) votes.ratio = 1;
+    else votes.ratio = (votes.woot / votes.meh).toFixed(2);
+    return votes;
+
+  },
+  getPermission: function(obj) { //1 requests
+    try {
+      var u;
+      if (typeof obj === "object") u = obj;
+      else u = USERS.getPlugUserID(obj);
+      if (SETTINGS.botCreatorIDs.indexOf(u.id) > -1) return 10; // admin
+      if (SETTINGS.loggedInID === u.id) return 4; // cohost
+      //UTIL.logDebug("Role: " + u.role);
+      //UTIL.logDebug("Name: " + u.username);
+      //UTIL.logDebug("ID: " + u.id);
+      if (u.gRole < 2) return u.role;
+      else {
+        switch (u.gRole) {
+          case 2:
+            return 7;
+          case 3:
+            return 8;
+          case 4:
+            return 9;
+          case 5:
+            return 10;
         }
-      },
-      moveUser: function(id, pos, priority) {
-        var user = USERS.lookupUser(id);
-        var wlist = API.getWaitList();
-        if (MyAPI.getWaitListPosition(id) === -1) {
-          if (wlist.length < 50) {
-            API.moderateAddDJ(id);
-            if (pos !== 0) setTimeout(function(id, pos) {
-              API.moderateMoveDJ(id, pos);
-            }, 1250, id, pos);
-          } else {
-            var alreadyQueued = -1;
-            for (var i = 0; i < MyROOM.queue.id.length; i++) {
-              if (MyROOM.queue.id[i] === id) alreadyQueued = i;
-            }
-            if (alreadyQueued !== -1) {
-              MyROOM.queue.position[alreadyQueued] = pos;
-              return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.alreadyadding, {
-                position: MyROOM.queue.position[alreadyQueued]
-              }));
-            }
-            UTIL.booth.lockBooth();
-            if (priority) {
-              MyROOM.queue.id.unshift(id);
-              MyROOM.queue.position.unshift(pos);
-            } else {
-              MyROOM.queue.id.push(id);
-              MyROOM.queue.position.push(pos);
-            }
-            var name = user.username;
-            return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.adding, {
-              name: name,
-              position: MyROOM.queue.position.length
-            }));
-          }
-        } else API.moderateMoveDJ(id, pos);
-      },
-      dclookup: function(id) {
-        var user = USERS.lookupUser(id);
-        if (typeof user === 'boolean') return CHAT.chatMapping.usernotfound;
-        var name = user.username;
-        if (user.lastDC.time === null) {
-          USERS.resetDC(user);
-          var noDisconnectReason = CHAT.subChat(CHAT.chatMapping.notdisconnected, {
-            name: name
-          });
-          if (user.lastDC.resetReason.length > 0) noDisconnectReason = user.lastDC.resetReason;
-          user.lastDC.resetReason = "";
-          return noDisconnectReason;
+      }
+      return 0;
+    } catch (err) {
+      UTIL.logException("getPermission: " + err.message);
+    }
+  },
+  moveUser: function(id, pos, priority) {
+    var user = USERS.lookupUser(id);
+    var wlist = API.getWaitList();
+    if (MyAPI.getWaitListPosition(id) === -1) {
+      if (wlist.length < 50) {
+        API.moderateAddDJ(id);
+        if (pos !== 0) setTimeout(function(id, pos) {
+          API.moderateMoveDJ(id, pos);
+        }, 1250, id, pos);
+      } else {
+        var alreadyQueued = -1;
+        for (var i = 0; i < MyROOM.queue.id.length; i++) {
+          if (MyROOM.queue.id[i] === id) alreadyQueued = i;
         }
-        var dc = user.lastDC.time;
-        var pos = user.lastDC.position;
-        if (pos < 1) {
-          USERS.resetDC(user);
-          return CHAT.chatMapping.noposition;
-        }
-        var timeDc = Date.now() - dc;
-        var validDC = false;
-        if (SETTINGS.maximumDc * 60 * 1000 > timeDc) {
-          validDC = true;
-        }
-        var time = UTIL.msToStr(timeDc);
-        if (!validDC) {
-          USERS.resetDC(user);
-          return (CHAT.subChat(CHAT.chatMapping.toolongago, {
-            name: USERS.getPlugUser(user).username,
-            time: time
+        if (alreadyQueued !== -1) {
+          MyROOM.queue.position[alreadyQueued] = pos;
+          return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.alreadyadding, {
+            position: MyROOM.queue.position[alreadyQueued]
           }));
         }
-        var songsPassed = MyROOM.roomstats.songCount - user.lastDC.songCount;
-        var afksRemoved = 0;
-        var afkList = MyROOM.afkList;
-        for (var i = 0; i < afkList.length; i++) {
-          var timeAfk = afkList[i][1];
-          var posAfk = afkList[i][2];
-          if (dc < timeAfk && posAfk < pos) {
-            afksRemoved++;
-          }
-        }
-        var newPosition = user.lastDC.position; // - songsPassed - afksRemoved;
-        if (newPosition <= 0) newPosition = 1;
-
-        var msg = "";
-        if (user.beerRun === true) {
-          msg = CHAT.subChat(CHAT.chatMapping.beerrunreturn, {
-            name: USERS.getPlugUser(user).username,
-            time: time,
-            position: newPosition
-          });
-          if (newPosition <= 1) newPosition = 2;
-        } else if (user.inMeeting === true) {
-          msg = CHAT.subChat(CHAT.chatMapping.meetingreturn, {
-            name: USERS.getPlugUser(user).username,
-            time: time,
-            position: newPosition
-          });
-          if (newPosition <= 1) newPosition = 2;
-        } else if (user.atLunch === true) {
-          msg = CHAT.subChat(CHAT.chatMapping.lunchreturn, {
-            name: USERS.getPlugUser(user).username,
-            time: time,
-            position: newPosition
-          });
-          if (newPosition <= 1) newPosition = 2;
+        UTIL.booth.lockBooth();
+        if (priority) {
+          MyROOM.queue.id.unshift(id);
+          MyROOM.queue.position.unshift(pos);
         } else {
-          msg = CHAT.subChat(CHAT.chatMapping.valid, {
-            name: USERS.getPlugUser(user).username,
-            time: time,
-            position: newPosition
-          });
+          MyROOM.queue.id.push(id);
+          MyROOM.queue.position.push(pos);
         }
-        USERS.moveUser(user.id, newPosition, true);
-        USERS.resetDC(user);
-        USERS.setLastActivity(user, false);
-        user.lastKnownPosition = newPosition;
-        user.lastSeenInLine = Date.now();
-        return msg;
+        var name = user.username;
+        return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.adding, {
+          name: name,
+          position: MyROOM.queue.position.length
+        }));
       }
+    } else API.moderateMoveDJ(id, pos);
+  },
+  dclookup: function(id) {
+    var user = USERS.lookupUser(id);
+    if (typeof user === 'boolean') return CHAT.chatMapping.usernotfound;
+    var name = user.username;
+    if (user.lastDC.time === null) {
+      USERS.resetDC(user);
+      var noDisconnectReason = CHAT.subChat(CHAT.chatMapping.notdisconnected, {
+        name: name
+      });
+      if (user.lastDC.resetReason.length > 0) noDisconnectReason = user.lastDC.resetReason;
+      user.lastDC.resetReason = "";
+      return noDisconnectReason;
+    }
+    var dc = user.lastDC.time;
+    var pos = user.lastDC.position;
+    if (pos < 1) {
+      USERS.resetDC(user);
+      return CHAT.chatMapping.noposition;
+    }
+    var timeDc = Date.now() - dc;
+    var validDC = false;
+    if (SETTINGS.maximumDc * 60 * 1000 > timeDc) {
+      validDC = true;
+    }
+    var time = UTIL.msToStr(timeDc);
+    if (!validDC) {
+      USERS.resetDC(user);
+      return (CHAT.subChat(CHAT.chatMapping.toolongago, {
+        name: USERS.getPlugUser(user).username,
+        time: time
+      }));
+    }
+    var songsPassed = MyROOM.roomstats.songCount - user.lastDC.songCount;
+    var afksRemoved = 0;
+    var afkList = MyROOM.afkList;
+    for (var i = 0; i < afkList.length; i++) {
+      var timeAfk = afkList[i][1];
+      var posAfk = afkList[i][2];
+      if (dc < timeAfk && posAfk < pos) {
+        afksRemoved++;
+      }
+    }
+    var newPosition = user.lastDC.position; // - songsPassed - afksRemoved;
+    if (newPosition <= 0) newPosition = 1;
+
+    var msg = "";
+    if (user.beerRun === true) {
+      msg = CHAT.subChat(CHAT.chatMapping.beerrunreturn, {
+        name: USERS.getPlugUser(user).username,
+        time: time,
+        position: newPosition
+      });
+      if (newPosition <= 1) newPosition = 2;
+    } else if (user.inMeeting === true) {
+      msg = CHAT.subChat(CHAT.chatMapping.meetingreturn, {
+        name: USERS.getPlugUser(user).username,
+        time: time,
+        position: newPosition
+      });
+      if (newPosition <= 1) newPosition = 2;
+    } else if (user.atLunch === true) {
+      msg = CHAT.subChat(CHAT.chatMapping.lunchreturn, {
+        name: USERS.getPlugUser(user).username,
+        time: time,
+        position: newPosition
+      });
+      if (newPosition <= 1) newPosition = 2;
+    } else {
+      msg = CHAT.subChat(CHAT.chatMapping.valid, {
+        name: USERS.getPlugUser(user).username,
+        time: time,
+        position: newPosition
+      });
+    }
+    USERS.moveUser(user.id, newPosition, true);
+    USERS.resetDC(user);
+    USERS.setLastActivity(user, false);
+    user.lastKnownPosition = newPosition;
+    user.lastSeenInLine = Date.now();
+    return msg;
+  }
 };
 
 //SECTION MyROOM: All room settings:
 var MyROOM = {
-      users: [],
-      usersImport: [],
-      debug: true,
-      afkList: [],
-      mutedUsers: [],
-      bannedUsers: [],
-      skippable: true,
-      usercommand: true,
-      allcommand: true,
-      afkInterval: null,
-      blacklistInterval: null,
-      randomInterval: null,
-      autoskip: false,
-      autoskipTimer: null,
-      autodisableInterval: null,
-      autodisableFunc: function() {
-        if (SETTINGS.status && SETTINGS.autodisable) {
-          UTIL.sendChat('.afkdisable');
-          UTIL.sendChat('.joindisable');
-        }
-      },
-		songinfo: {
-		  songName: "",
-		  songIndex: -1,
-		  firstPlayed: null,
-		  playCount: 0,
-		  lastPlayed: null,
-		  songStatsMsg: ""
-		},
-      queueing: 0,
-      queueable: true,
-      currentDJID: null,
-      currentMediaCid: 999,
-      currentMediaStart: 999,
-      historyList: [],
-      cycleTimer: setTimeout(function() {}, 1),
-      roomstats: {
-        accountName: null,
-        totalWoots: 0,
-        totalCurates: 0,
-        totalMehs: 0,
-        tastyCount: 0,
-        launchTime: null,
-        songCount: 0,
-        chatmessages: 0
-      },
-      messages: {
-        from: [],
-        to: [],
-        message: []
-      },
-      queue: {
-        id: [],
-        position: []
-      },
-      newBlacklist: [],
-      newBlacklistIDs: [],
-      blacklistLoaded: false,
-      blacklistsOBS: {
-        BAN: "https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/Banned.json",
-        NSFW: "https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ExampleNSFWlist.json",
-        OP: "https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ExampleOPlist.json"
-      },
-      newBlacklistedSongFunction1: function(track, list) {
-        try {
-          UTIL.logDebug("ADDING Track: " + track.mid + " List: " + list);
-          var data2send = "";
-          data2send = JSON.stringify(bl);
-          localStorage.setItem('memoriesdata', JSON.stringify(bl));
-          UTIL.logDebug("data2send: " + data2send);
-          for (var bl in MyROOM.blacklistsOBS) {
-            $.post("https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ExampleNSFWlist.json", {
-              data: data2send
-            });
-          }
-        } catch (err) {
-          UTIL.logException("newBlacklistedSongFunction1: " + err.message);
-        }
-      },
-
-      newBlacklistedSongFunction2: function(track, list) {
-        try {
-          UTIL.logDebug("ADDING Track: " + track.mid + " List: " + list);
-          var data2send = "";
-          data2send = JSON.stringify(bl);
-          UTIL.logDebug("data2send: " + data2send);
-          for (var bl in MyROOM.blacklistsOBS) {
-            $.post("https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ExampleNSFWlist.json", {
-              data: data2send
-            });
-          }
-          // $.ajax({
-          //     type : 'POST',
-          //     url : 'https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ExampleNSFWlist.json',
-          //     data: {my_array:MyROOM.blacklists[list]},
-          //     success : function(MyROOM.blacklists[list]){
-          //        //alert(data);
-          //     },
-          //     error : function(XMLHttpRequest, textStatus, errorThrown) {
-          //        //alert("error");
-          //     }
-          // });
-          // 
-          //                     $.post("https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ExampleNSFWlist.json",{
-          //                      JSON.stringify( MyROOM.blacklists[list] )    
-          //                     })
-
-        } catch (err) {
-          UTIL.logException("newBlacklistedSongFunction2: " + err.message);
-        }
-      },
-      roulette: {
-        rouletteStatus: false,
-        randomRouletteMin: 45,
-        randomRouletteMax: 120,
-        nextRandomRoulette: null,
-        participants: [],
-        countdown: null,
-        startRoulette: function() {
-          try {
-            if (MyROOM.roulette.rouletteStatus) return;
-            MyROOM.roulette.rouletteStatus = true;
-            MyROOM.roulette.countdown = setTimeout(function() {
-              MyROOM.roulette.endRoulette();
-            }, 60 * 1000);
-            UTIL.sendChat(CHAT.chatMapping.isopen);
-          } catch (err) {
-            UTIL.logException("startRoulette: " + err.message);
-          }
-        },
-        randomRouletteCheck: function() {
-          try {
-            if (MyROOM.roulette.nextRandomRoulette <= Date.now()) {
-              MyROOM.roulette.randomRouletteSetTimer();
-              if (SETTINGS.randomRoulette === false) return;
-              if (UTIL.rouletteTimeRange()) MyROOM.roulette.startRoulette();
-            }
-          } catch (err) {
-            UTIL.logException("randomRouletteCheck: " + err.message);
-          }
-        },
-        randomRouletteSetTimer: function() {
-          try {
-            var randomRange = (MyROOM.roulette.randomRouletteMax - MyROOM.roulette.randomRouletteMin)
-            var randomMins = Math.floor(Math.random() * randomRange);
-            randomMins += MyROOM.roulette.randomRouletteMin;
-            //JIC: Ensure we are in the correct time range:
-            if ((randomMins > MyROOM.roulette.randomRouletteMax) || (randomMins < MyROOM.roulette.randomRouletteMin)) {
-              randomMins = MyROOM.roulette.randomRouletteMin + ((MyROOM.roulette.randomRouletteMax - MyROOM.roulette.randomRouletteMin) / 2.0)
-            }
-            var nextTime = new Date();
-            var myTimeSpan;
-            myTimeSpan = randomMins * 60 * 1000; // X minutes in milliseconds
-            nextTime.setTime(nextTime.getTime() + myTimeSpan);
-            UTIL.chatLog("Next Roulette: " + UTIL.msToStr(myTimeSpan));
-            MyROOM.roulette.nextRandomRoulette = nextTime;
-          } catch (err) {
-            UTIL.logException("randomRouletteSetTimer: " + err.message);
-          }
-        },
-        endRoulette: function() {
-          try {
-            MyROOM.roulette.rouletteStatus = false;
-            if (MyROOM.roulette.participants.length === 0) {
-              UTIL.sendChat("Roulette has ended with no participants");
-              return;
-            }
-            var ind = Math.floor(Math.random() * MyROOM.roulette.participants.length);
-            var winner = MyROOM.roulette.participants[ind];
-            MyROOM.roulette.participants = [];
-            var pos = Math.floor((Math.random() * API.getWaitList().length) + 1);
-            var user = USERS.lookupUser(winner);
-            var name = user.username;
-            UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.winnerpicked, {
-              name: name,
-              position: pos
-            }));
-            setTimeout(function(winner, pos) {
-              USERS.moveUser(winner, pos, false);
-            }, 1 * 1000, winner, pos);
-          } catch (err) {
-            UTIL.logException("endRoulette: " + err.message);
-          }
-        }
+  users: [],
+  usersImport: [],
+  debug: true,
+  afkList: [],
+  mutedUsers: [],
+  bannedUsers: [],
+  skippable: true,
+  usercommand: true,
+  allcommand: true,
+  afkInterval: null,
+  blacklistInterval: null,
+  randomInterval: null,
+  autoskip: false,
+  autoskipTimer: null,
+  autodisableInterval: null,
+  autodisableFunc: function() {
+    if (SETTINGS.status && SETTINGS.autodisable) {
+      UTIL.sendChat('.afkdisable');
+      UTIL.sendChat('.joindisable');
+    }
+  },
+  songinfo: {
+    songName: "",
+    songIndex: -1,
+    firstPlayed: null,
+    playCount: 0,
+    lastPlayed: null,
+    songStatsMsg: ""
+  },
+  queueing: 0,
+  queueable: true,
+  currentDJID: null,
+  currentMediaCid: 999,
+  currentMediaStart: 999,
+  historyList: [],
+  cycleTimer: setTimeout(function() {}, 1),
+  roomstats: {
+    accountName: null,
+    totalWoots: 0,
+    totalCurates: 0,
+    totalMehs: 0,
+    tastyCount: 0,
+    launchTime: null,
+    songCount: 0,
+    chatmessages: 0
+  },
+  messages: {
+    from: [],
+    to: [],
+    message: []
+  },
+  queue: {
+    id: [],
+    position: []
+  },
+  newBlacklist: [],
+  newBlacklistIDs: [],
+  blacklistLoaded: false,
+  blacklistsOBS: {
+    BAN: "https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/Banned.json",
+    NSFW: "https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ExampleNSFWlist.json",
+    OP: "https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ExampleOPlist.json"
+  },
+  newBlacklistedSongFunction1: function(track, list) {
+    try {
+      UTIL.logDebug("ADDING Track: " + track.mid + " List: " + list);
+      var data2send = "";
+      data2send = JSON.stringify(bl);
+      localStorage.setItem('memoriesdata', JSON.stringify(bl));
+      UTIL.logDebug("data2send: " + data2send);
+      for (var bl in MyROOM.blacklistsOBS) {
+        $.post("https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ExampleNSFWlist.json", {
+          data: data2send
+        });
       }
+    } catch (err) {
+      UTIL.logException("newBlacklistedSongFunction1: " + err.message);
+    }
+  },
+
+  newBlacklistedSongFunction2: function(track, list) {
+    try {
+      UTIL.logDebug("ADDING Track: " + track.mid + " List: " + list);
+      var data2send = "";
+      data2send = JSON.stringify(bl);
+      UTIL.logDebug("data2send: " + data2send);
+      for (var bl in MyROOM.blacklistsOBS) {
+        $.post("https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ExampleNSFWlist.json", {
+          data: data2send
+        });
+      }
+      // $.ajax({
+      //     type : 'POST',
+      //     url : 'https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ExampleNSFWlist.json',
+      //     data: {my_array:MyROOM.blacklists[list]},
+      //     success : function(MyROOM.blacklists[list]){
+      //        //alert(data);
+      //     },
+      //     error : function(XMLHttpRequest, textStatus, errorThrown) {
+      //        //alert("error");
+      //     }
+      // });
+      // 
+      //                     $.post("https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ExampleNSFWlist.json",{
+      //                      JSON.stringify( MyROOM.blacklists[list] )    
+      //                     })
+
+    } catch (err) {
+      UTIL.logException("newBlacklistedSongFunction2: " + err.message);
+    }
+  },
+  roulette: {
+    rouletteStatus: false,
+    randomRouletteMin: 45,
+    randomRouletteMax: 120,
+    nextRandomRoulette: null,
+    participants: [],
+    countdown: null,
+    startRoulette: function() {
+      try {
+        if (MyROOM.roulette.rouletteStatus) return;
+        MyROOM.roulette.rouletteStatus = true;
+        MyROOM.roulette.countdown = setTimeout(function() {
+          MyROOM.roulette.endRoulette();
+        }, 60 * 1000);
+        UTIL.sendChat(CHAT.chatMapping.isopen);
+      } catch (err) {
+        UTIL.logException("startRoulette: " + err.message);
+      }
+    },
+    randomRouletteCheck: function() {
+      try {
+        if (MyROOM.roulette.nextRandomRoulette <= Date.now()) {
+          MyROOM.roulette.randomRouletteSetTimer();
+          if (SETTINGS.randomRoulette === false) return;
+          if (UTIL.rouletteTimeRange()) MyROOM.roulette.startRoulette();
+        }
+      } catch (err) {
+        UTIL.logException("randomRouletteCheck: " + err.message);
+      }
+    },
+    randomRouletteSetTimer: function() {
+      try {
+        var randomRange = (MyROOM.roulette.randomRouletteMax - MyROOM.roulette.randomRouletteMin)
+        var randomMins = Math.floor(Math.random() * randomRange);
+        randomMins += MyROOM.roulette.randomRouletteMin;
+        //JIC: Ensure we are in the correct time range:
+        if ((randomMins > MyROOM.roulette.randomRouletteMax) || (randomMins < MyROOM.roulette.randomRouletteMin)) {
+          randomMins = MyROOM.roulette.randomRouletteMin + ((MyROOM.roulette.randomRouletteMax - MyROOM.roulette.randomRouletteMin) / 2.0)
+        }
+        var nextTime = new Date();
+        var myTimeSpan;
+        myTimeSpan = randomMins * 60 * 1000; // X minutes in milliseconds
+        nextTime.setTime(nextTime.getTime() + myTimeSpan);
+        UTIL.chatLog("Next Roulette: " + UTIL.msToStr(myTimeSpan));
+        MyROOM.roulette.nextRandomRoulette = nextTime;
+      } catch (err) {
+        UTIL.logException("randomRouletteSetTimer: " + err.message);
+      }
+    },
+    endRoulette: function() {
+      try {
+        MyROOM.roulette.rouletteStatus = false;
+        if (MyROOM.roulette.participants.length === 0) {
+          UTIL.sendChat("Roulette has ended with no participants");
+          return;
+        }
+        var ind = Math.floor(Math.random() * MyROOM.roulette.participants.length);
+        var winner = MyROOM.roulette.participants[ind];
+        MyROOM.roulette.participants = [];
+        var pos = Math.floor((Math.random() * API.getWaitList().length) + 1);
+        var user = USERS.lookupUser(winner);
+        var name = user.username;
+        UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.winnerpicked, {
+          name: name,
+          position: pos
+        }));
+        setTimeout(function(winner, pos) {
+          USERS.moveUser(winner, pos, false);
+        }, 1 * 1000, winner, pos);
+      } catch (err) {
+        UTIL.logException("endRoulette: " + err.message);
+      }
+    }
+  }
 };
 
 //SECTION CHAT:
 var CHAT = {
-    chatMapping: null,
-    chatLink: "https://rawcdn.githack.com/SZigmund/basicBot/f4b1a9d30a7e9f022ef600dd41cae07a91797bad/lang/en.json",
-    commandChat: {
-      cid: "",
-      message: "",
-      sub: -1,
-      un: "",
-      uid: -1,
-      type: "message",
-      timestamp: null,
-      sound: "mention"
-    },
+  chatMapping: null,
+  chatLink: "https://rawcdn.githack.com/SZigmund/basicBot/f4b1a9d30a7e9f022ef600dd41cae07a91797bad/lang/en.json",
+  commandChat: {
+    cid: "",
+    message: "",
+    sub: -1,
+    un: "",
+    uid: -1,
+    type: "message",
+    timestamp: null,
+    sound: "mention"
+  },
   subChat: function(chat, obj) {
     try {
       if (typeof chat === "undefined") {
@@ -7329,209 +7349,212 @@ var CHAT = {
       UTIL.logException("subChat: " + err.message);
     }
   },
-      chatFilter: function(chat) {
-        var msg = chat.message;
-        var perm = USERS.getPermission(chat.uid);
-        var user = USERS.lookupUser(chat.uid);
-        var isMuted = false;
-        for (var i = 0; i < MyROOM.mutedUsers.length; i++) {
-          if (MyROOM.mutedUsers[i] === chat.uid) isMuted = true;
-        }
-        if (isMuted) {
-          MyAPI.moderateDeleteChat(chat.cid);
-          return true;
-        }
-        if (SETTINGS.lockdownEnabled) {
-          if (perm === 0) {
-            MyAPI.moderateDeleteChat(chat.cid);
-            return true;
-          }
-        }
-        if (CHAT.chatcleaner(chat)) {
-          MyAPI.moderateDeleteChat(chat.cid);
-          return true;
-        }
-        //  var plugRoomLinkPatt = /(\bhttps?:\/\/(www.)?plug\.dj[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-        //  if (plugRoomLinkPatt.exec(msg)) {
-        //     if (perm === 0) {
-        //         UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.roomadvertising, {name: chat.un}));
-        //         MyAPI.moderateDeleteChat(chat.cid);
-        //         return true;
-        //     }
-        // }
-        if (msg.indexOf('http://adf.ly/') > -1) {
-          MyAPI.moderateDeleteChat(chat.cid);
-          UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.adfly, {
-            name: chat.un
-          }));
-          return true;
-        }
-        if (msg.indexOf('autojoin was not enabled') > 0 || msg.indexOf('AFK message was not enabled') > 0 || msg.indexOf('.afkdisable') > 0 || msg.indexOf('.joindisable') > 0 || msg.indexOf('autojoin disabled') > 0 || msg.indexOf('AFK message disabled') > 0) {
-          MyAPI.moderateDeleteChat(chat.cid);
-          return true;
-        }
+  chatFilter: function(chat) {
+    var msg = chat.message;
+    var perm = USERS.getPermission(chat.uid);
+    var user = USERS.lookupUser(chat.uid);
+    var isMuted = false;
+    for (var i = 0; i < MyROOM.mutedUsers.length; i++) {
+      if (MyROOM.mutedUsers[i] === chat.uid) isMuted = true;
+    }
+    if (isMuted) {
+      MyAPI.moderateDeleteChat(chat.cid);
+      return true;
+    }
+    if (SETTINGS.lockdownEnabled) {
+      if (perm === 0) {
+        MyAPI.moderateDeleteChat(chat.cid);
+        return true;
+      }
+    }
+    if (CHAT.chatcleaner(chat)) {
+      MyAPI.moderateDeleteChat(chat.cid);
+      return true;
+    }
+    //  var plugRoomLinkPatt = /(\bhttps?:\/\/(www.)?plug\.dj[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+    //  if (plugRoomLinkPatt.exec(msg)) {
+    //     if (perm === 0) {
+    //         UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.roomadvertising, {name: chat.un}));
+    //         MyAPI.moderateDeleteChat(chat.cid);
+    //         return true;
+    //     }
+    // }
+    if (msg.indexOf('http://adf.ly/') > -1) {
+      MyAPI.moderateDeleteChat(chat.cid);
+      UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.adfly, {
+        name: chat.un
+      }));
+      return true;
+    }
+    if (msg.indexOf('autojoin was not enabled') > 0 || msg.indexOf('AFK message was not enabled') > 0 || msg.indexOf('.afkdisable') > 0 || msg.indexOf('.joindisable') > 0 || msg.indexOf('autojoin disabled') > 0 || msg.indexOf('AFK message disabled') > 0) {
+      MyAPI.moderateDeleteChat(chat.cid);
+      return true;
+    }
 
-        var rlJoinChat = CHAT.chatMapping.roulettejoin;
-        var rlLeaveChat = CHAT.chatMapping.rouletteleave;
+    var rlJoinChat = CHAT.chatMapping.roulettejoin;
+    var rlLeaveChat = CHAT.chatMapping.rouletteleave;
 
-        var joinedroulette = rlJoinChat.split('%%NAME%%');
-        if (joinedroulette[1].length > joinedroulette[0].length) joinedroulette = joinedroulette[1];
-        else joinedroulette = joinedroulette[0];
+    var joinedroulette = rlJoinChat.split('%%NAME%%');
+    if (joinedroulette[1].length > joinedroulette[0].length) joinedroulette = joinedroulette[1];
+    else joinedroulette = joinedroulette[0];
 
-        var leftroulette = rlLeaveChat.split('%%NAME%%');
-        if (leftroulette[1].length > leftroulette[0].length) leftroulette = leftroulette[1];
-        else leftroulette = leftroulette[0];
+    var leftroulette = rlLeaveChat.split('%%NAME%%');
+    if (leftroulette[1].length > leftroulette[0].length) leftroulette = leftroulette[1];
+    else leftroulette = leftroulette[0];
 
-        if ((msg.indexOf(joinedroulette) > -1 || msg.indexOf(leftroulette) > -1) && chat.uid === SETTINGS.loggedInID) {
-          setTimeout(function(id) {
-            MyAPI.moderateDeleteChat(id);
-          }, 2 * 1000, chat.cid);
-          return true;
-        }
-        return false;
-      },
-      commandCheck: function(chat) {
-        //chat.uid chat.message chat.cid
-        try {
-          var cmd;
-          //UTIL.logObject(chat, "chat");
-          //UTIL.logDebug("commandCheck chat: " + chat.message);
-          if (chat.message.substring(0, 1) === SETTINGS.commandLiteral) {
-            var space = chat.message.indexOf(' ');
-            if (space === -1) {
-              cmd = chat.message.toLowerCase();
-            } else cmd = chat.message.substring(0, space).toLowerCase();
-          } else return false;
-          //UTIL.logDebug("commandCheck cmd: " + cmd);
-          //UTIL.logDebug("commandCheck chat.uid: " + chat.uid);
-          var userPerm = USERS.getPermission(chat.uid);
-          if (chat.message.toLowerCase() !== ".join" && chat.message.toLowerCase() !== ".leave" && (!UTIL.bopCommand(cmd))) {
-            //UTIL.logDebug("commandCheck1: " + cmd);
-            if (userPerm === 0 && !MyROOM.usercommand) return void(0);
-            //UTIL.logDebug("commandCheck2: " + cmd);
-            if (!MyROOM.allcommand) return void(0);
-            //UTIL.logDebug("commandCheck3: " + cmd);
-          }
-          if (chat.message.toLowerCase() === '.eta' && SETTINGS.etaRestriction) {
-            if (userPerm < 2) {
-              var u = USERS.lookupUser(chat.uid);
-              if (u.lastEta !== null && (Date.now() - u.lastEta) < 1 * 60 * 60 * 1000) {
-                if (chat.cid.length > 0) MyAPI.moderateDeleteChat(chat.cid);
-                //UTIL.logDebug("commandCheck4: " + cmd);
-                return void(0);
-              } else u.lastEta = Date.now();
-            }
-          }
-          //UTIL.logDebug("commandCheck5: " + cmd);
-          var executed = false;
-
-          for (var comm in BOTCOMMANDS) {
-            var cmdCall = BOTCOMMANDS[comm].command;
-            if (!Array.isArray(cmdCall)) {
-              cmdCall = [cmdCall]
-            }
-            for (var i = 0; i < cmdCall.length; i++) {
-              if (SETTINGS.commandLiteral + cmdCall[i] === cmd) {
-                BOTCOMMANDS[comm].functionality(chat, SETTINGS.commandLiteral + cmdCall[i]);
-                executed = true;
-                break;
-              }
-            }
-          }
-
-          //UTIL.logDebug("commandCheck6: executed: " + executed);
-          if (executed && userPerm === 0) {
-            MyROOM.usercommand = false;
-            setTimeout(function() {
-              MyROOM.usercommand = true;
-            }, SETTINGS.commandCooldown * 1000);
-          }
-          //UTIL.logDebug("commandCheck7: executed: " + executed);
-          if (executed) {
+    if ((msg.indexOf(joinedroulette) > -1 || msg.indexOf(leftroulette) > -1) && chat.uid === SETTINGS.loggedInID) {
+      setTimeout(function(id) {
+        MyAPI.moderateDeleteChat(id);
+      }, 2 * 1000, chat.cid);
+      return true;
+    }
+    return false;
+  },
+  commandCheck: function(chat) {
+    //chat.uid chat.message chat.cid
+    try {
+      var cmd;
+      //UTIL.logObject(chat, "chat");
+      //UTIL.logDebug("commandCheck chat: " + chat.message);
+      if (chat.message.substring(0, 1) === SETTINGS.commandLiteral) {
+        var space = chat.message.indexOf(' ');
+        if (space === -1) {
+          cmd = chat.message.toLowerCase();
+        } else cmd = chat.message.substring(0, space).toLowerCase();
+      } else return false;
+      //UTIL.logDebug("commandCheck cmd: " + cmd);
+      //UTIL.logDebug("commandCheck chat.uid: " + chat.uid);
+      var userPerm = USERS.getPermission(chat.uid);
+      if (chat.message.toLowerCase() !== ".join" && chat.message.toLowerCase() !== ".leave" && (!UTIL.bopCommand(cmd))) {
+        //UTIL.logDebug("commandCheck1: " + cmd);
+        if (userPerm === 0 && !MyROOM.usercommand) return void(0);
+        //UTIL.logDebug("commandCheck2: " + cmd);
+        if (!MyROOM.allcommand) return void(0);
+        //UTIL.logDebug("commandCheck3: " + cmd);
+      }
+      if (chat.message.toLowerCase() === '.eta' && SETTINGS.etaRestriction) {
+        if (userPerm < 2) {
+          var u = USERS.lookupUser(chat.uid);
+          if (u.lastEta !== null && (Date.now() - u.lastEta) < 1 * 60 * 60 * 1000) {
             if (chat.cid.length > 0) MyAPI.moderateDeleteChat(chat.cid);
-            MyROOM.allcommand = false;
-            setTimeout(function() {
-              MyROOM.allcommand = true;
-            }, 5 * 1000);
+            //UTIL.logDebug("commandCheck4: " + cmd);
+            return void(0);
+          } else u.lastEta = Date.now();
+        }
+      }
+      //UTIL.logDebug("commandCheck5: " + cmd);
+      var executed = false;
+
+      for (var comm in BOTCOMMANDS) {
+        var cmdCall = BOTCOMMANDS[comm].command;
+        if (!Array.isArray(cmdCall)) {
+          cmdCall = [cmdCall]
+        }
+        for (var i = 0; i < cmdCall.length; i++) {
+          if (SETTINGS.commandLiteral + cmdCall[i] === cmd) {
+            BOTCOMMANDS[comm].functionality(chat, SETTINGS.commandLiteral + cmdCall[i]);
+            executed = true;
+            break;
           }
-          //UTIL.logDebug("commandCheck8: executed: " + executed);
-          return executed;
-        } catch (err) {
-          UTIL.logException("commandCheck: " + err.message);
         }
-      },
-      action: function(chat) {
-        if (chat.type === 'message' || chat.type === 'emote') {
-          USERS.setLastActivityID(chat.uid, true);
-        } else if (chat.type !== 'log') {
-          UTIL.logDebug("CHAT.TYPE: " + chat.type);
-        }
-        UTIL.larryAI(chat);
-        MyROOM.roomstats.chatmessages++;
-      },
-      spam: [
-        'hueh', 'hu3', 'brbr', 'heu', 'brbr', 'kkkk', 'spoder', 'mafia', 'zuera', 'zueira',
-        'zueria', 'aehoo', 'aheu', 'alguem', 'algum', 'brazil', 'zoeira', 'fuckadmins', 'affff', 'vaisefoder', 'huenaarea',
-        'hitler', 'ashua', 'ahsu', 'ashau', 'lulz', 'huehue', 'hue', 'huehuehue', 'merda', 'pqp', 'puta', 'mulher', 'pula', 'retarda', 'caralho', 'filha', 'ppk',
-        'gringo', 'fuder', 'foder', 'hua', 'ahue', 'modafuka', 'modafoka', 'mudafuka', 'mudafoka', 'ooooooooooooooo', 'foda'
-      ],
-      curses: [
-        'nigger', 'faggot', 'nigga', 'niqqa', 'motherfucker', 'modafocka'
-      ],
-    chatcleaner: function(chat) {
-      if (!SETTINGS.filterChat) return false;
-      if (USERS.getPermission(chat.uid) > 1) return false;
-      var msg = chat.message;
-      var containsLetters = false;
-      for (var i = 0; i < msg.length; i++) {
-        ch = msg.charAt(i);
-        if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9') || ch === ':' || ch === '^') containsLetters = true;
       }
-      if (msg === '') {
-        return true;
+
+      //UTIL.logDebug("commandCheck6: executed: " + executed);
+      if (executed && userPerm === 0) {
+        MyROOM.usercommand = false;
+        setTimeout(function() {
+          MyROOM.usercommand = true;
+        }, SETTINGS.commandCooldown * 1000);
       }
-      if (!containsLetters && (msg.length === 1 || msg.length > 3)) return true;
-      msg = msg.replace(/[ ,;.:\/=~+%^*\-\\"'&@#]/g, '');
-      var capitals = 0;
-      var ch;
-      for (var i = 0; i < msg.length; i++) {
-        ch = msg.charAt(i);
-        if (ch >= 'A' && ch <= 'Z') capitals++;
+      //UTIL.logDebug("commandCheck7: executed: " + executed);
+      if (executed) {
+        if (chat.cid.length > 0) MyAPI.moderateDeleteChat(chat.cid);
+        MyROOM.allcommand = false;
+        setTimeout(function() {
+          MyROOM.allcommand = true;
+        }, 5 * 1000);
       }
-      if (capitals >= 40) {
-        UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.caps, {
+      //UTIL.logDebug("commandCheck8: executed: " + executed);
+      return executed;
+    } catch (err) {
+      UTIL.logException("commandCheck: " + err.message);
+    }
+  },
+  action: function(chat) {
+    if (chat.type === 'message' || chat.type === 'emote') {
+      USERS.setLastActivityID(chat.uid, true);
+    } else if (chat.type !== 'log') {
+      UTIL.logDebug("CHAT.TYPE: " + chat.type);
+    }
+    UTIL.larryAI(chat);
+    MyROOM.roomstats.chatmessages++;
+  },
+  spam: [
+    'hueh', 'hu3', 'brbr', 'heu', 'brbr', 'kkkk', 'spoder', 'mafia', 'zuera', 'zueira',
+    'zueria', 'aehoo', 'aheu', 'alguem', 'algum', 'brazil', 'zoeira', 'fuckadmins', 'affff', 'vaisefoder', 'huenaarea',
+    'hitler', 'ashua', 'ahsu', 'ashau', 'lulz', 'huehue', 'hue', 'huehuehue', 'merda', 'pqp', 'puta', 'mulher', 'pula', 'retarda', 'caralho', 'filha', 'ppk',
+    'gringo', 'fuder', 'foder', 'hua', 'ahue', 'modafuka', 'modafoka', 'mudafuka', 'mudafoka', 'ooooooooooooooo', 'foda'
+  ],
+  curses: [
+    'nigger', 'faggot', 'nigga', 'niqqa', 'motherfucker', 'modafocka'
+  ],
+  chatcleaner: function(chat) {
+    if (!SETTINGS.filterChat) return false;
+    if (USERS.getPermission(chat.uid) > 1) return false;
+    var msg = chat.message;
+    var containsLetters = false;
+    for (var i = 0; i < msg.length; i++) {
+      ch = msg.charAt(i);
+      if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9') || ch === ':' || ch === '^') containsLetters = true;
+    }
+    if (msg === '') {
+      return true;
+    }
+    if (!containsLetters && (msg.length === 1 || msg.length > 3)) return true;
+    msg = msg.replace(/[ ,;.:\/=~+%^*\-\\"'&@#]/g, '');
+    var capitals = 0;
+    var ch;
+    for (var i = 0; i < msg.length; i++) {
+      ch = msg.charAt(i);
+      if (ch >= 'A' && ch <= 'Z') capitals++;
+    }
+    if (capitals >= 40) {
+      UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.caps, {
+        name: chat.un
+      }));
+      return true;
+    }
+    msg = msg.toLowerCase();
+    if (msg === 'skip') {
+      UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.askskip, {
+        name: chat.un
+      }));
+      return true;
+    }
+    for (var j = 0; j < CHAT.spam.length; j++) {
+      if (msg === CHAT.spam[j]) {
+        UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.spam, {
           name: chat.un
         }));
         return true;
       }
-      msg = msg.toLowerCase();
-      if (msg === 'skip') {
-        UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.askskip, {
-          name: chat.un
-        }));
-        return true;
-      }
-      for (var j = 0; j < CHAT.spam.length; j++) {
-        if (msg === CHAT.spam[j]) {
-          UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.spam, {
-            name: chat.un
-          }));
-          return true;
-        }
-      }
-      return false;
-    },
+    }
+    return false;
+  },
   logStartup: function() {
-  //CHAT.chatMapping.online
-       UTIL.chatLog(CHAT.subChat(CHAT.chatMapping.online, {botname: SETTINGS.loggedInName,version: SETTINGS.version}));
+    //CHAT.chatMapping.online
+    UTIL.chatLog(CHAT.subChat(CHAT.chatMapping.online, {
+      botname: SETTINGS.loggedInName,
+      version: SETTINGS.version
+    }));
   },
   // loadChat: function(cb) {
   loadChat: function() {
     // if (!cb) cb = function() {};
     $.get("https://rawcdn.githack.com/SZigmund/basicBot/f4b1a9d30a7e9f022ef600dd41cae07a91797bad/lang/langIndex.json", function(json) {
-	  var link = CHAT.chatLink;
+      var link = CHAT.chatLink;
       if (json !== null && typeof json !== "undefined") {
-		langIndex = json;
+        langIndex = json;
         link = langIndex[SETTINGS.language.toLowerCase()];
         if (SETTINGS.chatLink !== CHAT.chatLink) {
           link = SETTINGS.chatLink;
@@ -7540,22 +7563,22 @@ var CHAT = {
             link = CHAT.chatLink;
           }
         }
-		$.get(link, function(json) {
-		  if (json !== null && typeof json !== "undefined") {
+        $.get(link, function(json) {
+          if (json !== null && typeof json !== "undefined") {
             if (typeof json === "string") json = JSON.parse(json);
-			//ZZZ UTIL.logDebug("LOADED CHAT MAP 01");
+            //ZZZ UTIL.logDebug("LOADED CHAT MAP 01");
             CHAT.chatMapping = json;
-			//ZZZ UTIL.logDebug("LOADED CHAT MAP 01 " + CHAT.chatMapping.online.toString());
+            //ZZZ UTIL.logDebug("LOADED CHAT MAP 01 " + CHAT.chatMapping.online.toString());
             // cb();
           }
         });
       } else {
         $.get(CHAT.chatLink, function(json) {
-		  if (json !== null && typeof json !== "undefined") {
+          if (json !== null && typeof json !== "undefined") {
             if (typeof json === "string") json = JSON.parse(json);
-			//ZZZ UTIL.logDebug("LOADED CHAT MAP 02");
+            //ZZZ UTIL.logDebug("LOADED CHAT MAP 02");
             CHAT.chatMapping = json;
-			//ZZZ UTIL.logDebug("LOADED CHAT MAP 02 " + CHAT.chatMapping.online.toString());
+            //ZZZ UTIL.logDebug("LOADED CHAT MAP 02 " + CHAT.chatMapping.online.toString());
             // cb();
           }
         });
@@ -7567,134 +7590,136 @@ var CHAT = {
 
 //SECTION STARTUP: Init code:
 var STARTUP = {
-    initbot: function() {
-      if (window.APIisRunning) {
-        UTIL.chatLog("Bot already running...")
-        return;
-      }
-      window.APIisRunning = true;
-      Function.prototype.toString = function() {
-        return 'Function.'
-      };
-      SETTINGS.runningBot = false;
-      //UTIL.logDebug("TODO - STARTUP Starting");
-      var plugUser = USERS.getCurrentPlugUser();
-      if (SETTINGS.botIDs.indexOf(plugUser.id) > -1) SETTINGS.runningBot = true;
-      UTIL.logDebug("Bot Running = " + SETTINGS.runningBot); //todoer DELETE
-      if (USERS.getPermission(plugUser) < 2) return UTIL.chatLog(CHAT.chatMapping.greyuser);
-      if (USERS.getPermission(plugUser) === 2) UTIL.chatLog(CHAT.chatMapping.bouncer);
-      MyEVENTS.connectAPI();
-      SETTINGS.botRoomUrl = window.location.pathname;
+  initbot: function() {
+    if (window.APIisRunning) {
+      UTIL.chatLog("Bot already running...")
+      return;
+    }
+    window.APIisRunning = true;
+    Function.prototype.toString = function() {
+      return 'Function.'
+    };
+    SETTINGS.runningBot = false;
+    //UTIL.logDebug("TODO - STARTUP Starting");
+    var plugUser = USERS.getCurrentPlugUser();
+    if (SETTINGS.botIDs.indexOf(plugUser.id) > -1) SETTINGS.runningBot = true;
+    UTIL.logDebug("Bot Running = " + SETTINGS.runningBot); //todoer DELETE
+    if (USERS.getPermission(plugUser) < 2) return UTIL.chatLog(CHAT.chatMapping.greyuser);
+    if (USERS.getPermission(plugUser) === 2) UTIL.chatLog(CHAT.chatMapping.bouncer);
+    MyEVENTS.connectAPI();
+    SETTINGS.botRoomUrl = window.location.pathname;
 
-      // ==========================================================
-      // Detect room change and disable the bot:
-      // ==========================================================
-      // var Check;
-      // var detect = function(){
-      //     if(SETTINGS.botRoomUrl != window.location.pathname){
-      //         clearInterval(Check)
-      //         UTIL.logInfo("Killing bot after room change.");
-      //         STORAGE.storeToStorage();
-      //         MyEVENTS.disconnectAPI();
-      //         setTimeout(function () {
-      //             MyAPI.killBot();
-      //         }, 1000);
-      //     }
-      // };
-      // Check = setInterval(function(){ detect() }, 100);
-      // ==========================================================
+    // ==========================================================
+    // Detect room change and disable the bot:
+    // ==========================================================
+    // var Check;
+    // var detect = function(){
+    //     if(SETTINGS.botRoomUrl != window.location.pathname){
+    //         clearInterval(Check)
+    //         UTIL.logInfo("Killing bot after room change.");
+    //         STORAGE.storeToStorage();
+    //         MyEVENTS.disconnectAPI();
+    //         setTimeout(function () {
+    //             MyAPI.killBot();
+    //         }, 1000);
+    //     }
+    // };
+    // Check = setInterval(function(){ detect() }, 100);
+    // ==========================================================
 
-      //UTIL.logDebug("TODO - STARTUP retrieveSettings");
-      STORAGE.retrieveSettings();
-      //UTIL.logDebug("TODO - STARTUP retrieveFromStorage");
-      STORAGE.retrieveFromStorage();
-      SETTINGS.botMuted = false;
-      if (SETTINGS.botRoomUrl !== "/-752559695349757775") MyROOM.debug = false;
-      //UTIL.validateUserCheck();
+    //UTIL.logDebug("TODO - STARTUP retrieveSettings");
+    STORAGE.retrieveSettings();
+    //UTIL.logDebug("TODO - STARTUP retrieveFromStorage");
+    STORAGE.retrieveFromStorage();
+    SETTINGS.botMuted = false;
+    if (SETTINGS.botRoomUrl !== "/-752559695349757775") MyROOM.debug = false;
+    //UTIL.validateUserCheck();
 
-      //UTIL.logDebug("TODO - STARTUP 1");
-      // window.bot = basicBot;
+    //UTIL.logDebug("TODO - STARTUP 1");
+    // window.bot = basicBot;
 
-      //UTIL.logDebug("TODO - STARTUP 2");
-      if (MyROOM.roomstats.launchTime === null) {
-        MyROOM.roomstats.launchTime = Date.now();
-      }
+    //UTIL.logDebug("TODO - STARTUP 2");
+    if (MyROOM.roomstats.launchTime === null) {
+      MyROOM.roomstats.launchTime = Date.now();
+    }
 
-      //UTIL.logDebug("TODO - STARTUP 3");
+    //UTIL.logDebug("TODO - STARTUP 3");
+    for (var j = 0; j < MyROOM.users.length; j++) {
+      MyROOM.users[j].inRoom = false;
+    }
+    //UTIL.logDebug("TODO - STARTUP 4");
+    var userlist = API.getUsers();
+    for (var i = 0; i < userlist.length; i++) {
+      var known = false;
+      var ind = null;
       for (var j = 0; j < MyROOM.users.length; j++) {
-        MyROOM.users[j].inRoom = false;
-      }
-      //UTIL.logDebug("TODO - STARTUP 4");
-      var userlist = API.getUsers();
-      for (var i = 0; i < userlist.length; i++) {
-        var known = false;
-        var ind = null;
-        for (var j = 0; j < MyROOM.users.length; j++) {
-          if (MyROOM.users[j].id === userlist[i].id) {
-            known = true;
-            ind = j;
-          }
+        if (MyROOM.users[j].id === userlist[i].id) {
+          known = true;
+          ind = j;
         }
-        if (known) {
-          MyROOM.users[ind].inRoom = true;
-        } else {
-          MyROOM.users.push(new USERS.User(userlist[i].id, userlist[i].username));
-          ind = MyROOM.users.length - 1;
-        }
-        var wlIndex = MyAPI.getWaitListPosition(MyROOM.users[ind].id) + 1;
-        MyROOM.users[ind].lastKnownPosition = wlIndex;
-        if (wlIndex > 0) MyROOM.users[ind].lastSeenInLine = Date.now();
       }
-      //UTIL.logDebug("TODO - STARTUP 5");
-      MyROOM.afkInterval = setInterval(function() {
-        UTIL.afkCheck()
-      }, 10 * 1000);
-      //UTIL.logDebug("TODO - STARTUP 6");
-      //MyROOM.autodisableInterval = setInterval(function () {
-      //    MyROOM.autodisableFunc();
-      //}, 60 * 60 * 1000);
-      //UTIL.logDebug("TODO - STARTUP 7");
-      //BotID: Current User:
-      SETTINGS.loggedInID = USERS.getCurrentPlugUser().id;
-      SETTINGS.loggedInName = USERS.getCurrentPlugUser().username;
-      SETTINGS.status = true;
-      UTIL.sendChat('/cap 1');
-      API.setVolume(0);
-      // var emojibutton = $(".icon-emoji-on");
-      // if (emojibutton.length > 0) {
-      //     emojibutton[0].click();
-      // }
+      if (known) {
+        MyROOM.users[ind].inRoom = true;
+      } else {
+        MyROOM.users.push(new USERS.User(userlist[i].id, userlist[i].username));
+        ind = MyROOM.users.length - 1;
+      }
+      var wlIndex = MyAPI.getWaitListPosition(MyROOM.users[ind].id) + 1;
+      MyROOM.users[ind].lastKnownPosition = wlIndex;
+      if (wlIndex > 0) MyROOM.users[ind].lastSeenInLine = Date.now();
+    }
+    //UTIL.logDebug("TODO - STARTUP 5");
+    MyROOM.afkInterval = setInterval(function() {
+      UTIL.afkCheck()
+    }, 10 * 1000);
+    //UTIL.logDebug("TODO - STARTUP 6");
+    //MyROOM.autodisableInterval = setInterval(function () {
+    //    MyROOM.autodisableFunc();
+    //}, 60 * 60 * 1000);
+    //UTIL.logDebug("TODO - STARTUP 7");
+    //BotID: Current User:
+    SETTINGS.loggedInID = USERS.getCurrentPlugUser().id;
+    SETTINGS.loggedInName = USERS.getCurrentPlugUser().username;
+    SETTINGS.status = true;
+    UTIL.sendChat('/cap 1');
+    API.setVolume(0);
+    // var emojibutton = $(".icon-emoji-on");
+    // if (emojibutton.length > 0) {
+    //     emojibutton[0].click();
+    // }
 
-      //UTIL.logDebug("TODO - STARTUP 9");
-      if (SETTINGS.autoWootBot === true) setTimeout(UTIL.wootThisSong, 3000);
-	  UTIL.logDebug("LOADING CHAT");
-	  CHAT.loadChat();
-	  UTIL.logDebug("CHAT LOADED");
-	  setTimeout(function() { CHAT.logStartup(); }, 1500);
-      //loadChat(UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.online, {
-      //  botname: SETTINGS.loggedInName,
-      //  version: SETTINGS.version
-      //})));
-      // CHAT.loadChat(UTIL.chatLog(CHAT.subChat(CHAT.chatMapping.online, {
-      //   botname: SETTINGS.loggedInName,
-      //   version: SETTINGS.version
-      // })));
-	  // UTIL.logDebug("ONLINE STR: " + CHAT.chatMapping.online.toString());
-      // UTIL.chatLog(CHAT.subChat(CHAT.chatMapping.online, {
-      //    botname: SETTINGS.loggedInName,
-      //    version: SETTINGS.version
-      // }))
-	  //UTIL.logDebug(SETTINGS.botName + SETTINGS.version);
-      //UTIL.logDebug("TODO - STARTUP 10");
-      MyROOM.roulette.randomRouletteSetTimer();
-      MyROOM.randomInterval = setInterval(function() {
-        MyROOM.roulette.randomRouletteCheck()
-      }, 30 * 1000);
-      UTIL.randomCommentSetTimer();
-      MyROOM.randomInterval = setInterval(function() {
-        UTIL.randomCommentCheck()
-      }, 30 * 1000);
-  }	
+    //UTIL.logDebug("TODO - STARTUP 9");
+    if (SETTINGS.autoWootBot === true) setTimeout(UTIL.wootThisSong, 3000);
+    UTIL.logDebug("LOADING CHAT");
+    CHAT.loadChat();
+    UTIL.logDebug("CHAT LOADED");
+    setTimeout(function() {
+      CHAT.logStartup();
+    }, 1500);
+    //loadChat(UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.online, {
+    //  botname: SETTINGS.loggedInName,
+    //  version: SETTINGS.version
+    //})));
+    // CHAT.loadChat(UTIL.chatLog(CHAT.subChat(CHAT.chatMapping.online, {
+    //   botname: SETTINGS.loggedInName,
+    //   version: SETTINGS.version
+    // })));
+    // UTIL.logDebug("ONLINE STR: " + CHAT.chatMapping.online.toString());
+    // UTIL.chatLog(CHAT.subChat(CHAT.chatMapping.online, {
+    //    botname: SETTINGS.loggedInName,
+    //    version: SETTINGS.version
+    // }))
+    //UTIL.logDebug(SETTINGS.botName + SETTINGS.version);
+    //UTIL.logDebug("TODO - STARTUP 10");
+    MyROOM.roulette.randomRouletteSetTimer();
+    MyROOM.randomInterval = setInterval(function() {
+      MyROOM.roulette.randomRouletteCheck()
+    }, 30 * 1000);
+    UTIL.randomCommentSetTimer();
+    MyROOM.randomInterval = setInterval(function() {
+      UTIL.randomCommentCheck()
+    }, 30 * 1000);
+  }
 };
 
 //SECTION STORAGE: Store & Load settings/users/banlist etc.
@@ -7706,28 +7731,28 @@ var STORAGE = {
       UTIL.logDebug("SETTING DATA STORED");
       localStorage.setItem("basicBotRoom", JSON.stringify(MyROOM));
       UTIL.logDebug("ROOM DATA STORED");
-// todoer Figure this shit OUT!!!
-//              this.votes = {
-//                 songs: 0,
-//                 tasty: 0,
-//                 woot: 0,
-//                 meh: 0,
-//                 curate: 0
-//             };
-// votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
-//                         var msg = CHAT.subChat(CHAT.chatMapping.mystats, {name: user.username, 
-//                                                                      songs: user.votes.songs,
-//                                                                      woot: user.votes.woot, 
-//                                                                      mehs: user.votes.meh, 
-//                                                                      grabs: user.votes.curate, 
-//                                                                      tasty: user.votes.tasty});
-//         "DEBUG: STORED DATA: {"users":[
-// 
-// {"id":5226916,"username":"LeviHomer","jointime":1432793489836,"lastActivity":1432793516617,"votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0},"tastyVote":false,"rolled":false,"lastEta":null,"beerRun":false,"inMeeting":false,"atLunch":false,"afkWarningCount":0,"badSongCount":0,"afkCountdown":null,"inRoom":true,"isMuted":false,"rollStats":{"lifeWoot":0,"lifeTotal":0,"dayWoot":0,"dayTotal":0,"DOY":-1},"lastDC":{"time":null,"leftroom":null,"resetReason":"","position":-1,"songCount":0},"lastKnownPosition":-1,"lastSeenInLine":null},
-// {"id":5226880,"username":"DexterNix","jointime":1432793489845,"lastActivity":1432793489845,"votes":{"songs":0,"tasty":0,"woot":0,"meh":0,"curate":0},"tastyVote":false,"rolled":false,"lastEta":null,"beerRun":false,"inMeeting":false,"atLunch":false,"afkWarningCount":0,"badSongCount":0,"afkCountdown":null,"inRoom":true,"isMuted":false,"rollStats":{"lifeWoot":0,"lifeTotal":0,"dayWoot":0,"dayTotal":0,"DOY":-1},"lastDC":{"time":null,"leftroom":null,"resetReason":"","position":-1,"songCount":0},"lastKnownPosition":0,"lastSeenInLine":null},
-// {"id":3837756,"username":"Doc_Z","jointime":1432793489850,"lastActivity":1432793489850,"votes":{"songs":0,"tasty":0,"woot":2,"meh":0,"curate":0},"tastyVote":false,"rolled":false,"lastEta":null,"bootable":false,"beerRun":false,"inMeeting":false,"atLunch":false,"afkWarningCount":0,"badSongCount":0,"afkCountdown":null,"inRoom":true,"isMuted":false,"rollStats":{"lifeWoot":0,"lifeTotal":0,"dayWoot":0,"dayTotal":0,"DOY":-1},"lastDC":{"time":null,"leftroom":null,"resetReason":"","position":-1,"songCount":0},"lastKnownPosition":0,"lastSeenInLine":null}
-// ],"debug":true,"afkList":[],"mutedUsers":[],"bannedUsers":[],"skippable":true,"usercommand":true,"allcommand":true,"afkInterval":485,"blacklistInterval":null,"randomInterval":490,"autoskip":false,"autoskipTimer":null,"autodisableInterval":null,"queueing":0,"queueable":true,"currentDJID":5226916,"currentMediaCid":"s88r_q7oufE","currentMediaStart":1432793520843,"historyList":[["zV8tJXRUtHg",1432771590001,1432789190910],["kvDMlk3kSYg",1432771595577,1432789198263],["a80o9o-2Vrw",1432771600675,1432789440991],["iPUmE-tne5U",1432771778731,1432789452164],["oh4wgGIN_qE",1432772008885,1432789682358],["I-h4A7bF8wQ",1432772243988,1432789917483],["ateQQc-AgEM",1432772454069,1432790127595],["8NjbGr2nk2c",1432772482569,1432785797611],["koJlIGDImiU",1432772669820],["gMhMaNAmT-U",1432772941005],["Urdlvw0SSEc",1432772997149,1432790353572],["Idhq-CLU21g",1432773206269,1432790667764],["pIgZ7gMze7A",1432773283276,1432790680529],["ojDWH2ZuwNk",1432773300309,1432790912785],["m_-Qtz70_z4",1432773508366,1432791120899],["XfR9iY5y94s",1432773732538,1432791345033],["-qCDypgAV_E",1432773955596,1432791568084],["GOsoa4AGRhY",1432774149679,1432791762136],["Zs3xXlXSOKk",1432774286758,1432791899345],["iywaBOMvYLI",1432774504988,1432786819684],["D4aaXDfSRDc",1432774730132,1432786578803],["K84j7CJIUKU",1432774971203,1432786496954],["9jK-NcRmVcw",1432775261929,1432792120504],["EkwD5rQ-_d4",1432775304460,1432792417688],["YLncxyCXPsU",1432775621560,1432792734747],["6W5pq4bIzIw",1432775832673,1432793493588],["EOvMpND2OZY",1432776509962,1432793516269],["2LlSs-IM-TM",1432776759115],["s88r_q7oufE",1432776767999,1432793520843],["IaNzrXAUHBk",1432777027430],["FTxqH0tukqQ",1432777413227],["V-xpJRwIA-Q",1432777570350],["-25ibpmTMWM",1432777809805],["3eOuK-pYhy4",1432777970651],["Nt4SNfcd72s",1432778223772],["a3ir9HC9vYg",1432779175045],["DIfPeoyLfkg",1432779456198],["6259846",1432779673921],["W6H8WcTPnWM",1432779911329],["14kLQ9TLZcI",1432780104437],["4NO-h9PFum4",1432780242613],["EUSS7bEKxsQ",1432780447681],["GeZZr_p6vB8",1432783686698],["snILjFUkk_A",1432783938989],["zQ41hqlV0Kk",1432784206229],["nfk6sCzRTbM",1432784476197],["Yynstc_bFRE",1432784738407],["T81xsEyfl3c",1432784961056],["4kHl4FoK1Ys",1432787045163],["2tptckbCokA",1432787240920],["VtNH2ftJVS8",1432787451127],["DVgBVcsAK1o",1432787723164],["jJaT7qQpaqs",1432788650757],["W9wwsxiLGbg",1432788656349],["_j5HZjg75AM",1432789182868]],"cycleTimer":479,"roomstats":{"accountName":null,"totalWoots":24,"totalCurates":6,"totalMehs":0,"tastyCount":0,"launchTime":1432771419768,"songCount":100,"chatmessages":196},"messages":{"from":[],"to":[],"message":[]},"queue":{"id":[],"position":[]},"newBlacklist":[],"newBlacklistIDs":[],"blacklistLoaded":true,"roulette":{"rouletteStatus":false,"randomRouletteMin":45,"randomRouletteMax":120,"nextRandomRoulette":"2015-05-28T08:00:29.861Z","participants":[],"countdown":null}}"
-//
+      // todoer Figure this shit OUT!!!
+      //              this.votes = {
+      //                 songs: 0,
+      //                 tasty: 0,
+      //                 woot: 0,
+      //                 meh: 0,
+      //                 curate: 0
+      //             };
+      // votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
+      //                         var msg = CHAT.subChat(CHAT.chatMapping.mystats, {name: user.username, 
+      //                                                                      songs: user.votes.songs,
+      //                                                                      woot: user.votes.woot, 
+      //                                                                      mehs: user.votes.meh, 
+      //                                                                      grabs: user.votes.curate, 
+      //                                                                      tasty: user.votes.tasty});
+      //         "DEBUG: STORED DATA: {"users":[
+      // 
+      // {"id":5226916,"username":"LeviHomer","jointime":1432793489836,"lastActivity":1432793516617,"votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0},"tastyVote":false,"rolled":false,"lastEta":null,"beerRun":false,"inMeeting":false,"atLunch":false,"afkWarningCount":0,"badSongCount":0,"afkCountdown":null,"inRoom":true,"isMuted":false,"rollStats":{"lifeWoot":0,"lifeTotal":0,"dayWoot":0,"dayTotal":0,"DOY":-1},"lastDC":{"time":null,"leftroom":null,"resetReason":"","position":-1,"songCount":0},"lastKnownPosition":-1,"lastSeenInLine":null},
+      // {"id":5226880,"username":"DexterNix","jointime":1432793489845,"lastActivity":1432793489845,"votes":{"songs":0,"tasty":0,"woot":0,"meh":0,"curate":0},"tastyVote":false,"rolled":false,"lastEta":null,"beerRun":false,"inMeeting":false,"atLunch":false,"afkWarningCount":0,"badSongCount":0,"afkCountdown":null,"inRoom":true,"isMuted":false,"rollStats":{"lifeWoot":0,"lifeTotal":0,"dayWoot":0,"dayTotal":0,"DOY":-1},"lastDC":{"time":null,"leftroom":null,"resetReason":"","position":-1,"songCount":0},"lastKnownPosition":0,"lastSeenInLine":null},
+      // {"id":3837756,"username":"Doc_Z","jointime":1432793489850,"lastActivity":1432793489850,"votes":{"songs":0,"tasty":0,"woot":2,"meh":0,"curate":0},"tastyVote":false,"rolled":false,"lastEta":null,"bootable":false,"beerRun":false,"inMeeting":false,"atLunch":false,"afkWarningCount":0,"badSongCount":0,"afkCountdown":null,"inRoom":true,"isMuted":false,"rollStats":{"lifeWoot":0,"lifeTotal":0,"dayWoot":0,"dayTotal":0,"DOY":-1},"lastDC":{"time":null,"leftroom":null,"resetReason":"","position":-1,"songCount":0},"lastKnownPosition":0,"lastSeenInLine":null}
+      // ],"debug":true,"afkList":[],"mutedUsers":[],"bannedUsers":[],"skippable":true,"usercommand":true,"allcommand":true,"afkInterval":485,"blacklistInterval":null,"randomInterval":490,"autoskip":false,"autoskipTimer":null,"autodisableInterval":null,"queueing":0,"queueable":true,"currentDJID":5226916,"currentMediaCid":"s88r_q7oufE","currentMediaStart":1432793520843,"historyList":[["zV8tJXRUtHg",1432771590001,1432789190910],["kvDMlk3kSYg",1432771595577,1432789198263],["a80o9o-2Vrw",1432771600675,1432789440991],["iPUmE-tne5U",1432771778731,1432789452164],["oh4wgGIN_qE",1432772008885,1432789682358],["I-h4A7bF8wQ",1432772243988,1432789917483],["ateQQc-AgEM",1432772454069,1432790127595],["8NjbGr2nk2c",1432772482569,1432785797611],["koJlIGDImiU",1432772669820],["gMhMaNAmT-U",1432772941005],["Urdlvw0SSEc",1432772997149,1432790353572],["Idhq-CLU21g",1432773206269,1432790667764],["pIgZ7gMze7A",1432773283276,1432790680529],["ojDWH2ZuwNk",1432773300309,1432790912785],["m_-Qtz70_z4",1432773508366,1432791120899],["XfR9iY5y94s",1432773732538,1432791345033],["-qCDypgAV_E",1432773955596,1432791568084],["GOsoa4AGRhY",1432774149679,1432791762136],["Zs3xXlXSOKk",1432774286758,1432791899345],["iywaBOMvYLI",1432774504988,1432786819684],["D4aaXDfSRDc",1432774730132,1432786578803],["K84j7CJIUKU",1432774971203,1432786496954],["9jK-NcRmVcw",1432775261929,1432792120504],["EkwD5rQ-_d4",1432775304460,1432792417688],["YLncxyCXPsU",1432775621560,1432792734747],["6W5pq4bIzIw",1432775832673,1432793493588],["EOvMpND2OZY",1432776509962,1432793516269],["2LlSs-IM-TM",1432776759115],["s88r_q7oufE",1432776767999,1432793520843],["IaNzrXAUHBk",1432777027430],["FTxqH0tukqQ",1432777413227],["V-xpJRwIA-Q",1432777570350],["-25ibpmTMWM",1432777809805],["3eOuK-pYhy4",1432777970651],["Nt4SNfcd72s",1432778223772],["a3ir9HC9vYg",1432779175045],["DIfPeoyLfkg",1432779456198],["6259846",1432779673921],["W6H8WcTPnWM",1432779911329],["14kLQ9TLZcI",1432780104437],["4NO-h9PFum4",1432780242613],["EUSS7bEKxsQ",1432780447681],["GeZZr_p6vB8",1432783686698],["snILjFUkk_A",1432783938989],["zQ41hqlV0Kk",1432784206229],["nfk6sCzRTbM",1432784476197],["Yynstc_bFRE",1432784738407],["T81xsEyfl3c",1432784961056],["4kHl4FoK1Ys",1432787045163],["2tptckbCokA",1432787240920],["VtNH2ftJVS8",1432787451127],["DVgBVcsAK1o",1432787723164],["jJaT7qQpaqs",1432788650757],["W9wwsxiLGbg",1432788656349],["_j5HZjg75AM",1432789182868]],"cycleTimer":479,"roomstats":{"accountName":null,"totalWoots":24,"totalCurates":6,"totalMehs":0,"tastyCount":0,"launchTime":1432771419768,"songCount":100,"chatmessages":196},"messages":{"from":[],"to":[],"message":[]},"queue":{"id":[],"position":[]},"newBlacklist":[],"newBlacklistIDs":[],"blacklistLoaded":true,"roulette":{"rouletteStatus":false,"randomRouletteMin":45,"randomRouletteMax":120,"nextRandomRoulette":"2015-05-28T08:00:29.861Z","participants":[],"countdown":null}}"
+      //
       var basicBotStorageInfo = {
         time: Date.now(),
         stored: true,
@@ -7819,5 +7844,7 @@ var STORAGE = {
 if (!window.APIisRunning) {
   STARTUP.initbot();
 } else {
-  setTimeout(function () { STARTUP.initbot(); }, 1000);
+  setTimeout(function() {
+    STARTUP.initbot();
+  }, 1000);
 }
