@@ -1,6 +1,7 @@
 // version: 2.1.4.00060
 //SECTION 
 // GIFS DMB MUFFORD
+// 430
 // Imout
 // Username ping on tasty commands
 // Roulette - Display my position in the queue
@@ -6506,6 +6507,110 @@ var BOTCOMMANDS = {
       }
     }
   },
+	fourthirtyCommand: {
+		command: ['fourthirty','430'],
+		rank: 'vip',
+		type: 'startsWith',
+		functionality: function (chat, cmd)  {
+			try {
+				if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+				if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
+				 setTimeout(function () { UTIL.sendChat("https://media.giphy.com/media/11QJgcchgwskq4/giphy.gif"); }, 250);
+			}
+			catch(err) { UTIL.logException("fourthirtyCommand: " + err.message); }
+		}
+	},
+			wreckingballCommand: {
+                command: 'wreckingball',
+                rank: 'resident-dj',
+                type: 'startsWith',
+                functionality: function (chat, cmd)  {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
+						 USERS.tastyVote(chat.un, cmd);
+						 var randomID = Math.floor(Math.random() * 3); // [0-2]
+						 if (randomID === 0) { setTimeout(function () { UTIL.sendChat("https://thumbs.gfycat.com/GraveBlaringChrysalis-size_restricted.gif"); }, 250); }
+						 else if (randomID === 1){ setTimeout(function () { UTIL.sendChat("https://forgifs.com/gallery/d/227933-2/Pendulum-wrecking-ball.gif"); }, 250); }
+						 else { setTimeout(function () { UTIL.sendChat("https://i.makeagif.com/media/6-21-2018/BM0WKE.gif"); }, 250); }
+                    }
+                    catch(err) { UTIL.logException("wreckingballCommand: " + err.message); }
+                }
+            },
+            elevenCommand: {
+                command: ['eleven','11'],
+                rank: 'resident-dj',
+                type: 'startsWith',
+                functionality: function (chat, cmd)  {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
+						 USERS.tastyVote(chat.un, cmd);
+						 setTimeout(function () { UTIL.sendChat("http://media.tumblr.com/10430abfede9cebe9776f7de26e302e4/tumblr_inline_mjzgvrh7Uv1qz4rgp.gif"); }, 250);
+                    }
+                    catch(err) { UTIL.logException("elevenCommand: " + err.message); }
+                }
+
+            },
+            // Goofy Dog playing piano gif:  
+			pianoCommand: {
+                command: 'piano',
+                rank: 'resident-dj',
+                type: 'startsWith',
+                functionality: function (chat, cmd)  {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
+						 USERS.tastyVote(chat.un, cmd);
+						 setTimeout(function () { UTIL.sendChat("https://media.giphy.com/media/ELUZ0bkF8j4ru/giphy.gif"); }, 250);
+                    }
+                    catch(err) { UTIL.logException("pianoCommand: " + err.message); }
+                }
+            },
+			mumfordCommand: {
+                command: 'mumford',
+                rank: 'resident-dj',
+                type: 'startsWith',
+                functionality: function (chat, cmd)  {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
+						 USERS.tastyVote(chat.un, cmd);
+						 setTimeout(function () { UTIL.sendChat("https://media.giphy.com/media/kabkVP3FiZrSE/giphy.gif"); }, 250);
+                    }
+                    catch(err) { UTIL.logException("mumfordCommand: " + err.message); }
+                }
+            },
+			//https://media.giphy.com/media/3cLYEjIaxidkQ/giphy.gif
+            dmbCommand: {
+                command: 'dmb',
+                rank: 'resident-dj',
+                type: 'startsWith',
+                functionality: function (chat, cmd)  {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
+						 USERS.tastyVote(chat.un, cmd);
+						 setTimeout(function () { UTIL.sendChat("https://media.tenor.com/images/952fe3b2e8cae6a8cb39aba07e5e1beb/tenor.gif"); }, 250);
+                    }
+                    catch(err) { UTIL.logException("dmbCommand: " + err.message); }
+                }
+            },
+			//https://i.imgur.com/fgU7KCL.gif OR http://i.imgur.com/eBGUmzW.jpg
+			beiberCommand: {
+                command: ['beiber','bieber','shittyband'],
+                rank: 'resident-dj',
+                type: 'startsWith',
+                functionality: function (chat, cmd)  {
+                    try {
+                        if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+                        if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
+						 USERS.tastyVote(chat.un, cmd);
+						 setTimeout(function () { UTIL.sendChat("https://i.imgur.com/fgU7KCL.gif"); }, 250);
+                    }
+                    catch(err) { UTIL.logException("beiberCommand: " + err.message); }
+                }
+            },
 
   youtubeCommand: {
     command: 'youtube',
