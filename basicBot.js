@@ -1322,7 +1322,7 @@ var MyEVENTS = {
           }, remaining + 3000);
         }
         if (!SongSkipped) USERS.setBadSongCount(obj.dj.id, 0);
-        //UTIL.logDebug("eventDjadvance:12");
+        UTIL.logDebug("eventDjadvance:12");
         STORAGE.storeToStorage();
         //UTIL.logDebug("eventDjadvance:13");
       } catch (err) {
@@ -7522,6 +7522,7 @@ var CHAT = {
       return false;
     },
   logStartup: function() {
+  //CHAT.chatMapping.online
        UTIL.chatLog(CHAT.subChat(CHAT.chatMapping.online, {botname: SETTINGS.loggedInName,version: SETTINGS.version}));
   },
   // loadChat: function(cb) {
@@ -7669,7 +7670,7 @@ var STARTUP = {
 	  UTIL.logDebug("LOADING CHAT");
 	  CHAT.loadChat();
 	  UTIL.logDebug("CHAT LOADED");
-	  CHAT.logStartup();
+	  setTimeout(function() { CHAT.logStartup(); }, 1500);
       //loadChat(UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.online, {
       //  botname: SETTINGS.loggedInName,
       //  version: SETTINGS.version
@@ -7702,8 +7703,9 @@ var STORAGE = {
     try {
       UTIL.logDebug("START: storeToStorage");
       localStorage.setItem("basicBotsettings", JSON.stringify(SETTINGS));
-      localStorage.setItem("basicBotRoom", JSON.stringify(ROOMX));
-      UTIL.logDebug("STORED DATA: " + JSON.stringify(ROOMX));
+      UTIL.logDebug("SETTING DATA STORED");
+      localStorage.setItem("basicBotRoom", JSON.stringify(ROOM));
+      UTIL.logDebug("ROOM DATA STORED");
 // todoer Figure this shit OUT!!!
 //              this.votes = {
 //                 songs: 0,
