@@ -7523,11 +7523,14 @@ var CHAT = {
     },
   // loadChat: function(cb) {
   loadChat: function() {
+	UTIL.logDebug("loadChat - LOADING-01");
     // if (!cb) cb = function() {};
     $.get("https://rawcdn.githack.com/SZigmund/basicBot/f4b1a9d30a7e9f022ef600dd41cae07a91797bad/lang/langIndex.json", function(json) {
-      var link = CHAT.chatLink;
+      UTIL.logDebug("loadChat - LOADING-02");
+	  var link = CHAT.chatLink;
       if (json !== null && typeof json !== "undefined") {
-        langIndex = json;
+        UTIL.logDebug("loadChat - LOADING-03");
+		langIndex = json;
         link = langIndex[SETTINGS.language.toLowerCase()];
         if (SETTINGS.chatLink !== CHAT.chatLink) {
           link = SETTINGS.chatLink;
@@ -7536,8 +7539,10 @@ var CHAT = {
             link = CHAT.chatLink;
           }
         }
-        $.get(link, function(json) {
-          if (json !== null && typeof json !== "undefined") {
+        UTIL.logDebug("loadChat - LOADING-04 " + link);
+		$.get(link, function(json) {
+          UTIL.logDebug("loadChat - LOADING-05");
+		  if (json !== null && typeof json !== "undefined") {
             if (typeof json === "string") json = JSON.parse(json);
             CHAT.chatMapping = json;
             // cb();
@@ -7545,7 +7550,8 @@ var CHAT = {
         });
       } else {
         $.get(CHAT.chatLink, function(json) {
-          if (json !== null && typeof json !== "undefined") {
+          UTIL.logDebug("loadChat - LOADING-06");
+		  if (json !== null && typeof json !== "undefined") {
             if (typeof json === "string") json = JSON.parse(json);
             CHAT.chatMapping = json;
             // cb();
