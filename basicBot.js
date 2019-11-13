@@ -1370,7 +1370,7 @@ var MyEVENTS = {
       if (!SETTINGS.runningBot) return;
     },
 
-  splitBetween = function(str, a, b) {
+  splitBetween: function(str, a, b) {
     var self = str;
     self = str.split(a);
     for (var i = 0; i < self.length; i++) {
