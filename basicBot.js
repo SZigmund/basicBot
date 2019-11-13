@@ -7666,7 +7666,9 @@ var STARTUP = {
 
       //UTIL.logDebug("TODO - STARTUP 9");
       if (SETTINGS.autoWootBot === true) setTimeout(UTIL.wootThisSong, 3000);
+	  UTIL.logDebug("LOADING CHAT");
 	  CHAT.loadChat();
+	  UTIL.logDebug("CHAT LOADED");
 	  CHAT.logStartup();
       //loadChat(UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.online, {
       //  botname: SETTINGS.loggedInName,
