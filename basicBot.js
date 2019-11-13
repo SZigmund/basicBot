@@ -7704,7 +7704,7 @@ var STORAGE = {
       UTIL.logDebug("START: storeToStorage");
       localStorage.setItem("basicBotsettings", JSON.stringify(SETTINGS));
       UTIL.logDebug("SETTING DATA STORED");
-      localStorage.setItem("basicBotRoom", JSON.stringify(ROOM));
+      localStorage.setItem("basicBotRoom", JSON.stringify(MyROOM));
       UTIL.logDebug("ROOM DATA STORED");
 // todoer Figure this shit OUT!!!
 //              this.votes = {
