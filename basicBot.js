@@ -87,6 +87,7 @@ var SETTINGS = {
   nextRandomComment: Date.now(),
   autodisable: false,
   commandCooldown: 30,
+  lastChatUid: 0,
   usercommandsEnabled: true,
   lockskipPosition: 3,
   lockskipReasons: [
@@ -990,6 +991,7 @@ var MyEVENTS = {
       if (CHAT.chatFilter(chat)) return void(0);
       if (!CHAT.commandCheck(chat))
         CHAT.action(chat);
+      SETTINGS.lastChatUid = chat.uid;
     } catch (err) {
       UTIL.logException("eventChat: " + err.message);
     }
@@ -1411,23 +1413,7 @@ var MyAPI = {
   },
 
   moderateDeleteChat: function(cid) {
-    UTIL.logDebug("CID: " + cid);
-    UTIL.ajax("chat/" + cid, "GET", void 0, function(e1, t1) {
-                    UTIL.logDebug("CHAT DATA: E1: " + e1.textStatus);
-                });
-    UTIL.ajax("chat/" + cid, "GET", void 0, function(e2, t2) {
-                    UTIL.logDebug("CHAT DATA: E2: " + e2.jqXHR);
-                });
-    UTIL.ajax("chat/" + cid, "GET", void 0, function(e3, t3) {
-                    UTIL.logDebug("CHAT DATA: E3: " + e3.data + " T: " + t3);
-                });
-    UTIL.ajax("chat/" + cid, "GET", void 0, function(e4, t4) {
-                    UTIL.logObject(e4.jqXHR, "jqXHR");
-                });
-    setTimeout(function() {
-        UTIL.ajax("chat/" + cid, "DELETE");
-      }, 1000);				
-    
+    UTIL.ajax("chat/" + cid, "DELETE");
     // $.ajax({
     //   url: "https://plug.dj/_/chat/" + cid,
     //   type: "DELETE"
@@ -1435,11 +1421,12 @@ var MyAPI = {
   },
   grabSong: function(playlistID, historyID) {
     try {
-      $.ajax({
-        url: "https://plug.dj/_/grabs",
-        data: "{playlistID:" + playlistID + ",historyID:" + historyID + "}",
-        type: "POST"
-      })
+      UTIL.ajax("grabs/" + "{playlistID:" + playlistID + ",historyID:" + historyID + "}", "POST");
+      // $.ajax({
+      //   url: "https://plug.dj/_/grabs",
+      //   data: "{playlistID:" + playlistID + ",historyID:" + historyID + "}",
+      //   type: "POST"
+      // })
       //Request body: {"playlistID":7527918,"historyID":"3602db39-e515-4739-aa24-0dc084f384bc"}
     } catch (err) {
       UTIL.logException("grabSong: " + err.message);
@@ -1480,11 +1467,14 @@ var MyAPI = {
   botHopDown: function() {
     try {
       if (!UTIL.botInWaitList() && !UTIL.botIsDj()) return;
-      $.ajax({
-        url: "https://plug.dj/_/booth",
-        type: "DELETE"
-      })
-      // This works well:
+	  UTIL.ajax("booth", "DELETE");
+      // PLAN B: This works well:
+      // $.ajax({
+      //   url: "https://plug.dj/_/booth",
+      //   type: "DELETE"
+      // })
+
+      // PLAN C: This works well:
       // $("#dj-button").click();
       // setTimeout(function () { $("#dialog-confirm > div:nth-child(3) > div.button.submit").click(); }, 1 * 1000);
       // This also appears to work:
@@ -7481,7 +7471,7 @@ var CHAT = {
       }
       //UTIL.logDebug("commandCheck7: executed: " + executed);
       if (executed) {
-        if (chat.cid.length > 0) MyAPI.moderateDeleteChat(chat.cid);
+        if (chat.cid.length > 0 && SETTINGS.lastChatUid !== chat.uid return) MyAPI.moderateDeleteChat(chat.cid);
         MyROOM.allcommand = false;
         setTimeout(function() {
           MyROOM.allcommand = true;
