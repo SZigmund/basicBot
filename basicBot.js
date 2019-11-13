@@ -1412,15 +1412,17 @@ var MyAPI = {
 
   moderateDeleteChat: function(cid) {
     UTIL.logDebug("CID: " + cid);
-    UTIL.ajax("chat/" + cid, "GET", void 0, function(e, t) {
-                    UTIL.logDebug("CHAT DATA: E1: " + e.textStatus);
+    UTIL.ajax("chat/" + cid, "GET", void 0, function(e1, t1) {
+                    UTIL.logDebug("CHAT DATA: E1: " + e1.textStatus);
                 });
-    UTIL.ajax("chat/" + cid, "GET", void 0, function(e, t) {
-                    UTIL.logDebug("CHAT DATA: E2: " + e.jqXHR);
+    UTIL.ajax("chat/" + cid, "GET", void 0, function(e2, t2) {
+                    UTIL.logDebug("CHAT DATA: E2: " + e2.jqXHR);
                 });
-
-    UTIL.ajax("chat/" + cid, "GET", void 0, function(e, t) {
-                    UTIL.logDebug("CHAT DATA: E3: " + e.data + " T: " + t);
+    UTIL.ajax("chat/" + cid, "GET", void 0, function(e3, t3) {
+                    UTIL.logDebug("CHAT DATA: E3: " + e3.data + " T: " + t3);
+                });
+    UTIL.ajax("chat/" + cid, "GET", void 0, function(e4, t4) {
+                    UTIL.logObject(e4.jqXHR, "jqXHR");
                 });
     setTimeout(function() {
         UTIL.ajax("chat/" + cid, "DELETE");
