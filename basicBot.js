@@ -1413,17 +1413,19 @@ var MyAPI = {
   moderateDeleteChat: function(cid) {
     UTIL.logDebug("CID: " + cid);
     UTIL.ajax("chat/" + cid, "GET", void 0, function(e, t) {
-                    UTIL.logDebug("CHAT DATA: E: " + e.textStatus);
+                    UTIL.logDebug("CHAT DATA: E1: " + e.textStatus);
                 });
     UTIL.ajax("chat/" + cid, "GET", void 0, function(e, t) {
-                    UTIL.logDebug("CHAT DATA: E: " + e.jqXHR);
+                    UTIL.logDebug("CHAT DATA: E2: " + e.jqXHR);
                 });
 
     UTIL.ajax("chat/" + cid, "GET", void 0, function(e, t) {
-                    UTIL.logDebug("CHAT DATA: E: " + e.data + " T: " + t);
+                    UTIL.logDebug("CHAT DATA: E3: " + e.data + " T: " + t);
                 });
-				
-    UTIL.ajax("chat/" + cid, "DELETE");
+    setTimeout(function() {
+        UTIL.ajax("chat/" + cid, "DELETE");
+      }, 1000);				
+    
     // $.ajax({
     //   url: "https://plug.dj/_/chat/" + cid,
     //   type: "DELETE"
