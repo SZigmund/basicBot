@@ -7471,7 +7471,7 @@ var CHAT = {
       }
       //UTIL.logDebug("commandCheck7: executed: " + executed);
       if (executed) {
-        if (chat.cid.length > 0 && SETTINGS.lastChatUid !== chat.uid return) MyAPI.moderateDeleteChat(chat.cid);
+        if (chat.cid.length > 0 && SETTINGS.lastChatUid !== chat.uid) MyAPI.moderateDeleteChat(chat.cid);
         MyROOM.allcommand = false;
         setTimeout(function() {
           MyROOM.allcommand = true;
