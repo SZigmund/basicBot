@@ -1,14 +1,14 @@
 // version: 2.1.4.00060
 //SECTION 
-// GIFS DMB MUFFORD
-// 430
-// Imout
 // Username ping on tasty commands
 // Roulette - Display my position in the queue
 //
+// DONE: Imout
+//
+// DONE: GIFS DMB MUFFORD
+// DONE: 430
 // DONE: Bot HopUp/HopDown
 // DONE: Roulette Join/In
-//
 // DONE: basicBot.
 // DONE TASTY COmmands
 //userlistjson
@@ -2802,7 +2802,15 @@ var UTIL = {
       });
     }
     return list;
-  }
+  },
+    selectRandomFromArray: function(myArray)  {  //Added 02/19/2015 Zig
+	  try  {
+		var arrayCount = myArray.length;
+		var randomID = Math.floor(Math.random() * arrayCount);
+		return myArray[randomID];
+	  }
+	  catch(err) { UTIL.logException("selectRandomFromArray: " + err.message); }
+    }
 };
 
 //SECTION COMMANDS: All Bot commands - The bot commands / meat:
@@ -6507,6 +6515,25 @@ var BOTCOMMANDS = {
       }
     }
   },
+	imoutCommand: {
+		command: ['imout','laterall','cya','bye','chow','goodbye','c-ya','farewell','later','solong','catchyoulater','catchyalater',
+				  'allrightthen','adios','ciao','aurevoir','gottabolt','buh-bye','buhbye','andonthatnote','iquit','onthatnote',
+				  'peaceout','smellyoulater','gottarun','beer30','beerthirty','untiltomorrow','seeyamonday','stickaforkinme',
+				  'imdone','imouttahere','smellyalater','seeyalater','seeyoulater','seeyatomorrow','outtahere','keepitreal'],
+		rank: 'user',
+		type: 'startsWith',
+		functionality: function (chat, cmd)  {
+			try {
+				if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+				if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
+				API.moderateRemoveDJ(chat.un);
+				API.sendChat(CHAT.subChat(UTIL.selectRandomFromArray(CHAT.randomByeArray), {username: chat.un}));
+				if (cmd === "imouttahere") setTimeout(function () { API.sendChat("https://memeguy.com/photos/images/mrw-im-looking-forward-to-a-music-assembly-and-the-guy-starts-singing-wrecking-ball-80297.gif"); }, 250);
+			}
+			catch(err) { UTIL.logException("imoutCommand: " + err.message); }
+		}
+	},
+  
 	fourthirtyCommand: {
 		command: ['fourthirty','430'],
 		rank: 'mod',
@@ -7615,6 +7642,25 @@ var CHAT = {
   curses: [
     'nigger', 'faggot', 'nigga', 'niqqa', 'motherfucker', 'modafocka'
   ],
+	randomByeArray: [ 
+	  "Catch ya on the flipside %%USERNAME%%",
+	  "Stay fresh cheese bag",
+	  "Peace %%USERNAME%%!",
+	  "See ya %%USERNAME%%!",
+	  "See ya soon %%USERNAME%%",
+	  "Hurry back %%USERNAME%%",
+	  "Keep it real %%USERNAME%%",
+	  "Keep it between the lines...and dirty side down %%USERNAME%%",
+	  "Fine, then go %%USERNAME%%!",
+	  "Cheers %%USERNAME%%",
+	  "May your mother's cousin never be assaulted by Attila the Hun at the supermarket %%USERNAME%%",
+	  "Adidas %%USERNAME%%",
+	  "Later %%USERNAME%%",
+	  "See ya, wouldn't wanna be ya %%USERNAME%%",
+	  "Until we meet again %%USERNAME%%. <<Tips imaginary hat>>",
+	  "We'll hold the fort down for ya %%USERNAME%%"
+	  ],
+  
   chatcleaner: function(chat) {
     if (!SETTINGS.filterChat) return false;
     if (USERS.getPermission(chat.uid) > 1) return false;
@@ -7665,7 +7711,7 @@ var CHAT = {
       version: SETTINGS.version
     }));
   },
-  // loadChat: function(cb) {
+  // loadChat: function(cb) {...}
   loadChat: function() {
     // if (!cb) cb = function() {};
     $.get("https://rawcdn.githack.com/SZigmund/basicBot/f4b1a9d30a7e9f022ef600dd41cae07a91797bad/lang/langIndex.json", function(json) {
