@@ -7684,7 +7684,7 @@ var STORAGE = {
   storeToStorage: function() {
     try {
       UTIL.logDebug("START: storeToStorage");
-      localStorage.setItem("basicBotsettings", JSON.stringify(basicBot.settings));
+      localStorage.setItem("basicBotsettings", JSON.stringify(SETTINGS));
       localStorage.setItem("basicBotRoom", JSON.stringify(ROOMX));
       UTIL.logDebug("STORED DATA: " + JSON.stringify(ROOMX));
 // todoer Figure this shit OUT!!!
@@ -7725,7 +7725,7 @@ var STORAGE = {
       var info = localStorage.getItem("basicBotStorageInfo");
       if (info === null) UTIL.chatLog(CHAT.chatMapping.nodatafound);
       else {
-        var settings = JSON.parse(localStorage.getItem("basicBotsettings"));
+        var stored_settings = JSON.parse(localStorage.getItem("basicBotsettings"));
         var room = JSON.parse(localStorage.getItem("basicBotRoom"));
         UTIL.logDebug("room.users.length: " + room.users.length);
         if (localStorage.getItem("BLACKLIST") !== null) {
@@ -7750,8 +7750,8 @@ var STORAGE = {
         UTIL.logDebug("MyROOM.users.length: " + MyROOM.users.length + " TIME: " + JSON.parse(info).time);
         if ((elapsed < 1 * 60 * 60 * 1000)) {
           UTIL.chatLog(CHAT.chatMapping.retrievingdata);
-          for (var prop in settings) {
-            basicBot.settings[prop] = settings[prop];
+          for (var prop in stored_settings) {
+            SETTINGS[prop] = stored_settings[prop];
           }
           MyROOM.afkList = room.afkList;
           MyROOM.mutedUsers = room.mutedUsers;
@@ -7778,7 +7778,7 @@ var STORAGE = {
           if (json !== null && typeof json !== "undefined") {
             json_sett = JSON.parse(json);
             for (var prop in json_sett) {
-              basicBot.settings[prop] = json_sett[prop];
+              SETTINGS[prop] = json_sett[prop];
             }
           }
         });
@@ -7788,10 +7788,10 @@ var STORAGE = {
     }
   },
   retrieveSettings: function() {
-    var settings = JSON.parse(localStorage.getItem("basicBotsettings"));
-    if (settings !== null) {
-      for (var prop in settings) {
-        basicBot.settings[prop] = settings[prop];
+    var stored_settings = JSON.parse(localStorage.getItem("basicBotsettings"));
+    if (stored_settings !== null) {
+      for (var prop in stored_settings) {
+        SETTINGS[prop] = stored_settings[prop];
       }
     }
   },
