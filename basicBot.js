@@ -7604,7 +7604,7 @@ var STARTUP = {
       //UTIL.validateUserCheck();
 
       //UTIL.logDebug("TODO - STARTUP 1");
-      window.bot = basicBot;
+      // window.bot = basicBot;
 
       //UTIL.logDebug("TODO - STARTUP 2");
       if (MyROOM.roomstats.launchTime === null) {
