@@ -6527,7 +6527,8 @@ var BOTCOMMANDS = {
 			try {
 				if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
 				if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
-				API.moderateRemoveDJ(chat.un);
+				// API.moderateRemoveDJ(chat.un);
+				API.moderateRemoveDJ(chat.uid);
 				API.sendChat(CHAT.subChat(UTIL.selectRandomFromArray(CHAT.randomByeArray), {username: chat.un}));
 				if (cmd === "imouttahere") setTimeout(function () { API.sendChat("https://memeguy.com/photos/images/mrw-im-looking-forward-to-a-music-assembly-and-the-guy-starts-singing-wrecking-ball-80297.gif"); }, 250);
 			}
@@ -6908,7 +6909,9 @@ var USERS = {
   },
   tastyVote: function(userId, cmd) {
     try {
+	  UTIL.logDebug("USERID: " + userId);
       var user = USERS.lookupUser(userId);
+	  UTIL.logDebug("USERID: " + userId);
       if (user.tastyVote) return;
       var dj = API.getDJ();
       if (typeof dj === 'undefined') return;
