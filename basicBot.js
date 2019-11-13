@@ -1369,7 +1369,7 @@ var MyEVENTS = {
       // This is triggered when a mod skips a song
       if (!SETTINGS.runningBot) return;
     },
-  String.prototype.splitBetween = function(a, b) {
+  String.prototype.splitBetween: function(a, b) {
     var self = this;
     self = this.split(a);
     for (var i = 0; i < self.length; i++) {
@@ -1386,7 +1386,7 @@ var MyEVENTS = {
     return arr;
   },
 
-  var linkFixer = function(msg) {
+  linkFixer: function(msg) {
     var parts = msg.splitBetween('<a href="', '<\/a>');
     for (var i = 1; i < parts.length; i = i + 2) {
       var link = parts[i].split('"')[0];
