@@ -21,24 +21,6 @@
 //SECTION STARTUP: Init code:
 //SECTION STORAGE: Store & Load settings/users/banlist etc.
 
-//SECTION PROTOTYPES: All local settings:
-  String.prototype.splitBetween: function(a, b) {
-    var self = this;
-    self = this.split(a);
-    for (var i = 0; i < self.length; i++) {
-      self[i] = self[i].split(b);
-    }
-    var arr = [];
-    for (var i = 0; i < self.length; i++) {
-      if (Array.isArray(self[i])) {
-        for (var j = 0; j < self[i].length; j++) {
-          arr.push(self[i][j]);
-        }
-      } else arr.push(self[i]);
-    }
-    return arr;
-  };
-
 //SECTION SETTINGS: All local settings:
 var SETTINGS = {
 	version: "2.1.4.00060",
@@ -1388,8 +1370,25 @@ var MyEVENTS = {
       if (!SETTINGS.runningBot) return;
     },
 
+  splitBetween: function(str, a, b) {
+    var self = str;
+    self = str.split(a);
+    for (var i = 0; i < self.length; i++) {
+      self[i] = self[i].split(b);
+    }
+    var arr = [];
+    for (var i = 0; i < self.length; i++) {
+      if (Array.isArray(self[i])) {
+        for (var j = 0; j < self[i].length; j++) {
+          arr.push(self[i][j]);
+        }
+      } else arr.push(self[i]);
+    }
+    return arr;
+  },
+
   linkFixer: function(msg) {
-    var parts = msg.splitBetween('<a href="', '<\/a>');
+    var parts = splitBetween(msg, '<a href="', '<\/a>');
     for (var i = 1; i < parts.length; i = i + 2) {
       var link = parts[i].split('"')[0];
       parts[i] = link;
