@@ -6509,7 +6509,7 @@ var BOTCOMMANDS = {
   },
 	fourthirtyCommand: {
 		command: ['fourthirty','430'],
-		rank: 'vip',
+		rank: 'mod',
 		type: 'startsWith',
 		functionality: function (chat, cmd)  {
 			try {
@@ -6605,7 +6605,7 @@ var BOTCOMMANDS = {
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
-						 USERS.tastyVote(chat.un, cmd);
+						 // USERS.tastyVote(chat.un, cmd);
 						 setTimeout(function () { UTIL.sendChat("https://i.imgur.com/fgU7KCL.gif"); }, 250);
                     }
                     catch(err) { UTIL.logException("beiberCommand: " + err.message); }
@@ -7600,7 +7600,7 @@ var CHAT = {
   action: function(chat) {
     if (chat.type === 'message' || chat.type === 'emote') {
       USERS.setLastActivityID(chat.uid, true);
-    } else if (chat.type !== 'log') {
+    } else if (chat.type !== 'log' && chat.type !== 'mention' ) {
       UTIL.logDebug("CHAT.TYPE: " + chat.type);
     }
     UTIL.larryAI(chat);
