@@ -1370,7 +1370,7 @@ var MyEVENTS = {
       if (!SETTINGS.runningBot) return;
     },
 
-  splitBetween: function(str, a, b) {
+  splitBetween = function(str, a, b) {
     var self = str;
     self = str.split(a);
     for (var i = 0; i < self.length; i++) {
@@ -1404,7 +1404,7 @@ var MyEVENTS = {
 
 //SECTION MyAPI: Site specific code: API.
 var MyAPI = {
-  var killBot = function() {
+  var killBot: function() {
     clearInterval(MyROOM.autodisableInterval);
     clearInterval(MyROOM.afkInterval);
     SETTINGS.status = false;
