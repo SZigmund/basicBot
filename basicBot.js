@@ -1388,7 +1388,7 @@ var MyEVENTS = {
   },
 
   linkFixer: function(msg) {
-    var parts = splitBetween(msg, '<a href="', '<\/a>');
+    var parts = MyEVENTS.splitBetween(msg, '<a href="', '<\/a>');
     for (var i = 1; i < parts.length; i = i + 2) {
       var link = parts[i].split('"')[0];
       parts[i] = link;
@@ -7521,7 +7521,7 @@ var CHAT = {
       }
       return false;
     },
-  var loadChat = function(cb) {
+  loadChat: function(cb) {
     if (!cb) cb = function() {};
     $.get("https://rawcdn.githack.com/SZigmund/basicBot/f4b1a9d30a7e9f022ef600dd41cae07a91797bad/lang/langIndex.json", function(json) {
       var link = CHAT.chatLink;
