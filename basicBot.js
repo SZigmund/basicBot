@@ -1,4 +1,4 @@
-/** version: 2.1.4.00060
+// version: 2.1.4.00060
 //SECTION 
 // basicBot.
 // 326 40
@@ -1206,9 +1206,9 @@ var MyEVENTS = {
           USERS.resetDC(roomUser);
           roomUser.votes.songs += 1;
         }
-        //UTIL.logDebug("eventDjadvance:3");
+        // UTIL.logDebug("eventDjadvance:3");
         if (typeof lastplay !== 'undefined') {
-          //UTIL.logDebug("eventDjadvance:4");
+          // UTIL.logDebug("eventDjadvance:4");
           MyROOM.roomstats.totalWoots += lastplay.score.positive;
           MyROOM.roomstats.totalMehs += lastplay.score.negative;
           MyROOM.roomstats.totalCurates += lastplay.score.grabs;
@@ -1219,11 +1219,11 @@ var MyEVENTS = {
         MyROOM.currentDJID = obj.dj.id;
         USERS.setRolled(obj.dj.username, false);
 
-        //UTIL.logDebug("eventDjadvance:4a");
+        // UTIL.logDebug("eventDjadvance:4a");
         if (SETTINGS.autoWootBot === true) setTimeout(UTIL.wootThisSong, 3000);
 
-        //UTIL.logDebug("eventDjadvance:5");
-        /* todo FOREACH LOOP */
+        // UTIL.logDebug("eventDjadvance:5");
+        // todo FOREACH LOOP
         var mid = obj.media.format + ':' + obj.media.cid;
         if (SETTINGS.blacklistEnabled) {
           var banMsg = CHAT.subChat(CHAT.chatMapping.isblacklisted, {
@@ -1247,18 +1247,17 @@ var MyEVENTS = {
             return;
           }
         }
-        /*
-                    for (var bl in MyROOM.blacklists) {
-                        //UTIL.logDebug("BL: " + bl + " Len: " + MyROOM.blacklists[bl].length);
-                        if (SETTINGS.blacklistEnabled) {
-                            if (MyROOM.blacklists[bl].indexOf(mid) > -1) {
-                                UTIL.sendChat(CHAT.chatMapping.isblacklisted);
-                                USERS.skipBadSong(obj.dj.id, SETTINGS.loggedInName, "Blacklisted song");
-                                return;
-                            }
-                        }
-                    }
-        */
+        //
+        //            for (var bl in MyROOM.blacklists) {
+        //                //UTIL.logDebug("BL: " + bl + " Len: " + MyROOM.blacklists[bl].length);
+        //                if (SETTINGS.blacklistEnabled) {
+        //                    if (MyROOM.blacklists[bl].indexOf(mid) > -1) {
+        //                        UTIL.sendChat(CHAT.chatMapping.isblacklisted);
+        //                        USERS.skipBadSong(obj.dj.id, SETTINGS.loggedInName, "Blacklisted song");
+        //                        return;
+        //                    }
+        //                }
+        //            }
         //UTIL.logDebug("eventDjadvance:5-2");
         // Auto-skip SC song during restricted hours (7AM-3PM EST)
         MyROOM.currentMediaCid = obj.media.cid;
@@ -1452,9 +1451,8 @@ var MyAPI = {
   botDjNow: function() {
     try {
       if (UTIL.botInWaitList() || UTIL.botIsDj()) return;
-      /* This should work but doesn't:
-      API.moderateAddDJ(SETTINGS.loggedInID);
-      */
+      // This should work but doesn't:
+      // API.moderateAddDJ(SETTINGS.loggedInID);
       // This works for now:
       $("#dj-button").click();
     } catch (err) {
@@ -1468,13 +1466,11 @@ var MyAPI = {
         url: "https://plug.dj/_/booth",
         type: "DELETE"
       })
-      /* This works well:
-      $("#dj-button").click();
-      setTimeout(function () { $("#dialog-confirm > div:nth-child(3) > div.button.submit").click(); }, 1 * 1000);
-      */
-      /* This also appears to work:
-      setTimeout(function () { $("#dialog-confirm > div:nth-child(3) > div.button.submit > span").click(); }, 1 * 1000);
-      */
+      // This works well:
+      // $("#dj-button").click();
+      // setTimeout(function () { $("#dialog-confirm > div:nth-child(3) > div.button.submit").click(); }, 1 * 1000);
+      // This also appears to work:
+      // setTimeout(function () { $("#dialog-confirm > div:nth-child(3) > div.button.submit > span").click(); }, 1 * 1000);
     } catch (err) {
       UTIL.logException("botHopDown: " + err.message);
     }
@@ -1706,12 +1702,12 @@ var UTIL = {
           //for (var idx2 = 0; idx2 <= MyROOM.historyList[idx].length; idx2++) {
           //  UTIL.chatLog("LOGGING: [" + idx2 + "]: " + MyROOM.historyList[idx][idx2]);
           //}
-          /*  todoer Add these stats to songs:
-          wootCount: 0,
-          grabCount: 0,
-          mehCount: 0,
-          tastyCount: 0,
-          */
+
+          //  todoer Add these stats to songs:
+          // wootCount: 0,
+          // grabCount: 0,
+          // mehCount: 0,
+          // tastyCount: 0,
           return true;
         }
       }
@@ -1760,29 +1756,27 @@ var UTIL = {
       chatmsg = chatmsg.replace(/IAM/g, "IM");
       UTIL.logDebug("Larry AI chatmsg: " + chatmsg);
 
-      /*
-      People suffocate in your mother's vomit
-      what the hell was that i can eat a bowl of alphabet soup and shit out a smarter insult than that
-      Well I could agree with you, but then we'd both be wrong.
-      I love it when someone insults me. That means I don’t have to be nice anymore.
-      Two wrongs don't make a right, take your parents as an example.
-      The last time I saw a face like yours I fed it a banana.
-      Your birth certificate is an apology letter from the condom factory.
-      Is your ass jealous of the amount of shit that just came out of your mouth?
-      You bring everyone a lot of joy, when you leave the room.
-      You must have been born on a highway because that's where most accidents happen.
-      I bet your brain feels as good as new, seeing that you never use it.
-      If laughter is the best medicine, your face must be curing the world.
-      I could eat a bowl of alphabet soup and shit out a smarter statement than that.
-      I may love to shop but I'm not buying your bullshit.
-      If you're gonna be a smartass, first you have to be smart. Otherwise you're just an ass.
-      I'd slap you, but shit stains.
-      Your family tree must be a cactus because everybody on it is a prick.
-      You shouldn't play hide and seek, no one would look for you.
-      If I were to slap you, it would be considered animal abuse!
-      You didn't fall out of the stupid tree. You were dragged through dumbass forest.
-      You're so fat, you could sell shade.
-      */
+      // People suffocate in your mother's vomit
+      // what the hell was that i can eat a bowl of alphabet soup and shit out a smarter insult than that
+      // Well I could agree with you, but then we'd both be wrong.
+      // I love it when someone insults me. That means I don’t have to be nice anymore.
+      // Two wrongs don't make a right, take your parents as an example.
+      // The last time I saw a face like yours I fed it a banana.
+      // Your birth certificate is an apology letter from the condom factory.
+      // Is your ass jealous of the amount of shit that just came out of your mouth?
+      // You bring everyone a lot of joy, when you leave the room.
+      // You must have been born on a highway because that's where most accidents happen.
+      // I bet your brain feels as good as new, seeing that you never use it.
+      // If laughter is the best medicine, your face must be curing the world.
+      // I could eat a bowl of alphabet soup and shit out a smarter statement than that.
+      // I may love to shop but I'm not buying your bullshit.
+      // If you're gonna be a smartass, first you have to be smart. Otherwise you're just an ass.
+      // I'd slap you, but shit stains.
+      // Your family tree must be a cactus because everybody on it is a prick.
+      // You shouldn't play hide and seek, no one would look for you.
+      // If I were to slap you, it would be considered animal abuse!
+      // You didn't fall out of the stupid tree. You were dragged through dumbass forest.
+      // You're so fat, you could sell shade.
       if (chatmsg.indexOf("USUCKLARRY") > -1) fuComment = "You're still sore about the other night %%FU%% :kiss:";
       if (chatmsg.indexOf("DUCKULARRY") > -1) fuComment = UTIL.fuComment();
       if (chatmsg.indexOf("DUMBASSLARRY") > -1) fuComment = "I'd slap you, but shit stains. %%FU%%";
@@ -1931,18 +1925,16 @@ var UTIL = {
   },
   randomCommentCheck: function() { //Added 02/19/2015 Zig
     try {
-      /*
-      				  var testTime = new Date();
-      				  var timeDiff = testTime.getMinutes() - SETTINGS.nextRandomComment.getMinutes();
-      				  UTIL.logDebug("randomCommentCheck:" + testTime.getMinutes() + " - " + SETTINGS.nextRandomComment.getMinutes());
-      				  UTIL.logDebug("randomCommentCheck-NOW TIME: " + Date.now());
-      				  UTIL.logDebug("randomCommentCheck-timeDiff: " + timeDiff);
-      				  if (timeDiff > 0)
-      				  {
-      					  UTIL.randomCommentSetTimer();
-      					  if (SETTINGS.randomComments === true) UTIL.sendChat(UTIL.randomCommentSelect());
-      				  }
-      				  */
+      //				  var testTime = new Date();
+      //				  var timeDiff = testTime.getMinutes() - SETTINGS.nextRandomComment.getMinutes();
+      //				  UTIL.logDebug("randomCommentCheck:" + testTime.getMinutes() + " - " + SETTINGS.nextRandomComment.getMinutes());
+      //				  UTIL.logDebug("randomCommentCheck-NOW TIME: " + Date.now());
+      //				  UTIL.logDebug("randomCommentCheck-timeDiff: " + timeDiff);
+      //				  if (timeDiff > 0)
+      //				  {
+      //					  UTIL.randomCommentSetTimer();
+      //					  if (SETTINGS.randomComments === true) UTIL.sendChat(UTIL.randomCommentSelect());
+      //				  }
       if (SETTINGS.nextRandomComment <= Date.now()) {
         UTIL.randomCommentSetTimer();
         if (SETTINGS.randomComments === true) UTIL.sendChat(UTIL.randomCommentSelect());
@@ -2681,17 +2673,14 @@ var UTIL = {
     UTIL.logDebug("JSON.stringify(aKeys): " + JSON.stringify(aKeys));
     UTIL.logDebug("JSON.stringify(bKeys): " + JSON.stringify(bKeys));
     return JSON.stringify(aKeys) === JSON.stringify(bKeys);
-    /*
-["afkCountdown","afkWarningCount","atLunch","badSongCount","beerRun",
-"id","inMeeting","inRoom","isMuted","jointime","lastActivity","lastDC","lastEta","lastKnownPosition",
-"lastSeenInLine","rollStats","rolled","tastyVote","username","votes"]"
-
-["afkCountdown","afkWarningCount","atLunch","badSongCount","beerRun",
-"bootable",
-"id","inMeeting","inRoom","isMuted","jointime","lastActivity","lastDC","lastEta","lastKnownPosition",
-"lastSeenInLine","rollStats","rolled","tastyVote","username","votes"]"
-
-			*/
+    // ["afkCountdown","afkWarningCount","atLunch","badSongCount","beerRun",
+    // "id","inMeeting","inRoom","isMuted","jointime","lastActivity","lastDC","lastEta","lastKnownPosition",
+    // "lastSeenInLine","rollStats","rolled","tastyVote","username","votes"]"
+    // 
+    // ["afkCountdown","afkWarningCount","atLunch","badSongCount","beerRun",
+    // "bootable",
+    // "id","inMeeting","inRoom","isMuted","jointime","lastActivity","lastDC","lastEta","lastKnownPosition",
+    // "lastSeenInLine","rollStats","rolled","tastyVote","username","votes"]"
   },
   validateUserCheck: function() {
     try {
@@ -2731,9 +2720,7 @@ var UTIL = {
         tasty: user.votes.tasty
       });
       UTIL.sendChat(msg);
-      /*
-      MyROOM.users = newUsers[];
-      */
+      // MyROOM.users = newUsers[];
       return;
     } catch (err) {
       UTIL.logException("validateUserCheck: " + err.message);
@@ -2769,25 +2756,6 @@ var UTIL = {
       UTIL.logException("cloneUser: " + err.message);
     }
   },
-  /*  todoer OBSOLETE DELETE
-  validateUserUpdateUser: function (user) {  
-  	try {
-  		var newUser = new USERS.User(user.id, user.username);
-  		for (var prop in newUser) {
-  			if (user[prop] !== "undefined") {
-  				UTIL.logDebug("Existing Property: " + prop);
-  				//newUser[prop] = user[prop];
-  			}
-  			else
-  			{
-  				UTIL.logDebug("New Property: " + prop);
-  			}
-  		}
-  		return newUser;
-  	}
-  	catch(err) { UTIL.logException("validateUserUpdateUser: " + err.message); }
-  },
-  */
   exportNewBlacklistedSongs: function() {
     var list = {};
     for (var i = 0; i < MyROOM.newBlacklist.length; i++) {
@@ -2847,20 +2815,18 @@ var BOTCOMMANDS = {
     return perm >= minPerm;
 
   },
-  /**
-   command: {
-              command: 'cmd',
-              rank: 'user/bouncer/mod/manager',
-              type: 'startsWith/exact',
-              functionality: function(chat, cmd){
-                      if(this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-                      if( !BOTCOMMANDS.executable(this.rank, chat) ) return void (0);
-                      else{
-                      
-                      }
-              }
-      },
-   **/
+   // command: {
+   //            command: 'cmd',
+   //            rank: 'user/bouncer/mod/manager',
+   //            type: 'startsWith/exact',
+   //            functionality: function(chat, cmd){
+   //                    if(this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+   //                    if( !BOTCOMMANDS.executable(this.rank, chat) ) return void (0);
+   //                    else{
+   //                    
+   //                    }
+   //            }
+   //    },
 
   activeCommand: {
     command: 'active',
@@ -3520,31 +3486,31 @@ var BOTCOMMANDS = {
     }
   },
 
-  /*deletechatCommand: {
-      command: 'deletechat',
-      rank: 'mod',
-      type: 'startsWith',
-      functionality: function (chat, cmd) {
-          if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-          if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
-          else {
-              var msg = chat.message;
-              if (msg.length === cmd.length) return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.nouserspecified, {name: chat.un}));
-              var name = msg.substring(cmd.length + 2);
-              var user = USERS.lookupUserName(name);
-              if (typeof user === 'boolean') return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.invaliduserspecified, {name: chat.un}));
-              var chats = $('.from');
-              for (var i = 0; i < chats.length; i++) {
-                  var n = chats[i].textContent;
-                  if (name.trim() === n.trim()) {
-                      var cid = $(chats[i]).parent()[0].getAttribute('data-cid');
-                      MyAPI.moderateDeleteChat(cid);
-                  }
-              }
-              UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.deletechat, {name: chat.un, username: name}));
-          }
-      }
-  },*/
+  // deletechatCommand: {
+  //     command: 'deletechat',
+  //     rank: 'mod',
+  //     type: 'startsWith',
+  //     functionality: function (chat, cmd) {
+  //         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+  //         if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
+  //         else {
+  //             var msg = chat.message;
+  //             if (msg.length === cmd.length) return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.nouserspecified, {name: chat.un}));
+  //             var name = msg.substring(cmd.length + 2);
+  //             var user = USERS.lookupUserName(name);
+  //             if (typeof user === 'boolean') return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.invaliduserspecified, {name: chat.un}));
+  //             var chats = $('.from');
+  //             for (var i = 0; i < chats.length; i++) {
+  //                 var n = chats[i].textContent;
+  //                 if (name.trim() === n.trim()) {
+  //                     var cid = $(chats[i]).parent()[0].getAttribute('data-cid');
+  //                     MyAPI.moderateDeleteChat(cid);
+  //                 }
+  //             }
+  //             UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.deletechat, {name: chat.un, username: name}));
+  //         }
+  //     }
+  // },
 
   emojiCommand: {
     command: 'emoji',
@@ -4219,26 +4185,25 @@ var BOTCOMMANDS = {
       }
     }
   },
-  /* This was an old one that did not work:
-  logoutCommand: {
-      command: 'logout',
-      rank: 'mod',
-      type: 'exact',
-      functionality: function (chat, cmd) {
-          if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
-          if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
-          else {
-              $(".icon-site-logo").click();
-              setTimeout(function (chat) {
-                  UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.logout, {name: chat.un, botname: SETTINGS.loggedInName}));
-                  setTimeout(function () {
-                      $(".icon-logout-grey").click();
-                  }, 1000);
-              }, 1000, chat);
-          }
-      }
-  },
-  */
+  // This was an old one that did not work:
+  // logoutCommand: {
+  //     command: 'logout',
+  //     rank: 'mod',
+  //     type: 'exact',
+  //     functionality: function (chat, cmd) {
+  //         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
+  //         if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
+  //         else {
+  //             $(".icon-site-logo").click();
+  //             setTimeout(function (chat) {
+  //                 UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.logout, {name: chat.un, botname: SETTINGS.loggedInName}));
+  //                 setTimeout(function () {
+  //                     $(".icon-logout-grey").click();
+  //                 }, 1000);
+  //             }, 1000, chat);
+  //         }
+  //     }
+  // },
   maxlengthCommand: {
     command: 'maxlength',
     rank: 'manager',
@@ -4366,30 +4331,28 @@ var BOTCOMMANDS = {
         var permFrom = USERS.getPermission(chat.uid);
         var permUser = USERS.getPermission(user.id);
         if (permFrom > permUser) {
-          /*
-           MyROOM.mutedUsers.push(user.id);
-           if (time === null) UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.mutednotime, {name: chat.un, username: name}));
-           else {
-           UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.mutedtime, {name: chat.un, username: name, time: time}));
-           setTimeout(function (id) {
-           var muted = MyROOM.mutedUsers;
-           var wasMuted = false;
-           var indexMuted = -1;
-           for (var i = 0; i < muted.length; i++) {
-           if (muted[i] === id) {
-           indexMuted = i;
-           wasMuted = true;
-           }
-           }
-           if (indexMuted > -1) {
-           MyROOM.mutedUsers.splice(indexMuted);
-           var u = USERS.lookupUser(id);
-           var name = u.username;
-           UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.unmuted, {name: chat.un, username: name}));
-           }
-           }, time * 60 * 1000, user.id);
-           }
-           */
+           // MyROOM.mutedUsers.push(user.id);
+           // if (time === null) UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.mutednotime, {name: chat.un, username: name}));
+           // else {
+           // UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.mutedtime, {name: chat.un, username: name, time: time}));
+           // setTimeout(function (id) {
+           // var muted = MyROOM.mutedUsers;
+           // var wasMuted = false;
+           // var indexMuted = -1;
+           // for (var i = 0; i < muted.length; i++) {
+           // if (muted[i] === id) {
+           // indexMuted = i;
+           // wasMuted = true;
+           // }
+           // }
+           // if (indexMuted > -1) {
+           // MyROOM.mutedUsers.splice(indexMuted);
+           // var u = USERS.lookupUser(id);
+           // var name = u.username;
+           // UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.unmuted, {name: chat.un, username: name}));
+           // }
+           // }, time * 60 * 1000, user.id);
+           // }
           if (time > 45) {
             UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.mutedmaxtime, {
               name: chat.un,
@@ -5443,15 +5406,13 @@ var BOTCOMMANDS = {
       else {
         var msg = chat.message;
         var permFrom = USERS.getPermission(chat.uid);
-        /**
-         if (msg.indexOf('@') === -1 && msg.indexOf('all') !== -1) {
-            if (permFrom > 2) {
-                MyROOM.mutedUsers = [];
-                return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.unmutedeveryone, {name: chat.un}));
-            }
-            else return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.unmuteeveryonerank, {name: chat.un}));
-        }
-         **/
+        //  if (msg.indexOf('@') === -1 && msg.indexOf('all') !== -1) {
+        //     if (permFrom > 2) {
+        //         MyROOM.mutedUsers = [];
+        //         return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.unmutedeveryone, {name: chat.un}));
+        //     }
+        //     else return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.unmuteeveryonerank, {name: chat.un}));
+        // }
         var from = chat.un;
         var name = msg.substr(cmd.length + 2);
 
@@ -5463,20 +5424,18 @@ var BOTCOMMANDS = {
 
         var permUser = USERS.getPermission(user.id);
         if (permFrom > permUser) {
-          /*
-           var muted = MyROOM.mutedUsers;
-           var wasMuted = false;
-           var indexMuted = -1;
-           for (var i = 0; i < muted.length; i++) {
-           if (muted[i] === user.id) {
-           indexMuted = i;
-           wasMuted = true;
-           }
-           }
-           if (!wasMuted) return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.notmuted, {name: chat.un}));
-           MyROOM.mutedUsers.splice(indexMuted);
-           UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.unmuted, {name: chat.un, username: name}));
-           */
+           // var muted = MyROOM.mutedUsers;
+           // var wasMuted = false;
+           // var indexMuted = -1;
+           // for (var i = 0; i < muted.length; i++) {
+           // if (muted[i] === user.id) {
+           // indexMuted = i;
+           // wasMuted = true;
+           // }
+           // }
+           // if (!wasMuted) return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.notmuted, {name: chat.un}));
+           // MyROOM.mutedUsers.splice(indexMuted);
+           // UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.unmuted, {name: chat.un, username: name}));
           try {
             API.moderateUnmuteUser(user.id);
             UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.unmuted, {
@@ -5926,12 +5885,10 @@ var BOTCOMMANDS = {
           wooting = false;
         }
         UTIL.sendChat(resultsMsg + USERS.updateRolledStats(chat.un, wooting));
-        /*
-        if (rollResults >= (dicesides * 0.8))
-            setTimeout(function () { USERS.tastyVote(USERS.getCurrentPlugUser().id, "winner"); }, 1000);
-        else if (rollResults <= (dicesides * 0.2))
-            setTimeout(function () { UTIL.mehThisSong(); }, 1000);
-            */
+        // if (rollResults >= (dicesides * 0.8))
+        //     setTimeout(function () { USERS.tastyVote(USERS.getCurrentPlugUser().id, "winner"); }, 1000);
+        // else if (rollResults <= (dicesides * 0.2))
+        //     setTimeout(function () { UTIL.mehThisSong(); }, 1000);
       } catch (err) {
         UTIL.logException("rollCommand: " + err.message);
       }
@@ -7245,24 +7202,21 @@ var MyROOM = {
               data: data2send
             });
           }
-          /*                
-          $.ajax({
-              type : 'POST',
-              url : 'https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ExampleNSFWlist.json',
-              data: {my_array:MyROOM.blacklists[list]},
-              success : function(MyROOM.blacklists[list]){
-                 //alert(data);
-              },
-              error : function(XMLHttpRequest, textStatus, errorThrown) {
-                 //alert("error");
-              }
-          });
-
-                              $.post("https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ExampleNSFWlist.json",{
-                               JSON.stringify( MyROOM.blacklists[list] )    
-                              })
-
-          */
+          // $.ajax({
+          //     type : 'POST',
+          //     url : 'https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ExampleNSFWlist.json',
+          //     data: {my_array:MyROOM.blacklists[list]},
+          //     success : function(MyROOM.blacklists[list]){
+          //        //alert(data);
+          //     },
+          //     error : function(XMLHttpRequest, textStatus, errorThrown) {
+          //        //alert("error");
+          //     }
+          // });
+          // 
+          //                     $.post("https://rawcdn.githack.com/SZigmund/basicBot-customization/1d035e64d1af8de06c22a19b9fe9571db012d5e1/blacklists/ExampleNSFWlist.json",{
+          //                      JSON.stringify( MyROOM.blacklists[list] )    
+          //                     })
 
         } catch (err) {
           UTIL.logException("newBlacklistedSongFunction2: " + err.message);
@@ -7396,16 +7350,14 @@ var CHAT = {
           MyAPI.moderateDeleteChat(chat.cid);
           return true;
         }
-        /**
-         var plugRoomLinkPatt = /(\bhttps?:\/\/(www.)?plug\.dj[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-         if (plugRoomLinkPatt.exec(msg)) {
-            if (perm === 0) {
-                UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.roomadvertising, {name: chat.un}));
-                MyAPI.moderateDeleteChat(chat.cid);
-                return true;
-            }
-        }
-         **/
+        //  var plugRoomLinkPatt = /(\bhttps?:\/\/(www.)?plug\.dj[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+        //  if (plugRoomLinkPatt.exec(msg)) {
+        //     if (perm === 0) {
+        //         UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.roomadvertising, {name: chat.un}));
+        //         MyAPI.moderateDeleteChat(chat.cid);
+        //         return true;
+        //     }
+        // }
         if (msg.indexOf('http://adf.ly/') > -1) {
           MyAPI.moderateDeleteChat(chat.cid);
           UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.adfly, {
@@ -7627,21 +7579,19 @@ var STARTUP = {
       // ==========================================================
       // Detect room change and disable the bot:
       // ==========================================================
-      /*
-      var Check;
-      var detect = function(){
-          if(SETTINGS.botRoomUrl != window.location.pathname){
-              clearInterval(Check)
-              UTIL.logInfo("Killing bot after room change.");
-              STORAGE.storeToStorage();
-              MyEVENTS.disconnectAPI();
-              setTimeout(function () {
-                  MyAPI.killBot();
-              }, 1000);
-          }
-      };
-      Check = setInterval(function(){ detect() }, 100);
-      */
+      // var Check;
+      // var detect = function(){
+      //     if(SETTINGS.botRoomUrl != window.location.pathname){
+      //         clearInterval(Check)
+      //         UTIL.logInfo("Killing bot after room change.");
+      //         STORAGE.storeToStorage();
+      //         MyEVENTS.disconnectAPI();
+      //         setTimeout(function () {
+      //             MyAPI.killBot();
+      //         }, 1000);
+      //     }
+      // };
+      // Check = setInterval(function(){ detect() }, 100);
       // ==========================================================
 
       //UTIL.logDebug("TODO - STARTUP retrieveSettings");
@@ -7700,12 +7650,10 @@ var STARTUP = {
       SETTINGS.status = true;
       UTIL.sendChat('/cap 1');
       API.setVolume(0);
-      /*
-      var emojibutton = $(".icon-emoji-on");
-      if (emojibutton.length > 0) {
-          emojibutton[0].click();
-      }
-      */
+      // var emojibutton = $(".icon-emoji-on");
+      // if (emojibutton.length > 0) {
+      //     emojibutton[0].click();
+      // }
 
       //UTIL.logDebug("TODO - STARTUP 9");
       if (SETTINGS.autoWootBot === true) setTimeout(UTIL.wootThisSong, 3000);
@@ -7738,28 +7686,28 @@ var STORAGE = {
       localStorage.setItem("basicBotsettings", JSON.stringify(basicBot.settings));
       localStorage.setItem("basicBotRoom", JSON.stringify(ROOMX));
       UTIL.logDebug("STORED DATA: " + JSON.stringify(ROOMX));
-      /* todoer Figure this shit OUT!!!
-             this.votes = {
-                songs: 0,
-                tasty: 0,
-                woot: 0,
-                meh: 0,
-                curate: 0
-            };
-votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
-                        var msg = CHAT.subChat(CHAT.chatMapping.mystats, {name: user.username, 
-                                                                     songs: user.votes.songs,
-                                                                     woot: user.votes.woot, 
-                                                                     mehs: user.votes.meh, 
-                                                                     grabs: user.votes.curate, 
-                                                                     tasty: user.votes.tasty});
-        "DEBUG: STORED DATA: {"users":[
-
-{"id":5226916,"username":"LeviHomer","jointime":1432793489836,"lastActivity":1432793516617,"votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0},"tastyVote":false,"rolled":false,"lastEta":null,"beerRun":false,"inMeeting":false,"atLunch":false,"afkWarningCount":0,"badSongCount":0,"afkCountdown":null,"inRoom":true,"isMuted":false,"rollStats":{"lifeWoot":0,"lifeTotal":0,"dayWoot":0,"dayTotal":0,"DOY":-1},"lastDC":{"time":null,"leftroom":null,"resetReason":"","position":-1,"songCount":0},"lastKnownPosition":-1,"lastSeenInLine":null},
-{"id":5226880,"username":"DexterNix","jointime":1432793489845,"lastActivity":1432793489845,"votes":{"songs":0,"tasty":0,"woot":0,"meh":0,"curate":0},"tastyVote":false,"rolled":false,"lastEta":null,"beerRun":false,"inMeeting":false,"atLunch":false,"afkWarningCount":0,"badSongCount":0,"afkCountdown":null,"inRoom":true,"isMuted":false,"rollStats":{"lifeWoot":0,"lifeTotal":0,"dayWoot":0,"dayTotal":0,"DOY":-1},"lastDC":{"time":null,"leftroom":null,"resetReason":"","position":-1,"songCount":0},"lastKnownPosition":0,"lastSeenInLine":null},
-{"id":3837756,"username":"Doc_Z","jointime":1432793489850,"lastActivity":1432793489850,"votes":{"songs":0,"tasty":0,"woot":2,"meh":0,"curate":0},"tastyVote":false,"rolled":false,"lastEta":null,"bootable":false,"beerRun":false,"inMeeting":false,"atLunch":false,"afkWarningCount":0,"badSongCount":0,"afkCountdown":null,"inRoom":true,"isMuted":false,"rollStats":{"lifeWoot":0,"lifeTotal":0,"dayWoot":0,"dayTotal":0,"DOY":-1},"lastDC":{"time":null,"leftroom":null,"resetReason":"","position":-1,"songCount":0},"lastKnownPosition":0,"lastSeenInLine":null}
-],"debug":true,"afkList":[],"mutedUsers":[],"bannedUsers":[],"skippable":true,"usercommand":true,"allcommand":true,"afkInterval":485,"blacklistInterval":null,"randomInterval":490,"autoskip":false,"autoskipTimer":null,"autodisableInterval":null,"queueing":0,"queueable":true,"currentDJID":5226916,"currentMediaCid":"s88r_q7oufE","currentMediaStart":1432793520843,"historyList":[["zV8tJXRUtHg",1432771590001,1432789190910],["kvDMlk3kSYg",1432771595577,1432789198263],["a80o9o-2Vrw",1432771600675,1432789440991],["iPUmE-tne5U",1432771778731,1432789452164],["oh4wgGIN_qE",1432772008885,1432789682358],["I-h4A7bF8wQ",1432772243988,1432789917483],["ateQQc-AgEM",1432772454069,1432790127595],["8NjbGr2nk2c",1432772482569,1432785797611],["koJlIGDImiU",1432772669820],["gMhMaNAmT-U",1432772941005],["Urdlvw0SSEc",1432772997149,1432790353572],["Idhq-CLU21g",1432773206269,1432790667764],["pIgZ7gMze7A",1432773283276,1432790680529],["ojDWH2ZuwNk",1432773300309,1432790912785],["m_-Qtz70_z4",1432773508366,1432791120899],["XfR9iY5y94s",1432773732538,1432791345033],["-qCDypgAV_E",1432773955596,1432791568084],["GOsoa4AGRhY",1432774149679,1432791762136],["Zs3xXlXSOKk",1432774286758,1432791899345],["iywaBOMvYLI",1432774504988,1432786819684],["D4aaXDfSRDc",1432774730132,1432786578803],["K84j7CJIUKU",1432774971203,1432786496954],["9jK-NcRmVcw",1432775261929,1432792120504],["EkwD5rQ-_d4",1432775304460,1432792417688],["YLncxyCXPsU",1432775621560,1432792734747],["6W5pq4bIzIw",1432775832673,1432793493588],["EOvMpND2OZY",1432776509962,1432793516269],["2LlSs-IM-TM",1432776759115],["s88r_q7oufE",1432776767999,1432793520843],["IaNzrXAUHBk",1432777027430],["FTxqH0tukqQ",1432777413227],["V-xpJRwIA-Q",1432777570350],["-25ibpmTMWM",1432777809805],["3eOuK-pYhy4",1432777970651],["Nt4SNfcd72s",1432778223772],["a3ir9HC9vYg",1432779175045],["DIfPeoyLfkg",1432779456198],["6259846",1432779673921],["W6H8WcTPnWM",1432779911329],["14kLQ9TLZcI",1432780104437],["4NO-h9PFum4",1432780242613],["EUSS7bEKxsQ",1432780447681],["GeZZr_p6vB8",1432783686698],["snILjFUkk_A",1432783938989],["zQ41hqlV0Kk",1432784206229],["nfk6sCzRTbM",1432784476197],["Yynstc_bFRE",1432784738407],["T81xsEyfl3c",1432784961056],["4kHl4FoK1Ys",1432787045163],["2tptckbCokA",1432787240920],["VtNH2ftJVS8",1432787451127],["DVgBVcsAK1o",1432787723164],["jJaT7qQpaqs",1432788650757],["W9wwsxiLGbg",1432788656349],["_j5HZjg75AM",1432789182868]],"cycleTimer":479,"roomstats":{"accountName":null,"totalWoots":24,"totalCurates":6,"totalMehs":0,"tastyCount":0,"launchTime":1432771419768,"songCount":100,"chatmessages":196},"messages":{"from":[],"to":[],"message":[]},"queue":{"id":[],"position":[]},"newBlacklist":[],"newBlacklistIDs":[],"blacklistLoaded":true,"roulette":{"rouletteStatus":false,"randomRouletteMin":45,"randomRouletteMax":120,"nextRandomRoulette":"2015-05-28T08:00:29.861Z","participants":[],"countdown":null}}"
-        */
+// todoer Figure this shit OUT!!!
+//              this.votes = {
+//                 songs: 0,
+//                 tasty: 0,
+//                 woot: 0,
+//                 meh: 0,
+//                 curate: 0
+//             };
+// votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0}
+//                         var msg = CHAT.subChat(CHAT.chatMapping.mystats, {name: user.username, 
+//                                                                      songs: user.votes.songs,
+//                                                                      woot: user.votes.woot, 
+//                                                                      mehs: user.votes.meh, 
+//                                                                      grabs: user.votes.curate, 
+//                                                                      tasty: user.votes.tasty});
+//         "DEBUG: STORED DATA: {"users":[
+// 
+// {"id":5226916,"username":"LeviHomer","jointime":1432793489836,"lastActivity":1432793516617,"votes":{"songs":3,"tasty":0,"woot":0,"meh":0,"curate":0},"tastyVote":false,"rolled":false,"lastEta":null,"beerRun":false,"inMeeting":false,"atLunch":false,"afkWarningCount":0,"badSongCount":0,"afkCountdown":null,"inRoom":true,"isMuted":false,"rollStats":{"lifeWoot":0,"lifeTotal":0,"dayWoot":0,"dayTotal":0,"DOY":-1},"lastDC":{"time":null,"leftroom":null,"resetReason":"","position":-1,"songCount":0},"lastKnownPosition":-1,"lastSeenInLine":null},
+// {"id":5226880,"username":"DexterNix","jointime":1432793489845,"lastActivity":1432793489845,"votes":{"songs":0,"tasty":0,"woot":0,"meh":0,"curate":0},"tastyVote":false,"rolled":false,"lastEta":null,"beerRun":false,"inMeeting":false,"atLunch":false,"afkWarningCount":0,"badSongCount":0,"afkCountdown":null,"inRoom":true,"isMuted":false,"rollStats":{"lifeWoot":0,"lifeTotal":0,"dayWoot":0,"dayTotal":0,"DOY":-1},"lastDC":{"time":null,"leftroom":null,"resetReason":"","position":-1,"songCount":0},"lastKnownPosition":0,"lastSeenInLine":null},
+// {"id":3837756,"username":"Doc_Z","jointime":1432793489850,"lastActivity":1432793489850,"votes":{"songs":0,"tasty":0,"woot":2,"meh":0,"curate":0},"tastyVote":false,"rolled":false,"lastEta":null,"bootable":false,"beerRun":false,"inMeeting":false,"atLunch":false,"afkWarningCount":0,"badSongCount":0,"afkCountdown":null,"inRoom":true,"isMuted":false,"rollStats":{"lifeWoot":0,"lifeTotal":0,"dayWoot":0,"dayTotal":0,"DOY":-1},"lastDC":{"time":null,"leftroom":null,"resetReason":"","position":-1,"songCount":0},"lastKnownPosition":0,"lastSeenInLine":null}
+// ],"debug":true,"afkList":[],"mutedUsers":[],"bannedUsers":[],"skippable":true,"usercommand":true,"allcommand":true,"afkInterval":485,"blacklistInterval":null,"randomInterval":490,"autoskip":false,"autoskipTimer":null,"autodisableInterval":null,"queueing":0,"queueable":true,"currentDJID":5226916,"currentMediaCid":"s88r_q7oufE","currentMediaStart":1432793520843,"historyList":[["zV8tJXRUtHg",1432771590001,1432789190910],["kvDMlk3kSYg",1432771595577,1432789198263],["a80o9o-2Vrw",1432771600675,1432789440991],["iPUmE-tne5U",1432771778731,1432789452164],["oh4wgGIN_qE",1432772008885,1432789682358],["I-h4A7bF8wQ",1432772243988,1432789917483],["ateQQc-AgEM",1432772454069,1432790127595],["8NjbGr2nk2c",1432772482569,1432785797611],["koJlIGDImiU",1432772669820],["gMhMaNAmT-U",1432772941005],["Urdlvw0SSEc",1432772997149,1432790353572],["Idhq-CLU21g",1432773206269,1432790667764],["pIgZ7gMze7A",1432773283276,1432790680529],["ojDWH2ZuwNk",1432773300309,1432790912785],["m_-Qtz70_z4",1432773508366,1432791120899],["XfR9iY5y94s",1432773732538,1432791345033],["-qCDypgAV_E",1432773955596,1432791568084],["GOsoa4AGRhY",1432774149679,1432791762136],["Zs3xXlXSOKk",1432774286758,1432791899345],["iywaBOMvYLI",1432774504988,1432786819684],["D4aaXDfSRDc",1432774730132,1432786578803],["K84j7CJIUKU",1432774971203,1432786496954],["9jK-NcRmVcw",1432775261929,1432792120504],["EkwD5rQ-_d4",1432775304460,1432792417688],["YLncxyCXPsU",1432775621560,1432792734747],["6W5pq4bIzIw",1432775832673,1432793493588],["EOvMpND2OZY",1432776509962,1432793516269],["2LlSs-IM-TM",1432776759115],["s88r_q7oufE",1432776767999,1432793520843],["IaNzrXAUHBk",1432777027430],["FTxqH0tukqQ",1432777413227],["V-xpJRwIA-Q",1432777570350],["-25ibpmTMWM",1432777809805],["3eOuK-pYhy4",1432777970651],["Nt4SNfcd72s",1432778223772],["a3ir9HC9vYg",1432779175045],["DIfPeoyLfkg",1432779456198],["6259846",1432779673921],["W6H8WcTPnWM",1432779911329],["14kLQ9TLZcI",1432780104437],["4NO-h9PFum4",1432780242613],["EUSS7bEKxsQ",1432780447681],["GeZZr_p6vB8",1432783686698],["snILjFUkk_A",1432783938989],["zQ41hqlV0Kk",1432784206229],["nfk6sCzRTbM",1432784476197],["Yynstc_bFRE",1432784738407],["T81xsEyfl3c",1432784961056],["4kHl4FoK1Ys",1432787045163],["2tptckbCokA",1432787240920],["VtNH2ftJVS8",1432787451127],["DVgBVcsAK1o",1432787723164],["jJaT7qQpaqs",1432788650757],["W9wwsxiLGbg",1432788656349],["_j5HZjg75AM",1432789182868]],"cycleTimer":479,"roomstats":{"accountName":null,"totalWoots":24,"totalCurates":6,"totalMehs":0,"tastyCount":0,"launchTime":1432771419768,"songCount":100,"chatmessages":196},"messages":{"from":[],"to":[],"message":[]},"queue":{"id":[],"position":[]},"newBlacklist":[],"newBlacklistIDs":[],"blacklistLoaded":true,"roulette":{"rouletteStatus":false,"randomRouletteMin":45,"randomRouletteMax":120,"nextRandomRoulette":"2015-05-28T08:00:29.861Z","participants":[],"countdown":null}}"
+//
       var basicBotStorageInfo = {
         time: Date.now(),
         stored: true,
