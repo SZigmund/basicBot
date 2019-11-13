@@ -22,7 +22,7 @@
 //SECTION STORAGE: Store & Load settings/users/banlist etc.
 
 //SECTION PROTOTYPES: All local settings:
-  String.prototype.splitBetween = function(a, b) {
+  String.prototype.splitBetween: function(a, b) {
     var self = this;
     self = this.split(a);
     for (var i = 0; i < self.length; i++) {
