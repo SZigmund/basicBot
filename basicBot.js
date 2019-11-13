@@ -28,11 +28,11 @@ var SETTINGS = {
 	botMuted: false,
 	loggedInID: null,
 	loggedInName: "",
-	newUserWhoisInfo: "";
-	runningBot: false;
-	botCreator: "Matthew aka. Yemasthui";
-	botCreatorIDs: [3837756];
-	botIDs: [3864950, 5226916, 5226880];
+	newUserWhoisInfo: "",
+	runningBot: false,
+	botCreator: "Matthew aka. Yemasthui",
+	botCreatorIDs: [3837756],
+	botIDs: [3864950, 5226916, 5226880],
 	scriptLink: "https://cdn.jsdelivr.net/gh/SZigmund/basicBot@master/basicBot.js",
 	scriptTestLink: "https://cdn.jsdelivr.net/gh/SZigmund/basicBot@master/basicBotTEST.js",
 	cmdLink: "http://bit.ly/1DbtUV7",
