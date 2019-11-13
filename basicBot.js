@@ -7521,6 +7521,9 @@ var CHAT = {
       }
       return false;
     },
+  logStartup: function() {
+       UTIL.chatLog(CHAT.subChat(CHAT.chatMapping.online, {botname: SETTINGS.loggedInName,version: SETTINGS.version}));
+  },
   // loadChat: function(cb) {
   loadChat: function() {
     // if (!cb) cb = function() {};
@@ -7539,7 +7542,9 @@ var CHAT = {
 		$.get(link, function(json) {
 		  if (json !== null && typeof json !== "undefined") {
             if (typeof json === "string") json = JSON.parse(json);
+			//ZZZ UTIL.logDebug("LOADED CHAT MAP 01");
             CHAT.chatMapping = json;
+			//ZZZ UTIL.logDebug("LOADED CHAT MAP 01 " + CHAT.chatMapping.online.toString());
             // cb();
           }
         });
@@ -7547,7 +7552,9 @@ var CHAT = {
         $.get(CHAT.chatLink, function(json) {
 		  if (json !== null && typeof json !== "undefined") {
             if (typeof json === "string") json = JSON.parse(json);
+			//ZZZ UTIL.logDebug("LOADED CHAT MAP 02");
             CHAT.chatMapping = json;
+			//ZZZ UTIL.logDebug("LOADED CHAT MAP 02 " + CHAT.chatMapping.online.toString());
             // cb();
           }
         });
@@ -7660,6 +7667,7 @@ var STARTUP = {
       //UTIL.logDebug("TODO - STARTUP 9");
       if (SETTINGS.autoWootBot === true) setTimeout(UTIL.wootThisSong, 3000);
 	  CHAT.loadChat();
+	  CHAT.logStartup();
       //loadChat(UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.online, {
       //  botname: SETTINGS.loggedInName,
       //  version: SETTINGS.version
@@ -7668,11 +7676,11 @@ var STARTUP = {
       //   botname: SETTINGS.loggedInName,
       //   version: SETTINGS.version
       // })));
-	  UTIL.logDebug("ONLINE STR: " + CHAT.chatMapping.online.toString());
-      UTIL.chatLog(CHAT.subChat(CHAT.chatMapping.online, {
-         botname: SETTINGS.loggedInName,
-         version: SETTINGS.version
-      }))
+	  // UTIL.logDebug("ONLINE STR: " + CHAT.chatMapping.online.toString());
+      // UTIL.chatLog(CHAT.subChat(CHAT.chatMapping.online, {
+      //    botname: SETTINGS.loggedInName,
+      //    version: SETTINGS.version
+      // }))
 	  //UTIL.logDebug(SETTINGS.botName + SETTINGS.version);
       //UTIL.logDebug("TODO - STARTUP 10");
       MyROOM.roulette.randomRouletteSetTimer();
