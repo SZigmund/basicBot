@@ -2837,14 +2837,14 @@ var BOTCOMMANDS = {
       case 'bouncer':
         minPerm = 2;
         break;
-      case 'residentdj':
+      case 'resident-dj':
         minPerm = 1;
         break;
       case 'user':
         minPerm = 0;
         break;
       default:
-        UTIL.chatLog('error assigning minimum permission');
+        UTIL.chatLog('error defining permission (' + minRank + ')');
     }
     return perm >= minPerm;
 
@@ -6078,7 +6078,7 @@ var BOTCOMMANDS = {
   },
   exrouletteCommand: {
     command: ['exroulette', 'roulette?'],
-    rank: 'residentdj',
+    rank: 'resident-dj',
     type: 'exact',
     functionality: function(chat, cmd) {
       try {
@@ -6092,7 +6092,7 @@ var BOTCOMMANDS = {
   },
   extastyCommand: {
     command: ['extasty', 'tasty?'],
-    rank: 'residentdj',
+    rank: 'resident-dj',
     type: 'exact',
     functionality: function(chat, cmd) {
       try {
@@ -6106,7 +6106,7 @@ var BOTCOMMANDS = {
   },
   exmeetingCommand: {
     command: ['exmeeting', 'exlunch', 'exbeerrun', 'meeting?', 'lunch?', 'beerrun?'],
-    rank: 'residentdj',
+    rank: 'resident-dj',
     type: 'exact',
     functionality: function(chat, cmd) {
       try {
@@ -6120,7 +6120,7 @@ var BOTCOMMANDS = {
   },
   exmehCommand: {
     command: ['exmeh', 'meh?'],
-    rank: 'residentdj',
+    rank: 'resident-dj',
     type: 'startsWith',
     functionality: function(chat, cmd) {
       try {
@@ -6140,7 +6140,7 @@ var BOTCOMMANDS = {
   //todoer delete after having fun with this:
   autorollCommand: {
     command: 'autoroll',
-    rank: 'residentdj',
+    rank: 'resident-dj',
     type: 'exact',
     functionality: function(chat, cmd) {
       try {
@@ -6154,7 +6154,7 @@ var BOTCOMMANDS = {
   },
   exrefreshCommand: {
     command: ['exrefresh', 'refresh?'],
-    rank: 'residentdj',
+    rank: 'resident-dj',
     type: 'exact',
     functionality: function(chat, cmd) {
       try {
@@ -6196,7 +6196,7 @@ var BOTCOMMANDS = {
   },
   exrollCommand: {
     command: ['exroll', 'roll?'],
-    rank: 'residentdj',
+    rank: 'resident-dj',
     type: 'exact',
     functionality: function(chat, cmd) {
       try {
@@ -6210,7 +6210,7 @@ var BOTCOMMANDS = {
   },
   kissCommand: {
     command: 'kiss',
-    rank: 'residentdj',
+    rank: 'resident-dj',
     type: 'exact',
     functionality: function(chat, cmd) {
       try {
@@ -6250,7 +6250,7 @@ var BOTCOMMANDS = {
   },
   lowrollpctCommand: { //Added 07/03/2015 Zig
     command: 'lowrollpct',
-    rank: 'residentdj',
+    rank: 'resident-dj',
     type: 'exact',
     functionality: function(chat, cmd) {
       try {
@@ -6265,7 +6265,7 @@ var BOTCOMMANDS = {
   },
   lowrollptsCommand: { //Added 07/03/2015 Zig
     command: 'lowrollpts',
-    rank: 'residentdj',
+    rank: 'resident-dj',
     type: 'exact',
     functionality: function(chat, cmd) {
       try {
@@ -6280,7 +6280,7 @@ var BOTCOMMANDS = {
   },
   rollpctCommand: { //Added 07/03/2015 Zig
     command: 'rollpct',
-    rank: 'residentdj',
+    rank: 'resident-dj',
     type: 'exact',
     functionality: function(chat, cmd) {
       try {
@@ -6295,7 +6295,7 @@ var BOTCOMMANDS = {
   },
   rollptsCommand: { //Added 07/03/2015 Zig
     command: 'rollpts',
-    rank: 'residentdj',
+    rank: 'resident-dj',
     type: 'exact',
     functionality: function(chat, cmd) {
       try {
