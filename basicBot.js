@@ -2,7 +2,12 @@
 //SECTION 
 // GIFS DMB MUFFORD
 // Imout
+// Username ping on tasty commands
+// Roulette - Display my position in the queue
+//
+// DONE: Bot HopUp/HopDown
 // DONE: Roulette Join/In
+//
 // DONE: basicBot.
 // DONE TASTY COmmands
 //userlistjson
@@ -1457,10 +1462,11 @@ var MyAPI = {
   botDjNow: function() {
     try {
       if (UTIL.botInWaitList() || UTIL.botIsDj()) return;
+	  API.djJoin();
+      // This no longer appears to work:
+      // $("#dj-button").click();
       // This should work but doesn't:
       // API.moderateAddDJ(SETTINGS.loggedInID);
-      // This works for now:
-      $("#dj-button").click();
     } catch (err) {
       UTIL.logException("botDjNow: " + err.message);
     }
@@ -1468,14 +1474,16 @@ var MyAPI = {
   botHopDown: function() {
     try {
       if (!UTIL.botInWaitList() && !UTIL.botIsDj()) return;
-	  UTIL.ajax("booth", "DELETE");
+	  API.djLeave();
       // PLAN B: This works well:
+	  // UTIL.ajax("booth", "DELETE");
+      // PLAN C: This works well:
       // $.ajax({
       //   url: "https://plug.dj/_/booth",
       //   type: "DELETE"
       // })
 
-      // PLAN C: This works well:
+      // PLAN D: This works well:
       // $("#dj-button").click();
       // setTimeout(function () { $("#dialog-confirm > div:nth-child(3) > div.button.submit").click(); }, 1 * 1000);
       // This also appears to work:
