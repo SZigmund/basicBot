@@ -7130,8 +7130,8 @@ var USERS = {
       var u;
       if (typeof obj === "object") u = obj;
       else u = USERS.getPlugUserID(obj);
-      if (SETTINGS.botCreatorIDs.indexOf(u.id) > -1) return 10; // admin
-      if (SETTINGS.loggedInID === u.id) return 4; // cohost
+      if (SETTINGS.botCreatorIDs.indexOf(u.id) > -1) return 10000; // admin
+      if (SETTINGS.loggedInID === u.id) return API.ROLE.COHOST;    // cohost
       //UTIL.logDebug("Role: " + u.role);
       //UTIL.logDebug("Name: " + u.username);
       //UTIL.logDebug("ID: " + u.id);
@@ -7148,7 +7148,7 @@ var USERS = {
             return 10000;
         }
       }
-      return 0;
+      return API.ROLE.NONE;
     } catch (err) {
       UTIL.logException("getPermission: " + err.message);
     }
