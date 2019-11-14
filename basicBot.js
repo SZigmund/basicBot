@@ -1,4 +1,4 @@
-// version: 2.1.4.00061
+// version: 2.1.4.00060
 //userlistjson
 //userlistimport
 //userlistcount
@@ -18,7 +18,7 @@
 
 //SECTION SETTINGS: All local settings:
 var SETTINGS = {
-  version: "2.1.4.00061",
+  version: "2.1.4.00060",
   status: false,
   botMuted: false,
   loggedInID: null,
@@ -7092,7 +7092,7 @@ var USERS = {
   lookupUser: function(id) { //getroomuser
     for (var i = 0; i < MyROOM.users.length; i++) {
       if (MyROOM.users[i].id === id) return MyROOM.users[i];
-      if if (MyROOM.users[i].username.trim().toLowerCase() == id.trim().toLowerCase()) return MyROOM.users[i];
+      if (MyROOM.users[i].username.trim().toLowerCase() == id.trim().toLowerCase()) return MyROOM.users[i];
     }
     return false;
   },
