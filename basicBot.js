@@ -1120,7 +1120,6 @@ var MyEVENTS = {
       var mehs = API.getScore().negative;
       var woots = API.getScore().positive;
       var dj = API.getDJ();
-
       if (SETTINGS.voteSkipEnabled) {
         if (mehs >= (SETTINGS.voteSkipLimit)) {
           UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.voteskipexceededlimit, {
@@ -1401,6 +1400,22 @@ var MyEVENTS = {
 
 //SECTION MyAPI: Site specific code: API.
 var MyAPI = {
+  getDjID: function() {
+    var dj = API.getDJ();
+    if (typeof dj === 'undefined') return -1;
+	return dj.id;
+  },
+  userInWaitList: function(uid) {
+    try {
+      var wl = API.getWaitList();
+      for (var i = 0; i < wl.length; i++) {
+        if (wl[i].id === uid) return true;
+      }
+      return false;
+    } catch (err) {
+      UTIL.logException("userInWaitList: " + err.message);
+    }
+  },
   killBot: function() {
     clearInterval(MyROOM.autodisableInterval);
     clearInterval(MyROOM.afkInterval);
@@ -1519,12 +1534,14 @@ var UTIL = {
   },
   botIsDj: function() {
     try {
-      var dj = API.getDJ();
-      var wlist = API.getWaitList();
-      if ((typeof dj === 'undefined') && (wlist.length > 0)) return true;
-      if (typeof dj === 'undefined') return false;
-      if (dj.id === SETTINGS.loggedInID) return true;
+	  if (MyAPI.getDjID() === SETTINGS.loggedInID) return true;
       return false;
+      // var dj = API.getDJ();
+      // var wlist = API.getWaitList();
+      // if ((typeof dj === 'undefined') && (wlist.length > 0)) return true;
+      // if (typeof dj === 'undefined') return false;
+      // if (dj.id === SETTINGS.loggedInID) return true;
+      // return false;
     } catch (err) {
       UTIL.logException("botIsDj: " + err.message);
     }
@@ -1600,11 +1617,7 @@ var UTIL = {
   },
   botInWaitList: function() {
     try {
-      var wl = API.getWaitList();
-      for (var i = 0; i < wl.length; i++) {
-        if (wl[i].id === SETTINGS.loggedInID) return true;
-      }
-      return false;
+      return MyAPI.userInWaitList(SETTINGS.loggedInID);
     } catch (err) {
       UTIL.logException("botInWaitList: " + err.message);
     }
@@ -2213,7 +2226,7 @@ var UTIL = {
         'wax', 'yousuredohaveapurdymouth', 'retro', 'punchableface', 'punchablefaces', 'punchablefacefest', 'docsgoingtothisshowtonight', 'heaven', 'moaroar',
         'osfleftovers', 'osf', 'beard', 'dowop', 'productivitykiller', 'heyman', '420osf', 'osf420', 'twss', 'outfuckingstanding', 'modernspiritual', 'amodernspiritual',
         'realreggae', 'dadada', 'lalala', 'casio', 'joy', 'sunshine', 'whiledeezisaway', 'unintentional2fer', 'manbunhipsterstachepunchableface', 'taco',
-        'tacos', 'faketastypoint', 'groovin', 'rollreminder', 'phishingforatastypoint', 'hipstermanbunpunchablefacestache'
+        'tacos', 'faketastypoint', 'groovin', 'rollreminder', 'phishingforatastypoint', 'hipstermanbunpunchablefacestache','bnl'
       ];
       // If a command if passed in validate it and return true if it is a Tasty command:
       if (cmd.length > 0) {
@@ -3802,7 +3815,7 @@ var BOTCOMMANDS = {
         }));
         byusername = " [ executed by " + chat.un + " ]";
       }
-      var user = USERS.lookupUserName(name);
+      var user = USERS.lookupUserName(name); 
       if (typeof user === 'boolean') return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.invaliduserspecified, {
         name: chat.un
       }));
@@ -3971,9 +3984,8 @@ var BOTCOMMANDS = {
         var from = chat.un;
         var user = USERS.lookupUser(chat.uid);
         var perm = USERS.getPermission(chat.uid);
-        var dj = API.getDJ().id;
         var isDj = false;
-        if (dj === chat.uid) isDj = true;
+        if (MyAPI.getDjID() === chat.uid) isDj = true;
         if (perm >= API.ROLE.DJ || isDj) {
           if (media.format === 1) {
             var linkToSong = "https://www.youtube.com/watch?v=" + media.cid;
@@ -4548,7 +4560,7 @@ var BOTCOMMANDS = {
           var user = USERS.lookupUserName(name);
           if (typeof user !== 'boolean') {
             USERS.resetDC(user);
-            if (API.getDJ().id === user.id) {
+            if (MyAPI.getDjID() === user.id) {
               UTIL.logInfo("Skip song: " + API.getMedia().title + " by: " + chat.un + " Reason: Remove command");
               API.moderateForceSkip();
               setTimeout(function() {
@@ -5876,7 +5888,7 @@ var BOTCOMMANDS = {
       try {
         if (this.type === 'exact' && chat.message.length !== cmd.length) return void(0);
         if (!BOTCOMMANDS.executable(this.rank, chat)) return void(0);
-        if (API.getDJ().id !== chat.uid) return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.notcurrentdj, {
+        if (MyAPI.getDjID() !== chat.uid) return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.notcurrentdj, {
           name: chat.un
         }));
         if (USERS.getRolled(chat.un)) return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.doubleroll, {
@@ -6048,7 +6060,7 @@ var BOTCOMMANDS = {
       'wax', 'yousuredohaveapurdymouth', 'retro', 'punchableface', 'punchablefaces', 'punchablefacefest', 'docsgoingtothisshowtonight', 'heaven', 'moaroar',
       'osfleftovers', 'osf', 'beard', 'dowop', 'productivitykiller', 'heyman', '420osf', 'osf420', 'twss', 'outfuckingstanding', 'modernspiritual', 'amodernspiritual',
       'realreggae', 'dadada', 'lalala', 'casio', 'joy', 'sunshine', 'whiledeezisaway', 'unintentional2fer', 'manbunhipsterstachepunchableface', 'taco',
-      'tacos', 'faketastypoint', 'groovin', 'rollreminder', 'phishingforatastypoint', 'hipstermanbunpunchablefacestache'
+      'tacos', 'faketastypoint', 'groovin', 'rollreminder', 'phishingforatastypoint', 'hipstermanbunpunchablefacestache','bnl'
     ],
     rank: 'manager',
     type: 'startsWith',
@@ -6516,8 +6528,14 @@ var BOTCOMMANDS = {
 			try {
 				if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
 				if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
-				// API.moderateRemoveDJ(chat.un);
-				API.moderateRemoveDJ(chat.uid);
+				if (MyAPI.getDjID() === chat.uid) {
+				  var user = USERS.lookupUserName(name); 
+				  user.bootable = true;
+				}
+				else if (MyAPI.userInWaitList(chat.uid)) {
+				  API.moderateRemoveDJ(chat.uid);
+				}
+				else { return; }
 				API.sendChat(CHAT.subChat(UTIL.selectRandomFromArray(CHAT.randomByeArray), {username: chat.un}));
 				if (cmd === "imouttahere") setTimeout(function () { API.sendChat("https://memeguy.com/photos/images/mrw-im-looking-forward-to-a-music-assembly-and-the-guy-starts-singing-wrecking-ball-80297.gif"); }, 250);
 			}
