@@ -1,17 +1,4 @@
-// version: 2.1.4.00060
-//SECTION 
-// Username ping on tasty commands
-// Roulette - Display my position in the queue
-//
-// DONE: Imout
-// DONE: wootthissong MehThisSong
-//
-// DONE: GIFS DMB MUFFORD
-// DONE: 430
-// DONE: Bot HopUp/HopDown
-// DONE: Roulette Join/In
-// DONE: basicBot.
-// DONE TASTY COmmands
+// version: 2.1.4.00061
 //userlistjson
 //userlistimport
 //userlistcount
@@ -31,7 +18,7 @@
 
 //SECTION SETTINGS: All local settings:
 var SETTINGS = {
-  version: "2.1.4.00060",
+  version: "2.1.4.00061",
   status: false,
   botMuted: false,
   loggedInID: null,
@@ -1060,7 +1047,7 @@ var MyEVENTS = {
     // If user doesn't speak English let em know we do:
     var userRole = USERS.getPermission(user.id);
     var staffMember = false;
-    if (userRole > 0) staffMember = true;
+    if (userRole > API.ROLE.NONE) staffMember = true;
     if ((user.language.toUpperCase() !== "EN") && (!welcomeback) &&
       (!staffMember) && (SETTINGS.welcomeForeignerMsg === true)) {
       var engMsg = USERS.englishMessage(user.language, user.username);
@@ -1628,10 +1615,10 @@ var UTIL = {
       var wlist = API.getWaitList();
       if ((typeof dj === 'undefined') && (wlist.length > 0)) return true;
       if (typeof dj === 'undefined') return false;
-      if (USERS.getPermission(dj.id) > 1) return true;
+      if (USERS.getPermission(dj.id) > API.ROLE.DJ) return true;
       var wl = API.getWaitList();
       for (var i = 0; i < wl.length; i++) {
-        if (USERS.getPermission(wl[i].id) > 1) return true;
+        if (USERS.getPermission(wl[i].id) > API.ROLE.DJ) return true;
       }
       return false;
     } catch (err) {
@@ -1671,28 +1658,28 @@ var UTIL = {
     var rankInt = null;
     switch (rankString) {
       case "admin":
-        rankInt = 10;
+        rankInt = 10000;
         break;
       case "ambassador":
-        rankInt = 7;
+        rankInt = 7000;
         break;
       case "host":
-        rankInt = 5;
+        rankInt = API.ROLE.HOST;
         break;
       case "cohost":
-        rankInt = 4;
+        rankInt = API.ROLE.COHOST;
         break;
       case "manager":
-        rankInt = 3;
+        rankInt = API.ROLE.MANAGER;
         break;
       case "bouncer":
-        rankInt = 2;
+        rankInt = API.ROLE.BOUNCER;
         break;
       case "residentdj":
-        rankInt = 1;
+        rankInt = API.ROLE.DJ;
         break;
       case "user":
-        rankInt = 0;
+        rankInt = API.ROLE.NONE;
         break;
     }
     return rankInt;
@@ -1996,7 +1983,7 @@ var UTIL = {
   },
   isStaff: function(obj) { //Added 03/20/2015 Zig
     try {
-      if (USERS.getPermission(obj) > 0) return true;
+      if (USERS.getPermission(obj) > API.ROLE.NONE) return true;
       return false;
     } catch (err) {
       UTIL.logException("isStaff: " + err.message);
@@ -2119,24 +2106,26 @@ var UTIL = {
       } else if (rawlang == "ms") {
         var language = "Malay"
       }
+	  
       var rawrank = pluguser.role;
-      if (rawrank == "0") {
-        var rank = "User";
-      } else if (rawrank == "1") {
-        var rank = "Resident DJ";
-      } else if (rawrank == "2") {
-        var rank = "Bouncer";
-      } else if (rawrank == "3") {
-        var rank = "Manager"
-      } else if (rawrank == "4") {
-        var rank = "Co-Host"
-      } else if (rawrank == "5") {
-        var rank = "Host"
-      } else if (rawrank == "7") {
-        var rank = "Brand Ambassador"
-      } else if (rawrank == "10") {
-        var rank = "Admin"
+      if ([3, 3000].indexOf(pluguser.gRole) > -1) {
+        var rank = 'Brand Ambassador';
+      } else if ([5, 5000].indexOf(pluguser.gRole) > -1) {
+        var rank = 'Admin';
+      } else if (rawrank == API.ROLE.NONE) {
+        var rank = 'User';
+      } else if (rawrank == API.ROLE.DJ) {
+        var rank = 'Resident-DJ';
+      } else if (rawrank == API.ROLE.BOUNCER) {
+        var rank = 'Bouncer';
+      } else if (rawrank == API.ROLE.MANAGER) {
+        var rank = 'Manager';
+      } else if (rawrank == API.ROLE.COHOST) {
+        var rank = 'CoHost';
+      } else if (rawrank == API.ROLE.HOST) {
+        var rank = 'Host';
       }
+	  
       var slug = pluguser.slug;
       if (typeof slug !== 'undefined') {
         var profile = ", Profile: http://plug.dj/@/" + slug;
@@ -2822,35 +2811,35 @@ var BOTCOMMANDS = {
     var minPerm;
     switch (minRank) {
       case 'admin':
-        minPerm = 10;
+        minPerm = 10000;
         break;
       case 'ambassador':
-        minPerm = 7;
+        minPerm = 7000;
         break;
       case 'host':
-        minPerm = 5;
+        minPerm = API.ROLE.HOST;
         break;
       case 'cohost':
-        minPerm = 4;
+        minPerm = API.ROLE.COHOST;
         break;
       case 'manager':
-        minPerm = 3;
+        minPerm = API.ROLE.MANAGER;
         break;
       case 'mod':
         if (SETTINGS.bouncerPlus) {
-          minPerm = 2;
+          minPerm = API.ROLE.BOUNCER;
         } else {
-          minPerm = 3;
+          minPerm = API.ROLE.MANAGER;
         }
         break;
       case 'bouncer':
-        minPerm = 2;
+        minPerm = API.ROLE.BOUNCER;
         break;
       case 'resident-dj':
-        minPerm = 1;
+        minPerm = API.ROLE.DJ;
         break;
       case 'user':
-        minPerm = 0;
+        minPerm = API.ROLE.NONE;
         break;
       default:
         UTIL.chatLog('error defining permission (' + minRank + ')');
@@ -3256,7 +3245,7 @@ var BOTCOMMANDS = {
           if (!SETTINGS.bouncerPlus) {
             var id = chat.uid;
             var perm = USERS.getPermission(id);
-            if (perm > 2) {
+            if (perm > API.ROLE.BOUNCER) {
               SETTINGS.bouncerPlus = true;
               return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.toggleon, {
                 name: chat.un,
@@ -3515,7 +3504,7 @@ var BOTCOMMANDS = {
         else {
           name = msg.substring(cmd.length + 2);
           var perm = USERS.getPermission(chat.uid);
-          if (perm < 2) return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.dclookuprank, {
+          if (perm < API.ROLE.BOUNCER) return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.dclookuprank, {
             name: chat.un
           }));
         }
@@ -3583,7 +3572,7 @@ var BOTCOMMANDS = {
         var msg = chat.message;
         var name;
         if (msg.length > cmd.length) {
-          if (perm < 2) return void(0);
+          if (perm < API.ROLE.BOUNCER) return void(0);
           name = msg.substring(cmd.length + 2);
         } else name = chat.un;
         var user = USERS.lookupUserName(name);
@@ -3808,7 +3797,7 @@ var BOTCOMMANDS = {
       else {
         name = msg.substring(cmd.length + 2);
         var perm = USERS.getPermission(chat.uid);
-        if (perm < 2) return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.bootrank, {
+        if (perm < API.ROLE.BOUNCER) return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.bootrank, {
           name: chat.un
         }));
         byusername = " [ executed by " + chat.un + " ]";
@@ -3985,7 +3974,7 @@ var BOTCOMMANDS = {
         var dj = API.getDJ().id;
         var isDj = false;
         if (dj === chat.uid) isDj = true;
-        if (perm >= 1 || isDj) {
+        if (perm >= API.ROLE.DJ || isDj) {
           if (media.format === 1) {
             var linkToSong = "https://www.youtube.com/watch?v=" + media.cid;
             UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.songlink, {
@@ -5450,7 +5439,7 @@ var BOTCOMMANDS = {
         var msg = chat.message;
         var permFrom = USERS.getPermission(chat.uid);
         //  if (msg.indexOf('@') === -1 && msg.indexOf('all') !== -1) {
-        //     if (permFrom > 2) {
+        //     if (permFrom > API.ROLE.BOUNCER) {
         //         MyROOM.mutedUsers = [];
         //         return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.unmutedeveryone, {name: chat.un}));
         //     }
@@ -5880,7 +5869,7 @@ var BOTCOMMANDS = {
     }
   },
   rollCommand: { //Added 03/30/2015 Zig
-    command: 'roll',
+    command: ['roll','spin','hitme','throw','dice','rollem','toss','fling','pitch','shoot','showmethemoney','letsdothisthing','rool'],
     rank: 'user',
     type: 'startsWith',
     functionality: function(chat, cmd) {
@@ -5952,7 +5941,7 @@ var BOTCOMMANDS = {
         else {
           name = msg.substring(cmd.length + 2);
           var perm = USERS.getPermission(chat.uid);
-          if (perm < 2) return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.bootrank, {
+          if (perm < API.ROLE.BOUNCER) return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.bootrank, {
             name: chat.un
           }));
           byusername = " [ executed by " + chat.un + " ]";
@@ -6557,7 +6546,7 @@ var BOTCOMMANDS = {
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
-						 USERS.tastyVote(chat.un, cmd);
+						 USERS.tastyVote(chat.uid, cmd);
 						 var randomID = Math.floor(Math.random() * 3); // [0-2]
 						 if (randomID === 0) { setTimeout(function () { UTIL.sendChat("https://thumbs.gfycat.com/GraveBlaringChrysalis-size_restricted.gif"); }, 250); }
 						 else if (randomID === 1){ setTimeout(function () { UTIL.sendChat("https://forgifs.com/gallery/d/227933-2/Pendulum-wrecking-ball.gif"); }, 250); }
@@ -6574,7 +6563,7 @@ var BOTCOMMANDS = {
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
-						 USERS.tastyVote(chat.un, cmd);
+						 USERS.tastyVote(chat.uid, cmd);
 						 setTimeout(function () { UTIL.sendChat("http://media.tumblr.com/10430abfede9cebe9776f7de26e302e4/tumblr_inline_mjzgvrh7Uv1qz4rgp.gif"); }, 250);
                     }
                     catch(err) { UTIL.logException("elevenCommand: " + err.message); }
@@ -6590,7 +6579,7 @@ var BOTCOMMANDS = {
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
-						 USERS.tastyVote(chat.un, cmd);
+						 USERS.tastyVote(chat.uid, cmd);
 						 setTimeout(function () { UTIL.sendChat("https://media.giphy.com/media/ELUZ0bkF8j4ru/giphy.gif"); }, 250);
                     }
                     catch(err) { UTIL.logException("pianoCommand: " + err.message); }
@@ -6604,7 +6593,7 @@ var BOTCOMMANDS = {
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
-						 USERS.tastyVote(chat.un, cmd);
+						 USERS.tastyVote(chat.uid, cmd);
 						 setTimeout(function () { UTIL.sendChat("https://media.giphy.com/media/kabkVP3FiZrSE/giphy.gif"); }, 250);
                     }
                     catch(err) { UTIL.logException("mumfordCommand: " + err.message); }
@@ -6619,7 +6608,7 @@ var BOTCOMMANDS = {
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
-						 USERS.tastyVote(chat.un, cmd);
+						 USERS.tastyVote(chat.uid, cmd);
 						 setTimeout(function () { UTIL.sendChat("https://media.tenor.com/images/952fe3b2e8cae6a8cb39aba07e5e1beb/tenor.gif"); }, 250);
                     }
                     catch(err) { UTIL.logException("dmbCommand: " + err.message); }
@@ -6634,7 +6623,7 @@ var BOTCOMMANDS = {
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
-						 // USERS.tastyVote(chat.un, cmd);
+						 // USERS.tastyVote(chat.uid, cmd);
 						 setTimeout(function () { UTIL.sendChat("https://i.imgur.com/fgU7KCL.gif"); }, 250);
                     }
                     catch(err) { UTIL.logException("beiberCommand: " + err.message); }
@@ -6915,19 +6904,20 @@ var USERS = {
       if (user.tastyVote) return;
       var dj = API.getDJ();
       if (typeof dj === 'undefined') return;
-      if (dj.id === userId) {
+      if (dj.id === user.id) {
         UTIL.sendChat("I'm glad you find your own play tasty @" + user.username);
         return;
       }
       var tastyComment = UTIL.tastyComment(cmd);
+	  tastyComment = "@" + dj.username + " " + CHAT.subChat(tastyComment, { pointfrom: user.username });
       user.tastyVote = true;
       //UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.tastyvote, {name: user.username}));
-      setTimeout(function() {
-        UTIL.sendChat(CHAT.subChat(tastyComment, {
-          pointfrom: user.username
-        }));
-      }, 1000);
-
+      setTimeout(function() { UTIL.sendChat(tastyComment); }, 500);
+      // setTimeout(function() {
+      //   UTIL.sendChat(CHAT.subChat(tastyComment, {
+      //     pointfrom: user.username
+      //   }));
+      // }, 500);
       MyROOM.roomstats.tastyCount += 1;
       var currdj = USERS.lookupUser(dj.id);
       currdj.votes.tasty += 1;
@@ -7101,9 +7091,8 @@ var USERS = {
   },
   lookupUser: function(id) { //getroomuser
     for (var i = 0; i < MyROOM.users.length; i++) {
-      if (MyROOM.users[i].id === id) {
-        return MyROOM.users[i];
-      }
+      if (MyROOM.users[i].id === id) return MyROOM.users[i];
+      if if (MyROOM.users[i].username.trim().toLowerCase() == id.trim().toLowerCase()) return MyROOM.users[i];
     }
     return false;
   },
@@ -7144,14 +7133,14 @@ var USERS = {
       if (u.gRole < 2) return u.role;
       else {
         switch (u.gRole) {
-          case 2:
-            return 7;
-          case 3:
-            return 8;
-          case 4:
-            return 9;
-          case 5:
-            return 10;
+          case 2000:
+            return 7000;
+          case 3000:
+            return 8000;
+          case 4000:
+            return 9000;
+          case 5000:
+            return 10000;
         }
       }
       return 0;
@@ -7510,7 +7499,7 @@ var CHAT = {
       return true;
     }
     if (SETTINGS.lockdownEnabled) {
-      if (perm === 0) {
+      if (perm === API.ROLE.NONE) {
         MyAPI.moderateDeleteChat(chat.cid);
         return true;
       }
@@ -7521,7 +7510,7 @@ var CHAT = {
     }
     //  var plugRoomLinkPatt = /(\bhttps?:\/\/(www.)?plug\.dj[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
     //  if (plugRoomLinkPatt.exec(msg)) {
-    //     if (perm === 0) {
+    //     if (perm === API.ROLE.NONE) {
     //         UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.roomadvertising, {name: chat.un}));
     //         MyAPI.moderateDeleteChat(chat.cid);
     //         return true;
@@ -7575,13 +7564,13 @@ var CHAT = {
       var userPerm = USERS.getPermission(chat.uid);
       if (chat.message.toLowerCase() !== ".join" && chat.message.toLowerCase() !== ".in" && chat.message.toLowerCase() !== ".out" && chat.message.toLowerCase() !== ".leave" && (!UTIL.bopCommand(cmd))) {
         //UTIL.logDebug("commandCheck1: " + cmd);
-        if (userPerm === 0 && !MyROOM.usercommand) return void(0);
+        if (userPerm === API.ROLE.NONE && !MyROOM.usercommand) return void(0);
         //UTIL.logDebug("commandCheck2: " + cmd);
         if (!MyROOM.allcommand) return void(0);
         //UTIL.logDebug("commandCheck3: " + cmd);
       }
       if (chat.message.toLowerCase() === '.eta' && SETTINGS.etaRestriction) {
-        if (userPerm < 2) {
+        if (userPerm < API.ROLE.BOUNCER) {
           var u = USERS.lookupUser(chat.uid);
           if (u.lastEta !== null && (Date.now() - u.lastEta) < 1 * 60 * 60 * 1000) {
             if (chat.cid.length > 0) MyAPI.moderateDeleteChat(chat.cid);
@@ -7667,7 +7656,7 @@ var CHAT = {
   
   chatcleaner: function(chat) {
     if (!SETTINGS.filterChat) return false;
-    if (USERS.getPermission(chat.uid) > 1) return false;
+    if (USERS.getPermission(chat.uid) > API.ROLE.DJ) return false;
     var msg = chat.message;
     var containsLetters = false;
     for (var i = 0; i < msg.length; i++) {
@@ -7771,8 +7760,8 @@ var STARTUP = {
     var plugUser = USERS.getCurrentPlugUser();
     if (SETTINGS.botIDs.indexOf(plugUser.id) > -1) SETTINGS.runningBot = true;
     UTIL.logDebug("Bot Running = " + SETTINGS.runningBot); //todoer DELETE
-    if (USERS.getPermission(plugUser) < 2) return UTIL.chatLog(CHAT.chatMapping.greyuser);
-    if (USERS.getPermission(plugUser) === 2) UTIL.chatLog(CHAT.chatMapping.bouncer);
+    if (USERS.getPermission(plugUser) < API.ROLE.BOUNCER) return UTIL.chatLog(CHAT.chatMapping.greyuser);
+    if (USERS.getPermission(plugUser) === API.ROLE.BOUNCER) UTIL.chatLog(CHAT.chatMapping.bouncer);
     MyEVENTS.connectAPI();
     SETTINGS.botRoomUrl = window.location.pathname;
 
