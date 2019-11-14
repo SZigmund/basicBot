@@ -1,4 +1,4 @@
-// version: 2.1.4.00060
+// version: 2.1.4.00061
 //userlistjson
 //userlistimport
 //userlistcount
@@ -18,7 +18,7 @@
 
 //SECTION SETTINGS: All local settings:
 var SETTINGS = {
-  version: "2.1.4.00060",
+  version: "2.1.4.00061",
   status: false,
   botMuted: false,
   loggedInID: null,
@@ -1787,7 +1787,6 @@ var UTIL = {
       var arrayCount = SETTINGS.tastyCommentArray.length;
       var arrayID = Math.floor(Math.random() * arrayCount);
       if (cmd === "tasty") return SETTINGS.tastyCommentArray[arrayID];
-	  UTIL.logDebug("TODOXX TASTYCMD: [" + cmd + "]");
       return "[" + cmd.replace(SETTINGS.commandLiteral, '') + "] " + SETTINGS.tastyCommentArray[arrayID];
     } catch (err) {
       UTIL.logException("tastyComment: " + err.message);
@@ -6073,9 +6072,7 @@ var BOTCOMMANDS = {
     type: 'startsWith',
     functionality: function(chat, cmd) {
       try {
-	    UTIL.logDebug("TODOXX chat.message: " + chat.message);
-	    UTIL.logDebug("TODOXX cmd: " + cmd);
-        USERS.tastyVote(chat.uid, cmd);
+        USERS.tastyVote(chat.uid, chat.message);
       } catch (err) {
         UTIL.logException("tastyCommand: " + err.message);
       }
@@ -6573,7 +6570,7 @@ var BOTCOMMANDS = {
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
-						 USERS.tastyVote(chat.uid, cmd);
+						 USERS.tastyVote(chat.uid, chat.message);
 						 var randomID = Math.floor(Math.random() * 3); // [0-2]
 						 if (randomID === 0) { setTimeout(function () { UTIL.sendChat("https://thumbs.gfycat.com/GraveBlaringChrysalis-size_restricted.gif"); }, 250); }
 						 else if (randomID === 1){ setTimeout(function () { UTIL.sendChat("https://forgifs.com/gallery/d/227933-2/Pendulum-wrecking-ball.gif"); }, 250); }
@@ -6590,7 +6587,7 @@ var BOTCOMMANDS = {
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
-						 USERS.tastyVote(chat.uid, cmd);
+						 USERS.tastyVote(chat.uid, chat.message);
 						 setTimeout(function () { UTIL.sendChat("http://media.tumblr.com/10430abfede9cebe9776f7de26e302e4/tumblr_inline_mjzgvrh7Uv1qz4rgp.gif"); }, 250);
                     }
                     catch(err) { UTIL.logException("elevenCommand: " + err.message); }
@@ -6606,7 +6603,7 @@ var BOTCOMMANDS = {
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
-						 USERS.tastyVote(chat.uid, cmd);
+						 USERS.tastyVote(chat.uid, chat.message);
 						 setTimeout(function () { UTIL.sendChat("https://media.giphy.com/media/ELUZ0bkF8j4ru/giphy.gif"); }, 250);
                     }
                     catch(err) { UTIL.logException("pianoCommand: " + err.message); }
@@ -6620,7 +6617,7 @@ var BOTCOMMANDS = {
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
-						 USERS.tastyVote(chat.uid, cmd);
+						 USERS.tastyVote(chat.uid, chat.message);
 						 setTimeout(function () { UTIL.sendChat("https://media.giphy.com/media/kabkVP3FiZrSE/giphy.gif"); }, 250);
                     }
                     catch(err) { UTIL.logException("mumfordCommand: " + err.message); }
@@ -6635,7 +6632,7 @@ var BOTCOMMANDS = {
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
-						 USERS.tastyVote(chat.uid, cmd);
+						 USERS.tastyVote(chat.uid, chat.message);
 						 setTimeout(function () { UTIL.sendChat("https://media.tenor.com/images/952fe3b2e8cae6a8cb39aba07e5e1beb/tenor.gif"); }, 250);
                     }
                     catch(err) { UTIL.logException("dmbCommand: " + err.message); }
@@ -6650,7 +6647,7 @@ var BOTCOMMANDS = {
                     try {
                         if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
                         if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
-						 // USERS.tastyVote(chat.uid, cmd);
+						 // USERS.tastyVote(chat.uid, chat.message);
 						 setTimeout(function () { UTIL.sendChat("https://i.imgur.com/fgU7KCL.gif"); }, 250);
                     }
                     catch(err) { UTIL.logException("beiberCommand: " + err.message); }
@@ -8020,72 +8017,3 @@ if (!window.APIisRunning) {
     STARTUP.initbot();
   }, 1000);
 }
-
-
-// DONE: Username ping on tasty commands:    tastyVote: function(userId, cmd)
-// DONE: Imout
-// DONE: wootthissong MehThisSong
-// DONE: GIFS DMB MUFFORD
-// DONE: 430
-// DONE: Bot HopUp/HopDown
-// DONE: Roulette Join/In
-// DONE: basicBot.
-// DONE TASTY COmmands
-
-///	  if (!isNaN(id)) {
-///	    if (MyROOM.users[i].id === id) return MyROOM.users[i];
-///	  }
-///	  if (typeof id === "string") {
-///        if (MyROOM.users[i].username.trim().toLowerCase() == id.trim().toLowerCase()) return MyROOM.users[i];
-///	  }
-
-//TESTED
-// 1. ROLES
-// 2. tastyComment = "@" + dj.username + " " + CHAT.subChat(tastyComment, { pointfrom: user.username });
-// 3. if (dj.id === user.id) UTIL.sendChat("I'm glad you find your own play tasty @" + user.username);
-// 4.       setTimeout(function() { UTIL.sendChat(tastyComment); }, 500);
-// 5. if (MyROOM.users[i].username.trim().toLowerCase() == id.trim().toLowerCase()) return MyROOM.users[i];
-// 6. Spin/roll/hitme...
-
-
-//TODO LIST:
-// If tasty command is longer, don't delete the comment.
-// If afk use API.djLeave(); if IsDJ in adition to MyAPI.removeDJ(id);
-// Imout - API.djLeave(); if IsDJ 'boot'
-// Roll response +/- counter & 2 pos %
-// AFK Don't ignore current dj if only 1.
-// Roulette - Display my position in the queue
-// BlackList
-// Pretty chat messages:
-//		PlugWoot:  addChat: function(e, s, t, a) {
-//		PlugWoot:  o = s.notifications.songAdvance.playing + '<a href="' + t.permalink.url + '" target="_blank">' + _.escape(e.media.author + " - " + e.media.title) + "</a>", plugHash.utils.addChat("log", o, "current-dj", e.dj)
-//
-// ERROR: retrieveFromStorage: Cannot read property 'textContent' of null
-
-// TESTING:
-// If waitlistlen = 0 do we just boot dj now for .imout command?
-
-//TESTING:
-// UTIL.botInWaitList();
-// UTIL.botIsDj();
-// MyAPI.userInWaitList(SETTINGS.loggedInID);
-// MyAPI.userInWaitList(3837756);
-// USERS.lookupLocalUser("Doc_Z").id;
-// USERS.lookupLocalUser(3837756).username;		//Doc
-// USERS.lookupLocalUser(5226916).username;		//Levis
-// MyAPI.getDjID();
-// hopup, hopdown
-// imout as DJ
-// imout in Q
-//  lookup User Name: function(name) {
-//    for (var i = 0; i < MyROOM.users.length; i++) {
-//      if (MyROOM.users[i].username.trim() == name.trim()) {
-//        return MyROOM.users[i];
-//      }
-//    }
-//    return false;
-//  },
-// USERS.lookupLocalUser("Doc_Z").bootable;
-// USERS.lookupLocalUser("Levi Homer").bootable;
-// 
-// MyAPI.removeDJ(MyAPI.getDjID()); 
