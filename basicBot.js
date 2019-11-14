@@ -1030,7 +1030,7 @@ var MyEVENTS = {
     var welcomeback = null;
     if (known) {
       MyROOM.users[index].inRoom = true;
-      var u = USERS.lookupUser(user.id);
+      var u = USERS.lookupLocalUser(user.id);
       var jt = u.jointime;
       var t = Date.now() - jt;
       if (t < 10 * 1000) greet = false;
@@ -1082,7 +1082,7 @@ var MyEVENTS = {
     try {
       if (!SETTINGS.runningBot) return;
       UTIL.logDebug("eventUserleave happens..... tododer");
-      var roomUser = USERS.lookupUser(user.id);
+      var roomUser = USERS.lookupLocalUser(user.id);
       // If user has not been in line for over 10 mins and they leave reset the DC
       if ((roomUser.lastKnownPosition > 0) && (roomUser.lastSeenInLine !== null)) {
         USERS.updateDC(roomUser);
@@ -1182,15 +1182,20 @@ var MyEVENTS = {
         if (SETTINGS.songstats && !SETTINGS.suppressSongStats) UTIL.sendChat(statsMsg);
         //Check to see if DJ should get booted:
         if (USERS.getBootableID(lastplay.dj.username)) {
-          var bootuser = USERS.lookupUserName(lastplay.dj.username);
-          setTimeout(function() {
-            API.moderateRemoveDJ(bootuser.id);
-          }, 1000);
+          var bootuser = USERS.lookupLocalUser(lastplay.dj.username);
+		  if (MyAPI.getDjID() === bootuser.id) {
+		    // If they are djing again, jump in line if there's no waitlist, skip them and boot them:
+		    if (API.getWaitList().length === 0) MyAPI.botDjNow(); // Jump in line if there is no wailist
+            setTimeout(function() { API.moderateForceSkip(); }, 500);
+            setTimeout(function() { MyAPI.removeDJ(bootuser.id); }, 1000);
+		  } else {
+            setTimeout(function() { MyAPI.removeDJ(bootuser.id); }, 500);
+		  }
           setTimeout(function() {
             USERS.resetDC(bootuser);
           }, 3500);
         }
-        USERS.setBootableID(lastplay.dj.username);
+        USERS.setBootableID(lastplay.dj.username, false);
       }
 
       UTIL.checkHopUp();
@@ -1198,7 +1203,7 @@ var MyEVENTS = {
       var dj = API.getDJ();
       if (!(typeof dj === 'undefined')) {
         //UTIL.logDebug("eventDjadvance:2");
-        var roomUser = USERS.lookupUser(dj.id);
+        var roomUser = USERS.lookupLocalUser(dj.id);
         USERS.resetDC(roomUser);
         roomUser.votes.songs += 1;
       }
@@ -1405,6 +1410,13 @@ var MyAPI = {
     if (typeof dj === 'undefined') return -1;
 	return dj.id;
   },
+  removeDJ: function(userId) {
+    try {
+      API.moderateRemoveDJ(userId);
+    } catch (err) {
+      UTIL.logException("removeDJ: " + err.message);
+    }
+  },
   userInWaitList: function(uid) {
     try {
       var wl = API.getWaitList();
@@ -1552,7 +1564,7 @@ var UTIL = {
       var roomUser;
       var wl = API.getWaitList();
       for (var pos = 0; pos < wl.length; pos++) {
-        roomUser = USERS.lookupUser(wl[pos].id);
+        roomUser = USERS.lookupLocalUser(wl[pos].id);
         //UTIL.logDebug("User: " + roomUser.username + " Pos: " + (pos + 1) + " Time: " + roomUser.lastSeenInLine);
         // NEW METH: //
         roomUser.lastKnownPosition = pos + 1;
@@ -2076,7 +2088,7 @@ var UTIL = {
     try {
       SETTINGS.newUserWhoisInfo = "";
       var uid = -1;
-      var roomuser = USERS.lookupUserName(name);
+      var roomuser = USERS.lookupLocalUser(name);
       UTIL.logDebug("UserCnt: " + MyROOM.users.length);
       if (roomuser !== false) uid = roomuser.id;
       UTIL.logDebug("UID: " + uid);
@@ -2494,9 +2506,9 @@ var UTIL = {
           var dcPos = roomUser.lastDC.position;
           var miaTime = 0;
           var resetUser = false;
-          if (logging) UTIL.logObject(roomUser, "roomUser");
-          if (logging) UTIL.logObject(roomUser.lastDC, "LastDC");
-          if (logging) UTIL.logDebug("User: " + roomUser.username + " - " + roomUser.id);
+          // if (logging) UTIL.logObject(roomUser, "roomUser");
+          // if (logging) UTIL.logObject(roomUser.lastDC, "LastDC");
+          // if (logging) UTIL.logDebug("User: " + roomUser.username + " - " + roomUser.id);
           // If left room > 10 mins ago:
           if (leftroom !== null) {
             miaTime = Date.now() - leftroom;
@@ -2538,7 +2550,7 @@ var UTIL = {
       try {
         var wl = API.getWaitList();
         for (var i = 0; i < wl.length; i++) {
-          var user = USERS.lookupUser(wl[i].id);
+          var user = USERS.lookupLocalUser(wl[i].id);
           UTIL.checkDisconnect(user);
         }
       } catch (err) {
@@ -2570,7 +2582,7 @@ var UTIL = {
           var id = djlist[i].id;
           //UTIL.logDebug("---------------------------------------------------------------------");
           //UTIL.logDebug("afkCheck ID: " + id);
-          var user = USERS.lookupUser(id);
+          var user = USERS.lookupLocalUser(id);
           if (typeof user !== 'boolean') {
             //UTIL.logDebug("afkCheck ID: " + user.id);
             var plugUser = USERS.getPlugUser(user);
@@ -2608,7 +2620,7 @@ var UTIL = {
                     pos++;
                     MyROOM.afkList.push([id, Date.now(), pos]);
                     USERS.resetDC(user);
-                    API.moderateRemoveDJ(id);
+                    MyAPI.removeDJ(id);
                     user.lastDC.resetReason = "Disconnect status was reset. Reason: You were removed from line due to afk.";
                     UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.afkremove, {
                       name: name,
@@ -2920,7 +2932,7 @@ var BOTCOMMANDS = {
           name: chat.un
         }));
         var name = msg.substr(cmd.length + 2);
-        var user = USERS.lookupUserName(name);
+        var user = USERS.lookupLocalUser(name);
         if (msg.length > cmd.length + 2) {
           if (typeof user !== 'undefined') {
             if (MyROOM.roomevent) {
@@ -3077,7 +3089,7 @@ var BOTCOMMANDS = {
         //if (msg.length === cmd.length) return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.nouserspecified, {name: chat.un}));
         if (msg.length === cmd.length) return (0);
         var name = msg.substring(cmd.length + 2);
-        var user = USERS.lookupUserName(name);
+        var user = USERS.lookupLocalUser(name);
         if (typeof user === 'boolean') return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.invaliduserspecified, {
           name: chat.un
         }));
@@ -3100,7 +3112,7 @@ var BOTCOMMANDS = {
           name: chat.un
         }));
         var name = msg.substring(cmd.length + 2);
-        var user = USERS.lookupUserName(name);
+        var user = USERS.lookupLocalUser(name);
         if (typeof user === 'boolean') return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.invaliduserspecified, {
           name: chat.un
         }));
@@ -3126,7 +3138,7 @@ var BOTCOMMANDS = {
           name: chat.un
         }));
         var name = msg.substring(cmd.length + 2);
-        var user = USERS.lookupUserName(name);
+        var user = USERS.lookupLocalUser(name);
         if (typeof user === 'boolean') return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.invaliduserspecified, {
           name: chat.un
         }));
@@ -3207,7 +3219,7 @@ var BOTCOMMANDS = {
           name: chat.un
         }));
         var name = msg.substr(cmd.length + 2);
-        var user = USERS.lookupUserName(name);
+        var user = USERS.lookupLocalUser(name);
         if (typeof user === 'boolean') return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.invaliduserspecified, {
           name: chat.un
         }));
@@ -3364,7 +3376,7 @@ var BOTCOMMANDS = {
           return false;
         } else {
           var name = msg.substring(space + 2);
-          var user = USERS.lookupUserName(name);
+          var user = USERS.lookupLocalUser(name);
           if (user === false || !user.inRoom) {
             return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.nousercookie, {
               name: name
@@ -3521,7 +3533,7 @@ var BOTCOMMANDS = {
             name: chat.un
           }));
         }
-        var user = USERS.lookupUserName(name);
+        var user = USERS.lookupLocalUser(name);
         if (typeof user === 'boolean') return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.invaliduserspecified, {
           name: chat.un
         }));
@@ -3542,7 +3554,7 @@ var BOTCOMMANDS = {
   //             var msg = chat.message;
   //             if (msg.length === cmd.length) return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.nouserspecified, {name: chat.un}));
   //             var name = msg.substring(cmd.length + 2);
-  //             var user = USERS.lookupUserName(name);
+  //             var user = USERS.lookupLocalUser(name);
   //             if (typeof user === 'boolean') return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.invaliduserspecified, {name: chat.un}));
   //             var chats = $('.from');
   //             for (var i = 0; i < chats.length; i++) {
@@ -3588,7 +3600,7 @@ var BOTCOMMANDS = {
           if (perm < API.ROLE.BOUNCER) return void(0);
           name = msg.substring(cmd.length + 2);
         } else name = chat.un;
-        var user = USERS.lookupUserName(name);
+        var user = USERS.lookupLocalUser(name);
         if (typeof user === 'boolean') return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.invaliduserspecified, {
           name: chat.un
         }));
@@ -3662,7 +3674,7 @@ var BOTCOMMANDS = {
         else {
           name = msg.substr(cmd.length + 2);
         }
-        var user = USERS.lookupUserName(name);
+        var user = USERS.lookupLocalUser(name);
         if (user === false || !user.inRoom) {
           return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.ghosting, {
             name1: chat.un,
@@ -3815,7 +3827,7 @@ var BOTCOMMANDS = {
         }));
         byusername = " [ executed by " + chat.un + " ]";
       }
-      var user = USERS.lookupUserName(name); 
+      var user = USERS.lookupLocalUser(name); 
       if (typeof user === 'boolean') return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.invaliduserspecified, {
         name: chat.un
       }));
@@ -3827,6 +3839,7 @@ var BOTCOMMANDS = {
         }));
       } else {
         user.bootable = true;
+        if (API.getWaitList().length === 0) MyAPI.botDjNow(); // Jump in line if there is no wailist
         UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.bootableEnabled, {
           name: name,
           userbyname: byusername
@@ -3866,7 +3879,7 @@ var BOTCOMMANDS = {
           name: chat.un
         }));
         var name = msg.substring(cmd.length + 2);
-        var user = USERS.lookupUserName(name);
+        var user = USERS.lookupLocalUser(name);
         if (typeof user === 'boolean') return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.invaliduserspecified, {
           name: chat.un
         }));
@@ -3902,7 +3915,7 @@ var BOTCOMMANDS = {
           name = msg.substring(cmd.length + 2, lastSpace);
         }
 
-        var user = USERS.lookupUserNameX(name);
+        var user = USERS.lookupLocalUser(name);
         var from = chat.un;
         if (typeof user === 'boolean') return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.nouserspecified, {
           name: chat.un
@@ -3982,7 +3995,7 @@ var BOTCOMMANDS = {
       else {
         var media = API.getMedia();
         var from = chat.un;
-        var user = USERS.lookupUser(chat.uid);
+        var user = USERS.lookupLocalUser(chat.uid);
         var perm = USERS.getPermission(chat.uid);
         var isDj = false;
         if (MyAPI.getDjID() === chat.uid) isDj = true;
@@ -4321,7 +4334,7 @@ var BOTCOMMANDS = {
           pos = parseInt(msg.substring(lastSpace + 1));
           name = msg.substring(cmd.length + 2, lastSpace);
         }
-        var user = USERS.lookupUserName(name);
+        var user = USERS.lookupLocalUser(name);
         if (typeof user === 'boolean') return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.invaliduserspecified, {
           name: chat.un
         }));
@@ -4368,7 +4381,7 @@ var BOTCOMMANDS = {
           name = msg.substring(cmd.length + 2, lastSpace);
         }
         var from = chat.un;
-        var user = USERS.lookupUserName(name);
+        var user = USERS.lookupLocalUser(name);
         if (typeof user === 'boolean') return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.invaliduserspecified, {
           name: chat.un
         }));
@@ -4391,7 +4404,7 @@ var BOTCOMMANDS = {
           // }
           // if (indexMuted > -1) {
           // MyROOM.mutedUsers.splice(indexMuted);
-          // var u = USERS.lookupUser(id);
+          // var u = USERS.lookupLocalUser(id);
           // var name = u.username;
           // UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.unmuted, {name: chat.un, username: name}));
           // }
@@ -4557,16 +4570,15 @@ var BOTCOMMANDS = {
         var msg = chat.message;
         if (msg.length > cmd.length + 2) {
           var name = msg.substr(cmd.length + 2);
-          var user = USERS.lookupUserName(name);
+          var user = USERS.lookupLocalUser(name);
           if (typeof user !== 'boolean') {
             USERS.resetDC(user);
             if (MyAPI.getDjID() === user.id) {
               UTIL.logInfo("Skip song: " + API.getMedia().title + " by: " + chat.un + " Reason: Remove command");
+			  if (API.getWaitList().length === 0) MyAPI.botDjNow(); // Jump in line if there is no wailist
               API.moderateForceSkip();
-              setTimeout(function() {
-                API.moderateRemoveDJ(user.id);
-              }, 1 * 1000, user);
-            } else API.moderateRemoveDJ(user.id);
+              setTimeout(function() { MyAPI.removeDJ(user.id); }, 1 * 1000, user);
+            } else MyAPI.removeDJ(user.id);
           } else UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.removenotinwl, {
             name: chat.un,
             username: name
@@ -4910,7 +4922,7 @@ var BOTCOMMANDS = {
           name: chat.un
         }));
         var name = msg.substr(cmd.length + 2);
-        var user = USERS.lookupUserName(name);
+        var user = USERS.lookupLocalUser(name);
         var msg = "";
         if (user === false) {
           msg = "Could not find old user";
@@ -5265,8 +5277,8 @@ var BOTCOMMANDS = {
         var lastSpace = msg.lastIndexOf(' ');
         var name1 = msg.substring(cmd.length + 2, lastSpace);
         var name2 = msg.substring(lastSpace + 2);
-        var user1 = USERS.lookupUserName(name1);
-        var user2 = USERS.lookupUserName(name2);
+        var user1 = USERS.lookupLocalUser(name1);
+        var user2 = USERS.lookupLocalUser(name2);
         if (typeof user1 === 'boolean' || typeof user2 === 'boolean') return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.swapinvalid, {
           name: chat.un
         }));
@@ -5460,7 +5472,7 @@ var BOTCOMMANDS = {
         var from = chat.un;
         var name = msg.substr(cmd.length + 2);
 
-        var user = USERS.lookupUserName(name);
+        var user = USERS.lookupLocalUser(name);
 
         if (typeof user === 'boolean') return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.invaliduserspecified, {
           name: chat.un
@@ -5558,7 +5570,7 @@ var BOTCOMMANDS = {
         var name = "";
         if (msg.length === cmd.length) name = chat.un
         else name = msg.substring(cmd.length + 2);
-        var user = USERS.lookupUserName(name);
+        var user = USERS.lookupLocalUser(name);
         if (user === false) return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.invaliduserspecified, {
           name: chat.un
         }));
@@ -5592,7 +5604,7 @@ var BOTCOMMANDS = {
         var name = "";
         if (msg.length === cmd.length) name = chat.un
         else name = msg.substring(cmd.length + 2);
-        var user = USERS.lookupUserName(name);
+        var user = USERS.lookupLocalUser(name);
         if (user === false) return UTIL.chatLog(CHAT.subChat(CHAT.chatMapping.invaliduserspecified, {
           name: chat.un
         }));
@@ -5625,7 +5637,7 @@ var BOTCOMMANDS = {
           name: chat.un
         }));
         var name = msg.substring(cmd.length + 2);
-        var user = USERS.lookupUserName(name);
+        var user = USERS.lookupLocalUser(name);
         if (user === false) return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.invaliduserspecified, {
           name: chat.un
         }));
@@ -5794,7 +5806,7 @@ var BOTCOMMANDS = {
         else {
           if (chat.message.length === cmd.length) return UTIL.sendChat('/me No user specified.');
           var name = chat.message.substring(cmd.length + 2);
-          var roomUser = USERS.lookupUserName(name);
+          var roomUser = USERS.lookupLocalUser(name);
           if (typeof roomUser === 'boolean') return UTIL.sendChat('/me Invalid user specified.');
           var lang = USERS.getPlugUser(roomUser).language;
           UTIL.logDebug("lang: " + lang);
@@ -5958,7 +5970,7 @@ var BOTCOMMANDS = {
           }));
           byusername = " [ executed by " + chat.un + " ]";
         }
-        var user = USERS.lookupUserName(name);
+        var user = USERS.lookupLocalUser(name);
         var currPos = MyAPI.getWaitListPosition(user.id) + 1;
         if (currPos < 1) return UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.notinwaitlist, {
           name: name
@@ -5989,9 +6001,7 @@ var BOTCOMMANDS = {
           });
 
         }
-        setTimeout(function() {
-          API.moderateRemoveDJ(user.id);
-        }, 1000);
+        setTimeout(function() { MyAPI.removeDJ(user.id); }, 1000);
         UTIL.sendChat(msg + byusername);
       } catch (err) {
         UTIL.logException("meetingCommand: " + err.message);
@@ -6138,7 +6148,7 @@ var BOTCOMMANDS = {
         if (!BOTCOMMANDS.executable(this.rank, chat)) return void(0);
         if (chat.message.length === cmd.length) return UTIL.sendChat('/me No user specified.');
         var name = chat.message.substring(cmd.length + 2);
-        var roomUser = USERS.lookupUserName(name);
+        var roomUser = USERS.lookupLocalUser(name);
         if (typeof roomUser === 'boolean') return UTIL.sendChat('/me Invalid user specified.');
         var msgSend = "@" + roomUser.username + ": If you find yourself Meh-ing most songs, this isn't the room for you. Serial Meh'ers will be banned. If you don't like the music find a different room please.";
         UTIL.sendChat(msgSend);
@@ -6244,7 +6254,7 @@ var BOTCOMMANDS = {
 
           if (chat.message.length === cmd.length) return UTIL.chatLog('/me No user specified.');
           var name = chat.message.substring(cmd.length + 2);
-          var roomUser = USERS.lookupUserName(name);
+          var roomUser = USERS.lookupLocalUser(name);
           if (typeof roomUser === 'boolean') return UTIL.chatLog('/me Invalid user specified.');
           var resetDebug = false;
           if (MyROOM.debug === false) resetDebug = true;
@@ -6486,7 +6496,7 @@ var BOTCOMMANDS = {
   //                        var whoisuser = msg.substr(cmd.length + 2);
   //                        UTIL.logDebug("whois: " + whoisuser);
   //                        var user;
-  //                        if (isNaN(whoisuser)) user = USERS.lookupUserName(whoisuser);
+  //                        if (isNaN(whoisuser)) user = USERS.lookupLocalUser(whoisuser);
   //                        else                  user = USERS.getPlugUser(whoisuser);
   //                        if (typeof user !== 'undefined')  {
   //                            UTIL.logDebug("USER ID: " + user.id);
@@ -6529,11 +6539,11 @@ var BOTCOMMANDS = {
 				if (this.type === 'exact' && chat.message.length !== cmd.length) return void (0);
 				if (!BOTCOMMANDS.executable(this.rank, chat)) return void (0);
 				if (MyAPI.getDjID() === chat.uid) {
-				  var user = USERS.lookupUserName(name); 
-				  user.bootable = true;
+				  if (API.getWaitList().length === 0) MyAPI.botDjNow(); // Jump in line if there is no wailist
+				  USERS.setBootableID(chat.uid, true);
 				}
 				else if (MyAPI.userInWaitList(chat.uid)) {
-				  API.moderateRemoveDJ(chat.uid);
+				  MyAPI.removeDJ(chat.uid);
 				}
 				else { return; }
 				API.sendChat(CHAT.subChat(UTIL.selectRandomFromArray(CHAT.randomByeArray), {username: chat.un}));
@@ -6917,7 +6927,7 @@ var USERS = {
   tastyVote: function(userId, cmd) {
     try {
 	  UTIL.logDebug("USERID: " + userId);
-      var user = USERS.lookupUser(userId);
+      var user = USERS.lookupLocalUser(userId);
 	  UTIL.logDebug("USERID: " + userId);
       if (user.tastyVote) return;
       var dj = API.getDJ();
@@ -6937,7 +6947,7 @@ var USERS = {
       //   }));
       // }, 500);
       MyROOM.roomstats.tastyCount += 1;
-      var currdj = USERS.lookupUser(dj.id);
+      var currdj = USERS.lookupLocalUser(dj.id);
       currdj.votes.tasty += 1;
     } catch (err) {
       UTIL.logException("userUtilities.tastyVote: " + err.message);
@@ -6960,11 +6970,11 @@ var USERS = {
     user.lastDC.songCount = MyROOM.roomstats.songCount;
   },
   setUserName: function(userId, userName) {
-    var user = USERS.lookupUser(userId);
+    var user = USERS.lookupLocalUser(userId);
     if (user.username !== userName) user.username = userName;
   },
   setLastActivityID: function(userId, dispMsg) {
-    var user = USERS.lookupUser(userId);
+    var user = USERS.lookupLocalUser(userId);
     USERS.setLastActivity(user, dispMsg);
   },
   didUserDisconnect: function(user) {
@@ -7001,11 +7011,11 @@ var USERS = {
     return user.lastActivity;
   },
   setBootableID: function(username, value) {
-    var user = USERS.lookupUserName(username);
+    var user = USERS.lookupLocalUser(username);
     user.bootable = value;
   },
   getBootableID: function(username) {
-    var user = USERS.lookupUserName(username);
+    var user = USERS.lookupLocalUser(username);
     return user.bootable;
   },
   resetDailyRolledStats: function(roomUser) {
@@ -7035,7 +7045,7 @@ var USERS = {
   },
   updateRolledStats: function(username, wooting) {
     try {
-      var roomUser = USERS.lookupUserName(username);
+      var roomUser = USERS.lookupLocalUser(username);
       USERS.resetDailyRolledStats(roomUser);
       if (wooting) {
         roomUser.rollStats.lifeWoot++;
@@ -7050,11 +7060,11 @@ var USERS = {
     }
   },
   setRolled: function(username, value, wooting) {
-    var user = USERS.lookupUserName(username);
+    var user = USERS.lookupLocalUser(username);
     user.rolled = value;
   },
   getRolled: function(username) {
-    var user = USERS.lookupUserName(username);
+    var user = USERS.lookupLocalUser(username);
     return user.rolled;
   },
   getWarningCount: function(user) {
@@ -7063,15 +7073,6 @@ var USERS = {
   setWarningCount: function(user, value) {
     user.afkWarningCount = value;
 
-  },
-  removeDJ: function(userId) {
-    try {
-      UTIL.logDebug("Remove DJ1: " + userId);
-      API.moderateRemoveDJ(userId);
-      UTIL.logDebug("Remove DJ2: " + userId);
-    } catch (err) {
-      UTIL.logException("removeDJ: " + err.message);
-    }
   },
   skipBadSong: function(userId, skippedBy, reason) {
     UTIL.logInfo("Skip: [" + API.getMedia().title + "] dj id: " + userId + ": skiped by: " + skippedBy + " Reason: " + reason);
@@ -7096,19 +7097,20 @@ var USERS = {
     return false;
   },
   getBadSongCount: function(userId) {
-    var user = USERS.lookupUser(userId);
+    var user = USERS.lookupLocalUser(userId);
     return user.badSongCount;
   },
   setBadSongCount: function(userId, value) {
-    var user = USERS.lookupUser(userId);
+    var user = USERS.lookupLocalUser(userId);
     user.badSongCount = value;
   },
   setJoinTime: function(userId, value) {
-    var user = USERS.lookupUser(userId);
+    var user = USERS.lookupLocalUser(userId);
     user.jointime = Date.now();
   },
-  lookupUser: function(id) { //getroomuser
-	UTIL.logDebug("TYPE: " + typeof id);
+  // Lookup local user by Username or ID:
+  lookupLocalUser: function(id) { //getroomuser
+	//UTIL.logDebug("TYPE: " + typeof id);
     for (var i = 0; i < MyROOM.users.length; i++) {
 	  if (!isNaN(id)) {
 	    if (MyROOM.users[i].id === id) return MyROOM.users[i];
@@ -7116,14 +7118,6 @@ var USERS = {
 	  if (typeof id === "string") {
         if (MyROOM.users[i].username.trim().toLowerCase() == id.trim().toLowerCase()) return MyROOM.users[i];
 	  }
-    }
-    return false;
-  },
-  lookupUserName: function(name) {
-    for (var i = 0; i < MyROOM.users.length; i++) {
-      if (MyROOM.users[i].username.trim() == name.trim()) {
-        return MyROOM.users[i];
-      }
     }
     return false;
   },
@@ -7136,7 +7130,7 @@ var USERS = {
     return false;
   },
   voteRatio: function(id) {
-    var user = USERS.lookupUser(id);
+    var user = USERS.lookupLocalUser(id);
     var votes = user.votes;
     if (votes.meh === 0) votes.ratio = 1;
     else votes.ratio = (votes.woot / votes.meh).toFixed(2);
@@ -7172,7 +7166,7 @@ var USERS = {
     }
   },
   moveUser: function(id, pos, priority) {
-    var user = USERS.lookupUser(id);
+    var user = USERS.lookupLocalUser(id);
     var wlist = API.getWaitList();
     if (MyAPI.getWaitListPosition(id) === -1) {
       if (wlist.length < 50) {
@@ -7208,7 +7202,7 @@ var USERS = {
     } else API.moderateMoveDJ(id, pos);
   },
   dclookup: function(id) {
-    var user = USERS.lookupUser(id);
+    var user = USERS.lookupLocalUser(id);
     if (typeof user === 'boolean') return CHAT.chatMapping.usernotfound;
     var name = user.username;
     if (user.lastDC.time === null) {
@@ -7463,7 +7457,7 @@ var MyROOM = {
         var winner = MyROOM.roulette.participants[ind];
         MyROOM.roulette.participants = [];
         var pos = Math.floor((Math.random() * API.getWaitList().length) + 1);
-        var user = USERS.lookupUser(winner);
+        var user = USERS.lookupLocalUser(winner);
         var name = user.username;
         UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.winnerpicked, {
           name: name,
@@ -7512,7 +7506,7 @@ var CHAT = {
   chatFilter: function(chat) {
     var msg = chat.message;
     var perm = USERS.getPermission(chat.uid);
-    var user = USERS.lookupUser(chat.uid);
+    var user = USERS.lookupLocalUser(chat.uid);
     var isMuted = false;
     for (var i = 0; i < MyROOM.mutedUsers.length; i++) {
       if (MyROOM.mutedUsers[i] === chat.uid) isMuted = true;
@@ -7594,7 +7588,7 @@ var CHAT = {
       }
       if (chat.message.toLowerCase() === '.eta' && SETTINGS.etaRestriction) {
         if (userPerm < API.ROLE.BOUNCER) {
-          var u = USERS.lookupUser(chat.uid);
+          var u = USERS.lookupLocalUser(chat.uid);
           if (u.lastEta !== null && (Date.now() - u.lastEta) < 1 * 60 * 60 * 1000) {
             if (chat.cid.length > 0) MyAPI.moderateDeleteChat(chat.cid);
             //UTIL.logDebug("commandCheck4: " + cmd);
