@@ -7090,9 +7090,14 @@ var USERS = {
     user.jointime = Date.now();
   },
   lookupUser: function(id) { //getroomuser
+	UTIL.logDebug("TYPE: " + typeof id);
     for (var i = 0; i < MyROOM.users.length; i++) {
-      if (MyROOM.users[i].id === id) return MyROOM.users[i];
-      if (MyROOM.users[i].username.trim().toLowerCase() == id.trim().toLowerCase()) return MyROOM.users[i];
+	  if (!isNaN(id)) {
+	    if (MyROOM.users[i].id === id) return MyROOM.users[i];
+	  }
+	  if (typeof id === "string") {
+        if (MyROOM.users[i].username.trim().toLowerCase() == id.trim().toLowerCase()) return MyROOM.users[i];
+	  }
     }
     return false;
   },
