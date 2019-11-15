@@ -1,4 +1,4 @@
-// version: 2.1.4.00061
+// version: 2.1.4.00062
 //userlistjson
 //userlistimport
 //userlistcount
@@ -18,7 +18,7 @@
 
 //SECTION SETTINGS: All local settings:
 var SETTINGS = {
-  version: "2.1.4.00061",
+  version: "2.1.4.00062",
   status: false,
   botMuted: false,
   loggedInID: null,
