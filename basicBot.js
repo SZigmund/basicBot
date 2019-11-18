@@ -1,4 +1,4 @@
-// version: 2.1.4.00062
+// version: 2.1.4.00063
 //userlistjson
 //userlistimport
 //userlistcount
@@ -18,7 +18,7 @@
 
 //SECTION SETTINGS: All local settings:
 var SETTINGS = {
-  version: "2.1.4.00062",
+  version: "2.1.4.00063",
   status: false,
   botMuted: false,
   loggedInID: null,
@@ -44,6 +44,7 @@ var SETTINGS = {
   language: "english",
   chatLink: "https://rawcdn.githack.com/SZigmund/basicBot/f4b1a9d30a7e9f022ef600dd41cae07a91797bad/lang/en.json",
   maximumAfk: 60,
+  afkResetTime: 120,		//Reset afk if dj joins queue after the afkResetTime
   afkRemoval: true,
   afk5Days: true,
   afk7Days: true,
@@ -1544,7 +1545,7 @@ var UTIL = {
       })
     }))
   },
-  botIsDj: function() {
+  botIsDj: function() {   /IsBotDj
     try {
 	  if (MyAPI.getDjID() === SETTINGS.loggedInID) return true;
       return false;
@@ -2575,13 +2576,14 @@ var UTIL = {
       if (!UTIL.afkRemovalNow()) return void(0);
       var rank = UTIL.rankToNumber(SETTINGS.afkRankCheck);
       var djlist = API.getWaitList();
+	  djlist.push({id: MyAPI.getDjID()});  // Add the current dj to the list to check pos
       var lastPos = Math.min(djlist.length, SETTINGS.afkpositionCheck);
       if (lastPos - 1 > djlist.length) return void(0);
       for (var i = 0; i < lastPos; i++) {
         if (typeof djlist[i] !== 'undefined') {
           var id = djlist[i].id;
-          //UTIL.logDebug("---------------------------------------------------------------------");
-          //UTIL.logDebug("afkCheck ID: " + id);
+          UTIL.logDebug("---------------------------------------------------------------------");
+          UTIL.logDebug("afkCheck ID: " + id);
           var user = USERS.lookupLocalUser(id);
           if (typeof user !== 'boolean') {
             //UTIL.logDebug("afkCheck ID: " + user.id);
@@ -2594,6 +2596,12 @@ var UTIL = {
               var inactivity = Date.now() - lastActive;
               var time = UTIL.msToStr(inactivity);
               var warncount = user.afkWarningCount;
+			  //session. if (UTIL.botIsDj()) return; botid  
+			  if ((inactivity > (SETTINGS.afkResetTime * 60 * 1000)) && (user.id !== SETTINGS.loggedInID) && (warncount === 0)) {
+				//reset afk status if the user joins the queue after afkResetTime
+				USERS.setLastActivity(user, false);
+				inactivity = 0;
+			  }
               //UTIL.logDebug("afkCheck: Act: " + lastActive + " Inact: " + inactivity + " Time: " + time + " Warn: " + warncount);
               if (inactivity > SETTINGS.maximumAfk * 60 * 1000) {
                 //UTIL.logDebug("afkCheck: INACTIVE USER");
@@ -2615,9 +2623,19 @@ var UTIL = {
                     userToChange.afkWarningCount = 2;
                   }, 30 * 1000, user);
                 } else if (warncount === 2) {
-                  var pos = MyAPI.getWaitListPosition(id);
-                  if (pos !== -1) {
-                    pos++;
+                  var pos = MyAPI.getWaitListPosition(id)++;  // (Zero based so we'll add one) (-1 = not in waitlist)
+				  var removeNextPass = false; 
+				  // Remove next pass if they are the current DJ AND waitlist is not empty.
+				  if (MyAPI.getDjID() === id) {
+					// Jump in line & skip the DJs song if waitlist is empty:
+					if (API.getWaitList().length === 0){
+				      MyAPI.botDjNow();
+					  setTimeout(function() { API.moderateForceSkip(); }, 1000);
+					}
+				    removeNextPass = true;
+				  }
+				  // Remove DJ from waitlist:
+				  else if (pos !== 0) {
                     MyROOM.afkList.push([id, Date.now(), pos]);
                     USERS.resetDC(user);
                     MyAPI.removeDJ(id);
@@ -2629,7 +2647,7 @@ var UTIL = {
                       maximumafk: SETTINGS.maximumAfk
                     }));
                   }
-                  user.afkWarningCount = 0;
+                  if (!removeNextPass) user.afkWarningCount = 0;
                 }
               }
             }
