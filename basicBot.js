@@ -1545,7 +1545,7 @@ var UTIL = {
       })
     }))
   },
-  botIsDj: function() {   /IsBotDj
+  botIsDj: function() {   //IsBotDj
     try {
 	  if (MyAPI.getDjID() === SETTINGS.loggedInID) return true;
       return false;
