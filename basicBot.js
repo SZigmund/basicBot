@@ -2623,7 +2623,11 @@ var UTIL = {
                     userToChange.afkWarningCount = 2;
                   }, 30 * 1000, user);
                 } else if (warncount === 2) {
-                  var pos = MyAPI.getWaitListPosition(id)++;  // (Zero based so we'll add one) (-1 = not in waitlist)
+UTIL.logDebug("-------------------------- A");
+                  var pos = MyAPI.getWaitListPosition(id);
+UTIL.logDebug("-------------------------- B");
+				  pos++; // (Zero based so we'll add one) (-1 = not in waitlist)
+UTIL.logDebug("-------------------------- C");
 				  var removeNextPass = false; 
 				  // Remove next pass if they are the current DJ AND waitlist is not empty.
 				  if (MyAPI.getDjID() === id) {
@@ -2636,10 +2640,14 @@ var UTIL = {
 				  }
 				  // Remove DJ from waitlist:
 				  else if (pos !== 0) {
+UTIL.logDebug("-------------------------- D");
                     MyROOM.afkList.push([id, Date.now(), pos]);
                     USERS.resetDC(user);
+UTIL.logDebug("-------------------------- E");
                     MyAPI.removeDJ(id);
+UTIL.logDebug("-------------------------- F");
                     user.lastDC.resetReason = "Disconnect status was reset. Reason: You were removed from line due to afk.";
+UTIL.logDebug("-------------------------- G");
                     UTIL.sendChat(CHAT.subChat(CHAT.chatMapping.afkremove, {
                       name: name,
                       time: time,
