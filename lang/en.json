@@ -171,8 +171,8 @@
     "tastyvote": "[%%NAME%%  gave you a fake point for this tasty tune :cake:]",
     "songstatisticstasty": "[:thumbsup: %%WOOTS%% :star: %%GRABS%% :thumbsdown: %%MEHS%% :cake: %%TASTY%%] %%USER%% [%%ARTIST%% - %%TITLE%%]",
     "eightballquestion": "%%NAME%% Question: [%%QUESTION%%]",
-    "eightballresponse1": "The all knowing Larry says: %%RESPONSE%%",
-    "eightballresponse2": "%%NAME%% The all knowing Larry says: %%RESPONSE%%",
+    "eightballresponse1": "The all knowing %%BOTNAME%% says: %%RESPONSE%%",
+    "eightballresponse2": "%%NAME%% The all knowing %%BOTNAME%% says: %%RESPONSE%%",
     "lastplayed0": ":notes: This is the 1st time this song has been played! :notes:",
     "lastplayed1": ":notes: This song has only been played one other time. [first time: %%LASTPLAYED%% ago] :notes:",
     "lastplayed2": ":notes: This song has been played %%PLAYCOUNT%% other times. [first time: %%FIRSTPLAYED%% ago] [last time: %%LASTPLAYED%% ago] :notes:"
